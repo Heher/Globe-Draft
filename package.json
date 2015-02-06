@@ -1,30 +1,24 @@
 {
   "name": "react-tutorial",
-  "version": "0.0.0",
-  "description": "Code from the React tutorial.",
-  "main": "server.js",
-  "dependencies": {
+  "version": "0.0.1",
+  "description": "react-tutorial",
+  "devDependencies": {
+    "express": "^4.9.7",
+    "gulp": "^3.8.8",
+    "gulp-autoprefixer": "^1.0.1",
+    "gulp-jade": "^0.10.0",
+    "gulp-minify-css": "^0.3.10",
+    "gulp-rename": "^1.2.0",
+    "gulp-ruby-sass": "^0.7.1",
+    "gulp-coffee": "^2.2.0",
+    "gulp-util": "^3.0.1",
+    "jade": "^1.7.0",
     "body-parser": "^1.4.3",
-    "express": "^4.4.5"
+    "express": "^4.9.7",
+    "gulp": "^3.8.8",
+    "gulp-autoprefixer": "^1.0.1"
   },
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/reactjs/react-tutorial.git"
-  },
-  "keywords": [
-    "react",
-    "tutorial",
-    "comment",
-    "example"
-  ],
-  "author": "petehunt",
-  "bugs": {
-    "url": "https://github.com/reactjs/react-tutorial/issues"
-  },
-  "homepage": "https://github.com/reactjs/react-tutorial"
+  "dependencies": {
+    "jade": "^1.9.1"
+  }
 }
