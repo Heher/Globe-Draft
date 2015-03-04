@@ -1,1 +1,10 @@
-[{"country":"USA","medals":"2400"},{"country":"China","medals":"473"}]
+[
+  {
+    "country":"USA",
+    "medals":"2400"
+  },
+  {
+    "country":"China",
+    "medals":"473"
+  }
+]

@@ -1,8 +1,8 @@
 gulp = require 'gulp'
 
-gulp.task 'watch', ->
-  gulp.watch 'sass/*.sass',['styles']
-  gulp.watch 'gulpfile.coffee',['coffee','styles']
+# gulp.task 'watch', ->
+#   gulp.watch 'sass/*.sass',['styles']
+#   gulp.watch 'gulpfile.coffee',['coffee','styles']
 
 gulp.task 'express', ->
   express = require 'express'
@@ -20,4 +20,4 @@ gulp.task 'express', ->
 
   app.listen 4000
 
-gulp.task 'default',['express', 'watch']
+gulp.task 'default',['express']
