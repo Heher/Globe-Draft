@@ -1,19 +1,3 @@
-$.getJSON( "countries.json", function( data ) {
-  $.each(data, function(k, v) {
-    console.log(v.country);
-    console.log(v.medals);
-  });
-});
-
-var Countries = [
-  {
-    "country":"USA"
-  },
-  {
-    "country":"China"
-  }
-];
-
 var AddCountry = React.createClass({
   getInitialState: function() {
     return {
@@ -43,8 +27,8 @@ var AddCountry = React.createClass({
 
 var ShowList = React.createClass({
   render: function(){
-    var listItems = this.props.countries.map(function(country){
-      return <li>{country}</li>;
+    var listItems = this.props.countries.map(function(k,v){
+      return <li>{k}</li>;
     });
     return (
       <ul>
@@ -58,7 +42,7 @@ var CountriesApp = React.createClass({
   getInitialState: function(){
     return {
       name: "John",
-      countries: Countries
+      countries: this.props.countries
     }
   },
   addCountry: function(country) {
@@ -77,4 +61,8 @@ var CountriesApp = React.createClass({
   }
 });
 
-React.render(<CountriesApp />, document.getElementById('content'));
+$.get('countries.json').then(function(data) {
+  React.render(<CountriesApp countries={data}/>, document.getElementById('content'));
+}, function(error) {
+  console.log(error);
+});
