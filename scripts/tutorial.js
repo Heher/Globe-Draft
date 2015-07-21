@@ -25,16 +25,22 @@ var AddCountry = React.createClass({
   }
 });
 
-var ShowList = React.createClass({
-  render: function(){
-    var listItems = this.props.countries.map(function(k,v){
-      return <li>{k}</li>;
-    });
+var CountryListItem = React.createClass({
+  render: function() {
+    var country = this.props.data.country + " - " + this.props.data.medals;
+    return <li>{country}</li>;
+  }
+});
+
+var CountryList = React.createClass({
+  render: function() {
     return (
       <ul>
-        {listItems}
+        {this.props.countries.map(function(country, index) {
+          return <CountryListItem key={index} data={country}/>;
+        })}
       </ul>
-    )
+    );
   }
 });
 
@@ -54,7 +60,7 @@ var CountriesApp = React.createClass({
     return (
       <div>
         Hello {this.state.name}! <br />
-        <ShowList countries={this.state.countries} />
+        <CountryList countries={this.state.countries} />
         <AddCountry addNew={this.addCountry} />
       </div>
     )
