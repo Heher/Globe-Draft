@@ -20,6 +20,7 @@ var AddCountry = React.createClass({
       <div>
         <input type="text" value={this.state.newCountry} onChange={this.updateNewCountry} />
         <button onClick={this.handleAddCountry}>Add Country</button>
+        <p>{this.state.newCountry}</p>
       </div>
     );
   }
@@ -53,7 +54,7 @@ var CountriesApp = React.createClass({
   },
   addCountry: function(country) {
     this.setState({
-      countries: this.state.countries.concat([country])
+      countries: this.state.countries.concat([{"country":country, "medals":"0"}])
     });
   },
   render: function(){
