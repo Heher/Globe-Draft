@@ -27,9 +27,36 @@ var AddCountry = React.createClass({
 });
 
 var CountryListItem = React.createClass({
+  getInitialState: function() {
+    return {
+      gold: this.props.data.gold,
+      silver: this.props.data.silver,
+      bronze: this.props.data.bronze,
+      total: +this.props.data.gold + +this.props.data.silver + +this.props.data.bronze
+    }
+  },
+  addGold: function() {
+    this.setState({
+      gold: +this.state.gold + 1,
+      total: +this.state.total + 1
+    });
+  },
+  addSilver: function() {
+    this.setState({
+      silver: +this.state.silver + 1,
+      total: +this.state.total + 1
+    });
+  },
+  addBronze: function() {
+    this.setState({
+      bronze: +this.state.bronze + 1,
+      total: +this.state.total + 1
+    });
+  },
   render: function() {
-    var country = this.props.data.country + " - " + this.props.data.medals;
-    return <li>{country}</li>;
+    var total = +this.props.data.gold + +this.props.data.silver + +this.props.data.bronze;
+    var country = this.props.data.country + " - " + this.state.gold + " - " + this.state.silver + " - " + this.state.bronze + " - " + this.state.total;
+    return <li>{country}<button onClick={this.addGold}>Add Gold</button><button onClick={this.addSilver}>Add Silver</button><button onClick={this.addBronze}>Add Bronze</button></li>;
   }
 });
 
@@ -54,7 +81,7 @@ var CountriesApp = React.createClass({
   },
   addCountry: function(country) {
     this.setState({
-      countries: this.state.countries.concat([{"country":country, "medals":"0"}])
+      countries: this.state.countries.concat([{"country":country, "gold":"0", "silver":"0", "bronze":"0"}])
     });
   },
   render: function(){

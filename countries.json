@@ -1,10 +1,14 @@
 [
   {
     "country":"USA",
-    "medals":"2400"
+    "gold": "200",
+    "silver": "100",
+    "bronze": "50"
   },
   {
     "country":"China",
-    "medals":"473"
+    "gold": "50",
+    "silver": "100",
+    "bronze": "200"
   }
 ]
