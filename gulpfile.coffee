@@ -18,6 +18,12 @@ gulp.task 'express', ->
   router.get '/', (req, res) ->  
     res.render 'index'
 
+  router.get '/users', (req, res) ->  
+    res.render 'users'
+
+  router.get '/countries', (req, res) ->  
+    res.render 'countries'
+
   app.listen 4000
 
 gulp.task 'default',['express']

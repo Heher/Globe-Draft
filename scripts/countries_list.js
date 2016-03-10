@@ -75,7 +75,6 @@ var CountryList = React.createClass({
 var CountriesApp = React.createClass({
   getInitialState: function(){
     return {
-      name: "John",
       countries: this.props.countries
     }
   },
@@ -87,7 +86,6 @@ var CountriesApp = React.createClass({
   render: function(){
     return (
       <div>
-        Hello {this.state.name}! <br />
         <CountryList countries={this.state.countries} />
         <AddCountry addNew={this.addCountry} />
       </div>
@@ -96,7 +94,7 @@ var CountriesApp = React.createClass({
 });
 
 $.get('countries.json').then(function(data) {
-  React.render(<CountriesApp countries={data}/>, document.getElementById('content'));
+  React.render(<CountriesApp countries={data}/>, document.getElementById('countries_list'));
 }, function(error) {
   console.log(error);
 });
