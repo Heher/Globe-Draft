@@ -6,24 +6,31 @@ gulp = require 'gulp'
 
 gulp.task 'express', ->
   express = require 'express'
+  port = 4000
+  mongoose = require 'mongoose'
+
   app = express()
-  router = express.Router()
+
+  Country = require './models/country'
+  User = require './models/user'
+
+  index_route = require('./routes/index')
+  users_route = require('./routes/users')
+  countries_route = require('./routes/countries')
+
+  db = 'mongodb://localhost/test'
 
   app.set('views', __dirname + '/views')
   app.set('view engine', 'jade')
 
-  app.use(router)
   app.use(express.static(__dirname))
 
-  router.get '/', (req, res) ->  
-    res.render 'index'
+  mongoose.connect db
 
-  router.get '/users', (req, res) ->  
-    res.render 'users'
+  app.use('/', index_route)
+  app.use('/users', users_route)
+  app.use('/countries', countries_route)
 
-  router.get '/countries', (req, res) ->  
-    res.render 'countries'
-
-  app.listen 4000
+  app.listen port
 
 gulp.task 'default',['express']
