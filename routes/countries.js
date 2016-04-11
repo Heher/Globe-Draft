@@ -4,9 +4,9 @@ var mongoose = require('mongoose');
 var router = express.Router();
 
 router.get('/', function(req, res) {
-  User.find(function(err, users) {
+  Country.find(function(err, countries) {
     res.render('countries');
-  }
+  });
 });
 
 module.exports = router;

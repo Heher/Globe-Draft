@@ -1,3 +1,4 @@
+var Country = require('../models/country');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
