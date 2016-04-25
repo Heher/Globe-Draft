@@ -1,4 +1,4 @@
-gulp = require 'gulp'
+
 
 # gulp.task 'watch', ->
 #   gulp.watch 'sass/*.sass',['styles']

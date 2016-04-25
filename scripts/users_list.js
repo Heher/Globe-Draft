@@ -89,8 +89,8 @@ var UsersApp = React.createClass({
   }
 });
 
-$.get('users.json').then(function(data) {
-  React.render(<UsersApp users={data}/>, document.getElementById('users_list'));
+$.getJSON('/users').then(function(data) {
+  console.log(data);
 }, function(error) {
   console.log(error);
 });
