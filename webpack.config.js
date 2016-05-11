@@ -1,23 +1,28 @@
-var webpack = require('webpack')
+var webpack = require('webpack');
+var path = require('path');
 
 module.exports = {
-  entry: './index.js',
-
-  output: {
-    filename: 'bundle.js',
-    publicPath: '',
-    path: 'public'
-  },
-
-  plugins: process.env.NODE_ENV === 'production' ? [
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.optimize.UglifyJsPlugin()
-  ] : [],
-
+  context: path.resolve('src/js'),
+  entry: ["./client"],
+  devtool: 'source-map',
   module: {
     loaders: [
-      { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader?presets[]=es2015&presets[]=react' }
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader'
+      }
     ]
+  },
+  devServer: {
+    contentBase: 'src',
+  },
+  output: {
+    path: path.resolve('build/js/'),
+    publicPath: '/public/assets/js/',
+    filename: "bundle.js"
+  },
+  resolve: {
+    extensions: ['', '.js', '.jsx', '.node']
   }
-}
+};

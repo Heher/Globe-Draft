@@ -1,22 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router'
 import NavLink from './NavLink'
-import mongoose from 'mongoose'
 
 import UserModel from '../models/user'
 
 export default React.createClass({
-
-  getInitialState: function() {
-    return {
-      username: ''
-    };
-  },
-
-  componentDidMount: function() {
-    request = UserModel.find();
-    console.log(request);
-  },
 
   render() {
     return (
