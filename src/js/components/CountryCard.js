@@ -10,25 +10,21 @@ export default class CountryCard extends React.Component {
     this.state = {
       available: true,
       selected: false
-    }
+    };
   }
 
   selectCountry() {
-    this.setState({
-      available: true,
-      selected: true
-    });
+    this.setState({ selected: !this.state.selected });
   }
 
-  get className() {
-    if (this.state.selected) {
-      return "selected";
-    }
+  get selectedClassName() {
+    return this.state.selected ? "selected" : "";
   }
 
   render() {
     return (
-      <button className = {`countryCard ${this.className}`} onClick={this.selectCountry} >
+      <button className = {`countryCard ${this.selectedClassName}`} onClick={this.selectCountry} >
+        <h3>{this.props.country.name}</h3>
         <Avatar user={this.props.owner}/>
         <Flag country={this.props.country}/>
       </button>

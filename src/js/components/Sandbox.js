@@ -3,6 +3,7 @@ import React from "react";
 import Avatar from "./Avatar";
 import Flag from "./Flag";
 import CountryCard from "./CountryCard";
+import Region from "./Region";
 
 let owner = {
   id: 123,
@@ -18,6 +19,22 @@ let country = {
   name: "Ireland"
 }
 
+let region = {
+  regionName: "Europe",
+  countries: [
+    {
+      name: "Ireland"
+    },
+    {
+      name: "Spain"
+    },
+    {
+      name: "Italy"
+    }
+  ]
+}
+
+
 export default class Sandbox extends React.Component {
   render() {
     return (
@@ -32,6 +49,8 @@ export default class Sandbox extends React.Component {
         </p>
         <h1>Country Card</h1>
         <CountryCard owner={owner} country={country} currentUser={user} />
+        <h1>Region</h1>
+        <Region region={region} />
       </div>
     )
   }
