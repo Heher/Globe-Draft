@@ -1,7 +1,7 @@
 function countries(state = [], action) {
   switch(action.type) {
     case 'SELECT_COUNTRY' :
-      const { countryId, disabled } = action
+      const { countryId, userId, selecting, disabled } = action
       if (disabled) {
         return state
       }
@@ -10,9 +10,18 @@ function countries(state = [], action) {
           return country
         }
 
-        return {
-          ...country,
-          selected: !country.selected
+        if (selecting) {
+          return {
+            ...country,
+            selected: true,
+            userId: userId
+          }
+        } else {
+          return {
+            ...country,
+            selected: false,
+            userId: ""
+          }
         }
       })
     default:

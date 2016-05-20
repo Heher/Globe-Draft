@@ -6,7 +6,8 @@ import Layout from './Layout'
 function mapStateToProps(state) {
   return{
     regions: state.regions,
-    countries: state.countries
+    countries: state.countries,
+    users: state.users
   }
 }
 

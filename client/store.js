@@ -6,10 +6,12 @@ import rootReducer from './reducers/index'
 
 import regions from './data/regions'
 import countries from './data/countries'
+import users from './data/users'
 
 const defaultState = {
   regions,
-  countries
+  countries,
+  users
 }
 
 const store = createStore(rootReducer, defaultState)
