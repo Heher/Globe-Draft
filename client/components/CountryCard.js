@@ -4,28 +4,15 @@ import Avatar from "./Avatar";
 import Flag from "./Flag";
 
 export default class CountryCard extends React.Component {
-  constructor() {
-    super();
-    this.selectCountry = this.selectCountry.bind(this);
-    this.state = {
-      available: true,
-      selected: false
-    };
-  }
-
-  selectCountry() {
-    this.setState({ selected: !this.state.selected });
-  }
-
-  get selectedClassName() {
-    return this.state.selected ? "selected" : "";
-  }
 
   render() {
+    const { id, selected, name } = this.props.country
+    const selectedClass = selected ? "selected" : ""
+    const disabled = (!selected && this.props.regionCompleted) ? "disabled" : ""
+
     return (
-      <button className = {`countryCard ${this.selectedClassName}`} onClick={this.selectCountry} >
-        <h3>{this.props.country.name}</h3>
-        <Avatar user={this.props.owner}/>
+      <button className = {`countryCard ${selectedClass} ${disabled}`} onClick={this.props.selectCountry.bind(null, this.props.region.id, id, !selected, disabled)} >
+        <h3>{name}</h3>
         <Flag country={this.props.country}/>
       </button>
     )

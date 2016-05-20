@@ -2,31 +2,20 @@ import React from "react"
 
 import CountryCard from "./CountryCard"
 
-let owner = {
-  id: 123,
-  avatar_url: "https://s3.amazonaws.com/uifaces/faces/twitter/igorgarybaldi/128.jpg"
-}
-
-let user = {
-  id: 890,
-  avatar_url: "https://robohash.org/user"
-}
-
 export default class Region extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      selected: false
-    }
-  }
 
   render() {
-    const countries = this.props.region.countries.map((country, index) => {
-      return <CountryCard key={index} owner={owner} country={country} currentUser={user} />
+    const completed = (this.props.region.numSelected === this.props.region.maxCountriesSelected)
+
+    const countries = this.props.countries.map((country, index) => {
+      if (country.regionId === this.props.region.id) {
+        return <CountryCard {...this.props} key={index} i={index} country={country} regionCompleted={completed} />
+      }
     })
+
     return (
       <div className="region">
-        <h1>{this.props.region.regionName}</h1><span>0 selected of 1</span>
+        <h1>{this.props.region.regionName}</h1><span>{this.props.region.numSelected} selected of {this.props.region.maxCountriesSelected}</span>
         <div>
           {countries}
         </div>

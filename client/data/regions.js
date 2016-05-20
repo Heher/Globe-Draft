@@ -2,83 +2,32 @@ const regions = [
   {
     id: "1",
     regionName: "Europe",
-    countries: [
-      {
-        name: "Ireland"
-      },
-      {
-        name: "Spain"
-      },
-      {
-        name: "Italy"
-      }
-    ]
+    numSelected: 0,
+    maxCountriesSelected: 1
   },
   {
     id: "2",
     regionName: "Asia",
-    countries: [
-      {
-        name: "Russia"
-      },
-      {
-        name: "Mongolia"
-      },
-      {
-        name: "Vietnam"
-      },
-      {
-        name: "India"
-      }
-    ]
+    numSelected: 0,
+    maxCountriesSelected: 1
   },
   {
     id: "3",
     regionName: "The Americas",
-    countries: [
-      {
-        name: "Mexico"
-      },
-      {
-        name: "Canada"
-      },
-      {
-        name: "Belize"
-      }
-    ]
+    numSelected: 0,
+    maxCountriesSelected: 1
   },
   {
     id: "4",
     regionName: "Africa",
-    countries: [
-      {
-        name: "Egypt"
-      },
-      {
-        name: "South Africa"
-      },
-      {
-        name: "Kenya"
-      },
-      {
-        name: "Ethiopia"
-      }
-    ]
+    numSelected: 0,
+    maxCountriesSelected: 1
   },
   {
     id: "5",
     regionName: "Oceania",
-    countries: [
-      {
-        name: "Australia"
-      },
-      {
-        name: "New Zealand"
-      },
-      {
-        name: "Fiji"
-      }
-    ]
+    numSelected: 0,
+    maxCountriesSelected: 1
   }
 ]
 
