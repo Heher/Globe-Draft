@@ -11,11 +11,20 @@ export default class CountryCard extends React.Component {
     const selectedClass = selected ? "selected" : ""
     const disabled = (!selected && this.props.regionCompleted) ? "disabled" : ""
 
-    return (
-      <button className = {`countryCard ${selectedClass} ${disabled}`} onClick={this.props.selectCountry.bind(null, this.props.region.id, id, userId, !selected, disabled)} >
-        <h3>{name}</h3>
-        <Flag country={this.props.country}/>
-      </button>
-    )
+    if (selected) {
+      return (
+        <button className = {`countryCard ${selectedClass} ${disabled}`} onClick={this.props.deselectingCountry.bind(null, this.props.region.id, id, userId)} >
+          <h3>{name}</h3>
+          <Flag country={this.props.country}/>
+        </button>
+      )
+    } else {
+      return (
+        <button className = {`countryCard ${selectedClass} ${disabled}`} onClick={this.props.selectingCountry.bind(null, this.props.region.id, id, userId, disabled)} >
+          <h3>{name}</h3>
+          <Flag country={this.props.country}/>
+        </button>
+      )
+    }
   }
 }

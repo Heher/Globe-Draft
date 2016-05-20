@@ -4,12 +4,13 @@
 .regions
   flex-grow: 3
 
-.country-list
+.sidebar
   flex-grow: 1
-  background: #999
-  h2
-    font-size: 20px
-    text-align: center
+  .country-list
+    background: #999
+    h2
+      font-size: 20px
+      text-align: center
 
 .avatar
   width: 50px
@@ -29,3 +30,10 @@
     display: inline-block
     font-size: 20px
     margin-right: 20px
+
+.change-user button
+  width: 80px
+  height: 30px
+  &.selected
+    background: green
+    color: white

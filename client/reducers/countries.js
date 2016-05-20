@@ -1,7 +1,8 @@
 function countries(state = [], action) {
+  const { countryId, userId, disabled } = action
+
   switch(action.type) {
-    case 'SELECT_COUNTRY' :
-      const { countryId, userId, selecting, disabled } = action
+    case 'SELECTING_COUNTRY' :
       if (disabled) {
         return state
       }
@@ -9,21 +10,25 @@ function countries(state = [], action) {
         if (country.id !== countryId) {
           return country
         }
-
-        if (selecting) {
-          return {
-            ...country,
-            selected: true,
-            userId: userId
-          }
-        } else {
-          return {
-            ...country,
-            selected: false,
-            userId: ""
-          }
+        return {
+          ...country,
+          selected: true,
+          userId: userId
         }
       })
+
+    case 'DESELECTING_COUNTRY' :
+      return state.map(country => {
+        if (country.id !== countryId) {
+          return country
+        }
+        return {
+          ...country,
+          selected: false,
+          userId: ""
+        }
+      })
+
     default:
       return state
   }

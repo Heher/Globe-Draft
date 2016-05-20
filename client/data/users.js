@@ -1,11 +1,13 @@
 const users = [
   {
     id: "1",
-    name: "John"
+    name: "John",
+    selected: true
   },
   {
     id: "2",
-    name: "Alex"
+    name: "Alex",
+    selected: false
   }
 ]
 
