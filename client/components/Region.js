@@ -5,7 +5,14 @@ import CountryCard from "./CountryCard"
 export default class Region extends React.Component {
 
   render() {
-    const completed = (this.props.region.numSelected === this.props.region.maxCountriesSelected)
+    let numSelected = 0
+    this.props.countries.forEach((country) => {
+      if ((country.userId === this.props.currentUser.id) && (country.regionId === this.props.region.id)) {
+        numSelected = numSelected + 1
+      }
+    })
+
+    const completed = (numSelected === this.props.region.maxCountriesSelected)
 
     const countries = this.props.countries.map((country, index) => {
       if (country.regionId === this.props.region.id) {
@@ -15,7 +22,7 @@ export default class Region extends React.Component {
 
     return (
       <div className="region">
-        <h1>{this.props.region.regionName}</h1><span>{this.props.region.numSelected} selected of {this.props.region.maxCountriesSelected}</span>
+        <h1>{this.props.region.regionName}</h1><span>{numSelected} selected of {this.props.region.maxCountriesSelected}</span>
         <div>
           {countries}
         </div>

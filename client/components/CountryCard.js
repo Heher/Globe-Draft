@@ -6,14 +6,14 @@ import Flag from "./Flag";
 export default class CountryCard extends React.Component {
 
   render() {
-    const userId = this.props.users[0].id
+    const userId = this.props.currentUser.id
     const { id, selected, name } = this.props.country
-    const selectedClass = selected ? "selected" : ""
-    const disabled = (!selected && this.props.regionCompleted) ? "disabled" : ""
+    const selectedClass = (this.props.country.userId === userId) ? "selected" : ""
+    const disabled = (!selected && this.props.regionCompleted || (this.props.country.userId && this.props.country.userId !== userId)) ? "disabled" : ""
 
     if (selected) {
       return (
-        <button className = {`countryCard ${selectedClass} ${disabled}`} onClick={this.props.deselectingCountry.bind(null, this.props.region.id, id, userId)} >
+        <button className = {`countryCard ${selectedClass} ${disabled}`} onClick={this.props.deselectingCountry.bind(null, this.props.region.id, id, userId, disabled)} >
           <h3>{name}</h3>
           <Flag country={this.props.country}/>
         </button>

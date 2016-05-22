@@ -18,6 +18,9 @@ function countries(state = [], action) {
       })
 
     case 'DESELECTING_COUNTRY' :
+      if (disabled) {
+        return state
+      }
       return state.map(country => {
         if (country.id !== countryId) {
           return country

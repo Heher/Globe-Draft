@@ -5,19 +5,18 @@ import ChangeUser from './ChangeUser';
 
 export default class Countries extends React.Component {
   render() {
-    const selectedUser = this.props.users.map((user, index) => {
-      if (user.selected) {
-        return user.id
-      }
+    const currentUser = this.props.users.filter((user) => {
+      return user.selected
     })
+
     return (
       <div className="content">
         <div className="regions">
-          {this.props.regions.map((region, index) => <Region {...this.props} key={index} i={index} region={region} />)}
+          {this.props.regions.map((region, index) => <Region {...this.props} key={index} i={index} region={region} currentUser={currentUser[0]}/>)}
         </div>
         <div className="sidebar">
-          <ChangeUser {...this.props} selectedUserId={selectedUser} />
-          <CountryList {...this.props} />
+          <ChangeUser {...this.props} />
+          <CountryList {...this.props} currentUser={currentUser[0]} />
         </div>
       </div>
     )
