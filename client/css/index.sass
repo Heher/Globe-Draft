@@ -23,6 +23,9 @@
   outline: 0
   width: 160px
   height: 60px
+  cursor: pointer
+  &:hover
+    background: #93FF93
   img, h3
     display: inline-block
     vertical-align: middle
@@ -35,6 +38,8 @@
   &.owned, &.disabled
     background: #666
     color: white
+  &.disabled
+    cursor: default
 
 .region
   h1
