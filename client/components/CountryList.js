@@ -6,7 +6,7 @@ export default class CountryList extends React.Component {
 
   render() {
     const countries = this.props.countries.map((country, index) => {
-      if (country.userId === this.props.currentUser.id) {
+      if ((country.userId === this.props.currentUser.id) && country.drafted) {
         return <CountryItem {...this.props} key={index} i={index} country={country} />
       }
     })

@@ -7,8 +7,10 @@ export default class Region extends React.Component {
   render() {
     let numSelected = 0
     this.props.countries.forEach((country) => {
-      if ((country.userId === this.props.currentUser.id) && (country.regionId === this.props.region.id)) {
-        numSelected = numSelected + 1
+      if (country.regionId === this.props.region.id) {
+        if ((country.userId === this.props.currentUser.id) && (country.selected || country.drafted)) {
+          numSelected = numSelected + 1
+        }
       }
     })
 

@@ -1,20 +1,18 @@
-export function selectingCountry(regionId, countryId, userId, disabled) {
+export function selectCountry(regionId, countryId, userId) {
   return {
-    type: "SELECTING_COUNTRY",
+    type: "SELECT_COUNTRY",
     regionId,
     countryId,
-    userId,
-    disabled
+    userId
   }
 }
 
-export function deselectingCountry(regionId, countryId, userId, disabled) {
+export function deselectCountry(regionId, countryId, userId) {
   return {
-    type: "DESELECTING_COUNTRY",
+    type: "DESELECT_COUNTRY",
     regionId,
     countryId,
-    userId,
-    disabled
+    userId
   }
 }
 
@@ -22,5 +20,15 @@ export function changeUser(userId) {
   return {
     type: "CHANGE_USER",
     userId
+  }
+}
+
+export function draftCountry(country, userId, round, lastOfRound) {
+  return {
+    type: "DRAFT_COUNTRY",
+    countryId: country.id,
+    userId,
+    round,
+    lastOfRound
   }
 }

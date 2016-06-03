@@ -8,6 +8,11 @@ const users = [
     id: "2",
     name: "Alex",
     selected: false
+  },
+  {
+    id: "3",
+    name: "Travis",
+    selected: false
   }
 ]
 

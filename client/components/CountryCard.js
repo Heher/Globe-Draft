@@ -1,37 +1,69 @@
-import React from "react";
+import React from 'react'
+import classNames from 'classnames'
 
-import Avatar from "./Avatar";
-import Flag from "./Flag";
+import Avatar from './Avatar'
+import Flag from './Flag'
 
 export default class CountryCard extends React.Component {
 
-  render() {
-    const currentUserId = this.props.currentUser.id
-    const { id, selected, name, userId } = this.props.country
+  constructor(props) {
+    super(props)
+  }
 
-    const available = userId || this.props.regionCompleted ? false : true
-    const ownedByCurrentUser = (currentUserId === userId) ? true : false
+  countryIsOwned(userId) {
+    return userId ? true : false
+  }
 
-    const disabled = !available && !ownedByCurrentUser ? true : false
+  userOwnsCountry(countryUserId, currentUserId) {
+    return countryUserId === currentUserId
+  }
 
-    const canBeChanged = available || ownedByCurrentUser ? true : false
-
-    const ownedClass = userId && !ownedByCurrentUser ? "owned" : ""
-    const selectedClass = ownedByCurrentUser ? "selected" : ""
-    const disabledClass = disabled ? "disabled" : ""
-
-    if (selected) {
-      return (
-        <button className = {`countryCard ${ownedClass} ${selectedClass} ${disabledClass}`} onClick={this.props.deselectingCountry.bind(null, this.props.region.id, id, userId, !canBeChanged)} >
-          <Flag country={this.props.country}/><h3>{name}</h3>
-        </button>
-      )
-    } else {
-      return (
-        <button className = {`countryCard ${ownedClass} ${selectedClass} ${disabledClass}`} onClick={this.props.selectingCountry.bind(null, this.props.region.id, id, currentUserId, !canBeChanged)} >
-          <Flag country={this.props.country}/><h3>{name}</h3>
-        </button>
-      )
+  handleClick(canDraft, canBeDeselected, canBeSelected) {
+    if (!canDraft) {
+      return null
     }
+    if (canBeDeselected) {
+      this.deselect(this.props.region.id, this.props.country.id, this.props.currentUser.id)
+    } else if (canBeSelected) {
+      this.select(this.props.region.id, this.props.country.id, this.props.currentUser.id)
+    }
+  }
+
+  select(region, country, user) {
+    this.props.selectCountry(region, country, user)
+  }
+
+  deselect(region, country, user) {
+    this.props.deselectCountry(region, country, user)
+  }
+
+  render() {
+    const { id, name, userId, selected, drafted } = this.props.country
+    const { canDraft, regionCompleted } = this.props
+    const currentUserId = this.props.currentUser.id
+
+    const renderClasses = classNames({
+      'owned': (currentUserId === userId) && drafted,
+      'taken': (currentUserId !== userId) && drafted,
+      'disabled': (currentUserId !== userId) && !selected && regionCompleted,
+      'selected': (currentUserId === userId) && selected,
+      'waitingTurn': !canDraft
+    })
+
+    const canBeSelected = !userId && !regionCompleted
+    const canBeDeselected = (currentUserId === userId) && selected
+
+    const needsAvatar = (currentUserId !== userId) && drafted
+
+
+    return (
+      <button 
+        className = {`countryCard ${renderClasses}`}
+        onClick={this.handleClick.bind(this, canDraft, canBeDeselected, canBeSelected)}
+      >
+        <Flag country={this.props.country}/><h3>{name}</h3>
+        {needsAvatar ? <Avatar {...this.props} userId={userId}/> : null}
+      </button>
+    )
   }
 }

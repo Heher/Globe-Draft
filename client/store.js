@@ -7,11 +7,13 @@ import rootReducer from './reducers/index'
 import regions from './data/regions'
 import countries from './data/countries'
 import users from './data/users'
+import settings from './data/settings'
 
 const defaultState = {
   regions,
   countries,
-  users
+  users,
+  settings
 }
 
 const enhancers = compose(
