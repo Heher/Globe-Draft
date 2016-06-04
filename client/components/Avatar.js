@@ -8,7 +8,7 @@ export default class Avatar extends React.Component {
       }
     })
     return (
-      <p className="avatar">{name}</p>
+      <span className="avatar">{name}</span>
     )
   }
 }

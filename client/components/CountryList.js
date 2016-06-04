@@ -11,6 +11,10 @@ export default class CountryList extends React.Component {
       }
     })
 
+    countries.sort(function(a, b) {
+      return a.props.country.round - b.props.country.round
+    })
+
     return (
       <div className="country-list">
         <h2>{this.props.currentUser.name}'s Countries</h2>
