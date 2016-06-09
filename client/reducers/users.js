@@ -15,6 +15,11 @@ function users(state = [], action) {
           selected: true
         }
       })
+
+    case 'RECEIVE_USERS' :
+      console.log(state)
+      console.log(action.json)
+      return Object.assign([], state, action.json)
       
     default:
       return state

@@ -4,6 +4,8 @@ import classNames from 'classnames'
 import Avatar from './Avatar'
 import Flag from './Flag'
 
+require('../css/country.sass')
+
 export default class CountryCard extends React.Component {
 
   constructor(props) {

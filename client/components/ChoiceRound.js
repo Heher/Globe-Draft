@@ -2,6 +2,8 @@ import React from 'react'
 
 import Avatar from './Avatar'
 
+require('../css/choice_round.sass')
+
 export default class ChoiceRound extends React.Component {
   sortRound(round, roundNumber) {
     // console.log(round.length, roundNumber)
@@ -25,8 +27,8 @@ export default class ChoiceRound extends React.Component {
       return <li key={index} i={index}>{country.name} - <Avatar {...this.props} userId={country.userId}/></li>
     })
     return (
-      <div>
-        {roundCountries.length >= 1 ? <h5>Round {this.props.roundNumber}</h5> : null}
+      <div className="choice-round">
+        {roundCountries.length >= 1 ? <h4>Round {this.props.roundNumber}</h4> : null}
         <ul>
           {renderCountries}
         </ul>

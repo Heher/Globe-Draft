@@ -1,6 +1,8 @@
 import React from 'react'
 import classNames from 'classnames'
 
+require('../css/submit_button.sass')
+
 export default class ChoiceSubmit extends React.Component {
 
   render() {

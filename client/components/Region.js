@@ -2,6 +2,8 @@ import React from "react"
 
 import CountryCard from "./CountryCard"
 
+require('../css/region.sass')
+
 export default class Region extends React.Component {
 
   render() {
@@ -24,7 +26,7 @@ export default class Region extends React.Component {
 
     return (
       <div className="region">
-        <h1>{this.props.region.regionName}</h1><span>{numSelected} selected of {this.props.region.maxCountriesSelected}</span>
+        <h2>{this.props.region.regionName}</h2><span>{numSelected} selected of {this.props.region.maxCountriesSelected}</span>
         <div>
           {countries}
         </div>

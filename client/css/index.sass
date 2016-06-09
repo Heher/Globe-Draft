@@ -1,79 +1,17 @@
+html, body
+  margin: 0
+  padding: 0
+  overflow-x: hidden
+
+.page
+
+
 .content
   display: flex
+  padding: 20px
 
-.regions
-  flex-grow: 3
+#app
+  font-family: 'Noto Sans', sans-serif
 
 .sidebar
   flex-grow: 1
-  .country-list
-    background: #999
-    h2
-      font-size: 20px
-      text-align: center
-
-.avatar
-  position: absolute
-  bottom: 5px
-  right: 5px
-  margin: 0
-
-.countryCard
-  position: relative
-  background: #EEE
-  border: 1px solid black
-  outline: 0
-  width: 160px
-  height: 60px
-  cursor: pointer
-  &:hover
-    background: #A3BCA3
-  img, h3
-    display: inline-block
-    vertical-align: middle
-  img
-    margin-right: 15px
-    width: 20px
-    height: 20px
-  &.owned, &.disabled
-    cursor: default
-  &.waitingTurn
-    background: #ECD77D
-    cursor: default
-  &.disabled
-    background: #EABCBC
-  &.owned
-    background: #BEBECD
-  &.taken
-    background: #85858F
-  &.selected
-    background: #A3BCA3
-    cursor: pointer
-
-.region
-  h1
-    display: inline-block
-    font-size: 20px
-    margin-right: 20px
-
-.change-user button
-  width: 80px
-  height: 30px
-  outline: 0
-  &.selected
-    background: green
-    color: white
-
-.choice-submit
-  margin: 10px
-  display: none
-  &.show
-    display: block
-
-.choice-list
-  ul
-    padding: 0
-    li
-      list-style: none
-      span
-        position: static

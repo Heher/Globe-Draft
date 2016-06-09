@@ -3,6 +3,8 @@ import React from 'react'
 import CountryItem from './CountryItem'
 import ChoiceRound from './ChoiceRound'
 
+require('../css/choice_list.sass')
+
 export default class ChoiceList extends React.Component {
 
   render() {
@@ -28,7 +30,7 @@ export default class ChoiceList extends React.Component {
 
     return (
       <div className="choice-list">
-        <h3>Choice List</h3>
+        <h2>Drafted Countries</h2>
         {renderRounds}
       </div>
     )

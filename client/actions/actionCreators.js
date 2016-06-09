@@ -1,3 +1,5 @@
+import fetch from 'isomorphic-fetch'
+
 export function selectCountry(regionId, countryId, userId) {
   return {
     type: "SELECT_COUNTRY",
@@ -30,5 +32,38 @@ export function draftCountry(country, userId, round, lastOfRound) {
     userId,
     round,
     lastOfRound
+  }
+}
+
+export function fetchUsers() {
+  return dispatch => {
+    return fetch('/api/users')
+      .then(response => response.json())
+      .then(json => dispatch(receiveUsers(json)))
+  }
+}
+
+export function receiveUsers(json) {
+  return {
+    type: "RECEIVE_USERS",
+    json
+  }
+}
+
+export function addUser(name) {
+  return dispatch => {
+    return fetch('/api/users', { 
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: name,
+        selected: false
+      })
+    })
+      .then(response => response.json())
+      .then(json => console.log(json))
   }
 }

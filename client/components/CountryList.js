@@ -2,6 +2,8 @@ import React from "react";
 
 import CountryItem from './CountryItem'
 
+require('../css/country_list.sass')
+
 export default class CountryList extends React.Component {
 
   render() {

@@ -1,0 +1,36 @@
+.countryCard
+  position: relative
+  background: #EEE
+  border: 1px solid black
+  outline: 0
+  width: 160px
+  height: 46px
+  text-align: left
+  padding: 0 0 0 20px
+  cursor: pointer
+  &:hover
+    background: #A3BCA3
+  img, h3
+    display: inline-block
+    vertical-align: middle
+  img
+    margin-right: 10px
+    width: 20px
+    height: 20px
+  h3
+    margin: 0
+    font-size: 12px
+  &.owned, &.disabled
+    cursor: default
+  &.waitingTurn
+    background: #ECD77D
+    cursor: default
+  &.disabled
+    background: #EABCBC
+  &.owned
+    background: #BEBECD
+  &.taken
+    background: #85858F
+  &.selected
+    background: #A3BCA3
+    cursor: pointer

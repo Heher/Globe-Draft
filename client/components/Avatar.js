@@ -1,4 +1,6 @@
-import React from "react";
+import React from "react"
+
+require('../css/avatar.sass')
 
 export default class Avatar extends React.Component {
   render() {
