@@ -7,9 +7,10 @@ require('../css/header.sass')
 export default class Header extends React.Component {
 
   render() {
+    const { canDraft, currentUser, userDrafting } = this.props
     return (
       <header>
-        <h2>{this.props.canDraft ? `It's your turn, ${this.props.currentUser.name}. Please choose a country.` : `${this.props.userDrafting.name} is drafting. Please wait.`}</h2>
+        <h2>{canDraft ? `It's your turn, ${currentUser.name}. Please choose a country.` : `${userDrafting.name} is drafting. Please wait.`}</h2>
         <ChangeUser {...this.props} />
       </header>
     )

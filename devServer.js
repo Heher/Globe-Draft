@@ -30,7 +30,8 @@ var Schema = mongoose.Schema;
 
 var userSchema = new Schema({
   name:  String,
-  selected: Boolean
+  selected: Boolean,
+  draftNum: Number
 });
 
 var User = mongoose.model('User', userSchema);
@@ -43,8 +44,21 @@ app.get('/api/users', function (request, response) {
 
 app.post('/api/users', function (request, response) {
   User.create(request.body, function(err, user) {
-    console.log("Saved!")
-  })
+    response.json(user);
+  });
+});
+
+app.put('/api/users', function (request, response) {
+  console.log(request.body)
+  User.findByIdAndUpdate(request.body.id, { $set: { draftNum: request.body.draftNum }}, function(err, user) {
+    response.json(user);
+  });
+});
+
+app.delete('/api/users', function (request, response) {
+  User.find(request.body).remove(function(err, user) {
+    response.json(user);
+  });
 });
 
 app.get('*', function (request, response){

@@ -18,10 +18,10 @@ export function deselectCountry(regionId, countryId, userId) {
   }
 }
 
-export function changeUser(userId) {
+export function changeUser(id) {
   return {
     type: "CHANGE_USER",
-    userId
+    id
   }
 }
 
@@ -50,6 +50,28 @@ export function receiveUsers(json) {
   }
 }
 
+export function addUserToState(json) {
+  return {
+    type: "ADD_USER",
+    json
+  }
+}
+
+export function deleteUserFromState(name) {
+  return {
+    type: "DELETE_USER",
+    name
+  }
+}
+
+export function editUserInState(id, draftNum) {
+  return {
+    type: "EDIT_USER",
+    id,
+    draftNum
+  }
+}
+
 export function addUser(name) {
   return dispatch => {
     return fetch('/api/users', { 
@@ -64,6 +86,41 @@ export function addUser(name) {
       })
     })
       .then(response => response.json())
-      .then(json => console.log(json))
+      .then(json => dispatch(addUserToState([json])))
+  }
+}
+
+export function deleteUser(name) {
+  return dispatch => {
+    return fetch('/api/users', { 
+      method: 'DELETE',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: name
+      })
+    })
+      .then(response => response.json())
+      .then(json => dispatch(deleteUserFromState(name)))
+  }
+}
+
+export function editUser(id, draftNum) {
+  return dispatch => {
+    return fetch('/api/users', {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        id: id,
+        draftNum: draftNum
+      })
+    })
+      .then(response => response.json())
+      .then(json => dispatch(editUserInState(id, draftNum)))
   }
 }

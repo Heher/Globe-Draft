@@ -1,11 +1,39 @@
 import React from "react"
 import { Link } from "react-router"
 
+import Header from './Header'
+
 export default class Layout extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+
+  componentDidMount() {
+    this.props.fetchUsers()
+  }
+
   render() {
+    const currentUser = this.props.users.filter((user) => {
+      return user.selected
+    })[0]
+
+    const userDrafting = this.props.users.filter(user => {
+      return user.draftNum === this.props.settings.userTurn
+    })[0]
+
+    const canDraft = this.props.settings.userTurn === currentUser.draftNum
+
+    const createProps = {
+      ...this.props,
+      currentUser,
+      userDrafting,
+      canDraft
+    }
+
     return (
       <div>
-        {React.cloneElement(this.props.children, this.props)}
+        <Header {...this.props} currentUser={currentUser} userDrafting={userDrafting} canDraft={canDraft} />
+        {React.cloneElement(this.props.children, createProps)}
       </div>
     )
   }
