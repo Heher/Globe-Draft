@@ -49,9 +49,8 @@ app.post('/api/users', function (request, response) {
 });
 
 app.put('/api/users', function (request, response) {
-  console.log(request.body)
   User.findByIdAndUpdate(request.body.id, { $set: { draftNum: request.body.draftNum }}, function(err, user) {
-    response.json(user);
+    response.json("Success");
   });
 });
 

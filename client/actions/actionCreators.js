@@ -107,20 +107,45 @@ export function deleteUser(name) {
   }
 }
 
-export function editUser(id, draftNum) {
+export function changeDraftOrder() {
+  return {
+    type: "CHANGE_DRAFT_ORDER"
+  }
+}
+
+export function setDraft(id, draftNum) {
+  return {
+    type: "SET_DRAFT_ORDER",
+    id,
+    draftNum
+  }
+}
+
+export function savedDraft() {
+  return {
+    type: "SAVED_DRAFT"
+  }
+}
+
+export function saveDraftOrder(draftOrders) {
+  let complete = 0
   return dispatch => {
-    return fetch('/api/users', {
-      method: 'PUT',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        id: id,
-        draftNum: draftNum
+    return draftOrders.map(draft => {
+      return fetch('/api/users', {
+        method: 'PUT',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          id: draft.id,
+          draftNum: draft.draftNum
+        })
+      })
+      .then(response => {
+        complete = complete + 1
+        complete === draftOrders.length ? dispatch(savedDraft()) : ""
       })
     })
-      .then(response => response.json())
-      .then(json => dispatch(editUserInState(id, draftNum)))
   }
 }

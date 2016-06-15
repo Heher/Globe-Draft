@@ -22,6 +22,17 @@ function settings(state = [], action) {
         userTurn: state.userTurn + 1,
         numberDrafted: state.numberDrafted + 1
       }
+    case 'CHANGE_DRAFT_ORDER' :
+      return {
+        ...state,
+        editingDraftOrder: true
+      }
+
+    case 'SAVED_DRAFT' :
+      return {
+        ...state,
+        editingDraftOrder: false
+      }
 
     default:
       return state

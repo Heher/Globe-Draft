@@ -1,5 +1,5 @@
 function users(state = [], action) {
-  const { id } = action
+  const { id, draftNum } = action
 
   switch(action.type) {
     case 'CHANGE_USER' :
@@ -34,7 +34,15 @@ function users(state = [], action) {
       })
       return newState
 
-    case 'EDIT_USER' :
+    case 'CHANGE_DRAFT_ORDER' :
+      return state.map(user => {
+        return {
+          ...user,
+          draftNum: ""
+        }
+      })
+
+    case 'SET_DRAFT_ORDER' :
       return state.map(user => {
         if (user._id !== id) {
           return {
@@ -43,7 +51,7 @@ function users(state = [], action) {
         }
         return {
           ...user,
-          draftNum: action.draftNum
+          draftNum
         }
       })
       
