@@ -28,7 +28,7 @@ function users(state = [], action) {
     case 'DELETE_USER' :
       const newState = []
       state.map(user => {
-        if (user.name !== action.name) {
+        if (user._id !== action.id) {
           newState.push(user)
         }
       })

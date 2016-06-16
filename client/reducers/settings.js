@@ -22,10 +22,11 @@ function settings(state = [], action) {
         userTurn: state.userTurn + 1,
         numberDrafted: state.numberDrafted + 1
       }
-    case 'CHANGE_DRAFT_ORDER' :
+
+    case 'TOGGLE_EDIT_USER' :
       return {
         ...state,
-        editingDraftOrder: true
+        editingDraftOrder: !state.editingDraftOrder
       }
 
     case 'SAVED_DRAFT' :

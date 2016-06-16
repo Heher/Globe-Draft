@@ -25,12 +25,13 @@ export function changeUser(id) {
   }
 }
 
-export function draftCountry(country, userId, round, lastOfRound) {
+export function draftCountry(country, userId, round, draftNum, lastOfRound) {
   return {
     type: "DRAFT_COUNTRY",
     countryId: country.id,
     userId,
     round,
+    draftNum,
     lastOfRound
   }
 }
@@ -57,18 +58,10 @@ export function addUserToState(json) {
   }
 }
 
-export function deleteUserFromState(name) {
+export function deleteUserFromState(id) {
   return {
     type: "DELETE_USER",
-    name
-  }
-}
-
-export function editUserInState(id, draftNum) {
-  return {
-    type: "EDIT_USER",
-    id,
-    draftNum
+    id
   }
 }
 
@@ -90,7 +83,8 @@ export function addUser(name) {
   }
 }
 
-export function deleteUser(name) {
+export function deleteUser(id) {
+  console.log(id)
   return dispatch => {
     return fetch('/api/users', { 
       method: 'DELETE',
@@ -99,17 +93,11 @@ export function deleteUser(name) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        name: name
+        _id: id
       })
     })
       .then(response => response.json())
-      .then(json => dispatch(deleteUserFromState(name)))
-  }
-}
-
-export function changeDraftOrder() {
-  return {
-    type: "CHANGE_DRAFT_ORDER"
+      .then(json => dispatch(deleteUserFromState(id)))
   }
 }
 
@@ -147,5 +135,69 @@ export function saveDraftOrder(draftOrders) {
         complete === draftOrders.length ? dispatch(savedDraft()) : ""
       })
     })
+  }
+}
+
+export function fetchEvents() {
+  return dispatch => {
+    return fetch('/api/events')
+      .then(response => response.json())
+      .then(json => dispatch(receiveEvents(json)))
+  }
+}
+
+export function receiveEvents(json) {
+  return {
+    type: "RECEIVE_EVENTS",
+    json
+  }
+}
+
+export function addEvent(name) {
+  return dispatch => {
+    return fetch('/api/events', { 
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: name,
+        team: false
+      })
+    })
+      .then(response => response.json())
+      .then(json => dispatch(addEventToState([json])))
+  }
+}
+
+export function addEventToState(json) {
+  return {
+    type: "ADD_EVENT",
+    json
+  }
+}
+
+export function deleteEvent(id) {
+  return dispatch => {
+    return fetch('/api/events', { 
+      method: 'DELETE',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        _id: id
+      })
+    })
+      .then(response => response.json())
+      .then(json => dispatch(deleteEventFromState(id)))
+  }
+}
+
+export function deleteEventFromState(id) {
+  return {
+    type: "DELETE_EVENT",
+    id
   }
 }

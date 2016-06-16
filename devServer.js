@@ -36,6 +36,16 @@ var userSchema = new Schema({
 
 var User = mongoose.model('User', userSchema);
 
+var eventSchema = new Schema({
+  name:  String,
+  team: Boolean,
+  gold: [],
+  silver: [],
+  bronze: []
+});
+
+var Event = mongoose.model('Event', eventSchema);
+
 app.get('/api/users', function (request, response) {
   User.find({}, function(err, users) {
     response.json(users);
@@ -49,7 +59,7 @@ app.post('/api/users', function (request, response) {
 });
 
 app.put('/api/users', function (request, response) {
-  User.findByIdAndUpdate(request.body.id, { $set: { draftNum: request.body.draftNum }}, function(err, user) {
+  User.findByIdAndUpdate(request.body.id, { $set: { draftNum: request.body.draftNum }}, {new: true}, function(err, user) {
     response.json("Success");
   });
 });
@@ -57,6 +67,30 @@ app.put('/api/users', function (request, response) {
 app.delete('/api/users', function (request, response) {
   User.find(request.body).remove(function(err, user) {
     response.json(user);
+  });
+});
+
+app.get('/api/events', function (request, response) {
+  Event.find({}, function(err, events) {
+    response.json(events);
+  });
+});
+
+app.post('/api/events', function (request, response) {
+  Event.create(request.body, function(err, event) {
+    response.json(event);
+  });
+});
+
+app.put('/api/events', function (request, response) {
+  Event.findByIdAndUpdate(request.body.id, { $set: { team: request.body.team }}, {new: true}, function(err, event) {
+    response.json("Success");
+  });
+});
+
+app.delete('/api/events', function (request, response) {
+  Event.find(request.body).remove(function(err, event) {
+    response.json(event);
   });
 });
 

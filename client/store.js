@@ -13,6 +13,7 @@ const defaultState = {
   regions,
   countries,
   users: [],
+  events: [],
   settings
 }
 

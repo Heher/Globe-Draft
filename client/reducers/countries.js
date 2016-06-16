@@ -1,5 +1,5 @@
 function countries(state = [], action) {
-  const { countryId, userId, round } = action
+  const { countryId, userId, round, draftNum } = action
 
   switch(action.type) {
     case 'SELECT_COUNTRY' :
@@ -45,7 +45,8 @@ function countries(state = [], action) {
             ...country,
             selected: false,
             drafted: true,
-            round
+            round,
+            draftNum
           }
         }
       })

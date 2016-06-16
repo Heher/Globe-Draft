@@ -6,13 +6,12 @@ require('../css/choice_round.sass')
 
 export default class ChoiceRound extends React.Component {
   sortRound(round, roundNumber) {
-    // console.log(round.length, roundNumber)
     if (round.length) {
       return round.sort(function(a, b) {
         if (roundNumber % 2 === 0) {
-          return b.userId - a.userId
+          return b.draftNum - a.draftNum
         }
-        return a.userId - b.userId
+        return a.draftNum - b.draftNum
       })
     } else {
       return null

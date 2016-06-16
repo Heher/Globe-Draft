@@ -7,6 +7,7 @@ import CountryList from './CountryList'
 import ChangeUser from './ChangeUser'
 import ChoiceList from './ChoiceList'
 import ChoiceSubmit from './ChoiceSubmit'
+import RoundStatus from './RoundStatus'
 
 export default class Countries extends React.Component {
   
@@ -19,7 +20,7 @@ export default class Countries extends React.Component {
 
     const selectedCountry = this.props.countries.filter(country => {
       return (country.selected && (country.userId === currentUser._id))
-    })
+    })[0]
 
     return (
       <div className="page">
@@ -29,6 +30,7 @@ export default class Countries extends React.Component {
           </div>
           <div className="sidebar">
             <ChoiceSubmit {...this.props} selectedCountry={selectedCountry}/>
+            <RoundStatus {...this.props} />
             <CountryList {...this.props} />
             <ChoiceList {...this.props} />
           </div>

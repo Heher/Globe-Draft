@@ -10,6 +10,7 @@ export default class Layout extends React.Component {
 
   componentDidMount() {
     this.props.fetchUsers()
+    this.props.fetchEvents()
   }
 
   render() {

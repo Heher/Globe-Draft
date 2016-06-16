@@ -20,6 +20,7 @@ export default class Header extends React.Component {
       return (
         <header>
           <h2>Draft Order Not Set</h2>
+          <ChangeUser {...this.props} />
         </header>
       )
     }

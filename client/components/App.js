@@ -8,6 +8,7 @@ function mapStateToProps(state) {
     regions: state.regions,
     countries: state.countries,
     users: state.users,
+    events: state.events,
     settings: state.settings
   }
 }

@@ -8,7 +8,7 @@ export default class CountryList extends React.Component {
 
   render() {
     const countries = this.props.countries.map((country, index) => {
-      if ((country.userId === this.props.currentUser.id) && country.drafted) {
+      if ((country.userId === this.props.currentUser._id) && country.drafted) {
         return <CountryItem {...this.props} key={index} i={index} country={country} />
       }
     })
@@ -19,7 +19,7 @@ export default class CountryList extends React.Component {
 
     return (
       <div className="country-list">
-        <h2>{this.props.currentUser.name}'s Countries</h2>
+        <h2>Your Countries</h2>
         {countries}
       </div>
     )
