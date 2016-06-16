@@ -5,13 +5,11 @@ import thunk from 'redux-thunk'
 
 import rootReducer from './reducers/index'
 
-import regions from './data/regions'
-import countries from './data/countries'
 import settings from './data/settings'
 
 const defaultState = {
-  regions,
-  countries,
+  regions: [],
+  countries: [],
   users: [],
   events: [],
   settings

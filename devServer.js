@@ -30,6 +30,8 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 
 require('./db/routes/users')(app);
 require('./db/routes/events')(app);
+require('./db/routes/countries')(app);
+require('./db/routes/regions')(app);
 
 app.get('*', function (request, response){
   response.sendFile(path.join(__dirname, 'index.html'));

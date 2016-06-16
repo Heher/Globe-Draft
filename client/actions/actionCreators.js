@@ -227,3 +227,33 @@ export function savedEventEdit(id, payload) {
     payload
   }
 }
+
+export function fetchCountries() {
+  return dispatch => {
+    return fetch('/api/countries')
+      .then(response => response.json())
+      .then(json => dispatch(receiveCountries(json)))
+  }
+}
+
+export function receiveCountries(json) {
+  return {
+    type: "RECEIVE_COUNTRIES",
+    json
+  }
+}
+
+export function fetchRegions() {
+  return dispatch => {
+    return fetch('/api/regions')
+      .then(response => response.json())
+      .then(json => dispatch(receiveRegions(json)))
+  }
+}
+
+export function receiveRegions(json) {
+  return {
+    type: "RECEIVE_REGIONS",
+    json
+  }
+}

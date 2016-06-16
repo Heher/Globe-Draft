@@ -2,6 +2,9 @@ function countries(state = [], action) {
   const { countryId, userId, round, draftNum } = action
 
   switch(action.type) {
+    case 'RECEIVE_COUNTRIES' :
+      return Object.assign([], state, action.json)
+
     case 'SELECT_COUNTRY' :
       return state.map(country => {
         if ((country.userId === userId) && country.selected) {
