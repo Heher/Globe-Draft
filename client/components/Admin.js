@@ -4,6 +4,7 @@ import { Link } from 'react-router'
 import AddItemField from './admin/AddItemField'
 import DraftUser from './admin/DraftUser'
 import DeleteItem from './admin/DeleteItem'
+import EditEvent from './admin/EditEvent'
 
 require('../css/admin.sass')
 
@@ -33,8 +34,11 @@ export default class Admin extends React.Component {
     const events = this.props.events.map((event, index) => {
       return event.name
     })
-    const deleteEvents = this.props.events.map((event, index) => {
-      return <DeleteItem {...this.props} key={index} item={event} type="Event" />
+    let deleteEvents = []
+    let editEvents = []
+    this.props.events.map((event, index) => {
+      deleteEvents.push(<DeleteItem {...this.props} key={index} item={event} type="Event" />)
+      editEvents.push(<EditEvent {...this.props} key={index} event={event} />)
     })
 
     return (
@@ -67,6 +71,10 @@ export default class Admin extends React.Component {
           <div className="panel delete-user">
             <h4>Delete Event:</h4>
             {deleteEvents}
+          </div>
+          <div className="panel edit-event">
+            <h4>Edit Event</h4>
+            {editEvents}
           </div>
         </div>
         <Link to='/countries'>Countries</Link>

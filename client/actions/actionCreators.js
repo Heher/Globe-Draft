@@ -201,3 +201,29 @@ export function deleteEventFromState(id) {
     id
   }
 }
+
+export function editEvent(id, payload) {
+  return dispatch => {
+    return fetch('/api/events', {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        id: id,
+        payload: payload
+      })
+    })
+      .then(response => response.json())
+      .then(json => dispatch(savedEventEdit(id, payload)))
+  }
+}
+
+export function savedEventEdit(id, payload) {
+  return {
+    type: "SAVED_EVENT",
+    id,
+    payload
+  }
+}
