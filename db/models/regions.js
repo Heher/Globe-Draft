@@ -4,7 +4,8 @@ var Schema = mongoose.Schema;
 
 var regionSchema = new Schema({
   name:  String,
-  maxCountriesSelected: Number
+  maxCountriesSelected: Number,
+  editing: Boolean
 });
 
 module.exports = mongoose.model('Region', regionSchema);

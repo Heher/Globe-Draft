@@ -19,7 +19,7 @@ export default class Header extends React.Component {
     } else {
       return (
         <header>
-          <h2>Draft Order Not Set</h2>
+          <h2>Please Sign In</h2>
           <ChangeUser {...this.props} />
         </header>
       )

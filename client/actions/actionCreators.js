@@ -1,19 +1,19 @@
 import fetch from 'isomorphic-fetch'
 
-export function selectCountry(regionId, countryId, userId) {
+export function selectCountry(regionId, id, userId) {
   return {
     type: "SELECT_COUNTRY",
     regionId,
-    countryId,
+    id,
     userId
   }
 }
 
-export function deselectCountry(regionId, countryId, userId) {
+export function deselectCountry(regionId, id, userId) {
   return {
     type: "DESELECT_COUNTRY",
     regionId,
-    countryId,
+    id,
     userId
   }
 }
@@ -58,6 +58,13 @@ export function addUserToState(json) {
   }
 }
 
+export function setEditingUser(id) {
+  return {
+    type: "SET_EDITING_USER",
+    id
+  }
+}
+
 export function deleteUserFromState(id) {
   return {
     type: "DELETE_USER",
@@ -75,7 +82,9 @@ export function addUser(name) {
       },
       body: JSON.stringify({
         name: name,
-        selected: false
+        selected: false,
+        draftNum: 0,
+        editing: false
       })
     })
       .then(response => response.json())
@@ -84,7 +93,6 @@ export function addUser(name) {
 }
 
 export function deleteUser(id) {
-  console.log(id)
   return dispatch => {
     return fetch('/api/users', { 
       method: 'DELETE',
@@ -101,17 +109,29 @@ export function deleteUser(id) {
   }
 }
 
-export function setDraft(id, draftNum) {
-  return {
-    type: "SET_DRAFT_ORDER",
-    id,
-    draftNum
+export function setDraft(id, payload) {
+  return dispatch => {
+    return fetch('/api/users', {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        id: id,
+        payload: payload
+      })
+    })
+      .then(response => response.json())
+      .then(json => dispatch(savedUserDraft(id, payload)))
   }
 }
 
-export function savedDraft() {
+export function savedUserDraft(id, payload) {
   return {
-    type: "SAVED_DRAFT"
+    type: "SAVED_USER_DRAFT",
+    id,
+    payload
   }
 }
 
@@ -255,5 +275,176 @@ export function receiveRegions(json) {
   return {
     type: "RECEIVE_REGIONS",
     json
+  }
+}
+
+export function addRegion(name) {
+  return dispatch => {
+    return fetch('/api/regions', { 
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: name,
+        maxCountriesSelected: 1,
+        editing: false
+      })
+    })
+      .then(response => response.json())
+      .then(json => dispatch(addRegionToState([json])))
+  }
+}
+
+export function addRegionToState(json) {
+  return {
+    type: "ADD_REGION",
+    json
+  }
+}
+
+export function setEditingRegion(id) {
+  return {
+    type: "SET_EDITING_REGION",
+    id
+  }
+}
+
+export function editRegion(id, payload) {
+  return dispatch => {
+    return fetch('/api/regions', {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        id: id,
+        payload: payload
+      })
+    })
+      .then(response => response.json())
+      .then(json => dispatch(savedRegionEdit(id, payload)))
+  }
+}
+
+export function savedRegionEdit(id, payload) {
+  return {
+    type: "SAVED_REGION",
+    id,
+    payload
+  }
+}
+
+export function deleteRegion(id) {
+  return dispatch => {
+    return fetch('/api/regions', { 
+      method: 'DELETE',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        _id: id
+      })
+    })
+      .then(response => response.json())
+      .then(json => dispatch(deleteRegionFromState(id)))
+  }
+}
+
+export function deleteRegionFromState(id) {
+  return {
+    type: "DELETE_REGION",
+    id
+  }
+}
+
+export function addCountry(name, region_id) {
+  return dispatch => {
+    return fetch('/api/countries', { 
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: name,
+        regionId: region_id,
+        userId: "",
+        selected: false,
+        drafted: false,
+        draftNum: 0,
+        round: 0,
+        editing: false
+      })
+    })
+      .then(response => response.json())
+      .then(json => dispatch(addCountryToState([json])))
+  }
+}
+
+export function addCountryToState(json) {
+  return {
+    type: "ADD_COUNTRY",
+    json
+  }
+}
+
+export function deleteCountry(id) {
+  return dispatch => {
+    return fetch('/api/countries', { 
+      method: 'DELETE',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        _id: id
+      })
+    })
+      .then(response => response.json())
+      .then(json => dispatch(deleteCountryFromState(id)))
+  }
+}
+
+export function deleteCountryFromState(id) {
+  return {
+    type: "DELETE_COUNTRY",
+    id
+  }
+}
+
+export function setEditingCountry(id) {
+  return {
+    type: "SET_EDITING_COUNTRY",
+    id
+  }
+}
+
+export function editCountry(id, payload) {
+  return dispatch => {
+    return fetch('/api/countries', {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        id: id,
+        payload: payload
+      })
+    })
+      .then(response => response.json())
+      .then(json => dispatch(savedCountryEdit(id, payload)))
+  }
+}
+
+export function savedCountryEdit(id, payload) {
+  return {
+    type: "SAVED_COUNTRY",
+    id,
+    payload
   }
 }

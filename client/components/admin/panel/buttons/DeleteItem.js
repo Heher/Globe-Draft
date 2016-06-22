@@ -13,6 +13,12 @@ export default class DeleteItem extends React.Component {
       case "Event" :
         this.props.deleteEvent(item._id)
         break
+      case "Region" :
+        this.props.deleteRegion(item._id)
+        break
+      case "Country" :
+        this.props.deleteCountry(item._id)
+        break
       default :
         return
     }
@@ -22,10 +28,7 @@ export default class DeleteItem extends React.Component {
     const { item } = this.props
 
     return (
-      <div>
-        <p>{item.name}</p>
-        <button className="delete-button" onClick={this.handleDeleteButton.bind(this, item)}>DELETE</button>
-      </div>
+      <button className="delete-button" onClick={this.handleDeleteButton.bind(this, item)}>DELETE</button>
     )
   }
 }

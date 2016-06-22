@@ -1,5 +1,5 @@
 function countries(state = [], action) {
-  const { countryId, userId, round, draftNum } = action
+  const { id, userId, round, draftNum, payload } = action
 
   switch(action.type) {
     case 'RECEIVE_COUNTRIES' :
@@ -14,7 +14,7 @@ function countries(state = [], action) {
             userId: ""
           }
         }
-        if (country.id === countryId) {
+        if (country._id === id) {
           return {
             ...country,
             selected: true,
@@ -28,7 +28,7 @@ function countries(state = [], action) {
 
     case 'DESELECT_COUNTRY' :
       return state.map(country => {
-        if (country.id !== countryId) {
+        if (country._id !== id) {
           return country
         } else {
           return {
@@ -41,7 +41,7 @@ function countries(state = [], action) {
 
     case 'DRAFT_COUNTRY' :
       return state.map(country => {
-        if (country.id !== countryId) {
+        if (country._id !== id) {
           return country
         } else {
           return {
@@ -51,6 +51,44 @@ function countries(state = [], action) {
             round,
             draftNum
           }
+        }
+      })
+
+    case 'ADD_COUNTRY' :
+      return [
+        ...state,
+        ...action.json
+      ]
+
+    case 'DELETE_COUNTRY' :
+      const newState = []
+      state.map(country => {
+        if (country._id !== action.id) {
+          newState.push(country)
+        }
+      })
+      return newState
+
+    case 'SET_EDITING_COUNTRY' :
+      return state.map(country => {
+        if(country._id !== id) {
+          return country
+        }
+        return {
+          ...country,
+          editing: !country.editing
+        }
+      })
+
+    case 'SAVED_COUNTRY' :
+      return state.map(country => {
+        if (country._id !== id) {
+          return country
+        }
+        return {
+          ...country,
+          ...payload,
+          editing: !country.editing
         }
       })
 

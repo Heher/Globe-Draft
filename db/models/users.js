@@ -5,7 +5,8 @@ var Schema = mongoose.Schema;
 var userSchema = new Schema({
   name:  String,
   selected: Boolean,
-  draftNum: Number
+  draftNum: Number,
+  editing: Boolean
 });
 
 module.exports = mongoose.model('User', userSchema);

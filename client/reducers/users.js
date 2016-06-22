@@ -1,5 +1,5 @@
 function users(state = [], action) {
-  const { id, draftNum } = action
+  const { id, draftNum, payload } = action
 
   switch(action.type) {
     case 'CHANGE_USER' :
@@ -34,15 +34,7 @@ function users(state = [], action) {
       })
       return newState
 
-    case 'CHANGE_DRAFT_ORDER' :
-      return state.map(user => {
-        return {
-          ...user,
-          draftNum: ""
-        }
-      })
-
-    case 'SET_DRAFT_ORDER' :
+    case 'SAVED_USER_DRAFT' :
       return state.map(user => {
         if (user._id !== id) {
           return {
@@ -51,9 +43,27 @@ function users(state = [], action) {
         }
         return {
           ...user,
-          draftNum
+          ...payload,
+          editing: !user.editing
         }
       })
+
+    case 'SET_EDITING_USER' :
+      return state.map(user => {
+        if(user._id !== id) {
+          return user
+        }
+        return {
+          ...user,
+          editing: !user.editing
+        }
+      })
+
+    case 'USER_LOGGED_IN' :
+      return payload
+
+    case 'USER_LOGGED_OUT' :
+      return {}
       
     default:
       return state

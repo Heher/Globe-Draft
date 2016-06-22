@@ -25,9 +25,9 @@ export default class CountryCard extends React.Component {
       return null
     }
     if (canBeDeselected) {
-      this.deselect(this.props.region.id, this.props.country.id, this.props.currentUser._id)
+      this.deselect(this.props.region._id, this.props.country._id, this.props.currentUser._id)
     } else if (canBeSelected) {
-      this.select(this.props.region.id, this.props.country.id, this.props.currentUser._id)
+      this.select(this.props.region._id, this.props.country._id, this.props.currentUser._id)
     }
   }
 
@@ -40,7 +40,7 @@ export default class CountryCard extends React.Component {
   }
 
   render() {
-    const { id, name, userId, selected, drafted } = this.props.country
+    const { _id, name, userId, selected, drafted } = this.props.country
     const { canDraft, regionCompleted } = this.props
     const currentUserId = this.props.currentUser._id
 

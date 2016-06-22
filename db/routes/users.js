@@ -13,7 +13,7 @@ module.exports = function(app) {
   });
 
   app.put('/api/users', function (request, response) {
-    User.findByIdAndUpdate(request.body.id, { $set: { draftNum: request.body.draftNum }}, {new: true}, function(err, user) {
+    User.findByIdAndUpdate(request.body.id, { $set: request.body.payload }, {new: true}, function(err, user) {
       response.json("Success");
     });
   });
