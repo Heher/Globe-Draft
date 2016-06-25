@@ -15,7 +15,7 @@ import Login from './components/Login'
 import css from './css/index.sass'
 
 const UserIsAuthenticated = UserAuthWrapper({
-  authSelector: state => state.currentUser,
+  authSelector: state => state,
   wrapperDisplayName: 'UserIsAuthenticated'
 })
 

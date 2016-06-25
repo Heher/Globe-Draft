@@ -5,6 +5,7 @@ var Schema = mongoose.Schema;
 var eventSchema = new Schema({
   name:  String,
   team: Boolean,
+  editing: Boolean,
   gold: [],
   silver: [],
   bronze: []

@@ -11,7 +11,7 @@ export default class CancelEdit extends React.Component {
         this.props.setEditingUser(item._id)
         break
       case "Event" :
-        this.props.deleteEvent(item._id)
+        this.props.setEditingEvent(item._id)
         break
       case "Region" :
         this.props.setEditingRegion(item._id)

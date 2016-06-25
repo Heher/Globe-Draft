@@ -10,11 +10,16 @@ export default class AdminSection extends React.Component {
 
   render() {
     const { type, items } = this.props
-    const listItems = items.map((item, index) => {
-      return (
-        <PanelItem {...this.props} key={index} item={item} type={type} />
-      )
-    })
+
+    if (items.length > 0) {
+      const listItems = items.map((item, index) => {
+        return (
+          <PanelItem {...this.props} key={index} item={item} type={type} />
+        )
+      })
+    } else {
+      const listItems = null
+    }
     return (
       <div className="admin-section">
         <div>

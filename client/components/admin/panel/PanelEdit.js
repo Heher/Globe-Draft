@@ -1,7 +1,7 @@
 import React from 'react'
 
 import PanelButtons from './PanelButtons'
-import DraftNumber from './DraftNumber'
+import CountrySelect from '../CountrySelect'
 import RegionSelect from '../RegionSelect'
 
 export default class PanelEdit extends React.Component {
@@ -18,6 +18,26 @@ export default class PanelEdit extends React.Component {
               value={this.props.inputValue}
             />
             <DraftNumber {...this.props} user={item} />
+            <PanelButtons
+              {...this.props}
+              item={item}
+              type={type}
+              editing={item.editing}
+              handleItemSave={this.props.handleItemSave.bind(this)}
+            />
+          </div>
+        )
+
+      case "Event" :
+        return (
+          <div className="panel">
+            <input 
+              type="text"
+              onChange={this.props.handleInputChange.bind(this)}
+              value={this.props.inputValue}
+            />
+            <p>Gold</p>
+            <CountrySelect {...this.props} handleSelectChange={this.props.handleGoldSelectChange.bind(this)} />
             <PanelButtons
               {...this.props}
               item={item}
@@ -54,7 +74,7 @@ export default class PanelEdit extends React.Component {
               onChange={this.props.handleInputChange.bind(this)}
               value={this.props.inputValue}
             />
-            <RegionSelect {...this.props} handleSelectChange={this.props.handleSelectChange.bind(this)} />
+            <RegionSelect {...this.props} handleSelectChange={this.props.handleRegionSelectChange.bind(this)} />
             <PanelButtons
               {...this.props}
               item={item}

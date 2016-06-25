@@ -1,4 +1,6 @@
 function events(state = [], action) {
+  const { id } = action
+
   switch(action.type) {
     case 'RECEIVE_EVENTS' :
       return Object.assign([], state, action.json)
@@ -8,6 +10,17 @@ function events(state = [], action) {
         ...state,
         ...action.json
       ]
+
+    case 'SET_EDITING_EVENT' :
+      return state.map(event => {
+        if(event._id !== id) {
+          return event
+        }
+        return {
+          ...event,
+          editing: !event.editing
+        }
+      })
 
     case 'DELETE_EVENT' :
       const newState = []

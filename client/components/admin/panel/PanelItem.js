@@ -9,7 +9,10 @@ export default class PanelItem extends React.Component {
     super(props)
     this.state = {
       inputValue: this.props.item.name,
-      selectValue: this.props.item.regionId || null
+      selectValue: this.props.item.regionId || null,
+      goldSelectValue: this.props.item.gold || null,
+      silverSelectValue: this.props.item.silver || null,
+      bronzeSelectValue: this.props.item.bronze || null
     }
   }
 
@@ -17,7 +20,19 @@ export default class PanelItem extends React.Component {
     this.setState({inputValue: event.target.value})
   }
 
-  handleSelectChange(event) {
+  handleGoldSelectChange(event) {
+    this.setState({goldSelectValue: event.target.value})
+  }
+
+  handleSilverSelectChange(event) {
+    this.setState({silverSelectValue: event.target.value})
+  }
+
+  handleBronzeSelectChange(event) {
+    this.setState({bronzeSelectValue: event.target.value})
+  }
+
+  handleRegionSelectChange(event) {
     this.setState({selectValue: event.target.value})
   }
 
@@ -26,15 +41,27 @@ export default class PanelItem extends React.Component {
       case "User" :
         this.props.editUser(this.props.item._id, {name: this.state.inputValue})
         break
+
+      case "Event" :
+        this.props.editEvent(this.props.item._id, {
+          name: this.state.inputValue,
+          gold: this.state.goldSelectValue,
+          silver: this.state.silverSelectValue,
+          bronze: this.state.bronzeSelectValue
+        })
+        break
+
       case "Region" :
         this.props.editRegion(this.props.item._id, {name: this.state.inputValue})
         break
+
       case "Country" :
         this.props.editCountry(this.props.item._id, {
           name: this.state.inputValue,
           regionId: this.state.selectValue
         })
         break
+
       default :
         return
     }
@@ -42,6 +69,7 @@ export default class PanelItem extends React.Component {
 
   render() {
     const { item, type } = this.props
+    console.log(item)
 
     if (item.editing) {
       return (

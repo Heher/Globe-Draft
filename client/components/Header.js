@@ -1,5 +1,7 @@
 import React from 'react'
 
+import Login from './Login'
+import Logout from './Logout'
 import ChangeUser from './ChangeUser'
 
 require('../css/header.sass')
@@ -7,20 +9,23 @@ require('../css/header.sass')
 export default class Header extends React.Component {
 
   render() {
-    const { canDraft, currentUser, userDrafting } = this.props
+    const { currentUser } = this.props
 
-    if (currentUser && userDrafting) {
+    if (currentUser._id) {
+      const { userDrafting, canDraft } = this.props
       return (
         <header>
+          <h1>Fantasy World Games</h1>
           <h2>{canDraft ? `It's your turn, ${currentUser.name}. Please choose a country.` : `${userDrafting.name} is drafting. Please wait.`}</h2>
-          <ChangeUser {...this.props} />
+          <Logout {...this.props} />
         </header>
       )
     } else {
       return (
         <header>
+          <h1>Fantasy World Games</h1>
           <h2>Please Sign In</h2>
-          <ChangeUser {...this.props} />
+          <Login {...this.props} />
         </header>
       )
     }
