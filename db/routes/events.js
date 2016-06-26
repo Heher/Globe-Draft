@@ -13,8 +13,9 @@ module.exports = function(app) {
   });
 
   app.put('/api/events', function (request, response) {
+    console.log(request.body);
     Event.findByIdAndUpdate(request.body.id, { $set: request.body.payload}, {new: true}, function(err, event) {
-      response.json("Success");
+      response.json(event);
     });
   });
 

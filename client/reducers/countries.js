@@ -3,7 +3,7 @@ function countries(state = [], action) {
 
   switch(action.type) {
     case 'RECEIVE_COUNTRIES' :
-      return Object.assign([], state, action.json)
+      return Object.assign([], state, action.countries)
 
     case 'SELECT_COUNTRY' :
       return state.map(country => {
@@ -91,6 +91,10 @@ function countries(state = [], action) {
           editing: !country.editing
         }
       })
+
+    case 'FETCH_COUNTRIES' :
+      console.log("JOHN")
+      return state
 
     default:
       return state

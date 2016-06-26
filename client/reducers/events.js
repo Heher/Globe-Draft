@@ -3,7 +3,7 @@ function events(state = [], action) {
 
   switch(action.type) {
     case 'RECEIVE_EVENTS' :
-      return Object.assign([], state, action.json)
+      return Object.assign([], state, action.events)
 
     case 'ADD_EVENT' :
       return [

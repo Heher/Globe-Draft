@@ -7,6 +7,7 @@ import EditEvent from './admin/EditEvent'
 import Login from './Login'
 
 import UserAdminSection from './admin/users/UserAdminSection'
+import EventAdminSection from './admin/events/EventAdminSection'
 
 require('../css/admin.sass')
 
@@ -15,12 +16,14 @@ export default class Admin extends React.Component {
   render() {
     const { dataStatus, users } = this.props
 
-    if (dataStatus.usersReceived) {
+    if (dataStatus.usersReceived && dataStatus.eventsReceived && dataStatus.countriesReceived) {
       return (
         <div className="admin-panel">
           <h1>Admin Panel</h1>
           <h2>Users</h2>
           <UserAdminSection {...this.props} />
+          <h2>Events</h2>
+          <EventAdminSection {...this.props} />
         </div>
       )
     } else {

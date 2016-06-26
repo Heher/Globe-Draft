@@ -1,7 +1,6 @@
 import React from 'react'
 
 import PanelButtons from './PanelButtons'
-import CountrySelect from '../CountrySelect'
 import RegionSelect from '../RegionSelect'
 
 export default class PanelEdit extends React.Component {
@@ -37,7 +36,6 @@ export default class PanelEdit extends React.Component {
               value={this.props.inputValue}
             />
             <p>Gold</p>
-            <CountrySelect {...this.props} handleSelectChange={this.props.handleGoldSelectChange.bind(this)} />
             <PanelButtons
               {...this.props}
               item={item}

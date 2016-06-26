@@ -14,6 +14,32 @@ function dataStatus(state = [], action) {
         usersFetching: false,
         usersReceived: true
       }
+
+    case "REQUEST_EVENTS" :
+      return {
+        ...state,
+        eventsFetching: true
+      }
+
+    case "RECEIVE_EVENTS" :
+      return {
+        ...state,
+        eventsFetching: false,
+        eventsReceived: true
+      }
+
+    case "REQUEST_COUNTRIES" :
+      return {
+        ...state,
+        countriesFetching: true
+      }
+
+    case "RECEIVE_COUNTRIES" :
+      return {
+        ...state,
+        countriesFetching: false,
+        countriesReceived: true
+      }
     default:
       return state
   }

@@ -11,7 +11,7 @@ export default class SaveItem extends React.Component {
         this.props.handleItemSave()
         break
       case "Event" :
-        this.props.deleteEvent(item._id)
+        this.props.handleItemSave()
         break
       case "Region" :
         this.props.handleItemSave()

@@ -11,8 +11,8 @@ export default class Layout extends React.Component {
 
   componentDidMount() {
     this.props.fetchUsers()
-    // this.props.fetchEvents()
-    // this.props.fetchCountries()
+    this.props.fetchEvents()
+    this.props.fetchCountries()
     // this.props.fetchRegions()
   }
 

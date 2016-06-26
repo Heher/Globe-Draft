@@ -1,7 +1,11 @@
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import * as userActions from '../actions/users'
+import * as countryActions from '../actions/countries'
 import * as actionCreators from '../actions/actionCreators'
 import Layout from './Layout'
+
+const combinedActions = Object.assign({}, actionCreators, userActions, countryActions)
 
 function mapStateToProps(state) {
   return{
@@ -16,7 +20,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(actionCreators, dispatch)
+  return bindActionCreators(combinedActions, dispatch)
 }
 
 const App = connect(mapStateToProps, mapDispatchToProps)(Layout)
