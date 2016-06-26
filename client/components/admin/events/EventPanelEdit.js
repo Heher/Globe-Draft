@@ -5,7 +5,7 @@ import EventCountrySelect from './EventCountrySelect'
 
 export default class EventPanelEdit extends React.Component {
   render() {
-    const { event, goldCountries } = this.props
+    const { event, goldCountries, silverCountries } = this.props
 
     let goldSelects = []
     if (goldCountries.length > 0) {
@@ -14,6 +14,15 @@ export default class EventPanelEdit extends React.Component {
       })
     } else {
       goldSelects.push(<EventCountrySelect {...this.props} key={0} />)
+    }
+
+    let silverSelects = []
+    if (silverCountries.length > 0) {
+      silverCountries.map((country, index) => {
+        silverSelects.push(<EventCountrySelect {...this.props} key={index} country={country} />)
+      })
+    } else {
+      silverSelects.push(<EventCountrySelect {...this.props} key={0} />)
     }
 
     return (
@@ -25,6 +34,8 @@ export default class EventPanelEdit extends React.Component {
         />
         <p>Gold:</p>
         {goldSelects}
+        <p>Silver:</p>
+        {silverSelects}
         <PanelButtons
           {...this.props}
           item={event}

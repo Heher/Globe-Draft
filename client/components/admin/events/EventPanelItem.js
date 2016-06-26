@@ -35,6 +35,9 @@ export default class EventPanelItem extends React.Component {
     const goldCountries = event.gold.map(country => {
       return this.findCountry(country)
     })
+    const silverCountries = event.silver.map(country => {
+      return this.findCountry(country)
+    })
 
     if (event.editing) {
       return (
@@ -45,11 +48,17 @@ export default class EventPanelItem extends React.Component {
           handleInputChange={this.handleInputChange.bind(this)}
           handleItemSave={this.handleItemSave.bind(this)}
           goldCountries={goldCountries}
+          silverCountries={silverCountries}
         />
       )
     } else {
       return (
-        <EventPanelInfo {...this.props} event={event} goldCountries={goldCountries} />
+        <EventPanelInfo 
+          {...this.props}
+          event={event} 
+          goldCountries={goldCountries}
+          silverCountries={silverCountries}
+        />
       )
     }
   }

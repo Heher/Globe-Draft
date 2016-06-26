@@ -11,16 +11,17 @@ export default class EventCountrySelect extends React.Component {
   }
 
   handleSelectChange(event) {
-    console.log(event.target.value)
+    this.setState({countryValue: event.target.value})
   }
 
   render() {
+    const { type } = this.props
+    
     const countryOptions = this.props.countries.map((country, index) => {
       return <option key={index} value={country._id}>{country.name}</option>
     })
-    console.log(countryOptions)
     return (
-      <select onChange={this.handleSelectChange.bind(this)} value={this.countryValue}>
+      <select className={type} onChange={this.handleSelectChange.bind(this)} value={this.countryValue}>
         {countryOptions}
       </select>
     )
