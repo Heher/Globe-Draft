@@ -55,7 +55,6 @@ export function fetchUsers() {
           return Promise.reject(users)
         }
         else {
-          console.log("YAY")
           dispatch(receiveUsers(users))
           let token = localStorage.getItem('id_token') ? localStorage.getItem('id_token') : null
           dispatch(findCurrentUser(users, token))
@@ -72,10 +71,46 @@ export function userFetchError(payload) {
   }
 }
 
-export function receiveUsers(json) {
+export function receiveUsers(users) {
   return {
     type: "RECEIVE_USERS",
-    json
+    users
+  }
+}
+
+export function editUser(id, payload) {
+  return dispatch => {
+    return fetch('/api/users', {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        id: id,
+        payload: payload
+      })
+    })
+      .then(response => 
+        response.json().then(user => ({ user, response }))
+      ).then(({ user, response }) => {
+        if (!response.ok) {
+          console.log("Poop")
+          dispatch(userFetchError(user.message))
+          return Promise.reject(user)
+        }
+        else {
+          dispatch(savedUser(user._id, user))
+        }
+      }).catch(err => console.log("Error: ", err))
+  }
+}
+
+export function savedUser(id, payload) {
+  return {
+    type: "SAVED_USER",
+    id,
+    payload
   }
 }
 
@@ -100,7 +135,7 @@ export function deleteUserFromState(id) {
   }
 }
 
-export function addUser(name) {
+export function addUser(name, isAdmin) {
   return dispatch => {
     return fetch('/api/users', { 
       method: 'POST',
@@ -112,7 +147,8 @@ export function addUser(name) {
         name: name,
         selected: false,
         draftNum: 0,
-        editing: false
+        editing: false,
+        isAdmin: isAdmin
       })
     })
       .then(response => response.json())
@@ -507,16 +543,9 @@ export function findOrCreateFacebookUser(payload) {
         }
         else {
           localStorage.setItem('id_token', user.id_token)
-          dispatch(facebookAuth(user))
+          dispatch(setCurrentUser(user))
         }
       }).catch(err => console.log("Error: ", err))
-  }
-}
-
-export function facebookAuth(payload) {
-  return {
-    type: "FACEBOOK_LOGIN",
-    payload
   }
 }
 
@@ -525,6 +554,7 @@ export function findCurrentUser(users, token) {
     const currentUser = users.filter(user => {
       return user.id_token === token
     })[0]
+    console.log(users)
     if (currentUser) {
       dispatch(setCurrentUser(currentUser))
     }

@@ -1,13 +1,12 @@
 import React from 'react'
 
 import UserAddItemField from './UserAddItemField'
-import UserPanelItem from '../panel/PanelItem'
+import UserPanelItem from './UserPanelItem'
 
 export default class UserAdminSection extends React.Component {
 
   render() {
     const { dataStatus, users } = this.props
-    console.log(users)
     let listItems = []
     if (dataStatus.usersReceived) {
       listItems = users.map((user, index) => {

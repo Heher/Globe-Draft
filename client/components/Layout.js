@@ -44,6 +44,7 @@ export default class Layout extends React.Component {
 
     return (
       <div>
+        <Header {...this.props} />
         {React.cloneElement(this.props.children, createProps)}
       </div>
     )

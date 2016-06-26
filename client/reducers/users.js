@@ -17,7 +17,7 @@ function users(state = [], action) {
       })
 
     case 'RECEIVE_USERS' :
-      return Object.assign([], state, action.json)
+      return Object.assign([], state, action.users)
 
     case 'ADD_USER' :
       return [
@@ -35,6 +35,20 @@ function users(state = [], action) {
       return newState
 
     case 'SAVED_USER_DRAFT' :
+      return state.map(user => {
+        if (user._id !== id) {
+          return {
+            ...user
+          }
+        }
+        return {
+          ...user,
+          ...payload,
+          editing: !user.editing
+        }
+      })
+
+    case 'SAVED_USER' :
       return state.map(user => {
         if (user._id !== id) {
           return {

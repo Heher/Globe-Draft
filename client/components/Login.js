@@ -3,6 +3,7 @@ import FacebookLogin from 'react-facebook-login'
 
 export default class Login extends React.Component {
   handleLogin(response) {
+    console.log(response)
     this.props.findOrCreateFacebookUser(response)
   }
 
@@ -11,7 +12,7 @@ export default class Login extends React.Component {
       <div>
         <FacebookLogin
           appId="1706414629623051"
-          fields="first_name, last_name"
+          fields="first_name, last_name, email"
           callback={this.handleLogin.bind(this)} />
       </div>
     )

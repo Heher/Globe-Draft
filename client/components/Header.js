@@ -16,7 +16,7 @@ export default class Header extends React.Component {
       return (
         <header>
           <h1>Fantasy World Games</h1>
-          <h2>{canDraft ? `It's your turn, ${currentUser.name}. Please choose a country.` : `${userDrafting.name} is drafting. Please wait.`}</h2>
+          <h2>Welcome {currentUser.name}!</h2>
           <Logout {...this.props} />
         </header>
       )

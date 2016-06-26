@@ -5,9 +5,11 @@ var Schema = mongoose.Schema;
 var userSchema = new Schema({
   id_token: String,
   name:  String,
+  email: String,
   selected: Boolean,
   draftNum: Number,
-  editing: Boolean
+  editing: Boolean,
+  isAdmin: Boolean
 });
 
 module.exports = mongoose.model('User', userSchema);
