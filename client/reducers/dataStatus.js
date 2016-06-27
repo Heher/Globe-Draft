@@ -40,6 +40,19 @@ function dataStatus(state = [], action) {
         countriesFetching: false,
         countriesReceived: true
       }
+
+    case "REQUEST_REGIONS" :
+      return {
+        ...state,
+        regionsFetching: true
+      }
+
+    case "RECEIVE_REGIONS" :
+      return {
+        ...state,
+        regionsFetching: false,
+        regionsReceived: true
+      }
     default:
       return state
   }

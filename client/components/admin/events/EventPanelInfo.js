@@ -10,7 +10,7 @@ export default class EventPanelInfo extends React.Component {
   }
 
   render() {
-    const { event, goldCountries, silverCountries } = this.props
+    const { event, goldCountries, silverCountries, bronzeCountries } = this.props
 
     return (
       <div className="panel">
@@ -19,6 +19,8 @@ export default class EventPanelInfo extends React.Component {
         {goldCountries.length > 0 ? this.renderWinners(goldCountries) : null}
         <p>Silver:</p>
         {silverCountries.length > 0 ? this.renderWinners(silverCountries) : null}
+        <p>Bronze:</p>
+        {bronzeCountries.length > 0 ? this.renderWinners(bronzeCountries) : null}
         <PanelButtons {...this.props} item={event} type="Event" editing={event.editing} />
       </div>
     )

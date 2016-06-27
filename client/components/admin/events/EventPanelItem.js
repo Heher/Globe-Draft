@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 
 import EventPanelEdit from './EventPanelEdit'
 import EventPanelInfo from './EventPanelInfo'
@@ -8,7 +9,8 @@ export default class EventPanelItem extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      inputValue: this.props.event.name
+      inputValue: this.props.event.name,
+      goldWinners: this.props.event.gold
     }
   }
 
@@ -22,12 +24,31 @@ export default class EventPanelItem extends React.Component {
     this.setState({inputValue: event.target.value})
   }
 
-  handleGoldSelectChange(event) {
-    this.setState({goldSelectValue: event.target.value})
+  handleGoldSelectChange(event, key) {
+    this.setState({goldWinners: event.target.value})
   }
 
   handleItemSave() {
-    this.props.editEvent(this.props.event._id, {name: this.state.inputValue, gold:['5768a1bd257b63a2357a8393']})
+    const panel = ReactDOM.findDOMNode(this)
+    // Gold Values
+    const goldSelects = Array.from(panel.getElementsByClassName('goldSelect'))
+    const goldValues = goldSelects.map(select => {
+      return select.value
+    })
+    // Silver Values
+    const silverSelects = Array.from(panel.getElementsByClassName('silverSelect'))
+    const silverValues = silverSelects.map(select => {
+      return select.value
+    })
+    // Bronze Values
+    const bronzeSelects = Array.from(panel.getElementsByClassName('bronzeSelect'))
+    const bronzeValues = bronzeSelects.map(select => {
+      return select.value
+    })
+    this.props.editEvent(
+      this.props.event._id, 
+      {name: this.state.inputValue, gold: goldValues, silver: silverValues, bronze: bronzeValues}
+    )
   }
 
   render() {
@@ -36,6 +57,9 @@ export default class EventPanelItem extends React.Component {
       return this.findCountry(country)
     })
     const silverCountries = event.silver.map(country => {
+      return this.findCountry(country)
+    })
+    const bronzeCountries = event.bronze.map(country => {
       return this.findCountry(country)
     })
 
@@ -49,6 +73,7 @@ export default class EventPanelItem extends React.Component {
           handleItemSave={this.handleItemSave.bind(this)}
           goldCountries={goldCountries}
           silverCountries={silverCountries}
+          bronzeCountries={bronzeCountries}
         />
       )
     } else {
@@ -58,6 +83,7 @@ export default class EventPanelItem extends React.Component {
           event={event} 
           goldCountries={goldCountries}
           silverCountries={silverCountries}
+          bronzeCountries={bronzeCountries}
         />
       )
     }

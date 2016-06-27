@@ -1,5 +1,5 @@
 function events(state = [], action) {
-  const { id } = action
+  const { id, payload } = action
 
   switch(action.type) {
     case 'RECEIVE_EVENTS' :
@@ -30,6 +30,20 @@ function events(state = [], action) {
         }
       })
       return newState
+
+    case 'SAVED_EVENT' :
+      return state.map(event => {
+        if (event._id !== id) {
+          return {
+            ...event
+          }
+        }
+        return {
+          ...event,
+          ...payload,
+          editing: !event.editing
+        }
+      })
 
     default:
       return state

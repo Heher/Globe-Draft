@@ -14,7 +14,7 @@ module.exports = function(app) {
 
   app.put('/api/regions', function (request, response) {
     Region.findByIdAndUpdate(request.body.id, { $set: request.body.payload}, {new: true}, function(err, region) {
-      response.json("Success");
+      response.json(region);
     });
   });
 

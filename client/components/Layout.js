@@ -13,7 +13,7 @@ export default class Layout extends React.Component {
     this.props.fetchUsers()
     this.props.fetchEvents()
     this.props.fetchCountries()
-    // this.props.fetchRegions()
+    this.props.fetchRegions()
   }
 
   render() {

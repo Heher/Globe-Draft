@@ -303,33 +303,35 @@ export function savedEventEdit(id, payload) {
   }
 }
 
-export function fetchCountries() {
-  return dispatch => {
-    return fetch('/api/countries')
-      .then(response => response.json())
-      .then(json => dispatch(receiveCountries(json)))
-  }
-}
-
-export function receiveCountries(json) {
+export function requestRegions() {
   return {
-    type: "RECEIVE_COUNTRIES",
-    json
+    type: "REQUEST_REGIONS"
   }
 }
 
 export function fetchRegions() {
   return dispatch => {
+    dispatch(requestRegions())
     return fetch('/api/regions')
-      .then(response => response.json())
-      .then(json => dispatch(receiveRegions(json)))
+      .then(response => 
+        response.json().then(regions => ({ regions, response }))
+      ).then(({ regions, response }) => {
+        if (!response.ok) {
+          console.log("Poop")
+          dispatch(regionFetchError(regions.message))
+          return Promise.reject(regions)
+        }
+        else {
+          dispatch(receiveRegions(regions))
+        }
+      }).catch(err => console.log("Error: ", err))
   }
 }
 
-export function receiveRegions(json) {
+export function receiveRegions(regions) {
   return {
     type: "RECEIVE_REGIONS",
-    json
+    regions
   }
 }
 
