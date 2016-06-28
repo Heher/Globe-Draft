@@ -11,7 +11,7 @@ export default class Events extends React.Component {
         return <Event {...this.props} key={index} event={event} />
       })
       return (
-        <div>
+        <div className="events">
           <h1>Events</h1>
           {events}
         </div>

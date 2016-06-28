@@ -1,4 +1,5 @@
 import React from 'react'
+import classNames from 'classnames'
 
 import EventAddItemField from './EventAddItemField'
 import EventPanelItem from './EventPanelItem'
@@ -15,14 +16,19 @@ export default class EventAdminSection extends React.Component {
     } else {
       listItems = null
     }
+
+    const renderClasses = classNames({
+      'show': this.props.addingEvent
+    })
+
     return (
-      <div className="admin-section">
-        <div>
-          <div className="panel add-item">
-            <EventAddItemField {...this.props} />
-          </div>
+      <div>
+        <div className={`add-item ${renderClasses}`}>
+          <EventAddItemField {...this.props} />
         </div>
-        {listItems}
+        <div className="admin-section">
+          {listItems}
+        </div>
       </div>
     )
   }

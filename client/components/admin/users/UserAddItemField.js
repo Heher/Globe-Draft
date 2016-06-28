@@ -1,5 +1,7 @@
 import React from 'react'
 
+require('../../../css/admin/users/add_user.sass')
+
 export default class UserAddItemField extends React.Component {
   constructor(props) {
     super(props)

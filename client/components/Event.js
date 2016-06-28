@@ -1,5 +1,7 @@
 import React from 'react'
 
+require('../css/events.sass')
+
 export default class Event extends React.Component {
   constructor(props) {
     super(props)
@@ -28,14 +30,19 @@ export default class Event extends React.Component {
     })
 
     return (
-      <div>
-        <p>{event.name}</p>
-        <p>Gold:</p>
-        {goldCountries}
-        <p>Silver:</p>
-        {silverCountries}
-        <p>Bronze:</p>
-        {bronzeCountries}
+      <div className="event-section">
+        <h4>{event.name}</h4>
+        <div className="medal-winners">
+          <div className="golds">
+            {goldCountries}
+          </div>
+          <div className="silvers">
+            {silverCountries}
+          </div>
+          <div className="bronzes">
+            {bronzeCountries}
+          </div>
+        </div>
       </div>
     )
   }

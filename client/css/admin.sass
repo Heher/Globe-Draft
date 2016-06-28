@@ -2,6 +2,18 @@
   padding: 20px
   h1
     margin: 0
+  h2
+    display: inline-block
+    margin: 10px 0
+  span
+    display: inline-block
+    margin-left: 20px
+    padding: 5px
+    line-height: 13px
+    font-size: 26px
+    border-radius: 26px
+    background: lightblue
+    cursor: pointer
   p.selected
     font-weight: 700
     color: green
@@ -12,6 +24,7 @@
 
 .admin-section
   display: flex
+  flex-wrap: wrap
 
 .panel
   background: #A3BCA3
@@ -49,16 +62,6 @@
     button
       flex-grow: 1
       margin: 0
-
-.add-item
-  input
-    display: block
-    width: 100%
-    margin: 0
-    padding: 0
-    border: 0
-    margin-top: 10px
-    height: 25px
 
 .edit-draft
   h4

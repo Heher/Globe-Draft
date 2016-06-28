@@ -1,4 +1,5 @@
 import React from 'react'
+import classNames from 'classnames'
 
 import RegionAddItemField from './RegionAddItemField'
 import RegionPanelItem from './RegionPanelItem'
@@ -15,14 +16,19 @@ export default class RegionAdminSection extends React.Component {
     } else {
       listItems = null
     }
+
+    const renderClasses = classNames({
+      'show': this.props.addingRegion
+    })
+
     return (
-      <div className="admin-section">
-        <div>
-          <div className="panel add-item">
-            <RegionAddItemField {...this.props} />
-          </div>
+      <div>
+        <div className={`add-item ${renderClasses}`}>
+          <RegionAddItemField {...this.props} />
         </div>
-        {listItems}
+        <div className="admin-section">
+          {listItems}
+        </div>
       </div>
     )
   }

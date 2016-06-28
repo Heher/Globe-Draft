@@ -14,6 +14,34 @@ import CountryAdminSection from './admin/countries/CountryAdminSection'
 require('../css/admin.sass')
 
 export default class Admin extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      addingUser: false,
+      addingEvent: false,
+      addingRegion: false,
+      addingCountry: false
+    }
+  }
+
+  showAddItemPanel(type) {
+    switch(type) {
+      case "User" :
+        this.setState({addingUser: !this.state.addingUser})
+        break
+      case "Event" :
+        this.setState({addingEvent: !this.state.addingEvent})
+        break
+      case "Region" :
+        this.setState({addingRegion: !this.state.addingRegion})
+        break
+      case "Country" :
+        this.setState({addingCountry: !this.state.addingCountry})
+        break
+      default :
+        ""
+    }
+  }
 
   render() {
     const { dataStatus, currentUser } = this.props
@@ -22,14 +50,14 @@ export default class Admin extends React.Component {
       return (
         <div className="admin-panel">
           <h1>Admin Panel</h1>
-          <h2>Users</h2>
-          <UserAdminSection {...this.props} />
-          <h2>Events</h2>
-          <EventAdminSection {...this.props} />
-          <h2>Regions</h2>
-          <RegionAdminSection {...this.props} />
-          <h2>Countries</h2>
-          <CountryAdminSection {...this.props} />
+          <h2>Users</h2><span onClick={this.showAddItemPanel.bind(this, "User")}>+</span>
+          <UserAdminSection {...this.props} addingUser={this.state.addingUser} />
+          <h2>Events</h2><span onClick={this.showAddItemPanel.bind(this, "Event")}>+</span>
+          <EventAdminSection {...this.props} addingEvent={this.state.addingEvent} />
+          <h2>Regions</h2><span onClick={this.showAddItemPanel.bind(this, "Region")}>+</span>
+          <RegionAdminSection {...this.props} addingRegion={this.state.addingRegion} />
+          <h2>Countries</h2><span onClick={this.showAddItemPanel.bind(this, "Country")}>+</span>
+          <CountryAdminSection {...this.props} addingCountry={this.state.addingCountry} />
         </div>
       )
     } else {
