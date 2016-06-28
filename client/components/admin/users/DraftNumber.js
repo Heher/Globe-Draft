@@ -26,10 +26,8 @@ export default class DraftNumber extends React.Component {
     const usersLength = this.props.users.length
 
     return (
-      <div>
-        <div className="draft-buttons">
-          {this.createPositionButtons(user, usersLength)}
-        </div>
+      <div className="draft-buttons">
+        {this.createPositionButtons(user, usersLength)}
       </div>
     )
   }

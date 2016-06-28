@@ -26,7 +26,7 @@ export default class UserAdminSection extends React.Component {
         <div className={`add-item ${renderClasses}`}>
           <UserAddItemField {...this.props} />
         </div>
-        <div className="admin-section">
+        <div className="users-section">
           {listItems}
         </div>
       </div>
