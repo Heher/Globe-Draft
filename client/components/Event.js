@@ -13,20 +13,27 @@ export default class Event extends React.Component {
     })[0]
   }
 
+  renderWinners(countries) {
+    return countries.map((country, index) => {
+      if (country) {
+        return <p key={index}>{country.name}</p>
+      } else {
+        return <p key={index}>Not Set</p>
+      }
+    })
+  }
+
   render() {
     const { event } = this.props
 
     const goldCountries = event.gold.map((country, index) => {
-      const goldCountry = this.findCountry(country)
-      return <p key={index}>{goldCountry.name}</p>
+      return this.findCountry(country)
     })
     const silverCountries = event.silver.map((country, index) => {
-      const silverCountry = this.findCountry(country)
-      return <p key={index}>{silverCountry.name}</p>
+      return this.findCountry(country)
     })
     const bronzeCountries = event.bronze.map((country, index) => {
-      const bronzeCountry = this.findCountry(country)
-      return <p key={index}>{bronzeCountry.name}</p>
+      return this.findCountry(country)
     })
 
     return (
@@ -34,13 +41,13 @@ export default class Event extends React.Component {
         <h4>{event.name}</h4>
         <div className="medal-winners">
           <div className="golds">
-            {goldCountries}
+            {this.renderWinners(goldCountries)}
           </div>
           <div className="silvers">
-            {silverCountries}
+            {this.renderWinners(silverCountries)}
           </div>
           <div className="bronzes">
-            {bronzeCountries}
+            {this.renderWinners(bronzeCountries)}
           </div>
         </div>
       </div>

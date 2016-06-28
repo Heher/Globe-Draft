@@ -32,19 +32,22 @@ export default class EventPanelItem extends React.Component {
     const panel = ReactDOM.findDOMNode(this)
     // Gold Values
     const goldSelects = Array.from(panel.getElementsByClassName('goldSelect'))
-    const goldValues = goldSelects.map(select => {
+    let goldValues = goldSelects.map(select => {
       return select.value
     })
+    goldValues = (goldValues.filter( Boolean )) // Used to remove undefined elements
     // Silver Values
     const silverSelects = Array.from(panel.getElementsByClassName('silverSelect'))
-    const silverValues = silverSelects.map(select => {
+    let silverValues = silverSelects.map(select => {
       return select.value
     })
+   silverValues = (silverValues.filter( Boolean )) // Used to remove undefined elements
     // Bronze Values
     const bronzeSelects = Array.from(panel.getElementsByClassName('bronzeSelect'))
-    const bronzeValues = bronzeSelects.map(select => {
+    let bronzeValues = bronzeSelects.map(select => {
       return select.value
     })
+    bronzeValues = (bronzeValues.filter( Boolean )) // Used to remove undefined elements
     this.props.editEvent(
       this.props.event._id, 
       {name: this.state.inputValue, gold: goldValues, silver: silverValues, bronze: bronzeValues}
@@ -54,7 +57,7 @@ export default class EventPanelItem extends React.Component {
   render() {
     const { event } = this.props
     const goldCountries = event.gold.map(country => {
-      return this.findCountry(country) ? this.findCountry(country) : null
+      return this.findCountry(country)
     })
     const silverCountries = event.silver.map(country => {
       return this.findCountry(country)

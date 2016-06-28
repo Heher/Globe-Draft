@@ -28,9 +28,12 @@ export default class EventCountrySelect extends React.Component {
       countryOptions.push(<option key={index + 1} value={country._id}>{country.name}</option>)
     })
     return (
-      <select className={type} onChange={this.handleSelectChange.bind(this)} value={this.state.countryValue}>
-        {countryOptions}
-      </select>
+      <div>
+        <span>&nbsp;</span>
+        <select className={type} onChange={this.handleSelectChange.bind(this)} value={this.state.countryValue}>
+          {countryOptions}
+        </select>
+      </div>
     )
   }
 }

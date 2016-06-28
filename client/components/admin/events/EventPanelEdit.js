@@ -2,6 +2,9 @@ import React from 'react'
 
 import PanelButtons from '../panel/PanelButtons'
 import EventCountrySelect from './EventCountrySelect'
+import CancelEdit from '../panel/buttons/CancelEdit'
+import DeleteItem from '../panel/buttons/DeleteItem'
+import SaveItem from '../panel/buttons/SaveItem'
 
 export default class EventPanelEdit extends React.Component {
   render() {
@@ -35,25 +38,33 @@ export default class EventPanelEdit extends React.Component {
     }
 
     return (
-      <div className="panel">
-        <input 
-          type="text"
-          onChange={this.props.handleInputChange.bind(this)}
-          value={this.props.inputValue}
-        />
-        <p>Gold:</p>
-        {goldSelects}
-        <p>Silver:</p>
-        {silverSelects}
-        <p>Bronze:</p>
-        {bronzeSelects}
-        <PanelButtons
-          {...this.props}
-          item={event}
-          type="Event"
-          editing={event.editing}
-          handleItemSave={this.props.handleItemSave.bind(this)}
-        />
+      <div className="event">
+        <div className="title">
+          <input 
+            type="text"
+            onChange={this.props.handleInputChange.bind(this)}
+            value={this.props.inputValue}
+          />
+          <CancelEdit {...this.props} item={event} type="Event" />
+        </div>
+        <div className="medal-winners">
+          <div className="golds">
+            {goldSelects}
+            <EventCountrySelect {...this.props} key={0} type="goldSelect" />
+          </div>
+          <div className="silvers">
+            {silverSelects}
+            <EventCountrySelect {...this.props} key={0} type="silverSelect" />
+          </div>
+          <div className="bronzes">
+            {bronzeSelects}
+            <EventCountrySelect {...this.props} key={0} type="bronzeSelect" />
+          </div>
+        </div>
+        <div className="action-buttons">
+          <SaveItem {...this.props} item={event} type="Event" handleItemSave={this.props.handleItemSave.bind(this)}/>
+          <DeleteItem {...this.props} item={event} type="Event" />
+        </div>
       </div>
     )
   }

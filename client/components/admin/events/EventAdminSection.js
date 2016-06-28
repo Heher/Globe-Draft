@@ -4,6 +4,8 @@ import classNames from 'classnames'
 import EventAddItemField from './EventAddItemField'
 import EventPanelItem from './EventPanelItem'
 
+require('../../../css/admin/events/event_section.sass')
+
 export default class EventAdminSection extends React.Component {
 
   render() {
@@ -26,7 +28,7 @@ export default class EventAdminSection extends React.Component {
         <div className={`add-item ${renderClasses}`}>
           <EventAddItemField {...this.props} />
         </div>
-        <div className="admin-section">
+        <div className="events-section">
           {listItems}
         </div>
       </div>
