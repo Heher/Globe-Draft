@@ -14,7 +14,7 @@ module.exports = function(app) {
 
   app.put('/api/countries', function (request, response) {
     Country.findByIdAndUpdate(request.body.id, { $set: request.body.payload}, {new: true}, function(err, country) {
-      response.json("Success");
+      response.json(country);
     });
   });
 

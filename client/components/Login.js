@@ -3,7 +3,6 @@ import FacebookLogin from 'react-facebook-login'
 
 export default class Login extends React.Component {
   handleLogin(response) {
-    console.log(response)
     this.props.findOrCreateFacebookUser(response)
   }
 

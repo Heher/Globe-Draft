@@ -9,15 +9,16 @@ import Login from './Login'
 import UserAdminSection from './admin/users/UserAdminSection'
 import EventAdminSection from './admin/events/EventAdminSection'
 import RegionAdminSection from './admin/regions/RegionAdminSection'
+import CountryAdminSection from './admin/countries/CountryAdminSection'
 
 require('../css/admin.sass')
 
 export default class Admin extends React.Component {
 
   render() {
-    const { dataStatus, users } = this.props
+    const { dataStatus, currentUser } = this.props
 
-    if (dataStatus.usersReceived && dataStatus.eventsReceived && dataStatus.countriesReceived && dataStatus.regionsReceived) {
+    if (dataStatus.usersReceived && dataStatus.eventsReceived && dataStatus.countriesReceived && dataStatus.regionsReceived && currentUser.isAdmin) {
       return (
         <div className="admin-panel">
           <h1>Admin Panel</h1>
@@ -27,6 +28,8 @@ export default class Admin extends React.Component {
           <EventAdminSection {...this.props} />
           <h2>Regions</h2>
           <RegionAdminSection {...this.props} />
+          <h2>Countries</h2>
+          <CountryAdminSection {...this.props} />
         </div>
       )
     } else {
@@ -36,11 +39,3 @@ export default class Admin extends React.Component {
     }
   }
 }
-
-// <h2>Events</h2>
-//           <AdminSection {...this.props} type="Event" items={this.props.events} />
-//           <h2>Regions</h2>
-//           <AdminSection {...this.props} type="Region" items={this.props.regions} />
-//           <h2>Countries</h2>
-//           <AdminSection {...this.props} type="Country" items={this.props.countries} />
-//           <Link to='/countries'>Countries</Link>

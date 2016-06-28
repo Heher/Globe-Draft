@@ -5,22 +5,25 @@ import PanelButtons from '../panel/PanelButtons'
 export default class EventPanelInfo extends React.Component {
   renderWinners(countries) {
     return countries.map((country, index) => {
-      return <p key={index}>{country.name}</p>
+      if (country) {
+        return <p key={index}>{country.name}</p>
+      } else {
+        return <p key={index}>Not Set</p>
+      }
     })
   }
 
   render() {
     const { event, goldCountries, silverCountries, bronzeCountries } = this.props
-
     return (
       <div className="panel">
         <p>{event.name}</p>
         <p>Gold:</p>
-        {goldCountries.length > 0 ? this.renderWinners(goldCountries) : null}
+        {this.renderWinners(goldCountries)}
         <p>Silver:</p>
-        {silverCountries.length > 0 ? this.renderWinners(silverCountries) : null}
+        {this.renderWinners(silverCountries)}
         <p>Bronze:</p>
-        {bronzeCountries.length > 0 ? this.renderWinners(bronzeCountries) : null}
+        {this.renderWinners(bronzeCountries)}
         <PanelButtons {...this.props} item={event} type="Event" editing={event.editing} />
       </div>
     )

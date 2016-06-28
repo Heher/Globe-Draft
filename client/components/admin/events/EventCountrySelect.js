@@ -7,6 +7,10 @@ export default class EventCountrySelect extends React.Component {
       this.state = {
         countryValue: this.props.country._id
       }
+    } else {
+      this.state = {
+        countryValue: ''
+      }
     }
   }
 
@@ -16,12 +20,15 @@ export default class EventCountrySelect extends React.Component {
 
   render() {
     const { type } = this.props
-    
-    const countryOptions = this.props.countries.map((country, index) => {
-      return <option key={index} value={country._id}>{country.name}</option>
+
+    let countryOptions = []
+
+    countryOptions.push(<option value='' key={0}>Not Set</option>)
+    this.props.countries.map((country, index) => {
+      countryOptions.push(<option key={index + 1} value={country._id}>{country.name}</option>)
     })
     return (
-      <select className={type} onChange={this.handleSelectChange.bind(this)} value={this.countryValue}>
+      <select className={type} onChange={this.handleSelectChange.bind(this)} value={this.state.countryValue}>
         {countryOptions}
       </select>
     )

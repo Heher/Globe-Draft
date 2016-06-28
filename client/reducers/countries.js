@@ -92,10 +92,6 @@ function countries(state = [], action) {
         }
       })
 
-    case 'FETCH_COUNTRIES' :
-      console.log("JOHN")
-      return state
-
     default:
       return state
   }

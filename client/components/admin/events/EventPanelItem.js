@@ -54,7 +54,7 @@ export default class EventPanelItem extends React.Component {
   render() {
     const { event } = this.props
     const goldCountries = event.gold.map(country => {
-      return this.findCountry(country)
+      return this.findCountry(country) ? this.findCountry(country) : null
     })
     const silverCountries = event.silver.map(country => {
       return this.findCountry(country)

@@ -3,7 +3,6 @@ function regions(state = [], action) {
 
   switch(action.type) {
     case "RECEIVE_REGIONS" :
-      console.log(action.regions)
       return Object.assign([], state, action.regions)
 
     case 'ADD_REGION' :

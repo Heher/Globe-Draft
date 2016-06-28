@@ -11,7 +11,6 @@ export default class UserAddItemField extends React.Component {
     const checkbox = event.target.getElementsByTagName('input')[1]
     let inputValue = input.value
     let isAdmin = checkbox.checked
-    // console.log(isAdmin)
     this.props.addUser(inputValue, isAdmin)
     input.value = ""
   }
