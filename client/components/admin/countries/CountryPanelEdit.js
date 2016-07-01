@@ -1,11 +1,13 @@
 import React from 'react'
+import classNames from 'classnames'
 
 import CountryRegionSelect from './CountryRegionSelect'
 import PanelButtons from '../panel/PanelButtons'
 
 export default class CountryPanelEdit extends React.Component {
+
   render() {
-    const { country, region } = this.props
+    const { country, region, settings } = this.props
 
     return (
       <div className="panel">
@@ -19,6 +21,14 @@ export default class CountryPanelEdit extends React.Component {
           handleSelectChange={this.props.handleSelectChange.bind(this)}
           regionValue={this.props.regionValue}
         />
+        <button 
+          className={country._id === settings.goodCountry ? "selected" : ""} 
+          onClick={this.props.setGoodCountry.bind(this, country._id)}>Good Country
+        </button>
+        <button 
+          className={country._id === settings.badCountry ? "selected" : ""} 
+          onClick={this.props.setBadCountry.bind(this, country._id)}>Bad Country
+        </button>
         <PanelButtons
           {...this.props}
           item={country}

@@ -92,6 +92,35 @@ function countries(state = [], action) {
         }
       })
 
+    case 'SET_COUNTRY_SETTING' :
+      if (setting === "Good") {
+        return state.map(country => {
+          if (country._id !== id) {
+            return {
+              ...country,
+              goodCountry: false
+            }
+          }
+          return {
+            ...country,
+            goodCountry: true
+          }
+        })
+      } else {
+        return state.map(country => {
+          if (country._id !== id) {
+            return {
+              ...country,
+              badCountry: false
+            }
+          }
+          return {
+            ...country,
+            badCountry: true
+          }
+        })
+      }
+
     default:
       return state
   }

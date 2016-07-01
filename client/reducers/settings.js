@@ -2,6 +2,9 @@ function settings(state = [], action) {
   const { lastOfRound, round } = action
 
   switch(action.type) {
+    case 'RECEIVE_SETTINGS' :
+      return Object.assign({}, state, action.settings[0])
+
     case 'DRAFT_COUNTRY' :
       if (lastOfRound) {
         return {

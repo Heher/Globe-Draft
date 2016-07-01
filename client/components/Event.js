@@ -8,19 +8,21 @@ export default class Event extends React.Component {
   }
 
   findCountry(country) {
-    return this.props.countries.filter(propCountry => {
-      return propCountry._id === country
+    let foundCountry = this.props.countries.filter(propCountry => {
+      return propCountry._id === country.id
     })[0]
+    foundCountry.points = country.points
+    return foundCountry
   }
 
   renderWinners(countries) {
-    return countries.map((country, index) => {
-      if (country) {
-        return <p key={index}>{country.name}</p>
-      } else {
-        return <p key={index}>Not Set</p>
-      }
-    })
+    if (countries.length > 0) {
+      return countries.map((country, index) => {
+        return <p key={index}><span>{country.points}</span>{country.name}</p>
+      })
+    } else {
+      return <p key={0}><span>&nbsp;</span>Not Set</p> // &nbsp needed for flexbox to correctly align
+    }
   }
 
   render() {

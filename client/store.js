@@ -4,7 +4,6 @@ import { browserHistory } from 'react-router'
 import thunk from 'redux-thunk'
 
 import rootReducer from './reducers/index'
-import settings from './data/settings'
 import dataStatus from './data/dataStatus'
 
 const defaultState = {
@@ -13,7 +12,7 @@ const defaultState = {
   users: [],
   events: [],
   currentUser: {},
-  settings,
+  settings: {},
   dataStatus
 }
 

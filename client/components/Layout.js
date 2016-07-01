@@ -14,6 +14,7 @@ export default class Layout extends React.Component {
     this.props.fetchEvents()
     this.props.fetchCountries()
     this.props.fetchRegions()
+    this.props.fetchSettings()
   }
 
   render() {
@@ -24,7 +25,7 @@ export default class Layout extends React.Component {
     //     return user.draftNum === this.props.settings.userTurn
     //   })[0]
 
-    //   const canDraft = currentUser ? this.props.settings.userTurn === currentUser.draftNum : ""
+    const canDraft = currentUser ? this.props.settings.userTurn === currentUser.draftNum : ""
 
     //   const createProps = {
     //     ...this.props,
@@ -39,7 +40,8 @@ export default class Layout extends React.Component {
     //   )
     // } else {
     const createProps = {
-      ...this.props
+      ...this.props,
+      canDraft
     }
 
     return (

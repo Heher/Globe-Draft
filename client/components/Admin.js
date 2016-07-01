@@ -10,6 +10,7 @@ import UserAdminSection from './admin/users/UserAdminSection'
 import EventAdminSection from './admin/events/EventAdminSection'
 import RegionAdminSection from './admin/regions/RegionAdminSection'
 import CountryAdminSection from './admin/countries/CountryAdminSection'
+import SettingAdminSection from './admin/settings/SettingAdminSection'
 
 require('../css/admin.sass')
 
@@ -46,7 +47,7 @@ export default class Admin extends React.Component {
   render() {
     const { dataStatus, currentUser } = this.props
 
-    if (dataStatus.usersReceived && dataStatus.eventsReceived && dataStatus.countriesReceived && dataStatus.regionsReceived && currentUser.isAdmin) {
+    if (dataStatus.usersReceived && dataStatus.eventsReceived && dataStatus.countriesReceived && dataStatus.regionsReceived && dataStatus.settingsReceived && currentUser.isAdmin) {
       return (
         <div className="admin-panel">
           <h1>Admin Panel</h1>
@@ -58,6 +59,8 @@ export default class Admin extends React.Component {
           <RegionAdminSection {...this.props} addingRegion={this.state.addingRegion} />
           <h2>Countries</h2><span onClick={this.showAddItemPanel.bind(this, "Country")}>+</span>
           <CountryAdminSection {...this.props} addingCountry={this.state.addingCountry} />
+          <h2>Settings</h2>
+          <SettingAdminSection {...this.props} />
         </div>
       )
     } else {

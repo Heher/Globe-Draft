@@ -53,6 +53,19 @@ function dataStatus(state = [], action) {
         regionsFetching: false,
         regionsReceived: true
       }
+
+    case "REQUEST_SETTINGS" :
+      return {
+        ...state,
+        settingsFetching: true
+      }
+
+    case "RECEIVE_SETTINGS" :
+      return {
+        ...state,
+        settingsFetching: false,
+        settingsReceived: true
+      }
     default:
       return state
   }

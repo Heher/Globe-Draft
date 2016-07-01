@@ -5,6 +5,17 @@ import CountryCard from "./CountryCard"
 require('../css/region.sass')
 
 export default class Region extends React.Component {
+  sortRegion(countries) {
+    if (countries.length) {
+      return countries.sort(function(a, b) {
+        if(a.name < b.name) return -1
+        if(a.name > b.name) return 1
+        return 0
+      })
+    } else {
+      return null
+    }
+  }
 
   render() {
     let numSelected = 0
@@ -20,15 +31,23 @@ export default class Region extends React.Component {
 
     const countries = this.props.countries.map((country, index) => {
       if (country.regionId === this.props.region._id) {
-        return <CountryCard {...this.props} key={index} i={index} country={country} regionCompleted={completed} />
+        return country
       }
+    })
+
+    const countryValues = (countries.filter( Boolean ))
+
+    const sortedCountries = this.sortRegion(countryValues)
+
+    const countryList = sortedCountries.map((country, index) => {
+      return <CountryCard {...this.props} key={index} i={index} country={country} regionCompleted={completed} />
     })
 
     return (
       <div className="region">
         <h2>{this.props.region.name}</h2><span>{numSelected} selected of {this.props.region.maxCountriesSelected}</span>
         <div>
-          {countries}
+          {countryList}
         </div>
       </div>
     )

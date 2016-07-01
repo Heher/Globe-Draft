@@ -418,37 +418,6 @@ export function deleteRegionFromState(id) {
   }
 }
 
-export function addCountry(name, region_id) {
-  return dispatch => {
-    return fetch('/api/countries', { 
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        name: name,
-        regionId: region_id,
-        userId: "",
-        selected: false,
-        drafted: false,
-        draftNum: 0,
-        round: 0,
-        editing: false
-      })
-    })
-      .then(response => response.json())
-      .then(json => dispatch(addCountryToState([json])))
-  }
-}
-
-export function addCountryToState(json) {
-  return {
-    type: "ADD_COUNTRY",
-    json
-  }
-}
-
 export function deleteCountry(id) {
   return dispatch => {
     return fetch('/api/countries', { 

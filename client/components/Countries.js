@@ -16,26 +16,32 @@ export default class Countries extends React.Component {
   }
 
   render() {
-    const { currentUser } = this.props
+    const { dataStatus, currentUser } = this.props
 
     const selectedCountry = this.props.countries.filter(country => {
       return (country.selected && (country.userId === currentUser._id))
     })[0]
 
-    return (
-      <div className="page">
-        <div className="content">
-          <div className="regions">
-            {this.props.regions.map((region, index) => <Region {...this.props} key={index} i={index} region={region} />)}
-          </div>
-          <div className="sidebar">
-            <ChoiceSubmit {...this.props} selectedCountry={selectedCountry}/>
-            <RoundStatus {...this.props} />
-            <CountryList {...this.props} />
-            <ChoiceList {...this.props} />
+    if (dataStatus.usersReceived && dataStatus.eventsReceived && dataStatus.countriesReceived && dataStatus.regionsReceived && dataStatus.settingsReceived) {
+      return (
+        <div className="page">
+          <div className="content">
+            <div className="regions">
+              {this.props.regions.map((region, index) => <Region {...this.props} key={index} i={index} region={region} />)}
+            </div>
+            <div className="sidebar">
+              <ChoiceSubmit {...this.props} selectedCountry={selectedCountry}/>
+              <RoundStatus {...this.props} />
+              <CountryList {...this.props} />
+              <ChoiceList {...this.props} />
+            </div>
           </div>
         </div>
-      </div>
-    )
+      )
+    } else {
+      return (
+        <h1>Loading</h1>
+      )
+    }
   }
 }

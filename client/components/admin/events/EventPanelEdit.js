@@ -47,6 +47,14 @@ export default class EventPanelEdit extends React.Component {
           />
           <CancelEdit {...this.props} item={event} type="Event" />
         </div>
+        <div className="admin-checkbox">
+          <p>Team Event:</p>
+          <input
+            type="checkbox"
+            checked={this.props.checkboxValue ? "checked" : ""}
+            onChange={this.props.handleCheckboxChange.bind(this)}
+          />
+        </div>
         <div className="medal-winners">
           <div className="golds">
             {goldSelects}

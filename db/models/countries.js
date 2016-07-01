@@ -10,7 +10,9 @@ var countrySchema = new Schema({
   regionId: String,
   round: Number,
   userId: String,
-  editing: Boolean
+  editing: Boolean,
+  goodCountry: Boolean,
+  badCountry: Boolean
 });
 
 module.exports = mongoose.model('Country', countrySchema);

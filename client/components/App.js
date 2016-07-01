@@ -2,10 +2,11 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as userActions from '../actions/users'
 import * as countryActions from '../actions/countries'
+import * as settingActions from '../actions/settings'
 import * as actionCreators from '../actions/actionCreators'
 import Layout from './Layout'
 
-const combinedActions = Object.assign({}, actionCreators, userActions, countryActions)
+const combinedActions = Object.assign({}, actionCreators, userActions, countryActions, settingActions)
 
 function mapStateToProps(state) {
   return{

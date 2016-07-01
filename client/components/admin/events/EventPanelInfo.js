@@ -7,7 +7,7 @@ export default class EventPanelInfo extends React.Component {
   renderWinners(countries) {
     if (countries.length > 0) {
       return countries.map((country, index) => {
-        return <p key={index}><span>3</span>{country.name}</p>
+        return <p key={index}><span>{country.points}</span>{country.name}</p>
       })
     } else {
       return <p key={0}><span>&nbsp;</span>Not Set</p> // &nbsp needed for flexbox to correctly align
