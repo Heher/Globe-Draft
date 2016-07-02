@@ -34,7 +34,8 @@ module.exports = {
         include: path.join(__dirname, 'client'),
         loader: 'url-loader?limit=8192&name=./img/[hash].[ext]' 
       },
-      { test: /\.json$/, loader: "json-loader"}
+      { test: /\.json$/, loader: "json-loader"},
+      {test: /\.svg/, loader: 'svg-url-loader'}
     ]
   }
 };

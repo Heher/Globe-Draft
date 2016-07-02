@@ -42,7 +42,8 @@ module.exports = {
       test: /\.(png|jpg)$/,
       include: path.join(__dirname, 'client'),
       loader: 'url-loader?limit=8192&name=./img/[hash].[ext]'
-    }
+    },
+    {test: /\.svg/, loader: 'svg-url-loader'}
     ]
   }
 };
