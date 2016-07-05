@@ -70,6 +70,34 @@ export function findOrCreateFacebookUser(payload) {
   }
 }
 
+export function findOrCreateGoogleUser(payload) {
+  return dispatch => {
+    return fetch('/auth/google', { 
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        payload: payload.wc
+      })
+    })
+      .then(response => 
+        response.json()
+        .then(user => ({ user, response }))
+      ).then(({ user, response }) =>  {
+        if (!response.ok) {
+          dispatch(loginError(user.message))
+          return Promise.reject(user)
+        }
+        else {
+          localStorage.setItem('id_token', user.id_token)
+          dispatch(setCurrentUser(user))
+        }
+      }).catch(err => console.log("Error: ", err))
+  }
+}
+
 export function findCurrentUser(users, token) {
   return dispatch => {
     const currentUser = users.filter(user => {

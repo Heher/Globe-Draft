@@ -25,17 +25,6 @@ export function changeUser(id) {
   }
 }
 
-export function draftCountry(country, userId, round, draftNum, lastOfRound) {
-  return {
-    type: "DRAFT_COUNTRY",
-    countryId: country.id,
-    userId,
-    round,
-    draftNum,
-    lastOfRound
-  }
-}
-
 export function editUser(id, payload) {
   return dispatch => {
     return fetch('/api/users', {

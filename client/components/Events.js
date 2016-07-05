@@ -1,6 +1,7 @@
 import React from 'react'
 
 import Event from './Event'
+import Leaderboard from './Leaderboard'
 
 export default class Events extends React.Component {
   render() {
@@ -11,9 +12,16 @@ export default class Events extends React.Component {
         return <Event {...this.props} key={index} event={event} />
       })
       return (
-        <div className="events">
-          <h1>Events</h1>
-          {events}
+        <div className="page">
+          <div className="content">
+            <div className="events">
+              <h1>Events</h1>
+              {events}
+            </div>
+            <div className="sidebar">
+              <Leaderboard {...this.props} />
+            </div>
+          </div>
         </div>
       )
     } else {

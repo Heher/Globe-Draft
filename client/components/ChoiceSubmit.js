@@ -16,7 +16,15 @@ export default class ChoiceSubmit extends React.Component {
     })
 
     return (
-      <button className={`choice-submit ${buttonClasses}`} onClick={this.props.draftCountry.bind(null, selectedCountry, this.props.currentUser._id, this.props.settings.round, this.props.currentUser.draftNum, lastOfRound)}>Draft Country</button>
+      <button
+        className={`choice-submit ${buttonClasses}`}
+        onClick={this.props.draftCountry.bind(null, selectedCountry, {
+          userId: this.props.currentUser._id,
+          round: this.props.settings.round,
+          draftNum: this.props.currentUser.draftNum, lastOfRound,
+          userTurn: this.props.settings.userTurn,
+          numberDrafted: this.props.settings.numberDrafted
+        })}>Draft Country</button>
     )
   }
 

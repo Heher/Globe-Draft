@@ -23,4 +23,27 @@ module.exports = function(app) {
       }
     })
   });
+
+  app.post('/auth/google', function(request, response) {
+    User.findOne({'email': request.body.payload.hg}, function(err, user) {
+      if (err) {
+        console.log("Error!", err);
+      }
+      if (!user) {
+        User.create({
+          id_token: request.body.payload.Ka,
+          name:  request.body.payload.Za,
+          email: request.body.payload.hg,
+          selected: false,
+          draftNum: 0,
+          editing: false,
+          isAdmin: request.body.payload.isAdmin
+        }, function(err, user) {
+          response.json(user);
+        });
+      } else {
+        response.json(user);
+      }
+    })
+  });
 }

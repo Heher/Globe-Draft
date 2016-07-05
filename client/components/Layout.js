@@ -18,38 +18,34 @@ export default class Layout extends React.Component {
   }
 
   render() {
-    const { users, currentUser } = this.props
+    const { users, currentUser, dataStatus } = this.props
 
-    // if (users.length > 0) {
-    //   const userDrafting = this.props.users.filter(user => {
-    //     return user.draftNum === this.props.settings.userTurn
-    //   })[0]
+    if (dataStatus.usersReceived && dataStatus.settingsReceived) {
+      const userDrafting = this.props.users.filter(user => {
+        return user.draftNum === this.props.settings.userTurn
+      })[0]
 
-    const canDraft = currentUser ? this.props.settings.userTurn === currentUser.draftNum : ""
+      const canDraft = currentUser ? this.props.settings.userTurn === currentUser.draftNum : false
 
-    //   const createProps = {
-    //     ...this.props,
-    //     userDrafting,
-    //     canDraft
-    //   }
-    //   return (
-    //     <div>
-    //       <Header {...this.props} userDrafting={userDrafting} canDraft={canDraft} />
-    //       {React.cloneElement(this.props.children, createProps)}
-    //     </div>
-    //   )
-    // } else {
-    const createProps = {
-      ...this.props,
-      canDraft
+      const createProps = {
+        ...this.props,
+        userDrafting,
+        canDraft
+      }
+
+      return (
+        <div>
+          <Header {...this.props} userDrafting={userDrafting} canDraft={canDraft} />
+          {React.cloneElement(this.props.children, createProps)}
+        </div>
+      )
+    } else {
+      return (
+        <div>
+          <Header {...this.props} />
+          <h2>Loading</h2>
+        </div>
+      )
     }
-
-    return (
-      <div>
-        <Header {...this.props} />
-        {React.cloneElement(this.props.children, createProps)}
-      </div>
-    )
-    // }
   }
 }

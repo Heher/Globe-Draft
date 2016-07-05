@@ -14,13 +14,19 @@ module.exports = function(app) {
 
   app.put('/api/settings', function (request, response) {
     console.log(request.body);
-    Setting.findOneAndUpdate({}, { $set: request.body }, function(err, setting) {
+    Setting.findOneAndUpdate({}, { $set: request.body.payload }, function(err, setting) {
       response.json(setting);
     });
   });
 
   app.delete('/api/settings', function (request, response) {
     Setting.find(request.body).remove(function(err, setting) {
+      response.json(setting);
+    });
+  });
+
+  app.post('/api/settings/reset', function(request, response) {
+    Setting.update({}, request.body, function(err, setting) {
       response.json(setting);
     });
   });

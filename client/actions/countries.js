@@ -72,3 +72,35 @@ export function addCountryToState(json) {
     json
   }
 }
+
+export function resetDrafts() {
+  return dispatch => {
+    return fetch('/api/countries/resetDrafts', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        userId: "",
+        drafted: false,
+        round: 0,
+        draftNum: 0
+      })
+    })
+      .then(response => 
+        response.json().then(settings => ({ settings, response }))
+      ).then(({ settings, response }) => {
+        console.log(settings, response)
+        if (!response.ok) {
+          console.log("Poop")
+          dispatch(settingsFetchError(settings.message))
+          return Promise.reject(settings)
+        }
+        else {
+          console.log("Done")
+          // dispatch(receiveSettings(settings))
+        }
+      }).catch(err => console.log("Error: ", err))
+  }
+}

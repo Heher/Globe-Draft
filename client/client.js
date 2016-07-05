@@ -24,7 +24,7 @@ const router = (
     <Router history={history}>
       <Route path="/" component={App}>
         <IndexRoute component={Events}></IndexRoute>
-        <Route path="/countries" component={Countries}></Route>
+        <Route path="/draft" component={Countries}></Route>
         <Route path="/admin" component={Admin}></Route>
         <Route path="/login" component={Login}></Route>
       </Route>

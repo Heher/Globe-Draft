@@ -10,6 +10,7 @@ export default class SettingAdminSection extends React.Component {
       return (
         <div>
           <button onClick={this.props.resetSettings.bind(this)}>Reset Settings</button>
+          <button onClick={this.props.resetDrafts.bind(this)}>Reset Drafts</button>
         </div>
       )
     }

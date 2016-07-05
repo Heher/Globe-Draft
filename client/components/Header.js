@@ -13,10 +13,12 @@ export default class Header extends React.Component {
 
     if (currentUser._id) {
       const { userDrafting, canDraft } = this.props
+
+      console.log(canDraft)
       return (
         <header>
           <h1>Fantasy World Games</h1>
-          <h2>Welcome {currentUser.name}!</h2>
+          <h2>Welcome {currentUser.name}!{canDraft ? " Your turn to draft." : ""}</h2>
           <Logout {...this.props} />
         </header>
       )

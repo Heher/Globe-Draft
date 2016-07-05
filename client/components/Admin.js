@@ -47,7 +47,7 @@ export default class Admin extends React.Component {
   render() {
     const { dataStatus, currentUser } = this.props
 
-    if (dataStatus.usersReceived && dataStatus.eventsReceived && dataStatus.countriesReceived && dataStatus.regionsReceived && dataStatus.settingsReceived && currentUser.isAdmin) {
+    if (dataStatus.usersReceived && dataStatus.eventsReceived && dataStatus.countriesReceived && dataStatus.regionsReceived && dataStatus.settingsReceived ) {
       return (
         <div className="admin-panel">
           <h1>Admin Panel</h1>

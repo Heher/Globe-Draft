@@ -49,7 +49,9 @@ export function setGoodCountry(id) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        goodCountry: id
+        payload: {
+          goodCountry: id
+        }
       })
     })
       .then(response => 
@@ -76,7 +78,9 @@ export function setBadCountry(id) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        badCountry: id
+        payload: {
+          badCountry: id
+        }
       })
     })
       .then(response => 
@@ -105,7 +109,7 @@ export function setMultiplierCountryToState(setting) {
 
 export function resetSettings() {
   return dispatch => {
-    return fetch('/api/settings', {
+    return fetch('/api/settings/reset', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

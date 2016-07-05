@@ -23,4 +23,10 @@ module.exports = function(app) {
       response.json(country);
     });
   });
+
+  app.post('/api/countries/resetDrafts', function(request, response) {
+    Country.update({}, request.body, {multi: true}, function(err, countries) {
+      response.json(countries);
+    });
+  });
 }
