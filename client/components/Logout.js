@@ -9,7 +9,7 @@ export default class Logout extends React.Component {
   render() {
     const { currentUser } = this.props
     return (
-      <button onClick={this.handleLogout.bind(this, currentUser._id)}>Logout</button>
+      <a onClick={this.handleLogout.bind(this, currentUser._id)}>Log Out</a>
     )
   }
 }

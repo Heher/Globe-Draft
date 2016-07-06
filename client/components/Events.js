@@ -7,7 +7,7 @@ export default class Events extends React.Component {
   render() {
     const { dataStatus } = this.props
 
-    if (dataStatus.usersReceived && dataStatus.eventsReceived && dataStatus.countriesReceived) {
+    if (dataStatus.usersReceived && dataStatus.eventsReceived && dataStatus.countriesReceived && dataStatus.regionsReceived && dataStatus.settingsReceived) {
       const events = this.props.events.map((event, index) => {
         return <Event {...this.props} key={index} event={event} />
       })
