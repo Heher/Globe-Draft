@@ -1,29 +1,16 @@
 function settings(state = [], action) {
-  const { lastOfRound, round } = action
+  const { lastOfRound, round, payload } = action
 
   switch(action.type) {
     case 'RECEIVE_SETTINGS' :
       return Object.assign({}, state, action.settings[0])
 
-    case 'DRAFT_COUNTRY' :
-      if (lastOfRound) {
-        return {
-          ...state,
-          round: state.round + 1,
-          numberDrafted: 0
-        }
-      }
-      if (round % 2 === 0) {
-        return {
-          ...state,
-          userTurn: state.userTurn - 1,
-          numberDrafted: state.numberDrafted + 1
-        }
-      }
+    case 'COUNTRY_DRAFTED' :
       return {
         ...state,
-        userTurn: state.userTurn + 1,
-        numberDrafted: state.numberDrafted + 1
+        round: payload.round,
+        numberDrafted: payload.numberDrafted,
+        userTurn: payload.userTurn
       }
 
     case 'TOGGLE_EDIT_USER' :

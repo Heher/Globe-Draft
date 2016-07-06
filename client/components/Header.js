@@ -9,12 +9,11 @@ require('../css/header.sass')
 export default class Header extends React.Component {
 
   render() {
-    const { currentUser } = this.props
+    const { currentUser, dataStatus } = this.props
 
     if (currentUser._id) {
       const { userDrafting, canDraft } = this.props
 
-      console.log(canDraft)
       return (
         <header>
           <h1>Fantasy World Games</h1>

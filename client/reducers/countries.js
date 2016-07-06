@@ -39,17 +39,17 @@ function countries(state = [], action) {
         }
       })
 
-    case 'DRAFT_COUNTRY' :
+    case 'COUNTRY_DRAFTED' :
       return state.map(country => {
-        if (country._id !== id) {
+        if (country._id !== payload.id) {
           return country
         } else {
           return {
             ...country,
             selected: false,
             drafted: true,
-            round,
-            draftNum
+            round: payload.round,
+            draftNum: payload.draftNum
           }
         }
       })

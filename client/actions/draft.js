@@ -38,13 +38,13 @@ export function draftCountry(id, payload) {
           return Promise.reject(country)
         }
         else {
-          dispatch(advanceSettings(payload))
+          dispatch(advanceSettings(id, payload))
         }
       }).catch(err => console.log("Error: ", err))
   }
 }
 
-export function advanceSettings(payload) {
+export function advanceSettings(id, payload) {
   let settingsPayload = {}
 
   if (payload.lastOfRound) {
@@ -83,15 +83,24 @@ export function advanceSettings(payload) {
           return Promise.reject(setting)
         }
         else {
-          console.log("Settings updated")
+          const newSettings = {
+            id: id._id,
+            userId: payload.userId,
+            round: settingsPayload.round || payload.round,
+            numberDrafted: settingsPayload.numberDrafted,
+            draftNum: payload.draftNum,
+            lastOfRound: payload.lastOfRound,
+            userTurn: settingsPayload.userTurn || payload.userTurn
+          }
+          dispatch(countryDrafted(newSettings))
         }
       }).catch(err => console.log("Error: ", err))
   }
 }
 
-export function countryDrafted() {
-  console.log('drafted')
+export function countryDrafted(payload) {
   return {
-    type: "COUNTRY_DRAFTED"
+    type: "COUNTRY_DRAFTED",
+    payload
   }
 }
