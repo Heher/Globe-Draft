@@ -41,7 +41,7 @@ function countries(state = [], action) {
 
     case 'COUNTRY_DRAFTED' :
       return state.map(country => {
-        if (country._id !== payload.id) {
+        if (country._id !== id) {
           return country
         } else {
           return {

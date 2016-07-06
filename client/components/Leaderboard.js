@@ -20,7 +20,6 @@ export default class Leaderboard extends React.Component {
   }
 
   findUserCountries(userId) {
-    console.log(userId)
     return this.props.countries.filter(country => {
       return country.userId === userId
     })
@@ -51,16 +50,6 @@ export default class Leaderboard extends React.Component {
 
   render() {
     const { currentUser } = this.props
-    console.log(currentUser)
-    const userCountries = this.findUserCountries(currentUser._id)
-    const summedCountries = userCountries.map((country, index) => {
-      return this.sumCountry(country)
-    })
-    const sortedCountries = this.sortByPoints(summedCountries)
-    const renderCountries = sortedCountries.map((country, index) => {
-      return <li key={index}>{country.name} - {country.points}</li>
-    })
-
     const users = this.props.users.map((user, index) => {
       const userCountries = this.findUserCountries(user._id)
       let userCountrySum = 0
@@ -76,17 +65,39 @@ export default class Leaderboard extends React.Component {
     const renderUsers = sortedUsers.map((user, index) => {
       return <li key={index}>{user.name} - {user.points}</li>
     })
-    return (
-      <div>
-        <h2>Leaderboard</h2>
-        <ul>
-          {renderUsers}
-        </ul>
-        <h2>Your Countries</h2>
-        <ul>
-          {renderCountries}
-        </ul>
-      </div>
-    )
+
+    if (currentUser._id) {
+      const { currentUser } = this.props
+
+      const userCountries = this.findUserCountries(currentUser._id)
+      const summedCountries = userCountries.map((country, index) => {
+        return this.sumCountry(country)
+      })
+      const sortedCountries = this.sortByPoints(summedCountries)
+      const renderCountries = sortedCountries.map((country, index) => {
+        return <li key={index}>{country.name} - {country.points}</li>
+      })
+      return (
+        <div>
+          <h2>Leaderboard</h2>
+          <ul>
+            {renderUsers}
+          </ul>
+          <h2>Your Countries</h2>
+          <ul>
+            {renderCountries}
+          </ul>
+        </div>
+      )
+    } else {
+      return (
+        <div>
+          <h2>Leaderboard</h2>
+          <ul>
+            {renderUsers}
+          </ul>
+        </div>
+      )
+    }
   }
 }

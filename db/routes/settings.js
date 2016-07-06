@@ -13,7 +13,6 @@ module.exports = function(app) {
   });
 
   app.put('/api/settings', function (request, response) {
-    console.log(request.body);
     Setting.findOneAndUpdate({}, { $set: request.body.payload }, function(err, setting) {
       response.json(setting);
     });

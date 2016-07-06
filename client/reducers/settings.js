@@ -5,7 +5,7 @@ function settings(state = [], action) {
     case 'RECEIVE_SETTINGS' :
       return Object.assign({}, state, action.settings[0])
 
-    case 'COUNTRY_DRAFTED' :
+    case 'ADVANCE_SETTINGS' :
       return {
         ...state,
         round: payload.round,

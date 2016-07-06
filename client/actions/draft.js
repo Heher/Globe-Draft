@@ -11,7 +11,7 @@ export function draftCountry(country, userId, round, draftNum, lastOfRound) {
   }
 }
 
-export function draftCountry(id, payload) {
+export function draftCountry(countryPayload, payload) {
   return dispatch => {
     return fetch('/api/countries', {
       method: 'PUT',
@@ -20,7 +20,7 @@ export function draftCountry(id, payload) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        id: id,
+        country: countryPayload,
         payload: {
           userId: payload.userId,
           drafted: true,
@@ -38,13 +38,22 @@ export function draftCountry(id, payload) {
           return Promise.reject(country)
         }
         else {
-          dispatch(advanceSettings(id, payload))
+          dispatch(countryDrafted(countryPayload, payload))
+          dispatch(advanceSettings(countryPayload, payload))
         }
       }).catch(err => console.log("Error: ", err))
   }
 }
 
-export function advanceSettings(id, payload) {
+export function countryDrafted(countryPayload, payload) {
+  return {
+    type: "COUNTRY_DRAFTED",
+    id: countryPayload._id,
+    payload
+  }
+}
+
+export function advanceSettings(countryPayload, payload) {
   let settingsPayload = {}
 
   if (payload.lastOfRound) {
@@ -84,7 +93,7 @@ export function advanceSettings(id, payload) {
         }
         else {
           const newSettings = {
-            id: id._id,
+            id: countryPayload._id,
             userId: payload.userId,
             round: settingsPayload.round || payload.round,
             numberDrafted: settingsPayload.numberDrafted,
@@ -92,15 +101,15 @@ export function advanceSettings(id, payload) {
             lastOfRound: payload.lastOfRound,
             userTurn: settingsPayload.userTurn || payload.userTurn
           }
-          dispatch(countryDrafted(newSettings))
+          dispatch(settingsAdvanced(newSettings))
         }
       }).catch(err => console.log("Error: ", err))
   }
 }
 
-export function countryDrafted(payload) {
+export function settingsAdvanced(payload) {
   return {
-    type: "COUNTRY_DRAFTED",
+    type: "ADVANCE_SETTINGS",
     payload
   }
 }
