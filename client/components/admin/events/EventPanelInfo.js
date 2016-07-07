@@ -14,12 +14,25 @@ export default class EventPanelInfo extends React.Component {
     }
   }
 
+  convertDate(datetime) {
+    const date = new Date(datetime)
+    const convertedDate = date.toLocaleString(navigator.language, {
+      weekday: 'short',
+      month: 'numeric',
+      day: 'numeric',
+      hour: '2-digit',
+      minute:'2-digit'
+    })
+    return convertedDate
+  }
+
   render() {
     const { event, goldCountries, silverCountries, bronzeCountries } = this.props
     return (
       <div className="event">
         <div className="title">
           <h5>{event.name}</h5>
+          {event.datetime ? <p>{this.convertDate(event.datetime)}</p> : null}
           <EditItem {...this.props} item={event} type="Event" />
         </div>
         <div className="medal-winners">

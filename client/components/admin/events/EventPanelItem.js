@@ -35,6 +35,10 @@ export default class EventPanelItem extends React.Component {
     this.setState({goldWinners: event.target.value})
   }
 
+  handleDateChange(event) {
+    this.setState({dateValue: event.target.value})
+  }
+
   findSpecialCountry(countryType, scores) {
     let foundCountry
     if (countryType === "good") {
@@ -127,6 +131,9 @@ export default class EventPanelItem extends React.Component {
 
   handleItemSave() {
     const panel = ReactDOM.findDOMNode(this)
+    // Date/Time value
+    const dateValue = panel.getElementsByClassName('form-control')[0].value
+    const datetime = new Date(dateValue).toISOString()
     // Gold Values
     const goldSelects = Array.from(panel.getElementsByClassName('goldSelect'))
     let goldValues = goldSelects.map(select => {
@@ -148,10 +155,16 @@ export default class EventPanelItem extends React.Component {
 
     const calculatedValues = this.scoreEvent({team: this.state.checkboxValue, gold: goldValues, silver: silverValues, bronze: bronzeValues})
 
-    console.log(calculatedValues)
     this.props.editEvent(
       this.props.event._id, 
-      {name: this.state.inputValue, team: this.state.checkboxValue, gold: calculatedValues.gold, silver: calculatedValues.silver, bronze: calculatedValues.bronze}
+      {
+        name: this.state.inputValue,
+        team: this.state.checkboxValue,
+        datetime,
+        gold: calculatedValues.gold,
+        silver: calculatedValues.silver,
+        bronze: calculatedValues.bronze
+      }
     )
   }
 
@@ -174,8 +187,10 @@ export default class EventPanelItem extends React.Component {
           event={event}
           inputValue={this.state.inputValue}
           checkboxValue={this.state.checkboxValue}
+          dateValue={this.state.dateValue}
           handleInputChange={this.handleInputChange.bind(this)}
           handleCheckboxChange={this.handleCheckboxChange.bind(this)}
+          handleDateChange={this.handleDateChange.bind(this)}
           handleItemSave={this.handleItemSave.bind(this)}
           goldCountries={goldCountries}
           silverCountries={silverCountries}

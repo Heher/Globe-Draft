@@ -1,22 +1,33 @@
 .events
   flex-grow: 2
-  padding: 20px
+  padding: 0 20px
   h1
-    margin-top: 0
+    margin: 0 0 15px
+    font-size: 26px
 .event-section
   background: #DEEFF5
   padding: 10px
-  h4
-    font-size: 20px
-    margin: 0
+  margin: 5px 0
+  border: 1px solid #CCC
+  .title
+    display: flex
+    align-items: baseline
+    h4
+      font-size: 16px
+      margin: 0
+    p
+      margin: 0 0 0 15px
+      font-size: 12px
   .medal-winners
     display: flex
     align-items: flex-start
     margin-top: 10px
     p
+      display: flex
+      align-items: center
       margin: 0 0 5px 0
-      font-size: 14px
-    span
+      font-size: 12px
+    .medal
       display: inline-block
       margin: 0 10px 0 0
       width: 24px
@@ -27,15 +38,29 @@
       line-height: 24px
       text-align: center
       cursor: default
+    img
+      display: inline-block
+      margin-right: 10px
+      width: 26px
+      height: 26px
     .golds
       margin: 0 20px 0 0
-      span
+      .medal
         background: #ffbf00
     .silvers
       margin: 0 20px 0 20px
-      span
+      .medal
         background: #c0c0c0
     .bronzes
       margin-left: 20px
-      span
+      .medal
         background: #cd7f32
+    span.avatar
+      position: static
+      margin-left: 6px
+      border-radius: 4px
+      background: purple
+      color: #FFF
+      font-weight: 700
+      padding: 2px 4px
+      text-transform: uppercase

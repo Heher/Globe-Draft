@@ -12,6 +12,9 @@ export default class CountryPanelItem extends React.Component {
       inputValue: this.props.country.name,
       regionValue: this.props.country.regionId
     }
+    this.handleInputChange = this.handleInputChange.bind(this)
+    this.handleSelectChange = this.handleSelectChange.bind(this)
+    this.handleItemSave = this.handleItemSave.bind(this)
   }
 
   handleInputChange(event) {
@@ -45,9 +48,9 @@ export default class CountryPanelItem extends React.Component {
           country={country}
           inputValue={this.state.inputValue}
           regionValue={this.state.regionValue}
-          handleInputChange={this.handleInputChange.bind(this)}
-          handleSelectChange={this.handleSelectChange.bind(this)}
-          handleItemSave={this.handleItemSave.bind(this)}
+          handleInputChange={this.handleInputChange}
+          handleSelectChange={this.handleSelectChange}
+          handleItemSave={this.handleItemSave}
           region={this.findRegion(country.regionId)}
         />
       )

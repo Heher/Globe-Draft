@@ -8,6 +8,7 @@ export default class CountryAddItemField extends React.Component {
     this.state = {
       regionValue: ''
     }
+    this.handleSelectChange = this.handleSelectChange.bind(this)
   }
 
   handleSelectChange(event) {
@@ -29,7 +30,7 @@ export default class CountryAddItemField extends React.Component {
         <input type="text" />
         <CountryRegionSelect 
           {...this.props}
-          handleSelectChange={this.handleSelectChange.bind(this)}
+          handleSelectChange={this.handleSelectChange}
           regionValue={this.state.regionValue}
         />
         <button type="submit">SUBMIT</button>

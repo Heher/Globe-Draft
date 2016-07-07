@@ -1,4 +1,5 @@
 import React from 'react'
+import DateTime from 'react-datetime'
 
 import PanelButtons from '../panel/PanelButtons'
 import EventCountrySelect from './EventCountrySelect'
@@ -6,7 +7,22 @@ import CancelEdit from '../panel/buttons/CancelEdit'
 import DeleteItem from '../panel/buttons/DeleteItem'
 import SaveItem from '../panel/buttons/SaveItem'
 
+require('../../../css/inputs/date_picker.sass')
+
 export default class EventPanelEdit extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      dateValue: new Date(this.props.event.datetime)
+    }
+  }
+
+  handleDateChange(event) {
+    this.setState({
+      dateValue: event.target.value
+    })
+  }
+
   render() {
     const { event, goldCountries, silverCountries, bronzeCountries } = this.props
 
@@ -55,6 +71,7 @@ export default class EventPanelEdit extends React.Component {
             onChange={this.props.handleCheckboxChange.bind(this)}
           />
         </div>
+        <DateTime defaultValue={this.state.dateValue} />
         <div className="medal-winners">
           <div className="golds">
             {goldSelects}

@@ -31,6 +31,7 @@
     "passport-twitter": "^1.0.4",
     "react": "^15.0.2",
     "react-addons-css-transition-group": "^15.0.2",
+    "react-datetime": "^2.3.2",
     "react-dom": "^15.0.2",
     "react-facebook-login": "^3.0.0",
     "react-google-login": "^2.0.2",
