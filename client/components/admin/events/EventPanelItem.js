@@ -19,8 +19,11 @@ export default class EventPanelItem extends React.Component {
     let foundCountry = this.props.countries.filter(propCountry => {
       return propCountry._id === country.id
     })[0]
-    foundCountry.points = country.points
-    return foundCountry
+    const newCountry= {
+      ...foundCountry,
+      points: country.points
+    }
+    return newCountry
   }
 
   handleInputChange(event) {
@@ -173,6 +176,7 @@ export default class EventPanelItem extends React.Component {
     const goldCountries = event.gold.map(country => {
       return this.findCountry(country)
     })
+    console.log(goldCountries)
     const silverCountries = event.silver.map(country => {
       return this.findCountry(country)
     })

@@ -4,6 +4,8 @@ import classNames from 'classnames'
 import RegionAddItemField from './RegionAddItemField'
 import RegionPanelItem from './RegionPanelItem'
 
+require('../../../css/admin/regions/region_section.sass')
+
 export default class RegionAdminSection extends React.Component {
 
   render() {
@@ -26,7 +28,7 @@ export default class RegionAdminSection extends React.Component {
         <div className={`add-item ${renderClasses}`}>
           <RegionAddItemField {...this.props} />
         </div>
-        <div className="admin-section">
+        <div className="region-section">
           {listItems}
         </div>
       </div>

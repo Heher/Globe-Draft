@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 
 import UserPanelEdit from './UserPanelEdit'
 import UserPanelInfo from './UserPanelInfo'
@@ -22,7 +23,13 @@ export default class UserPanelItem extends React.Component {
   }
 
   handleItemSave() {
-    this.props.editUser(this.props.user._id, {name: this.state.inputValue, isAdmin: this.state.checkboxValue})
+    const panel = ReactDOM.findDOMNode(this)
+    const tokenValue = panel.getElementsByClassName('admin-token')[0].value
+    this.props.editUser(this.props.user._id, {
+      name: this.state.inputValue,
+      isAdmin: this.state.checkboxValue,
+      id_token: tokenValue
+    })
   }
 
   render() {

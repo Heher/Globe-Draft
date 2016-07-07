@@ -1,6 +1,7 @@
 import React from 'react'
 
 import PanelButtons from '../panel/PanelButtons'
+import EditItem from '../panel/buttons/EditItem'
 
 export default class RegionPanelInfo extends React.Component {
 
@@ -8,9 +9,12 @@ export default class RegionPanelInfo extends React.Component {
     const { region } = this.props
 
     return (
-      <div className="panel">
-        <p>{region.name}</p>
-        <PanelButtons {...this.props} item={region} type="Region" editing={region.editing} />
+      <div className="region">
+        <div className="title">
+          <h5>{region.name}</h5>
+          <EditItem {...this.props} item={region} type="Region" />
+        </div>
+        <p>Countries allowed: {region.maxCountriesSelected}</p>
       </div>
     )
   }

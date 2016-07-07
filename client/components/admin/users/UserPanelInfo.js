@@ -5,7 +5,7 @@ import EditItem from '../panel/buttons/EditItem'
 
 export default class UserPanelInfo extends React.Component {
   render() {
-    const { user } = this.props
+    const { user, users } = this.props
 
     return (
       <div className="user">
@@ -14,6 +14,7 @@ export default class UserPanelInfo extends React.Component {
           <EditItem {...this.props} item={user} type="User" />
         </div>
         <p>Draft Number: {user.draftNum}</p>
+        <button onClick={this.props.signInAsUser.bind(this, users, user.id_token)}>Sign in as {user.name}</button>
       </div>
     )
   }

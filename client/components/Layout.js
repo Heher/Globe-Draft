@@ -18,14 +18,25 @@ export default class Layout extends React.Component {
   }
 
   render() {
-    const { users, currentUser, dataStatus } = this.props
+    const { users, currentUser, dataStatus, settings, regions } = this.props
 
     if (dataStatus.usersReceived && dataStatus.settingsReceived) {
       const userDrafting = this.props.users.filter(user => {
         return user.draftNum === this.props.settings.userTurn
       })[0]
 
-      const canDraft = currentUser ? this.props.settings.userTurn === currentUser.draftNum : false
+      let canDraft = false
+      let pickNumber = 0
+
+      regions.map(region => {
+        pickNumber = pickNumber + region.maxNumberSelected
+      })
+
+      if (currentUser) {
+        if ((settings.userTurn === currentUser.draftNum) && settings.round < pickNumber) {
+          canDraft = true
+        }
+      }
 
       const createProps = {
         ...this.props,

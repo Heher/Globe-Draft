@@ -16,17 +16,21 @@ export default class Header extends React.Component {
 
       return (
         <header>
-          <h1>Fantasy World Games</h1>
-          <h2>Welcome {currentUser.name}!{canDraft ? " Your turn to draft." : ""}</h2>
-          <Logout {...this.props} />
+          <div className="header-content">
+            <h1>Fantasy World Games</h1>
+            <h2>Welcome {currentUser.name}!{canDraft ? " Your turn to draft." : ""}</h2>
+            <Logout {...this.props} />
+          </div>
         </header>
       )
     } else {
       return (
         <header>
-          <h1>Fantasy World Games</h1>
-          <h2>Please Sign In</h2>
-          <Login {...this.props} />
+          <div className="header-content">
+            <h1>Fantasy World Games</h1>
+            <h2>Please Sign In</h2>
+            <Login {...this.props} />
+          </div>
         </header>
       )
     }

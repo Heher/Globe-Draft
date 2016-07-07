@@ -14,8 +14,11 @@ export default class Event extends React.Component {
     let foundCountry = this.props.countries.filter(propCountry => {
       return propCountry._id === country.id
     })[0]
-    foundCountry.points = country.points
-    return foundCountry
+    const newCountry = {
+      ...foundCountry,
+      points: country.points
+    }
+    return newCountry
   }
 
   renderWinners(countries) {

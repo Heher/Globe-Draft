@@ -8,6 +8,8 @@ var settingSchema = new Schema({
   userTurn: Number,
   numberDrafted: Number,
   editDraftOrder: Boolean,
+  possiblePicks: Number,
+  draftStarted: Boolean,
   goodCountry: String,
   badCountry: String
 });

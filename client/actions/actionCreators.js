@@ -370,8 +370,18 @@ export function editRegion(id, payload) {
         payload: payload
       })
     })
-      .then(response => response.json())
-      .then(json => dispatch(savedRegionEdit(id, payload)))
+      .then(response => 
+        response.json().then(regions => ({ regions, response }))
+      ).then(({ regions, response }) => {
+        if (!response.ok) {
+          console.log("Poop")
+          dispatch(countryFetchError(regions.message))
+          return Promise.reject(regions)
+        }
+        else {
+          dispatch(savedRegionEdit(id, payload))
+        }
+      }).catch(err => console.log("Error: ", err))
   }
 }
 
@@ -439,6 +449,7 @@ export function setEditingCountry(id) {
 }
 
 export function editCountry(id, payload) {
+  console.log(id, payload)
   return dispatch => {
     return fetch('/api/countries', {
       method: 'PUT',
@@ -447,7 +458,7 @@ export function editCountry(id, payload) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        id: id,
+        country: id,
         payload: payload
       })
     })

@@ -9,6 +9,17 @@ import SaveItem from '../panel/buttons/SaveItem'
 require('../../../css/admin/users/user_section.sass')
 
 export default class UserPanelEdit extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      idToken: this.props.user.id_token
+    }
+  }
+
+  handleTokenChange(event) {
+    this.setState({idToken: event.target.value})
+  }
+
   render() {
     const { user } = this.props
 
@@ -31,6 +42,12 @@ export default class UserPanelEdit extends React.Component {
           />
         </div>
         <DraftNumber {...this.props} user={user} />
+        <p>Token: <input
+          className="admin-token"
+          type="text"
+          onChange={this.handleTokenChange.bind(this)}
+          value={this.state.idToken}
+        /></p>
         <div className="action-buttons">
           <SaveItem {...this.props} item={user} type="User" handleItemSave={this.props.handleItemSave.bind(this)}/>
           <DeleteItem {...this.props} item={user} type="User" />

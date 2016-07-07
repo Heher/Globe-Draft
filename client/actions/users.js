@@ -122,3 +122,10 @@ export function logoutUser(id) {
     id
   }
 }
+
+export function signInAsUser(users, token) {
+  return dispatch => {
+    localStorage.setItem('id_token', token)
+    dispatch(findCurrentUser(users, token))
+  }
+}

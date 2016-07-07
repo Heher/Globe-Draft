@@ -8,7 +8,8 @@ export default class RegionPanelItem extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      inputValue: this.props.region.name
+      inputValue: this.props.region.name,
+      maxCountriesValue: this.props.region.maxCountriesSelected
     }
   }
 
@@ -16,10 +17,17 @@ export default class RegionPanelItem extends React.Component {
     this.setState({inputValue: event.target.value})
   }
 
+  handleMaxCountriesChange(event) {
+    this.setState({maxCountriesValue: event.target.value})
+  }
+
   handleItemSave() {
     this.props.editRegion(
-      this.props.event._id, 
-      {name: this.state.inputValue}
+      this.props.region._id, 
+      {
+        name: this.state.inputValue,
+        maxCountriesSelected: this.state.maxCountriesValue
+      }
     )
   }
 
@@ -32,7 +40,9 @@ export default class RegionPanelItem extends React.Component {
           {...this.props} 
           region={region}
           inputValue={this.state.inputValue}
+          maxCountriesValue={this.state.maxCountriesValue}
           handleInputChange={this.handleInputChange.bind(this)}
+          handleMaxCountriesChange={this.handleMaxCountriesChange.bind(this)}
           handleItemSave={this.handleItemSave.bind(this)}
         />
       )
