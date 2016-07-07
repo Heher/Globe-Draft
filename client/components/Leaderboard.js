@@ -1,6 +1,10 @@
 import React from 'react'
+import classNames from 'classnames'
 
 import CountryItem from './CountryItem'
+import Flag from './Flag'
+
+require('../css/leaderboard.sass')
 
 export default class Leaderboard extends React.Component {
   constructor(props) {
@@ -63,7 +67,27 @@ export default class Leaderboard extends React.Component {
 
     const sortedUsers = this.sortByPoints(users)
     const renderUsers = sortedUsers.map((user, index) => {
-      return <li key={index}>{user.name} - {user.points}</li>
+      const renderClasses = classNames({
+        'gold': index === 0,
+        'silver': index === 1,
+        'bronze': index === 2 
+      })
+
+      const userClass = classNames({
+        'user': user._id === currentUser._id
+      })
+
+      return (
+        <li key={index}>
+          <div className={`leaderboard-content ${userClass}`}>
+            <div className="name-rank">
+              <span className={`rank ${renderClasses}`}>{index + 1}</span>
+              <span className="name">{user.name}</span>
+            </div>
+            <span className="points">{user.points}</span>
+          </div>
+        </li>
+      )
     })
 
     if (currentUser._id) {
@@ -75,23 +99,37 @@ export default class Leaderboard extends React.Component {
       })
       const sortedCountries = this.sortByPoints(summedCountries)
       const renderCountries = sortedCountries.map((country, index) => {
-        return <li key={index}>{country.name} - {country.points}</li>
+        return (
+          <li key={index}>
+            <div className="leaderboard-content">
+              <div className="name-rank">
+                <span className="rank">{index + 1}</span>
+                <span className="name"><Flag country={country}/>{country.name}</span>
+              </div>
+              <span className="points">{country.points}</span>
+            </div>
+          </li>
+        )
       })
       return (
         <div>
-          <h2>Leaderboard</h2>
-          <ul>
-            {renderUsers}
-          </ul>
-          <h2>Your Countries</h2>
-          <ul>
-            {renderCountries}
-          </ul>
+          <div className="leaderboard">
+            <h2>Leaderboard</h2>
+            <ul>
+              {renderUsers}
+            </ul>
+          </div>
+          <div className="user-countries">
+            <h2>Your Countries</h2>
+            <ul>
+              {renderCountries}
+            </ul>
+          </div>
         </div>
       )
     } else {
       return (
-        <div>
+        <div className="leaderboard">
           <h2>Leaderboard</h2>
           <ul>
             {renderUsers}
