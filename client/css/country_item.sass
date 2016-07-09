@@ -1,8 +1,36 @@
 .country-item
-  padding: 5px
-  h4
-    margin: 0
-    font-size: 12px
-  p
-    margin: 4px 0 0 0
-    font-size: 12px
+  padding: 10px 20px
+  list-style: none
+  font-size: 12px
+  .round-wrapper
+    display: flex
+    align-items: center
+    span
+      &.round
+        display: block
+        width: 26px
+        height: 26px
+        line-height: 26px
+        margin: 0 15px 0 0
+        font-weight: 700
+        text-align: center
+        background: #0e65ab
+        color: #FFF
+        border-radius: 26px
+        box-shadow: 1px 1px 2px 1px #CCC
+      &.country
+        margin: 0
+    img
+      width: 26px
+      height: 26px
+      margin-right: 10px
+    .country-wrapper
+      display: flex
+      align-items: baseline
+      .country
+        font-size: 12px
+        font-weight: 700
+        margin-right: 10px
+      .region
+        font-size: 10px
+        text-transform: uppercase

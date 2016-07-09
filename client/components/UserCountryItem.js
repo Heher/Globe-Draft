@@ -4,7 +4,7 @@ import Flag from "./Flag"
 
 require('../css/country_item.sass')
 
-export default class CountryItem extends React.Component {
+export default class UserCountryItem extends React.Component {
 
   render() {
     const { country } = this.props
@@ -14,7 +14,7 @@ export default class CountryItem extends React.Component {
     })[0]
 
     return (
-      <li className="country-item">
+      <li className="user-country-item">
         <div className="round-wrapper">
           <span className="round">{country.round}</span>
           <Flag country={country}/>

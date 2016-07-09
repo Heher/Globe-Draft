@@ -1,9 +1,59 @@
 .user-card
-  margin: 2px 0
-  padding: 8px 4px
+  padding: 0
   list-style: none
-  background: #CCC
   font-size: 12px
-  text-align: center
   &.selected
-    background: #A3BCA3
+    background: rgba(57, 150, 27, 0.2)
+  h5
+    margin: 0
+    padding: 10px
+    font-size: 10px
+    text-transform: uppercase
+    letter-spacing: 1.3px
+    background: #951774
+    color: #FFF
+  .rounds
+    margin-left: 41px
+    p
+      margin: 0
+
+  .user-country-list
+    ul
+      background: transparent
+      padding: 10px 20px
+      .user-country-item
+        list-style: none
+        margin-bottom: 5px
+        &:last-of-type
+          margin-bottom: 0
+        .round-wrapper
+          display: flex
+          align-items: center
+          span
+            &.round
+              display: block
+              width: 20px
+              height: 20px
+              line-height: 20px
+              margin: 0 10px 0 0
+              font-weight: 700
+              text-align: center
+              background: #0e65ab
+              color: #FFF
+              border-radius: 20px
+              box-shadow: 1px 1px 2px 1px #CCC
+          img
+            width: 18px
+            height: 18px
+            margin-right: 5px
+          .country-wrapper
+            display: flex
+            align-items: baseline
+            .country
+              font-size: 12px
+              font-weight: 700
+              margin-right: 5px
+            .region
+              font-size: 10px
+              text-transform: uppercase
+

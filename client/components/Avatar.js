@@ -10,7 +10,7 @@ export default class Avatar extends React.Component {
       }
     })
     return (
-      <span className="avatar">{name}</span>
+      <p className="avatar">{name}</p>
     )
   }
 }

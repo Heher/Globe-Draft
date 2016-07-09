@@ -112,7 +112,7 @@ export default class Leaderboard extends React.Component {
         )
       })
       return (
-        <div>
+        <div className="leaderboards-wrapper">
           <div className="leaderboard">
             <h2>Leaderboard</h2>
             <ul>
@@ -129,11 +129,13 @@ export default class Leaderboard extends React.Component {
       )
     } else {
       return (
-        <div className="leaderboard">
-          <h2>Leaderboard</h2>
-          <ul>
-            {renderUsers}
-          </ul>
+        <div className="leaderboards-wrapper">
+          <div className="leaderboard">
+            <h2>Leaderboard</h2>
+            <ul>
+              {renderUsers}
+            </ul>
+          </div>
         </div>
       )
     }

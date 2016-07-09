@@ -1,15 +1,17 @@
 import React from "react";
 
-import CountryItem from './CountryItem'
+import UserCountryItem from './UserCountryItem'
 
 require('../css/country_list.sass')
 
-export default class CountryList extends React.Component {
+export default class UserCountryList extends React.Component {
 
   render() {
+    const { user } = this.props
+
     const countries = this.props.countries.map((country, index) => {
-      if ((country.userId === this.props.currentUser._id) && country.drafted) {
-        return <CountryItem {...this.props} key={index} i={index} country={country} />
+      if ((country.userId === user._id) && country.drafted) {
+        return <UserCountryItem {...this.props} key={index} i={index} country={country} />
       }
     })
 
@@ -18,8 +20,7 @@ export default class CountryList extends React.Component {
     })
 
     return (
-      <div className="country-list">
-        <h2>Your Countries</h2>
+      <div className="user-country-list">
         <ul>
           {countries}
         </ul>

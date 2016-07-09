@@ -31,9 +31,8 @@ export default class Countries extends React.Component {
             </div>
             <div className="sidebar">
               <ChoiceSubmit {...this.props} selectedCountry={selectedCountry}/>
-              <RoundStatus {...this.props} />
               <CountryList {...this.props} />
-              <ChoiceList {...this.props} />
+              <RoundStatus {...this.props} />
             </div>
           </div>
         </div>

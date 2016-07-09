@@ -1,4 +1,5 @@
 import React from 'react'
+import classNames from 'classnames'
 
 import Flag from './Flag'
 import Avatar from './Avatar'
@@ -24,17 +25,34 @@ export default class Event extends React.Component {
   renderWinners(countries) {
     if (countries.length > 0) {
       return countries.map((country, index) => {
+        const settingsClasses = classNames({
+          'good': country._id === this.props.settings.goodCountry,
+          'bad': country._id === this.props.settings.badCountry,
+          'taken': country.userId,
+          'owned': country.userId === this.props.currentUser._id
+        })
         return (
-          <p key={index}>
-            <span className="medal">{country.points}</span>
-            <Flag country={country}/>
-            {country.name}
-            {country.userId ? <Avatar {...this.props} userId={country.userId}/> : null}
-          </p>
+          <div key={index} className={`winner ${settingsClasses}`}>
+            <p>
+              <span className="medal ">{country.points}</span>
+              <Flag country={country}/>
+              {country.name}
+            </p>
+            <div className="avatar-wrapper">
+              {country.userId ? <Avatar {...this.props} userId={country.userId}/> : null}
+            </div>
+          </div>
         )
       })
     } else {
-      return <p key={0}><span className="medal">&nbsp;</span>Not Set</p> // &nbsp needed for flexbox to correctly align
+      return (
+        <div key={0} className="winner">
+          <p>
+            <span className="medal">&nbsp;</span>
+            No Winner
+          </p>
+        </div>
+      )// &nbsp needed for flexbox to correctly align
     }
   }
 

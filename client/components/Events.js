@@ -2,6 +2,7 @@ import React from 'react'
 import _ from 'underscore'
 
 import EventDay from './EventDay'
+import EventLink from './EventLink'
 import Leaderboard from './Leaderboard'
 
 export default class Events extends React.Component {
@@ -13,15 +14,30 @@ export default class Events extends React.Component {
   } 
 
   render() {
-    const { dataStatus } = this.props
+    const { dataStatus, params } = this.props
 
     if (dataStatus.usersReceived && dataStatus.eventsReceived && dataStatus.countriesReceived && dataStatus.regionsReceived && dataStatus.settingsReceived) {
       
-      const groupedEvents = this.groupEventsByDay(this.props.events)
       let eventDays = []
-      for (let key in groupedEvents) {
-        if (groupedEvents.hasOwnProperty(key)) {
-          eventDays.push(<EventDay key={key} {...this.props} title={key} eventGroup={groupedEvents[key]} />)
+      let dateLinks = []
+
+      const groupedEvents = this.groupEventsByDay(this.props.events)
+
+      if (params.day) {
+        if (groupedEvents.hasOwnProperty(params.day)) {
+          eventDays.push(<EventDay key={params.day} {...this.props} title={params.day} eventGroup={groupedEvents[params.day]} />)
+        }
+        for (let key in groupedEvents) {
+          if (groupedEvents.hasOwnProperty(key)) {
+            dateLinks.push(<EventLink key={key} {...this.props} day={key} />)
+          }
+        }
+      } else {
+        for (let key in groupedEvents) {
+          if (groupedEvents.hasOwnProperty(key)) {
+            eventDays.push(<EventDay key={key} {...this.props} title={key} eventGroup={groupedEvents[key]} />)
+            dateLinks.push(<EventLink key={key} {...this.props} day={key} />)
+          }
         }
       }
 
@@ -29,6 +45,9 @@ export default class Events extends React.Component {
         <div className="page">
           <div className="content">
             <div className="events">
+              <div className="date-links">
+                {dateLinks}
+              </div>
               {eventDays}
             </div>
             <div className="sidebar">
