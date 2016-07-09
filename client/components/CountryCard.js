@@ -63,8 +63,11 @@ export default class CountryCard extends React.Component {
         className = {`countryCard ${renderClasses}`}
         onClick={this.handleClick.bind(this, canDraft, canBeDeselected, canBeSelected)}
       >
-        <Flag country={this.props.country}/><h3>{name}</h3>
-        {needsAvatar ? <Avatar {...this.props} userId={userId}/> : null}
+        <Flag country={this.props.country}/>
+        <p>
+          {name}
+          {needsAvatar ? <Avatar {...this.props} userId={userId}/> : null}
+        </p>
       </button>
     )
   }

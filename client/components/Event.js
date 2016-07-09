@@ -47,10 +47,12 @@ export default class Event extends React.Component {
     } else {
       return (
         <div key={0} className="winner">
-          <p>
+          <div className="winner-name">
             <span className="medal">&nbsp;</span>
-            No Winner
-          </p>
+            <p>
+              No Winner
+            </p>
+          </div>
         </div>
       )// &nbsp needed for flexbox to correctly align
     }
@@ -86,6 +88,7 @@ export default class Event extends React.Component {
         <div className="title">
           <h4>{event.name}</h4>
           {event.datetime ? <p>{this.convertDate(event.datetime)}</p> : null}
+          {event.team ? <span className="team-badge">Team</span> : null}
         </div>
         <div className="medal-winners">
           <div className="golds">

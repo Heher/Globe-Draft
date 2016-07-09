@@ -58,17 +58,30 @@
     p
       margin: 0 0 0 15px
       font-size: 12px
+    .team-badge
+      font-size: 10px
+      padding: 3px 5px
+      text-transform: uppercase
+      background: #F4B214
+      border-radius: 2px
+      // color: #000
+      margin-left: 15px
+      box-shadow: 1px 1px 2px 0 #666
   .medal-winners
     display: flex
     align-items: flex-start
-    justify-content: space-around
-    padding: 30px 10px
+    // justify-content: space-around
+    // padding: 30px 10px
+    .golds, .silvers, .bronzes
+      width: 33.33%
+    .silvers
+      // border-left: 2px solid #0e65ab
+      // border-right: 2px solid #0e65ab
     .winner
       display: flex
       position: relative
       flex-direction: column
-      margin: 0 0 10px 0
-      border-radius: 4px
+      // border-radius: 4px
       &:last-of-type
         margin-bottom: 0
       .winner-name
@@ -84,7 +97,7 @@
       &.bad
         background: rgba(14, 101, 171, 0.3)
       &.taken
-        background: rgba(149, 23, 116, 0.3)
+        // background: rgba(149, 23, 116, 0.3)
       &.owned 
         background: rgba(57, 150, 27, 0.3)
         .avatar
@@ -94,7 +107,7 @@
         flex-direction: column
         margin: 0
         font-weight: 700
-        font-size: 14px
+        font-size: 12px
         text-transform: uppercase
         span
           font-size: 10px
