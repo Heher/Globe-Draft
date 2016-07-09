@@ -33,13 +33,13 @@ export default class Event extends React.Component {
         })
         return (
           <div key={index} className={`winner ${settingsClasses}`}>
-            <p>
+            <div className="winner-name">
               <span className="medal ">{country.points}</span>
               <Flag country={country}/>
-              {country.name}
-            </p>
-            <div className="avatar-wrapper">
-              {country.userId ? <Avatar {...this.props} userId={country.userId}/> : null}
+              <p>
+                {country.name}
+                {country.userId ? <Avatar {...this.props} userId={country.userId}/> : null}
+              </p>
             </div>
           </div>
         )
