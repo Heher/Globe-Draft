@@ -26,13 +26,18 @@ export default class Layout extends React.Component {
       })[0]
 
       let canDraft = false
+      let draftComplete = false
       let pickNumber = 0
 
       regions.map(region => {
-        pickNumber = pickNumber + region.maxNumberSelected
+        pickNumber = pickNumber + region.maxCountriesSelected
       })
 
-      if (currentUser) {
+      if (settings.round > pickNumber) {
+        draftComplete = true
+      }
+
+      if (currentUser._id) {
         if ((settings.userTurn === currentUser.draftNum) && settings.round < pickNumber) {
           canDraft = true
         }
@@ -41,7 +46,8 @@ export default class Layout extends React.Component {
       const createProps = {
         ...this.props,
         userDrafting,
-        canDraft
+        canDraft,
+        draftComplete
       }
 
       return (

@@ -1,13 +1,16 @@
 .countryCard
+  display: block
   position: relative
-  background: #EEE
-  border: 1px solid black
+  background: #FFF
+  color: #000
+  border: 0
   outline: 0
   width: 220px
-  height: 50px
   text-align: left
-  padding: 0 0 0 20px
+  padding: 15px 0 15px 15px
   margin: 0 5px 5px 0
+  border-radius: 4px
+  box-shadow: 1px 1px 4px 1px #CCC
   cursor: pointer
   &:hover
     background: #A3BCA3
@@ -21,26 +24,28 @@
   h3
     margin: 0
     font-size: 12px
+    font-weight: 400
   &.owned, &.disabled
     cursor: default
   &.waitingTurn
-    background: #ECD77D
+    background: #0e65ab
+    color: #FFF
     cursor: default
   &.disabled
-    background: #EABCBC
+    background: #0e65ab
+    color: #FFF
   &.owned
-    background: #BEBECD
+    background: #39961B
+    color: #FFF
   &.taken
-    background: #85858F
+    background: #951774
+    color: #FFF
   &.selected
     background: #A3BCA3
     cursor: pointer
   .avatar
-    border-radius: 4px
-    background: #732C7B
-    color: #DDD
+    color: #FFF
     font-weight: 700
-    padding: 2px 4px
     font-size: 10px
     text-transform: uppercase
     position: absolute

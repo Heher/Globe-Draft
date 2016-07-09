@@ -23,20 +23,35 @@ export default class Countries extends React.Component {
     })[0]
 
     if (dataStatus.usersReceived && dataStatus.eventsReceived && dataStatus.countriesReceived && dataStatus.regionsReceived && dataStatus.settingsReceived) {
-      return (
-        <div className="page">
-          <div className="content">
-            <div className="regions">
-              {this.props.regions.map((region, index) => <Region {...this.props} key={index} i={index} region={region} />)}
-            </div>
-            <div className="sidebar">
-              <ChoiceSubmit {...this.props} selectedCountry={selectedCountry}/>
-              <CountryList {...this.props} />
-              <RoundStatus {...this.props} />
+      if (currentUser._id) {
+        return (
+          <div className="page">
+            <div className="content">
+              <div className="regions">
+                {this.props.regions.map((region, index) => <Region {...this.props} key={index} i={index} region={region} />)}
+              </div>
+              <div className="sidebar">
+                <ChoiceSubmit {...this.props} selectedCountry={selectedCountry}/>
+                <CountryList {...this.props} />
+                <RoundStatus {...this.props} />
+              </div>
             </div>
           </div>
-        </div>
-      )
+        )
+      } else {
+        return (
+          <div className="page">
+            <div className="content">
+              <div className="regions">
+                {this.props.regions.map((region, index) => <Region {...this.props} key={index} i={index} region={region} />)}
+              </div>
+              <div className="sidebar">
+                <RoundStatus {...this.props} />
+              </div>
+            </div>
+          </div>
+        )
+      }
     } else {
       return (
         <h1>Loading</h1>

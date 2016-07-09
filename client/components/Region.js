@@ -46,7 +46,7 @@ export default class Region extends React.Component {
     return (
       <div className="region">
         <h2>{this.props.region.name}</h2><span>{numSelected} selected of {this.props.region.maxCountriesSelected}</span>
-        <div>
+        <div className="country-selections">
           {countryList}
         </div>
       </div>
