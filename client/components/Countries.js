@@ -13,10 +13,27 @@ export default class Countries extends React.Component {
   
   constructor(props) {
     super(props)
+    this.state = {
+      countryList: this.props.countries
+    }
+  }
+
+  countrySearch(event) {
+    let searchResult = []
+    this.props.countries.map(country => {
+      if (country.name.toLowerCase().indexOf(event.target.value) !== -1) {
+        searchResult.push(country)
+      }
+    })
+    this.setState({
+      countryList: searchResult
+    })
   }
 
   render() {
     const { dataStatus, currentUser } = this.props
+
+    const countrySearchList = this.props.countries
 
     const selectedCountry = this.props.countries.filter(country => {
       return (country.selected && (country.userId === currentUser._id))
@@ -28,7 +45,8 @@ export default class Countries extends React.Component {
           <div className="page">
             <div className="content">
               <div className="regions">
-                {this.props.regions.map((region, index) => <Region {...this.props} key={index} i={index} region={region} />)}
+                <input type="text" onChange={this.countrySearch.bind(this)} />
+                {this.props.regions.map((region, index) => <Region {...this.props} key={index} i={index} region={region} countryList={this.state.countryList} />)}
               </div>
               <div className="sidebar">
                 <ChoiceSubmit {...this.props} selectedCountry={selectedCountry}/>

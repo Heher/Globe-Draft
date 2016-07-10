@@ -176,7 +176,6 @@ export default class EventPanelItem extends React.Component {
     const goldCountries = event.gold.map(country => {
       return this.findCountry(country)
     })
-    console.log(goldCountries)
     const silverCountries = event.silver.map(country => {
       return this.findCountry(country)
     })
