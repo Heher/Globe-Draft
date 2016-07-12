@@ -92,25 +92,37 @@ export default class Leaderboard extends React.Component {
 
     if (currentUser._id) {
       const { currentUser } = this.props
+      let renderCountries = []
 
       const userCountries = this.findUserCountries(currentUser._id)
-      const summedCountries = userCountries.map((country, index) => {
-        return this.sumCountry(country)
-      })
-      const sortedCountries = this.sortByPoints(summedCountries)
-      const renderCountries = sortedCountries.map((country, index) => {
-        return (
-          <li key={index}>
-            <div className="leaderboard-content">
-              <div className="name-rank">
-                <span className="rank">{index + 1}</span>
-                <span className="name"><Flag country={country}/>{country.name}</span>
+      if (userCountries.length > 0) {
+        const summedCountries = userCountries.map((country, index) => {
+          return this.sumCountry(country)
+        })
+        const sortedCountries = this.sortByPoints(summedCountries)
+        renderCountries = sortedCountries.map((country, index) => {
+          return (
+            <li key={index}>
+              <div className="leaderboard-content">
+                <div className="name-rank">
+                  <span className="rank">{index + 1}</span>
+                  <span className="name"><Flag country={country}/>{country.name}</span>
+                </div>
+                <span className="points">{country.points}</span>
               </div>
-              <span className="points">{country.points}</span>
+            </li>
+          )
+        })
+      } else {
+        renderCountries.push(
+          <li key={0}>
+            <div className="leaderboard-content">
+              <span className="no-drafts">No Countries Drafted</span>
             </div>
           </li>
         )
-      })
+      }
+
       return (
         <div className="leaderboards-wrapper">
           <div className="leaderboard">

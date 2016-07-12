@@ -7,9 +7,24 @@ import ChangeUser from './ChangeUser'
 require('../css/header.sass')
 
 export default class Header extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+
+  renderDraftStatus(draftStarted, canDraft) {
+    if (draftStarted) {
+      if (canDraft) {
+        return "Your turn to draft."
+      } else {
+        return "Another player is drafting. Please wait."
+      }
+    } else {
+      return ""
+    }
+  }
 
   render() {
-    const { currentUser, dataStatus } = this.props
+    const { currentUser, dataStatus, settings } = this.props
 
     if (currentUser._id) {
       const { userDrafting, canDraft } = this.props
@@ -18,7 +33,7 @@ export default class Header extends React.Component {
         <header>
           <div className="header-content">
             <h1>Fantasy World Games</h1>
-            <h2>Welcome {currentUser.name}!{canDraft ? " Your turn to draft." : ""}</h2>
+            <h2>{this.renderDraftStatus(settings.draftStarted, canDraft)}</h2>
             <Logout {...this.props} />
           </div>
         </header>

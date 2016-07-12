@@ -27,12 +27,14 @@ export default class Events extends React.Component {
         if (groupedEvents.hasOwnProperty(params.day)) {
           eventDays.push(<EventDay key={params.day} {...this.props} title={params.day} eventGroup={groupedEvents[params.day]} />)
         }
+        dateLinks.push(<EventLink key={0} {...this.props} />)
         for (let key in groupedEvents) {
           if (groupedEvents.hasOwnProperty(key)) {
             dateLinks.push(<EventLink key={key} {...this.props} day={key} />)
           }
         }
       } else {
+        dateLinks.push(<EventLink key={0} {...this.props} />)
         for (let key in groupedEvents) {
           if (groupedEvents.hasOwnProperty(key)) {
             eventDays.push(<EventDay key={key} {...this.props} title={key} eventGroup={groupedEvents[key]} />)

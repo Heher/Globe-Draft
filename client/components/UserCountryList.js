@@ -15,14 +15,16 @@ export default class UserCountryList extends React.Component {
       }
     })
 
-    countries.sort(function(a, b) {
+    const userCountries = countries.filter(Boolean)
+
+    userCountries.sort(function(a, b) {
       return a.props.country.round - b.props.country.round
     })
 
     return (
-      <div className="user-country-list">
+      <div className={`user-country-list ${userCountries.length > 0 ? "" : "empty"}`}>
         <ul>
-          {countries}
+          {userCountries}
         </ul>
       </div>
     )

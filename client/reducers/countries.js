@@ -49,7 +49,8 @@ function countries(state = [], action) {
             selected: false,
             drafted: true,
             round: payload.round,
-            draftNum: payload.draftNum
+            draftNum: payload.draftNum,
+            userId: payload.userId
           }
         }
       })

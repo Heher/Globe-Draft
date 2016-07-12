@@ -10,7 +10,7 @@ export default class UserCountryItem extends React.Component {
     const { country } = this.props
 
     const countryRegion = this.props.regions.filter(region => {
-      return region._id === this.props.country.regionId
+      return region._id === country.regionId
     })[0]
 
     return (

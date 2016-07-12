@@ -3,7 +3,6 @@ import { render } from 'react-dom'
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 import { Provider } from 'react-redux'
 import { routerActions } from 'react-router-redux'
-import { UserAuthWrapper } from 'redux-auth-wrapper'
 import store, { history } from './store'
 
 import App from './components/App'
@@ -13,11 +12,6 @@ import Events from './components/Events'
 import Login from './components/Login'
 
 import css from './css/index.sass'
-
-const UserIsAuthenticated = UserAuthWrapper({
-  authSelector: state => state,
-  wrapperDisplayName: 'UserIsAuthenticated'
-})
 
 const router = (
   <Provider store={store}>

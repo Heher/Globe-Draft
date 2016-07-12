@@ -13,16 +13,20 @@ export default class Countries extends React.Component {
   
   constructor(props) {
     super(props)
+    const countryIds = this.props.countries.map(country => {
+      return country._id
+    })
     this.state = {
-      countryList: this.props.countries
+      countryList: countryIds
     }
   }
 
   countrySearch(event) {
     let searchResult = []
+    const query = event.target.value.toLowerCase()
     this.props.countries.map(country => {
-      if (country.name.toLowerCase().indexOf(event.target.value) !== -1) {
-        searchResult.push(country)
+      if (country.name.toLowerCase().indexOf(query) !== -1) {
+        searchResult.push(country._id)
       }
     })
     this.setState({
@@ -33,11 +37,22 @@ export default class Countries extends React.Component {
   render() {
     const { dataStatus, currentUser } = this.props
 
-    const countrySearchList = this.props.countries
+    const fullCountryList = this.state.countryList.map(countryId => {
+      return this.props.countries.filter(propCountry => {
+        return countryId === propCountry._id
+      })[0]
+    })
 
-    const selectedCountry = this.props.countries.filter(country => {
-      return (country.selected && (country.userId === currentUser._id))
-    })[0]
+    const regionList = this.props.regions.map((region, index) => {
+      return (
+        <Region
+          {...this.props}
+          key={index}
+          region={region}
+          countryList={fullCountryList}
+        />
+      )
+    })
 
     if (dataStatus.usersReceived && dataStatus.eventsReceived && dataStatus.countriesReceived && dataStatus.regionsReceived && dataStatus.settingsReceived) {
       if (currentUser._id) {
@@ -45,11 +60,12 @@ export default class Countries extends React.Component {
           <div className="page">
             <div className="content">
               <div className="regions">
-                <input type="text" onChange={this.countrySearch.bind(this)} />
-                {this.props.regions.map((region, index) => <Region {...this.props} key={index} i={index} region={region} countryList={this.state.countryList} />)}
+                <div className="search-wrapper">
+                  <input className="country-search" type="text" onChange={this.countrySearch.bind(this)} placeholder="SEARCH" />
+                </div>
+                {regionList}
               </div>
               <div className="sidebar">
-                <ChoiceSubmit {...this.props} selectedCountry={selectedCountry}/>
                 <CountryList {...this.props} />
                 <RoundStatus {...this.props} />
               </div>
@@ -61,7 +77,7 @@ export default class Countries extends React.Component {
           <div className="page">
             <div className="content">
               <div className="regions">
-                {this.props.regions.map((region, index) => <Region {...this.props} key={index} i={index} region={region} />)}
+                {regionList}
               </div>
               <div className="sidebar">
                 <RoundStatus {...this.props} />

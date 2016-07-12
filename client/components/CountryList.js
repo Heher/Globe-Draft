@@ -7,15 +7,10 @@ require('../css/country_list.sass')
 export default class CountryList extends React.Component {
 
   render() {
-    const countries = this.props.countries.map((country, index) => {
-      if ((country.userId === this.props.currentUser._id) && country.drafted) {
-        return <CountryItem {...this.props} key={index} i={index} country={country} />
-      }
-    })
-
-    countries.sort(function(a, b) {
-      return a.props.country.round - b.props.country.round
-    })
+    let countries = []
+    for (let round = 1; round <= this.props.totalDraftRounds; round++) {
+      countries.push(<CountryItem {...this.props} key={round} round={round} />)
+    }
 
     return (
       <div className="country-list">

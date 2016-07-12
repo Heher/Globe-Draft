@@ -29,20 +29,25 @@ export default class Region extends React.Component {
 
     const completed = (numSelected === this.props.region.maxCountriesSelected)
 
-    const countries = this.props.countryList.map((country, index) => {
-      if (country.regionId === this.props.region._id) {
-        return country
-      }
+    const countries = this.props.countryList.filter(country => {
+      return country.regionId === this.props.region._id
     })
 
     if (countries.length > 0) {
-      console.log(countries)
       const countryValues = (countries.filter( Boolean ))
 
       const sortedCountries = this.sortRegion(countryValues)
 
       const countryList = sortedCountries.map((country, index) => {
-        return <CountryCard {...this.props} key={index} i={index} country={country} regionCompleted={completed} />
+        return (
+          <CountryCard 
+            {...this.props}
+            key={index}
+            i={index}
+            country={country}
+            regionCompleted={completed}
+          />
+        )
       })
 
       return (

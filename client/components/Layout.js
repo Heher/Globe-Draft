@@ -20,25 +20,25 @@ export default class Layout extends React.Component {
   render() {
     const { users, currentUser, dataStatus, settings, regions } = this.props
 
-    if (dataStatus.usersReceived && dataStatus.settingsReceived) {
+     if (dataStatus.usersReceived && dataStatus.eventsReceived && dataStatus.countriesReceived && dataStatus.regionsReceived && dataStatus.settingsReceived ) {
       const userDrafting = this.props.users.filter(user => {
         return user.draftNum === this.props.settings.userTurn
       })[0]
 
       let canDraft = false
       let draftComplete = false
-      let pickNumber = 0
+      let totalDraftRounds = 0
 
       regions.map(region => {
-        pickNumber = pickNumber + region.maxCountriesSelected
+        totalDraftRounds = totalDraftRounds + region.maxCountriesSelected
       })
 
-      if (settings.round > pickNumber) {
+      if (settings.round > totalDraftRounds) {
         draftComplete = true
       }
 
       if (currentUser._id) {
-        if ((settings.userTurn === currentUser.draftNum) && settings.round < pickNumber) {
+        if ((settings.userTurn === currentUser.draftNum) && (settings.round < totalDraftRounds) && (settings.draftStarted)) {
           canDraft = true
         }
       }
@@ -47,7 +47,8 @@ export default class Layout extends React.Component {
         ...this.props,
         userDrafting,
         canDraft,
-        draftComplete
+        draftComplete,
+        totalDraftRounds
       }
 
       return (

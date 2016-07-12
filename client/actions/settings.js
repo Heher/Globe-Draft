@@ -139,3 +139,34 @@ export function resetSettings() {
       }).catch(err => console.log("Error: ", err))
   }
 }
+
+export function toggleDraft(setting) {
+  console.log(setting)
+  return dispatch => {
+    return fetch('/api/settings', {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        payload: {
+          draftStarted: setting
+        }
+      })
+    })
+      .then(response => 
+        response.json().then(settings => ({ settings, response }))
+      ).then(({ settings, response }) => {
+        console.log(settings, response)
+        if (!response.ok) {
+          console.log("Poop")
+          dispatch(settingsFetchError(settings.message))
+          return Promise.reject(settings)
+        }
+        else {
+          dispatch(receiveSettings(settings))
+        }
+      }).catch(err => console.log("Error: ", err))
+  }
+}

@@ -22,6 +22,11 @@ export default class CountryPanelEdit extends React.Component {
           />
           <CancelEdit {...this.props} item={country} type="Country" />
         </div>
+        <input 
+          type="text"
+          onChange={this.props.handleShortNameChange.bind(this)}
+          value={this.props.shortNameValue}
+        />
         <CountryRegionSelect 
           {...this.props}
           handleSelectChange={this.props.handleSelectChange.bind(this)}

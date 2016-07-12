@@ -4,6 +4,7 @@ var Schema = mongoose.Schema;
 
 var countrySchema = new Schema({
   name:  String,
+  shortName: String,
   selected: Boolean,
   draftNum: Number,
   drafted: Boolean,

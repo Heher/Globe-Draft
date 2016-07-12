@@ -47,7 +47,7 @@ export default class Admin extends React.Component {
   render() {
     const { dataStatus, currentUser } = this.props
 
-    if (dataStatus.usersReceived && dataStatus.eventsReceived && dataStatus.countriesReceived && dataStatus.regionsReceived && dataStatus.settingsReceived ) {
+    if (dataStatus.usersReceived && dataStatus.eventsReceived && dataStatus.countriesReceived && dataStatus.regionsReceived && dataStatus.settingsReceived && currentUser.isAdmin) {
       return (
         <div className="page">
           <div className="content">
@@ -69,7 +69,7 @@ export default class Admin extends React.Component {
       )
     } else {
       return (
-        <Login {...this.props} />
+        <h2>Not Allowed</h2>
       )
     }
   }

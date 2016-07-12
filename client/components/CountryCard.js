@@ -3,6 +3,7 @@ import classNames from 'classnames'
 
 import Avatar from './Avatar'
 import Flag from './Flag'
+import ChoiceSubmit from './ChoiceSubmit'
 
 require('../css/country.sass')
 
@@ -40,7 +41,7 @@ export default class CountryCard extends React.Component {
   }
 
   render() {
-    const { _id, name, userId, selected, drafted } = this.props.country
+    const { _id, name, shortName, userId, selected, drafted } = this.props.country
     const { canDraft, regionCompleted } = this.props
     const currentUserId = this.props.currentUser._id
 
@@ -59,16 +60,21 @@ export default class CountryCard extends React.Component {
 
 
     return (
-      <button 
-        className = {`countryCard ${renderClasses}`}
-        onClick={this.handleClick.bind(this, canDraft, canBeDeselected, canBeSelected)}
-      >
-        <Flag country={this.props.country}/>
-        <p>
-          {name}
-          {needsAvatar ? <Avatar {...this.props} userId={userId}/> : null}
-        </p>
-      </button>
+      <div>
+        <div 
+          className = {`countryCard ${renderClasses}`}
+          onClick={this.handleClick.bind(this, canDraft, canBeDeselected, canBeSelected)}
+        >
+          <div className="country-card-info">
+            <Flag country={this.props.country}/>
+            <p>
+              {selected ? shortName : name}
+              {needsAvatar ? <Avatar {...this.props} userId={userId}/> : null}
+            </p>
+          </div>
+          <ChoiceSubmit {...this.props} selectedCountry={this.props.country} />
+        </div>
+      </div>
     )
   }
 }

@@ -25,8 +25,8 @@ export default class ChoiceSubmit extends React.Component {
           lastOfRound,
           userTurn: this.props.settings.userTurn,
           numberDrafted: this.props.settings.numberDrafted
-        })}>Draft Country</button>
+        })}
+      >Confirm</button>
     )
   }
-
 }

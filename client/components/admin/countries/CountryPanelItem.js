@@ -10,12 +10,17 @@ export default class CountryPanelItem extends React.Component {
     super(props)
     this.state = {
       inputValue: this.props.country.name,
+      shortNameValue: this.props.country.shortName,
       regionValue: this.props.country.regionId
     }
   }
 
   handleInputChange(event) {
     this.setState({inputValue: event.target.value})
+  }
+
+  handleShortNameChange(event) {
+    this.setState({shortNameValue: event.target.value})
   }
 
   handleSelectChange(event) {
@@ -25,7 +30,11 @@ export default class CountryPanelItem extends React.Component {
   handleItemSave() {
     this.props.editCountry(
       this.props.country._id,
-      {name: this.state.inputValue, regionId: this.state.regionValue}
+      {
+        name: this.state.inputValue,
+        shortName: this.state.shortNameValue, 
+        regionId: this.state.regionValue
+      }
     )
   }
 
@@ -44,8 +53,10 @@ export default class CountryPanelItem extends React.Component {
           {...this.props} 
           country={country}
           inputValue={this.state.inputValue}
+          shortNameValue={this.state.shortNameValue}
           regionValue={this.state.regionValue}
           handleInputChange={this.handleInputChange.bind(this)}
+          handleShortNameChange={this.handleShortNameChange.bind(this)}
           handleSelectChange={this.handleSelectChange.bind(this)}
           handleItemSave={this.handleItemSave.bind(this)}
           region={this.findRegion(country.regionId)}
