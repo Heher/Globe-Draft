@@ -3,6 +3,19 @@ import React from 'react'
 import Event from './Event'
 
 export default class EventDay extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      showEvents: true
+    }
+  }
+
+  toggleEvents() {
+    this.setState({
+      showEvents: !this.state.showEvents
+    })
+  }
+
   sortEvents(events) {
     if (events.length) {
       return events.sort(function(a, b) {
@@ -37,8 +50,13 @@ export default class EventDay extends React.Component {
     })
 
     return (
-      <div className="event-day">
-        <h2>{this.convertDate(this.props.title)}</h2>
+      <div className={`event-day ${this.state.showEvents ? "show" : "hide"}`}>
+        <h2>
+          {this.convertDate(this.props.title)}
+          <button 
+            onClick={this.toggleEvents.bind(this)}>{this.state.showEvents ? "Hide" : "Show"}
+          </button>
+        </h2>
         {events}
       </div>
     )

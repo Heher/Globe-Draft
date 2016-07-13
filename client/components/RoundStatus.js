@@ -1,6 +1,7 @@
 import React from 'react'
 
 import UserCard from './UserCard'
+import MobileDraftMenu from './MobileDraftMenu'
 
 require('../css/round_status.sass')
 
@@ -21,11 +22,14 @@ export default class RoundStatus extends React.Component {
     })
 
     return (
-      <div className="round-status">
-        <h2>{draftComplete ? "Drafts" : `Round ${this.props.settings.round}`}</h2>
-        <ul>
-          {userCards}
-        </ul>
+      <div>
+        <MobileDraftMenu {...this.props} />
+        <div className="round-status">
+          <h2>{draftComplete ? "Drafts" : `Round ${this.props.settings.round}`}</h2>
+          <ul>
+            {userCards}
+          </ul>
+        </div>
       </div>
     )
   }

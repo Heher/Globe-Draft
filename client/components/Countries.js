@@ -8,6 +8,7 @@ import ChangeUser from './ChangeUser'
 import ChoiceList from './ChoiceList'
 import ChoiceSubmit from './ChoiceSubmit'
 import RoundStatus from './RoundStatus'
+import MobileDraftMenu from './MobileDraftMenu'
 
 export default class Countries extends React.Component {
   
@@ -57,31 +58,28 @@ export default class Countries extends React.Component {
     if (dataStatus.usersReceived && dataStatus.eventsReceived && dataStatus.countriesReceived && dataStatus.regionsReceived && dataStatus.settingsReceived) {
       if (currentUser._id) {
         return (
-          <div className="page">
-            <div className="content">
-              <div className="regions">
-                <div className="search-wrapper">
-                  <input className="country-search" type="text" onChange={this.countrySearch.bind(this)} placeholder="SEARCH" />
-                </div>
-                {regionList}
+          <div className="draft-countries">
+            <MobileDraftMenu {...this.props} />
+            <div className="regions">
+              <div className="search-wrapper">
+                <input className="country-search" type="text" onChange={this.countrySearch.bind(this)} placeholder="SEARCH" />
               </div>
-              <div className="sidebar">
-                <CountryList {...this.props} />
-                <RoundStatus {...this.props} />
-              </div>
+              {regionList}
+            </div>
+            <div className="sidebar">
+              <CountryList {...this.props} />
+              <RoundStatus {...this.props} />
             </div>
           </div>
         )
       } else {
         return (
-          <div className="page">
-            <div className="content">
-              <div className="regions">
-                {regionList}
-              </div>
-              <div className="sidebar">
-                <RoundStatus {...this.props} />
-              </div>
+          <div className="draft-countries">
+            <div className="regions">
+              {regionList}
+            </div>
+            <div className="sidebar">
+              <RoundStatus {...this.props} />
             </div>
           </div>
         )

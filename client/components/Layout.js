@@ -38,7 +38,7 @@ export default class Layout extends React.Component {
       }
 
       if (currentUser._id) {
-        if ((settings.userTurn === currentUser.draftNum) && (settings.round < totalDraftRounds) && (settings.draftStarted)) {
+        if ((settings.userTurn === currentUser.draftNum) && (settings.round <= totalDraftRounds) && (settings.draftStarted)) {
           canDraft = true
         }
       }
@@ -54,14 +54,22 @@ export default class Layout extends React.Component {
       return (
         <div>
           <Header {...this.props} userDrafting={userDrafting} canDraft={canDraft} />
-          {React.cloneElement(this.props.children, createProps)}
+          <div className="page">
+            <div className="content">
+              {React.cloneElement(this.props.children, createProps)}
+            </div>
+          </div>
         </div>
       )
     } else {
       return (
         <div>
           <Header {...this.props} />
-          <h2>Loading</h2>
+          <div className="page">
+            <div className="content">
+              <h2>Loading</h2>
+            </div>
+          </div>
         </div>
       )
     }

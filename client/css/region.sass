@@ -3,13 +3,16 @@
   flex-grow: 2
 
   .search-wrapper
+    display: flex
     margin-bottom: 20px
     padding: 10px
     width: 725px
     background: #0e65ab
     border-radius: 4px
+    @media only screen and (max-width: 480px)
+      width: auto
     .country-search
-      width: 701px
+      flex-grow: 1
       height: 30px
       font-size: 16px
       padding: 4px 10px
@@ -33,3 +36,5 @@
     .country-selections
       display: flex
       flex-wrap: wrap
+      @media only screen and (max-width: 480px)
+        flex-direction: column

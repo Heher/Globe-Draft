@@ -170,3 +170,10 @@ export function toggleDraft(setting) {
       }).catch(err => console.log("Error: ", err))
   }
 }
+
+export function toggleMobileMenu(setting) {
+  return {
+    type: "TOGGLE_MOBILE_MENU",
+    setting
+  }
+}

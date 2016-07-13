@@ -25,6 +25,12 @@ function settings(state = [], action) {
         editingDraftOrder: false
       }
 
+    case 'TOGGLE_MOBILE_MENU' :
+      return {
+        ...state,
+        mobileMenuShow: !state.mobileMenuShow
+      }
+
     default:
       return state
   }

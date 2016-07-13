@@ -10,6 +10,19 @@ header
     max-width: 1220px
     margin: 0 auto
     padding: 10px
+    @media only screen and (max-width: 480px)
+      padding: 10px 20px
+  .mobile-menu-button
+    display: none
+    font-size: 16px
+    color: #FFF
+    margin-right: 15px
+    background: transparent
+    border: 0
+    outline: 0
+    cursor: pointer
+    @media only screen and (max-width: 480px)
+      display: block
   h1
     margin: 0
     color: #FFF
@@ -27,11 +40,11 @@ header
     cursor: pointer
     &:hover
       color: #CCC
-  button
-    width: 150px
-    height: 30px
-    outline: 0
-    border: 0
-    &.selected
-      background: green
-      color: white
+
+  @media only screen and (max-width: 480px)
+    h1
+      font-size: 16px
+    h2
+      display: none
+    a
+      display: none
