@@ -34,7 +34,7 @@ export default class Header extends React.Component {
         <header>
           <div className="header-content">
             <button className="mobile-menu-button" onClick={this.props.toggleMobileMenu.bind(this)}>Menu</button>
-            <h1>Fantasy World Games</h1>
+            <h1>GLOBE.DRAFT</h1>
             <h2>{this.renderDraftStatus(settings.draftStarted, canDraft)}</h2>
             <Logout {...this.props} />
           </div>
@@ -46,7 +46,7 @@ export default class Header extends React.Component {
         <header>
           <div className="header-content">
             <button className="mobile-menu">Menu</button>
-            <h1>Fantasy World Games</h1>
+            <h1>GLOBE.DRAFT</h1>
             <h2>Please Sign In</h2>
             <Login {...this.props} />
           </div>

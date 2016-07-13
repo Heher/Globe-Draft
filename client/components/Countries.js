@@ -75,7 +75,11 @@ export default class Countries extends React.Component {
       } else {
         return (
           <div className="draft-countries">
+            <MobileDraftMenu {...this.props} />
             <div className="regions">
+              <div className="search-wrapper">
+                <input className="country-search" type="text" onChange={this.countrySearch.bind(this)} placeholder="SEARCH" />
+              </div>
               {regionList}
             </div>
             <div className="sidebar">

@@ -1,20 +1,22 @@
 .draft-menu
   display: none
-  background: #0e65ab
   padding: 0
-  border-radius: 0 0 4px 4px
+  margin-bottom: 20px
   a
+    background: #0e65ab
+    flex-grow: 1
     color: #FFF
-    font-size: 12px
+    font-size: 11px
     text-align: center
     text-decoration: none
-    width: 33.33%
     padding: 15px 0
-    border-right: 1px solid #FFF
+    margin-right: 2px
+    border-radius: 0 0 4px 4px
+    text-transform: uppercase
     &:last-of-type
-      border-right: 0
+      margin-right: 0
     &.active
       background: #DBA012
 
-  @media only screen and (max-width: 480px)
+  @media only screen and (max-width: 619px)
     display: flex

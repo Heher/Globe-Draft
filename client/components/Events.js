@@ -44,8 +44,8 @@ export default class Events extends React.Component {
       }
 
       return (
-        <div className="page">
-          <div className="content">
+        <div className="events-wrapper">
+          <div className="events-content">
             <div className="events">
               <div className="date-links">
                 {dateLinks}
