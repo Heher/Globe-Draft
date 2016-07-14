@@ -1,24 +1,25 @@
 .regions
   // margin-top: 30px
-  flex-grow: 2
-  @media only screen and (min-width: 860px) and (max-width: 1114px)
+  // flex-grow: 3
+  width: 980px
+  @media only screen and (min-width: 1104px) and (max-width: 1349px)
+    width: 735px
+  @media only screen and (min-width: 860px) and (max-width: 1103px)
     width: 490px
   @media only screen and (min-width: 620px) and (max-width: 859px)
-    width: 255px
+    width: 240px
+  @media only screen and (max-width: 619px)
+    width: 100%
 
   .search-wrapper
     display: flex
     margin-bottom: 20px
-    padding: 10px
-    width: 710px
-    background: #0e65ab
+    // padding: 10px
+    width: 240px
+    // background: #0e65ab
     border-radius: 4px
     @media only screen and (max-width: 619px)
-      width: auto
-    @media only screen and (min-width: 860px) and (max-width: 1114px)
-      width: 465px
-    @media only screen and (min-width: 620px) and (max-width: 859px)
-      width: 220px
+      width: 100%
     .country-search
       flex-grow: 1
       height: 30px
@@ -32,6 +33,12 @@
 
   .region
     margin-bottom: 30px
+    @media only screen and (max-width: 619px)
+      width: auto
+    @media only screen and (min-width: 860px) and (max-width: 1114px)
+      // width: 465px
+    @media only screen and (min-width: 620px) and (max-width: 859px)
+      width: 220px
     h2
       display: inline-block
       font-size: 20px

@@ -3,7 +3,7 @@
 
 .leaderboard, .user-countries
   width: 250px
-  margin: 0 auto 20px
+  margin: 0 0 20px auto
   box-shadow: 1px 1px 4px 1px #CCC
   border-radius: 4px
   h2
@@ -28,44 +28,44 @@
     li
       width: 100%
       list-style: none
-      .leaderboard-content
-        display: flex
-        justify-content: space-between
-        align-items: center
-        padding: 5px 20px
-        font-size: 12px
-        &.user
-          background: rgba(57, 150, 27, 0.2)
       .name-rank
         display: flex
         align-items: center
-        span
-          &.rank
-            display: block
-            width: 26px
-            height: 26px
-            line-height: 26px
-            margin: 0 15px 0 0
-            text-align: center
-            background: #0e65ab
-            color: #FFF
-            border-radius: 26px
-            box-shadow: 1px 1px 4px 0 #666
-            &.gold
-              background: #DBA012
-            &.silver
-              background: #B3B3B3
-            &.bronze
-              background: #cd7f32
-          &.name
-            margin: 0
-            text-transform: uppercase
-
-      span.points
+    span
+      &.rank
+        display: block
+        width: 26px
+        height: 26px
+        line-height: 26px
+        margin: 0 15px 0 0
+        text-align: center
+        background: #0e65ab
+        color: #FFF
+        border-radius: 26px
+        box-shadow: 1px 1px 4px 0 #666
+        &.gold
+          background: #DBA012
+        &.silver
+          background: #B3B3B3
+        &.bronze
+          background: #cd7f32
+      &.name
+        margin: 0
+        text-transform: uppercase
+      &.points
         display: block
         margin: 0
         font-weight: 700
         font-size: 16px
+
+  .leaderboard-content
+    display: flex
+    justify-content: space-between
+    align-items: center
+    padding: 5px 20px
+    font-size: 12px
+    &.user
+      background: rgba(57, 150, 27, 0.2)
 
 .user-countries
   .name

@@ -1,9 +1,14 @@
 import React from 'react'
+import { Link } from 'react-router'
 
 import Login from './Login'
 import Logout from './Logout'
 import ChangeUser from './ChangeUser'
 import MobileMenu from './MobileMenu'
+import EventsIcon from './icons/EventsIcon'
+import DraftIcon from './icons/DraftIcon'
+import HeaderLeaderboard from './HeaderLeaderboard'
+import MenuIcon from './icons/MenuIcon'
 
 require('../css/header.sass')
 
@@ -33,10 +38,27 @@ export default class Header extends React.Component {
       return (
         <header>
           <div className="header-content">
-            <button className="mobile-menu-button" onClick={this.props.toggleMobileMenu.bind(this)}>Menu</button>
-            <h1>GLOBE.DRAFT</h1>
+            <MenuIcon {...this.props} />
+            <div className="title">
+              <h1>GLOBE.DRAFT</h1>
+              <ul className="nav-links">
+                <li>
+                  <Link to="/events">
+                    <span>Events</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/draft">
+                    <span>Draft</span>
+                  </Link>
+                </li>
+                <li>
+                  <Logout {...this.props} />
+                </li>
+              </ul>
+            </div>
+            <HeaderLeaderboard {...this.props} />
             <h2>{this.renderDraftStatus(settings.draftStarted, canDraft)}</h2>
-            <Logout {...this.props} />
           </div>
           <MobileMenu {...this.props} />
         </header>
@@ -45,10 +67,27 @@ export default class Header extends React.Component {
       return (
         <header>
           <div className="header-content">
-            <button className="mobile-menu">Menu</button>
-            <h1>GLOBE.DRAFT</h1>
-            <h2>Please Sign In</h2>
-            <Login {...this.props} />
+            <div className="title">
+              <h1>GLOBE.DRAFT</h1>
+              <ul className="nav-links">
+                <li>
+                  <Link to="/events">
+                    <span>Events</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/draft">
+                    <span>Draft</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/signin">
+                    <span>Login / Register</span>
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            <HeaderLeaderboard {...this.props} />
           </div>
         </header>
       )

@@ -8,8 +8,6 @@ export default class MobileDraftMenu extends React.Component {
     return (
       <div className="draft-menu">
         <Link to='/draft' activeClassName="active">Countries</Link>
-        <Link to='/draft/overall' activeClassName="active">Drafts</Link>
-        <Link to='/draft/picks' activeClassName="active">Your Picks</Link>
       </div>
     )
   }

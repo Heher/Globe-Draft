@@ -20,7 +20,7 @@ export default class Layout extends React.Component {
   render() {
     const { users, currentUser, dataStatus, settings, regions } = this.props
 
-     if (dataStatus.usersReceived && dataStatus.eventsReceived && dataStatus.countriesReceived && dataStatus.regionsReceived && dataStatus.settingsReceived ) {
+    if (dataStatus.usersReceived && dataStatus.eventsReceived && dataStatus.countriesReceived && dataStatus.regionsReceived && dataStatus.settingsReceived ) {
       const userDrafting = this.props.users.filter(user => {
         return user.draftNum === this.props.settings.userTurn
       })[0]

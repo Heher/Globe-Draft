@@ -1,25 +1,59 @@
 header
   // background: #333
   // box-shadow: 0 0 2px 2px #000
+  display: flex
+  align-items: center
   position: relative
   z-index: 2
+  height: 80px
+  @media only screen and (max-width: 859px)
+    flex-direction: column
+    height: auto
   .header-content
     display: flex
-    height: 80px
+    width: 100%
     align-items: center
-    max-width: 1220px
+    max-width: 1305px
     margin: 0 auto
     padding: 10px
+    @media only screen and (min-width: 481px) and (max-width: 859px)
+      padding: 10px 0 0 0
+      flex-direction: column
+      align-items: stretch
     @media only screen and (max-width: 480px)
       padding: 10px 20px
-  .mobile-menu-button
+    .title
+      display: flex
+      align-items: baseline
+      @media only screen and (max-width: 859px)
+        margin-left: 10px
+    .nav-links
+      font-family: 'Amiko', sans-serif
+      display: flex
+      align-items: center
+      margin: 0 0 0 20px
+      padding: 0
+      @media only screen and (max-width: 480px)
+        display: none
+      li
+        list-style: none
+        margin-right: 15px
+        text-transform: uppercase
+        font-size: 12px
+        &:last-of-type
+          margin-right: 0
+        a
+          display: flex
+          align-items: center
+          text-decoration: none
+          color: #333
+          &:hover
+            color: #999
+    svg
+      width: 30px
+      margin-right: 15px
+  .menu-button
     display: none
-    font-size: 16px
-    color: #FFF
-    margin-right: 15px
-    background: transparent
-    border: 0
-    outline: 0
     cursor: pointer
     @media only screen and (max-width: 480px)
       display: block
@@ -34,18 +68,49 @@ header
     margin: 0
     color: #FFF
     font-size: 18px
-  a
-    color: #FFF
-    font-size: 14px
-    margin-right: 15px
-    cursor: pointer
-    &:hover
-      color: #CCC
 
   @media only screen and (max-width: 480px)
     h1
       font-size: 16px
     h2
       display: none
-    a
+  .leaderboard
+    display: flex
+    align-items: center
+    height: 80px
+    width: auto
+    box-shadow: none
+    border-radius: 0
+    margin: 0 0 0 40px
+    padding: 0 15px
+    background: #FFF
+    @media only screen and (max-width: 859px)
+      margin: 10px 0 0 0
+      height: 50px
+    @media only screen and (max-width: 480px)
       display: none
+    ul
+      flex-direction: row
+      border-radius: 0
+      background: transparent
+      padding: 0
+      @media only screen and (max-width: 859px)
+        margin: 0 auto
+      li
+        margin-right: 15px
+        &:last-of-type
+          margin-right: 0
+      .leaderboard-content
+        padding: 0 10px
+        height: 80px
+        @media only screen and (max-width: 859px)
+          height: 50px
+        .rank
+          margin-right: 10px
+        .name
+          // font-weight: 700
+        .points
+          display: none
+          font-size: 12px
+          // font-weight: 400
+          margin-left: 10px
