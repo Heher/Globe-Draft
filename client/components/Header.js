@@ -15,6 +15,16 @@ require('../css/header.sass')
 export default class Header extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {
+      loginButtonShow: false
+    }
+  }
+
+  toggleLoginButtons(event) {
+    event.preventDefault()
+    this.setState({
+      loginButtonShow: !this.state.loginButtonShow
+    })
   }
 
   renderDraftStatus(draftStarted, canDraft) {
@@ -64,7 +74,11 @@ export default class Header extends React.Component {
             <HeaderLeaderboard {...this.props} />
             <h2>{this.renderDraftStatus(settings.draftStarted, canDraft)}</h2>
           </div>
-          <MobileMenu {...this.props} />
+          <MobileMenu
+            {...this.props}
+            loginButtonShow={this.state.loginButtonShow} 
+            toggleLoginButtons={this.toggleLoginButtons.bind(this)}
+          />
         </header>
       )
     } else {
@@ -85,16 +99,20 @@ export default class Header extends React.Component {
                     <span>Draft</span>
                   </Link>
                 </li>
-                <li>
-                  <Link to="/signin">
-                    <span>Login / Register</span>
-                  </Link>
-                </li>
+                <Login
+                  {...this.props}
+                  loginButtonShow={this.state.loginButtonShow} 
+                  toggleLoginButtons={this.toggleLoginButtons.bind(this)}
+                />
               </ul>
             </div>
             <HeaderLeaderboard {...this.props} />
           </div>
-          <MobileMenu {...this.props} />
+          <MobileMenu
+            {...this.props}
+            loginButtonShow={this.state.loginButtonShow} 
+            toggleLoginButtons={this.toggleLoginButtons.bind(this)}
+          />
         </header>
       )
     }

@@ -1,9 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router'
 
+import Login from './Login'
 import Logout from './Logout'
 
 export default class MobileMenu extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+
   render() {
     const { settings, currentUser } = this.props
 
@@ -66,11 +71,11 @@ export default class MobileMenu extends React.Component {
                 <span>Your Picks</span>
               </Link>
             </li>
-            <li>
-              <Link to="/signin" onClick={this.props.toggleMobileMenu.bind(this)}>
-                <span>Login / Register</span>
-              </Link>
-            </li>
+            <Login
+              {...this.props}
+              loginButtonShow={this.props.loginButtonShow} 
+              toggleLoginButtons={this.props.toggleLoginButtons.bind(this)}
+            />
           </ul>
         </div>
       )
