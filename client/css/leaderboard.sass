@@ -1,11 +1,17 @@
 .leaderboards-wrapper
-  margin-top: 104px
+  margin-top: 37px
+  @media only screen and (max-width: 480px)
+    margin: 20px
+    width: 100%
 
 .leaderboard, .user-countries
   width: 250px
   margin: 0 0 20px auto
   box-shadow: 1px 1px 4px 1px #CCC
   border-radius: 4px
+  @media only screen and (max-width: 480px)
+    width: 100%
+    margin: 0
   h2
     font-family: 'Amiko', sans-serif
     font-weight: 400
@@ -68,6 +74,8 @@
       background: rgba(57, 150, 27, 0.2)
 
 .user-countries
+  @media only screen and (max-width: 480px)
+    margin-top: 20px
   .name
     display: flex
     align-items: center

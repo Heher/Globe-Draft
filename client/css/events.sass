@@ -7,18 +7,19 @@
 .date-links
   display: flex
   align-items: flex-start
-  margin-bottom: 40px
+  max-width: 1305px
+  margin: 0 auto 40px auto
   @media only screen and (max-width: 480px)
     display: none
   .event-link
     display: block
     position: relative
-    width: 50px
+    width: 42px
     height: 30px
     background: #0e65ab
     text-decoration: none
     color: #FFF
-    font-size: 14px
+    font-size: 12px
     line-height: 30px
     text-align: center
     margin-right: 2px
@@ -29,8 +30,8 @@
       left: 0
       width: 0
       height: 0
-      border-left: 25px solid transparent
-      border-right: 25px solid transparent
+      border-left: 21px solid transparent
+      border-right: 21px solid transparent
       border-top: 10px solid #0e65ab
     &.active
       background: #DBA012
@@ -38,26 +39,35 @@
         border-top: 10px solid #DBA012
 .event-day
   margin-bottom: 30px
+  .title
+    display: flex
+    align-items: baseline
   h2
     font-family: 'Amiko', sans-serif
     font-weight: 400
     margin: 0 0 10px 0
     font-size: 20px
     text-transform: uppercase
+    cursor: pointer
+  svg
+    width: 18px
+    height: 12px
+    margin-left: 10px
+    cursor: pointer
   &.show
     .event-section
       display: block
+    svg
+      transform: rotate(180deg)
   &.hide
     .event-section
       display: none
 
 .event-section
   background: #FFF
-  margin-top: 30px
+  margin-bottom: 30px
   box-shadow: 1px 1px 4px 1px #CCC
   border-radius: 4px
-  &:first-of-type
-    margin-top: 0
   .title
     display: flex
     align-items: baseline

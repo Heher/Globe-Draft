@@ -1,17 +1,19 @@
 import React from 'react'
+import { Link } from 'react-router'
 
 export default class Logout extends React.Component {
-  handleLogout(id) {
+  handleLogout(event, id) {
     localStorage.removeItem('id_token')
     this.props.logoutUser(id)
+    this.props.toggleMobileMenu()
   }
 
   render() {
     const { currentUser } = this.props
     return (
-      <a onClick={this.handleLogout.bind(this, currentUser._id)}>
+      <Link to="/" onClick={this.handleLogout.bind(this, currentUser._id)}>
         <span>Log Out</span>
-      </a>
+      </Link>
     )
   }
 }

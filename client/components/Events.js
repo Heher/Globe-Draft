@@ -45,11 +45,11 @@ export default class Events extends React.Component {
 
       return (
         <div className="events-wrapper">
+          <div className="date-links">
+            {dateLinks}
+          </div>
           <div className="events-content">
             <div className="events">
-              <div className="date-links">
-                {dateLinks}
-              </div>
               {eventDays}
             </div>
             <div className="sidebar">

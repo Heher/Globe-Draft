@@ -7,10 +7,12 @@ require('../css/login.sass')
 export default class Login extends React.Component {
   handleFacebookLogin(response) {
     this.props.findOrCreateFacebookUser(response)
+    console.log(this.props.location)
   }
 
   handleGoogleLogin(response) {
     this.props.findOrCreateGoogleUser(response)
+    this.context.router.goBack()
   }
 
   render() {

@@ -1,11 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router'
+import classNames from 'classnames'
 
 import Login from './Login'
 import Logout from './Logout'
 import ChangeUser from './ChangeUser'
 import MobileMenu from './MobileMenu'
-import EventsIcon from './icons/EventsIcon'
 import DraftIcon from './icons/DraftIcon'
 import HeaderLeaderboard from './HeaderLeaderboard'
 import MenuIcon from './icons/MenuIcon'
@@ -35,19 +35,23 @@ export default class Header extends React.Component {
     if (currentUser._id) {
       const { userDrafting, canDraft } = this.props
 
+      const renderDraftClass = classNames({
+        'user-turn': settings.draftStarted && canDraft
+      })
+
       return (
         <header>
           <div className="header-content">
             <MenuIcon {...this.props} />
             <div className="title">
               <h1>GLOBE.DRAFT</h1>
-              <ul className="nav-links">
+              <ul className={`nav-links ${renderDraftClass}`}>
                 <li>
                   <Link to="/events">
                     <span>Events</span>
                   </Link>
                 </li>
-                <li>
+                <li className="nav-draft">
                   <Link to="/draft">
                     <span>Draft</span>
                   </Link>
@@ -67,6 +71,7 @@ export default class Header extends React.Component {
       return (
         <header>
           <div className="header-content">
+            <MenuIcon {...this.props} />
             <div className="title">
               <h1>GLOBE.DRAFT</h1>
               <ul className="nav-links">
@@ -89,6 +94,7 @@ export default class Header extends React.Component {
             </div>
             <HeaderLeaderboard {...this.props} />
           </div>
+          <MobileMenu {...this.props} />
         </header>
       )
     }

@@ -12,6 +12,7 @@ import Events from './components/Events'
 import Login from './components/Login'
 import RoundStatus from './components/RoundStatus'
 import CountryList from './components/CountryList'
+import Leaderboard from './components/Leaderboard'
 
 import css from './css/index.sass'
 
@@ -28,6 +29,7 @@ const router = (
         <Route path='/events' component={Events}></Route>
         <Route path='/events/:day' component={Events}></Route>
         <Route path='/signin' component={Login}></Route>
+        <Route path='/leaderboard' component={Leaderboard}></Route>
       </Route>
     </Router>
   </Provider>

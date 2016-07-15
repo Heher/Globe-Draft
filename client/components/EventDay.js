@@ -1,6 +1,7 @@
 import React from 'react'
 
 import Event from './Event'
+import EventIcon from './icons/EventIcon'
 
 export default class EventDay extends React.Component {
   constructor(props) {
@@ -51,12 +52,13 @@ export default class EventDay extends React.Component {
 
     return (
       <div className={`event-day ${this.state.showEvents ? "show" : "hide"}`}>
-        <h2>
-          {this.convertDate(this.props.title)}
-          <button 
-            onClick={this.toggleEvents.bind(this)}>{this.state.showEvents ? "Hide" : "Show"}
-          </button>
-        </h2>
+        <div className="title">
+          <h2 onClick={this.toggleEvents.bind(this)}>{this.convertDate(this.props.title)}</h2>
+          <EventIcon 
+            {...this.props}
+            toggle={this.toggleEvents.bind(this)} 
+          />
+        </div>
         {events}
       </div>
     )

@@ -82,7 +82,7 @@ export default class HeaderLeaderboard extends React.Component {
             <li key={index}>
               <div className={`leaderboard-content ${userClass}`}>
                 <div className="name-rank">
-                  <span className={`rank ${renderClasses}`}></span>
+                  <span className={`rank ${renderClasses}`}>{user.points}</span>
                   <span className="name">{user.name}</span>
                 </div>
               </div>

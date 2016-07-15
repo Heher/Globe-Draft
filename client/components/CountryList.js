@@ -1,7 +1,6 @@
 import React from "react"
 
 import CountryItem from './CountryItem'
-import MobileDraftMenu from './MobileDraftMenu'
 
 require('../css/country_list.sass')
 
@@ -14,14 +13,11 @@ export default class CountryList extends React.Component {
     }
 
     return (
-      <div>
-        <MobileDraftMenu {...this.props} />
-        <div className="country-list">
-          <h2>Your Countries</h2>
-          <ul>
-            {countries}
-          </ul>
-        </div>
+      <div className="country-list">
+        <h2>Your Countries</h2>
+        <ul>
+          {countries}
+        </ul>
       </div>
     )
   }
