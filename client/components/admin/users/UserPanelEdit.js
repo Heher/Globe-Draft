@@ -12,12 +12,17 @@ export default class UserPanelEdit extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      email: this.props.user.email,
       idToken: this.props.user.id_token
     }
   }
 
   handleTokenChange(event) {
     this.setState({idToken: event.target.value})
+  }
+
+  handleEmailChange(event) {
+    this.setState({email: event.target.value})
   }
 
   render() {
@@ -41,6 +46,12 @@ export default class UserPanelEdit extends React.Component {
             onChange={this.props.handleCheckboxChange.bind(this)}
           />
         </div>
+        <p>Email: <input
+          className="admin-email"
+          type="text"
+          onChange={this.handleEmailChange.bind(this)}
+          value={this.state.email}
+        /></p>
         <DraftNumber {...this.props} user={user} />
         <p>Token: <input
           className="admin-token"

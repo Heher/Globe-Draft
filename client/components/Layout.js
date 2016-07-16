@@ -2,6 +2,7 @@ import React from "react"
 import { Link } from "react-router"
 
 import Header from './Header'
+import LoginStatus from './LoginStatus'
 import AdminSection from './admin/AdminSection'
 
 export default class Layout extends React.Component {
@@ -54,6 +55,7 @@ export default class Layout extends React.Component {
       return (
         <div>
           <Header {...this.props} userDrafting={userDrafting} canDraft={canDraft} />
+          <LoginStatus {...this.props} />
           <div className="page">
             <div className="content">
               {React.cloneElement(this.props.children, createProps)}

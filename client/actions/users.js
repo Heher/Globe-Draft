@@ -61,10 +61,12 @@ export function findOrCreateFacebookUser(payload) {
         if (!response.ok) {
           dispatch(loginError(user.message))
           return Promise.reject(user)
-        }
-        else {
+        } else if (user.error === "Email") {
+          dispatch(loginEmailNotFound())
+        } else {
           localStorage.setItem('id_token', user.id_token)
           dispatch(setCurrentUser(user))
+          dispatch(loginSuccess())
         }
       }).catch(err => console.log("Error: ", err))
   }
@@ -89,10 +91,12 @@ export function findOrCreateGoogleUser(payload) {
         if (!response.ok) {
           dispatch(loginError(user.message))
           return Promise.reject(user)
-        }
-        else {
+        } else if (user.error === "Email") {
+          dispatch(loginEmailNotFound())
+        } else {
           localStorage.setItem('id_token', user.id_token)
           dispatch(setCurrentUser(user))
+          dispatch(loginSuccess())
         }
       }).catch(err => console.log("Error: ", err))
   }
@@ -127,5 +131,17 @@ export function signInAsUser(users, token) {
   return dispatch => {
     localStorage.setItem('id_token', token)
     dispatch(findCurrentUser(users, token))
+  }
+}
+
+export function loginEmailNotFound() {
+  return {
+    type: "LOGIN_EMAIL_NOT_FOUND"
+  }
+}
+
+export function loginSuccess() {
+  return {
+    type: "LOGIN_SUCCESS"
   }
 }

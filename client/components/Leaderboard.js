@@ -52,8 +52,16 @@ export default class Leaderboard extends React.Component {
     return country
   }
 
+  showUserInfo(info, alternateInfo) {
+    if (!this.props.settings.draftStarted && this.props.draftComplete) {
+      return info
+    } else {
+      return alternateInfo
+    }
+  }
+
   render() {
-    const { currentUser } = this.props
+    const { currentUser, settings, draftComplete } = this.props
     const users = this.props.users.map((user, index) => {
       const userCountries = this.findUserCountries(user._id)
       let userCountrySum = 0
@@ -74,7 +82,7 @@ export default class Leaderboard extends React.Component {
       })
 
       const userClass = classNames({
-        'user': user._id === currentUser._id
+        'user': (!settings.draftStarted && draftComplete) && (user._id === currentUser._id)
       })
 
       return (
@@ -82,7 +90,7 @@ export default class Leaderboard extends React.Component {
           <div className={`leaderboard-content ${userClass}`}>
             <div className="name-rank">
               <span className={`rank ${renderClasses}`}>{index + 1}</span>
-              <span className="name">{user.name}</span>
+              <span className="name">{this.showUserInfo(user.name, "No Data")}</span>
             </div>
             <span className="points">{user.points}</span>
           </div>

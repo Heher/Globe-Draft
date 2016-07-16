@@ -31,6 +31,18 @@ function settings(state = [], action) {
         mobileMenuShow: !state.mobileMenuShow
       }
 
+    case 'LOGIN_EMAIL_NOT_FOUND' :
+      return {
+        ...state,
+        loginError: true
+      }
+
+    case 'LOGIN_SUCCESS' :
+      return {
+        ...state,
+        loginSuccess: true
+      }
+
     default:
       return state
   }

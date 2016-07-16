@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router'
+import classNames from 'classnames'
 
 import Login from './Login'
 import Logout from './Logout'
@@ -9,8 +10,17 @@ export default class MobileMenu extends React.Component {
     super(props)
   }
 
+  loginStatus() {
+
+  }
+
   render() {
     const { settings, currentUser } = this.props
+
+    const loginStatusClasses = classNames({
+      'success': settings.loginSuccess,
+      'error': settings.loginError
+    })
 
     if (currentUser._id) {
       return (

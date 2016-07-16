@@ -25,10 +25,12 @@ export default class UserPanelItem extends React.Component {
   handleItemSave() {
     const panel = ReactDOM.findDOMNode(this)
     const tokenValue = panel.getElementsByClassName('admin-token')[0].value
+    const emailValue = panel.getElementsByClassName('admin-email')[0].value
     this.props.editUser(this.props.user._id, {
       name: this.state.inputValue,
       isAdmin: this.state.checkboxValue,
-      id_token: tokenValue
+      id_token: tokenValue,
+      email: emailValue
     })
   }
 

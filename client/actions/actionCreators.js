@@ -95,7 +95,8 @@ export function addUser(name, isAdmin) {
         selected: false,
         draftNum: 0,
         editing: false,
-        isAdmin: isAdmin
+        isAdmin: isAdmin,
+        email: ''
       })
     })
       .then(response => response.json())

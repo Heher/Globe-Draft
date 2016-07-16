@@ -51,8 +51,16 @@ export default class HeaderLeaderboard extends React.Component {
     return country
   }
 
+  showUserInfo(info, alternateInfo) {
+    if (!this.props.settings.draftStarted && this.props.draftComplete) {
+      return info
+    } else {
+      return alternateInfo
+    }
+  }
+
   render() {
-    const { currentUser, dataStatus } = this.props
+    const { currentUser, dataStatus, settings, draftComplete } = this.props
     if (dataStatus.usersReceived && dataStatus.eventsReceived && dataStatus.countriesReceived && dataStatus.regionsReceived && dataStatus.settingsReceived ) {
       const users = this.props.users.map((user, index) => {
         const userCountries = this.findUserCountries(user._id)
@@ -75,15 +83,15 @@ export default class HeaderLeaderboard extends React.Component {
           })
 
           const userClass = classNames({
-            'user': user._id === currentUser._id
+            'user': (!settings.draftStarted && draftComplete) && (user._id === currentUser._id)
           })
 
           return (
             <li key={index}>
               <div className={`leaderboard-content ${userClass}`}>
                 <div className="name-rank">
-                  <span className={`rank ${renderClasses}`}>{user.points}</span>
-                  <span className="name">{user.name}</span>
+                  <span className={`rank ${renderClasses}`}>{this.showUserInfo(user.points, "")}</span>
+                  <span className="name">{this.showUserInfo(user.name, "No Data")}</span>
                 </div>
               </div>
             </li>

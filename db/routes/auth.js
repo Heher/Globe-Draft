@@ -7,16 +7,11 @@ module.exports = function(app) {
         console.log("Error!", err);
       }
       if (!user) {
-        User.create({
-          id_token: request.body.payload.id,
-          name:  request.body.payload.first_name,
-          email: request.body.payload.email,
-          selected: false,
-          draftNum: 0,
-          editing: false,
-          isAdmin: request.body.payload.isAdmin
-        }, function(err, user) {
+        response.json({error: "Email"});
+      } else if (user.id_token === '') {
+        User.findByIdAndUpdate(user._id, { $set: {id_token: request.body.payload.id} }, {new: true}, function(err, user) {
           response.json(user);
+          response
         });
       } else {
         response.json(user);
@@ -30,15 +25,10 @@ module.exports = function(app) {
         console.log("Error!", err);
       }
       if (!user) {
-        User.create({
-          id_token: request.body.payload.Ka,
-          name:  request.body.payload.Za,
-          email: request.body.payload.hg,
-          selected: false,
-          draftNum: 0,
-          editing: false,
-          isAdmin: request.body.payload.isAdmin
-        }, function(err, user) {
+        response.json({error: "Email"});
+      } else if (user.id_token === '') {
+        console.log(request.body.payload.Ka);
+        User.findByIdAndUpdate(user._id, { $set: {id_token: request.body.payload.Ka} }, {new: true}, function(err, user) {
           response.json(user);
         });
       } else {
