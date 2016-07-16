@@ -24,6 +24,7 @@
   img
     margin-right: 10px
     width: 26px
+    min-width: 26px
     height: 26px
   p
     display: flex
@@ -50,8 +51,9 @@
   &.selected
     background: #0e65ab
     color: #FFF
-    margin-bottom: 0
     cursor: default
+    .country-card-info
+      width: 50%
     .choice-submit
       visibility: visible
       opacity: 1
@@ -59,6 +61,8 @@
       background: #39961B
       border-radius: 0 4px 4px 0
       outline: 0
+      padding: 2px 0
+      margin: 0
   .avatar
     color: #FFF
     font-weight: 400
