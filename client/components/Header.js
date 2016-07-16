@@ -16,8 +16,15 @@ export default class Header extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      showMenu: false,
       loginButtonShow: false
     }
+  }
+
+  toggleMenu() {
+    this.setState({
+      showMenu: !this.state.showMenu
+    })
   }
 
   toggleLoginButtons(event) {
@@ -43,7 +50,7 @@ export default class Header extends React.Component {
     const { currentUser, dataStatus, settings } = this.props
 
     if (currentUser._id) {
-      const { userDrafting, canDraft } = this.props
+      const { userDrafting, canDraft, settings } = this.props
 
       const renderDraftClass = classNames({
         'user-turn': settings.draftStarted && canDraft
@@ -52,7 +59,10 @@ export default class Header extends React.Component {
       return (
         <header>
           <div className="header-content">
-            <MenuIcon {...this.props} />
+            <MenuIcon 
+              {...this.props}
+              toggle={this.toggleMenu.bind(this)}
+            />
             <div className="title">
               <h1>GLOBE.DRAFT</h1>
               <ul className={`nav-links ${renderDraftClass}`}>
@@ -72,10 +82,11 @@ export default class Header extends React.Component {
               </ul>
             </div>
             <HeaderLeaderboard {...this.props} />
-            <h2>{this.renderDraftStatus(settings.draftStarted, canDraft)}</h2>
           </div>
           <MobileMenu
             {...this.props}
+            showMenu={this.state.showMenu}
+            toggle={this.toggleMenu.bind(this)}
             loginButtonShow={this.state.loginButtonShow} 
             toggleLoginButtons={this.toggleLoginButtons.bind(this)}
           />
@@ -85,7 +96,10 @@ export default class Header extends React.Component {
       return (
         <header>
           <div className="header-content">
-            <MenuIcon {...this.props} />
+            <MenuIcon 
+              {...this.props}
+              toggle={this.toggleMenu.bind(this)}
+            />
             <div className="title">
               <h1>GLOBE.DRAFT</h1>
               <ul className="nav-links">
@@ -110,6 +124,8 @@ export default class Header extends React.Component {
           </div>
           <MobileMenu
             {...this.props}
+            showMenu={this.state.showMenu}
+            toggle={this.toggleMenu.bind(this)}
             loginButtonShow={this.state.loginButtonShow} 
             toggleLoginButtons={this.toggleLoginButtons.bind(this)}
           />

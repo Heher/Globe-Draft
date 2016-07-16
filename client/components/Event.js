@@ -1,4 +1,5 @@
 import React from 'react'
+import moment from 'moment'
 import classNames from 'classnames'
 
 import Flag from './Flag'
@@ -59,15 +60,7 @@ export default class Event extends React.Component {
   }
 
   convertDate(datetime) {
-    const date = new Date(datetime)
-    const convertedDate = date.toLocaleString(navigator.language, {
-      weekday: 'short',
-      month: 'numeric',
-      day: 'numeric',
-      hour: '2-digit',
-      minute:'2-digit'
-    })
-    return convertedDate
+    return moment(datetime, "YYYY-MM-DD").format("ddd, M/D, h:mm A")
   }
 
   render() {

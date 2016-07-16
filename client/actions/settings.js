@@ -158,7 +158,6 @@ export function toggleDraft(setting) {
       .then(response => 
         response.json().then(settings => ({ settings, response }))
       ).then(({ settings, response }) => {
-        console.log(settings, response)
         if (!response.ok) {
           console.log("Poop")
           dispatch(settingsFetchError(settings.message))

@@ -6,13 +6,17 @@ export default class LoginStatus extends React.Component {
     if (currentUser._id) {
       return (
         <div className={`login-status ${settings.loginSuccess ? "success" : ""}`}>
-          <p>Welcome, {currentUser.name}</p>
+          <div className="login-status-copy">
+            <p>Welcome, {currentUser.name}</p>
+          </div>
         </div>
       )
     } else {
       return (
         <div className={`login-status ${settings.loginError ? "error" : ""}`}>
-          <p>Email not found. Please try again.</p>
+          <div className="login-status-copy">
+            <p>Email not found. Please try again.</p>
+          </div>
         </div>
       )
     }
