@@ -60,7 +60,7 @@ export default class Event extends React.Component {
   }
 
   convertDate(datetime) {
-    return moment(datetime, "YYYY-MM-DD").format("ddd, M/D, h:mm A")
+    return moment(datetime, moment.ISO_8601).format("ddd, M/D, h:mm A")
   }
 
   render() {

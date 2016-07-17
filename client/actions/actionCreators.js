@@ -47,6 +47,7 @@ export function editUser(id, payload) {
           return Promise.reject(user)
         }
         else {
+          console.log(user)
           dispatch(savedUser(user._id, user))
         }
       }).catch(err => console.log("Error: ", err))
@@ -221,7 +222,8 @@ export function addEvent(name) {
       body: JSON.stringify({
         name: name,
         team: false,
-        editing: false
+        editing: false,
+        datetime: Date.now()
       })
     })
       .then(response => response.json())
@@ -450,7 +452,6 @@ export function setEditingCountry(id) {
 }
 
 export function editCountry(id, payload) {
-  console.log(id, payload)
   return dispatch => {
     return fetch('/api/countries', {
       method: 'PUT',

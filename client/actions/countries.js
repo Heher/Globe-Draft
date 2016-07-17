@@ -40,7 +40,7 @@ export function receiveCountries(countries) {
   }
 }
 
-export function addCountry(name, region_id) {
+export function addCountry(name, shortName, region_id) {
   return dispatch => {
     return fetch('/api/countries', { 
       method: 'POST',
@@ -50,6 +50,7 @@ export function addCountry(name, region_id) {
       },
       body: JSON.stringify({
         name: name,
+        shortName: shortName,
         regionId: region_id,
         userId: "",
         selected: false,

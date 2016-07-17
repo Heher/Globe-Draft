@@ -17,17 +17,21 @@ export default class CountryAddItemField extends React.Component {
 
   handleFormSubmit(event) {
     event.preventDefault()
-    const input = event.target.getElementsByTagName('input')[0]
-    let inputValue = input.value
-    this.props.addCountry(inputValue, this.state.regionValue)
-    input.value = ""
+    const countryName = event.target.getElementsByClassName('country-name')[0]
+    const countryShortName = event.target.getElementsByClassName('country-short-name')[0]
+    let countryNameValue = countryName.value
+    let countryShortNameValue = countryShortName.value
+    this.props.addCountry(countryNameValue, countryShortNameValue, this.state.regionValue)
+    countryName.value = ""
+    countryShortName.value = ""
   }
 
   render() {
     return (
       <form onSubmit={event => this.handleFormSubmit(event)}>
         <h4>Add Country:</h4>
-        <input type="text" />
+        <input className="country-name" type="text" />
+        <input className="country-short-name" type="text" />
         <CountryRegionSelect 
           {...this.props}
           handleSelectChange={this.handleSelectChange}
