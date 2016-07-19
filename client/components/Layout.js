@@ -54,7 +54,7 @@ export default class Layout extends React.Component {
 
       return (
         <div>
-          <Header {...this.props} userDrafting={userDrafting} canDraft={canDraft} />
+          <Header {...this.props} userDrafting={userDrafting} canDraft={canDraft} draftComplete={draftComplete} />
           <LoginStatus {...this.props} />
           <div className="page">
             <div className="content">

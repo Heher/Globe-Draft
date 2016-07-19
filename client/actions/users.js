@@ -3,7 +3,12 @@ import fetch from 'isomorphic-fetch'
 export function fetchUsers() {
   return dispatch => {
     dispatch(requestUsers())
-    return fetch('/api/users')
+    return fetch('/api/users', {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    })
       .then(response => 
         response.json().then(users => ({ users, response }))
       ).then(({ users, response }) => {
