@@ -71,7 +71,7 @@ export default class EventPanelEdit extends React.Component {
             onChange={this.props.handleCheckboxChange.bind(this)}
           />
         </div>
-        <DateTime defaultValue={this.state.dateValue} />
+        <DateTime defaultValue={this.state.dateValue} timeFormat="HH:mm"/>
         <div className="medal-winners">
           <div className="golds">
             {goldSelects}

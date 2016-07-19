@@ -1,4 +1,5 @@
 import React from 'react'
+import moment from 'moment'
 import _ from 'underscore'
 
 import EventDay from './EventDay'
@@ -9,7 +10,8 @@ export default class Events extends React.Component {
   
   groupEventsByDay(events) {
     return _.groupBy(events, (event) => {
-      return event.datetime.substring(0,10)
+      const convertedDateTime = moment(event.datetime, "YYYY-MM-DDTHH:mm:ss.sssZ").format("YYYY-MM-DD")
+      return convertedDateTime
     })
   }
 
