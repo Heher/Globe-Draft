@@ -211,7 +211,7 @@ export function receiveEvents(events) {
   }
 }
 
-export function addEvent(name) {
+export function addEvent(name, date) {
   return dispatch => {
     return fetch('/api/events', { 
       method: 'POST',
@@ -223,7 +223,7 @@ export function addEvent(name) {
         name: name,
         team: false,
         editing: false,
-        datetime: Date.now()
+        datetime: new Date(date).toISOString()
       })
     })
       .then(response => response.json())
