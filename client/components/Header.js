@@ -64,7 +64,7 @@ export default class Header extends React.Component {
               toggle={this.toggleMenu.bind(this)}
             />
             <div className="title">
-              <h1>GLOBE.DRAFT</h1>
+              <h1>GLOBE DRAFT</h1>
               <ul className={`nav-links ${renderDraftClass}`}>
                 <li>
                   <Link to="/events">
@@ -101,7 +101,7 @@ export default class Header extends React.Component {
               toggle={this.toggleMenu.bind(this)}
             />
             <div className="title">
-              <h1>GLOBE.DRAFT</h1>
+              <h1>GLOBE DRAFT</h1>
               <ul className="nav-links">
                 <li>
                   <Link to="/events">
