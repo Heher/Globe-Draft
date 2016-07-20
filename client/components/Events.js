@@ -43,16 +43,16 @@ export default class Events extends React.Component {
       const sortedEvents = this.sortByDay(groupedEventsArray)
 
       if (params.day) {
-        dateLinks.push(<EventLink key={0} {...this.props} />)
+        dateLinks.push(<EventLink key={0} {...this.props} mainLink="events" />)
         eventDays.push(<EventDay key={params.day} {...this.props} title={params.day} eventGroup={groupedEvents[params.day]} />)
         sortedEvents.map((day, index) => {
-          dateLinks.push(<EventLink key={index + 1} {...this.props} day={day.day} />)
+          dateLinks.push(<EventLink key={index + 1} {...this.props} day={day.day} mainLink="events" />)
         })
       } else {
-        dateLinks.push(<EventLink key={0} {...this.props} />)
+        dateLinks.push(<EventLink key={0} {...this.props} mainLink="events"/>)
         sortedEvents.map((day, index) => {
           eventDays.push(<EventDay key={index + 1} {...this.props} title={day.day} eventGroup={day.events} />)
-          dateLinks.push(<EventLink key={index + 1} {...this.props} day={day.day} />)
+          dateLinks.push(<EventLink key={index + 1} {...this.props} day={day.day} mainLink="events" />)
         })
       }
 

@@ -11,17 +11,21 @@ export default class EventButton extends React.Component {
     }
   }
 
-  renderLink(day) {
-    if (day) {
-      return `/${day}`
-    } else {
-      return ""
+  renderLink(mainLink, day) {
+    let link = "/"
+    if (mainLink) {
+      link = link + mainLink
     }
+    if (day) {
+      link = link + `/${day}`
+    }
+    return link
   }
 
   render() {
+    const { mainLink, day } = this.props
     return (
-      <Link className="event-link" to={`/events${this.renderLink(this.props.day)}`} activeClassName="active">{this.convertDate(this.props.day)}</Link>
+      <Link className="event-link" to={this.renderLink(mainLink, day)} activeClassName="active">{this.convertDate(this.props.day)}</Link>
     )
   }
 }

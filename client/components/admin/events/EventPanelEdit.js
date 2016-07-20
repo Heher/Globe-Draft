@@ -54,7 +54,7 @@ export default class EventPanelEdit extends React.Component {
     }
 
     return (
-      <div className="event">
+      <div className="event-section">
         <div className="title">
           <input 
             type="text"

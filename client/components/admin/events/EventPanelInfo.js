@@ -1,16 +1,46 @@
 import React from 'react'
+import classNames from 'classnames'
 
 import PanelButtons from '../panel/PanelButtons'
 import EditItem from '../panel/buttons/EditItem'
 
+import Flag from '../../Flag'
+import Avatar from '../../Avatar'
+
 export default class EventPanelInfo extends React.Component {
+
   renderWinners(countries) {
     if (countries.length > 0) {
       return countries.map((country, index) => {
-        return <p key={index}><span>{country.points}</span>{country.name}</p>
+        const settingsClasses = classNames({
+          'good': country._id === this.props.settings.goodCountry,
+          'bad': country._id === this.props.settings.badCountry,
+          'taken': country.userId
+        })
+        return (
+          <div key={index} className={`winner ${settingsClasses}`}>
+            <div className="winner-name">
+              <span className="medal ">{country.points}</span>
+              <Flag country={country}/>
+              <p>
+                {country.name}
+                {country.userId ? <Avatar {...this.props} userId={country.userId}/> : null}
+              </p>
+            </div>
+          </div>
+        )
       })
     } else {
-      return <p key={0}><span>&nbsp;</span>Not Set</p> // &nbsp needed for flexbox to correctly align
+      return (
+        <div key={0} className="winner">
+          <div className="winner-name">
+            <span className="medal">&nbsp;</span>
+            <p>
+              Not Set
+            </p>
+          </div>
+        </div>
+      )// &nbsp needed for flexbox to correctly align
     }
   }
 
@@ -29,9 +59,9 @@ export default class EventPanelInfo extends React.Component {
   render() {
     const { event, goldCountries, silverCountries, bronzeCountries } = this.props
     return (
-      <div className="event">
+      <div className="event-section">
         <div className="title">
-          <h5>{event.name}</h5>
+          <h4>{event.name}</h4>
           {event.datetime ? <p>{this.convertDate(event.datetime)}</p> : null}
           <EditItem {...this.props} item={event} type="Event" />
         </div>

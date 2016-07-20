@@ -1,4 +1,5 @@
 import React from 'react'
+import classNames from 'classnames'
 
 export default class EventCountrySelect extends React.Component {
   constructor(props) {
@@ -31,7 +32,7 @@ export default class EventCountrySelect extends React.Component {
   }
 
   render() {
-    const { type, countries } = this.props
+    const { type, countries, country } = this.props
 
     let countryOptions = []
 
@@ -41,8 +42,13 @@ export default class EventCountrySelect extends React.Component {
     sortedOptions.map((country, index) => {
       countryOptions.push(<option key={index + 1} value={country._id}>{country.name}</option>)
     })
+
+    const winnerClass = classNames({
+      'new-winner': !this.props.country
+    })
+
     return (
-      <div>
+      <div className={winnerClass}>
         <span>&nbsp;</span>
         <select className={type} onChange={this.handleSelectChange.bind(this)} value={this.state.countryValue}>
           {countryOptions}

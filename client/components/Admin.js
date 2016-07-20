@@ -55,8 +55,6 @@ export default class Admin extends React.Component {
               <h1>Admin Panel</h1>
               <h2>Users</h2><span onClick={this.showAddItemPanel.bind(this, "User")}>+</span>
               <UserAdminSection {...this.props} addingUser={this.state.addingUser} />
-              <h2>Events</h2><span onClick={this.showAddItemPanel.bind(this, "Event")}>+</span>
-              <EventAdminSection {...this.props} addingEvent={this.state.addingEvent} />
               <h2>Regions</h2><span onClick={this.showAddItemPanel.bind(this, "Region")}>+</span>
               <RegionAdminSection {...this.props} addingRegion={this.state.addingRegion} />
               <h2>Countries</h2><span onClick={this.showAddItemPanel.bind(this, "Country")}>+</span>

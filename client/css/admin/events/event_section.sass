@@ -1,61 +1,54 @@
-.events-section
-  .event
-    padding: 10px
-    margin-bottom: 15px
-    background: #DADADA
-    .title
-      display: flex
-      align-items: baseline
-      h5
-        margin: 0 10px 0 0
-      p
-        margin: 0 15px 0 0
-        font-size: 12px
-    .admin-checkbox
-      display: flex
-      align-items: center
-      margin: 10px 0 0 0
-      p
-        margin: 0
-        font-size: 10px
-      input
-        margin-left: 10px
-    .medal-winners
-      display: flex
-      align-items: center
-      margin-top: 10px
-      p
-        margin: 0
-        font-size: 10px
+.admin-event
+  width: 100%
+  padding: 20px
+
+.event-section
+  .title
+    display: flex
+    align-items: baseline
+    p
+      margin: 0 15px 0 0
+      font-size: 12px
+  .admin-checkbox
+    display: flex
+    align-items: center
+    margin: 10px 20px
+    p
+      margin: 0
+      font-size: 10px
+    input
+      margin-left: 10px
+  .rdt
+    input
+      margin: 10px 20px
+  .medal-winners
+    margin: 10px 20px
+    span
+      display: inline-block
+      margin: 0 10px 0 0
+      width: 10px
+      min-width: 10px
+      height: 10px
+      border-radius: 10px
+      font-size: 10px
+      font-weight: 700
+      text-align: center
+      cursor: default
+    .golds
+      position: relative
+      margin: 0 20px 0 0
       span
-        margin: 0 10px 0 0
-        width: 10px
-        height: 10px
-        border-radius: 10px
-        font-size: 10px
-        font-weight: 700
-        text-align: center
-        cursor: default
-      .golds
-        position: relative
-        margin: 0 20px 0 0
-        span
-          background: #ffbf00
-      .silvers
-        position: relative
-        margin: 0 20px 0 20px
-        span
-          background: #c0c0c0
-      .bronzes
-        position: relative
-        margin-left: 20px
-        span
-          background: #cd7f32
-    .rdt
-      .rdtPicker
-        display: none
-      &.rdtOpen
-        .rdtPicker
-          display: block
-    .action-buttons
-      margin-top: 15px
+        background: #ffbf00
+    .silvers
+      position: relative
+      margin: 0 20px 0 20px
+      span
+        background: #c0c0c0
+    .bronzes
+      position: relative
+      margin-left: 20px
+      span
+        background: #cd7f32
+  .action-buttons
+    margin: 10px 20px
+    padding-bottom: 10px
