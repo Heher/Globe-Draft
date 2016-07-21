@@ -68,7 +68,7 @@
     display: flex
     justify-content: space-between
     align-items: center
-    padding: 5px 20px
+    padding: 10px 20px
     font-size: 12px
     &.user
       background: rgba(57, 150, 27, 0.2)
@@ -91,3 +91,56 @@
         width: 30px
         height: 30px
         line-height: 30px
+
+.points-back
+  display: none
+  background: rgba(14,101,171,.15)
+  padding: 10px 5px
+  border-top: 1px solid rgba(14,101,171,.3)
+  border-bottom: 1px solid #CCC
+  p
+    display: flex
+    align-items: center
+    margin: 0 0 0 20px
+    font-size: 12px
+    width: 33.33%
+    span
+      display: block
+      width: 16px
+      height: 16px
+      line-height: 16px
+      margin: 0 10px 0 0
+      text-align: center
+      background: #0e65ab
+      color: #FFF
+      border-radius: 26px
+      box-shadow: 1px 1px 4px 0 #666
+      &.gold
+        background: #DBA012
+      &.silver
+        background: #B3B3B3
+      &.bronze
+        background: #cd7f32
+
+.sidebar
+  .leaderboard
+    ul
+      padding: 0
+    li
+      .leaderboard-content
+        padding: 15px 20px
+        cursor: pointer
+        &:hover
+          background: rgba(14,101,171,.1)
+      &:first-of-type
+        .leaderboard-content
+          border-top: 0
+      &.open
+        .leaderboard-content
+          // border-top: 1px solid rgba(14,101,171,.3)
+          border-bottom: 1px solid #CCC
+        & + li
+          .leaderboard-content
+            border-top: 1px solid rgba(14,101,171,.3)
+        .points-back
+          display: flex
