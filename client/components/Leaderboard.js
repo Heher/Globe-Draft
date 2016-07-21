@@ -9,6 +9,9 @@ require('../css/leaderboard.sass')
 export default class Leaderboard extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {
+      leaderboardOpen: 0
+    }
   }
 
   sortByPoints(countries) {
@@ -60,6 +63,12 @@ export default class Leaderboard extends React.Component {
     }
   }
 
+  openLeaderboard(index) {
+    this.setState({
+      leaderboardOpen: index
+    })
+  }
+
   render() {
     const { currentUser, settings, draftComplete } = this.props
     const users = this.props.users.map((user, index) => {
@@ -74,6 +83,9 @@ export default class Leaderboard extends React.Component {
     })
 
     const sortedUsers = this.sortByPoints(users)
+    const goldUserPoints = sortedUsers[0].points
+    const silverUserPoints = sortedUsers[1].points
+    const bronzeUserPoints = sortedUsers[2].points
     const renderUsers = sortedUsers.map((user, index) => {
       const renderClasses = classNames({
         'gold': index === 0,
@@ -86,13 +98,18 @@ export default class Leaderboard extends React.Component {
       })
 
       return (
-        <li key={index}>
-          <div className={`leaderboard-content ${userClass}`}>
+        <li className={this.state.leaderboardOpen === index ? "open" : ""} key={index}>
+          <div className={`leaderboard-content ${userClass}`} onClick={this.openLeaderboard.bind(this, index)}>
             <div className="name-rank">
               <span className={`rank ${renderClasses}`}>{index + 1}</span>
               <span className="name">{this.showUserInfo(user.name, "No Data")}</span>
             </div>
             <span className="points">{user.points}</span>
+          </div>
+          <div className="points-back">
+            <p><span className="gold"></span>{user.points - goldUserPoints > 0 ? "+" : ""}{user.points - goldUserPoints}</p>
+            <p><span className="silver"></span>{user.points - silverUserPoints > 0 ? "+" : ""}{user.points - silverUserPoints}</p>
+            <p><span className="bronze"></span>{user.points - bronzeUserPoints > 0 ? "+" : ""}{user.points - bronzeUserPoints}</p>
           </div>
         </li>
       )
