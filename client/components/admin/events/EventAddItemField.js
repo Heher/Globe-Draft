@@ -12,7 +12,6 @@ export default class EventAddItemField extends React.Component {
     const dateInput = event.target.getElementsByClassName('form-control')[0]
     let inputValue = nameInput.value
     let dateValue = dateInput.value
-    console.log(dateValue)
     this.props.addEvent(inputValue, dateValue)
     nameInput.value = ""
   }

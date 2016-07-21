@@ -100,7 +100,7 @@ export default class HeaderLeaderboard extends React.Component {
       })
 
       return (
-        <div className="leaderboard">
+        <div className="leaderboard header-leaderboard">
           <ul>
             {renderUsers}
           </ul>
