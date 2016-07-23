@@ -9,7 +9,7 @@
   align-items: flex-start
   max-width: 1305px
   margin: 0 auto 40px auto
-  @media only screen and (max-width: 480px)
+  @media only screen and (max-width: 859px)
     display: none
   .event-link
     display: block
@@ -75,7 +75,7 @@
     color: #FFF
     padding: 20px 15px
     border-radius: 4px 4px 0 0
-    @media only screen and (max-width: 899px)
+    @media only screen and (max-width: 966px)
       flex-direction: column
     h4
       font-family: 'Amiko', sans-serif
@@ -87,7 +87,7 @@
     p
       margin: 0 0 0 15px
       font-size: 12px
-      @media only screen and (max-width: 899px)
+      @media only screen and (max-width: 966px)
         margin: 0
     .team-badge
       font-size: 10px
@@ -98,16 +98,16 @@
       // color: #000
       margin-left: 15px
       box-shadow: 1px 1px 2px 0 #666
-      @media only screen and (max-width: 899px)
+      @media only screen and (max-width: 966px)
         margin: 5px 0 0 0
   .medal-winners
     display: flex
     align-items: flex-start
-    @media only screen and (max-width: 899px)
+    @media only screen and (max-width: 966px)
       flex-direction: column
     .golds, .silvers, .bronzes
       width: 33.33%
-      @media only screen and (max-width: 899px)
+      @media only screen and (max-width: 966px)
         width: 100%
     .silvers
       // border-left: 2px solid #0e65ab
@@ -197,6 +197,11 @@
       margin-bottom: 20px
       font-weight: 700
       cursor: pointer
+  @media only screen and (min-width: 967px)
+    .title
+      .edit-button
+        margin: 0 15px 0 0
+
   &.editing
     .title
       .edit-button
@@ -234,5 +239,33 @@
     .action-buttons
       display: flex
       align-items: center
-      padding: 10px
+      padding: 20px 15px
       background: #0e65ab
+      button
+        width: 80px
+        padding: 4px
+        border: 0
+        outline: 0
+        background: #FFF
+        border-radius: 2px
+        color: #0e65ab
+        margin-right: 15px
+        text-transform: uppercase
+        font-weight: 700
+        cursor: pointer
+    @media only screen and (min-width: 967px)
+      .title
+        .edit-button
+          margin-bottom: 0
+        input
+          width: auto
+          margin: 0 15px 0 0
+        .admin-checkbox
+          input
+            height: auto
+      .medal-winners
+        > div
+          margin: 0
+        input
+          padding: 5px
+          width: 100px

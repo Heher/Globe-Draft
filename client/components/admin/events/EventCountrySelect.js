@@ -55,12 +55,6 @@ export default class EventCountrySelect extends React.Component {
     }
   }
 
-  handleSelectChange(event) {
-    this.setState({
-      countryValue: event.target.value,
-    })
-  }
-
   getSuggestionValue(suggestion) {
     return suggestion.name
   }
@@ -98,25 +92,11 @@ export default class EventCountrySelect extends React.Component {
       onChange: this.onChange
     }
 
-    let countryOptions = []
-
-    const sortedOptions = this.sortCountryOptions(countries)
-
-    countryOptions.push(<option value='' key={0}>Not Set</option>)
-    sortedOptions.map((country, index) => {
-      countryOptions.push(<option key={index + 1} value={country._id}>{country.name}</option>)
-    })
-
-    const winnerClass = classNames({
-      'new-winner': !this.props.country
-    })
-
     return (
       <div className={`event-select ${type}`}>
         <span className="medal add-medal" onClick={this.props.handleAddMedal.bind(this)}>+</span>
         <Flag country={this.state.selectedCountry} />
         <Autosuggest
-          className={winnerClass} 
           suggestions={this.state.suggestions}
           onSuggestionsUpdateRequested={this.onSuggestionsUpdateRequested}
           onSuggestionSelected={this.onSuggestionSelected}

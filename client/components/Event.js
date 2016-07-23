@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 import DateTime from 'react-datetime'
 import moment from 'moment'
 import classNames from 'classnames'
@@ -102,12 +103,7 @@ export default class Event extends React.Component {
 
   renderSelects(countries, type) {
     let selects = []
-    let selectOptions = []
 
-    const sortedOptions = this.sortCountryOptions(this.props.countries)
-    sortedOptions.map(country => {
-      selectOptions.push({'value': country.name, 'label': country.name})
-    })
     if (countries.length > 0) {
       countries.map((country, index) => {
         selects.push(
@@ -124,8 +120,149 @@ export default class Event extends React.Component {
     console.log("Add")
   }
 
+  findCountryId(country) {
+    const foundCountry = this.props.countries.filter(filterCountry => {
+      return filterCountry.name === country
+    })[0]
+    return foundCountry._id
+  }
+
+  // Runs through all medal winners to determine if there is
+  // a good or bad country and at what position
+  findSpecialCountry(countryType, scores) {
+    let foundCountry
+    if (countryType === "good") {
+      foundCountry = scores.filter(score => {
+        return score === this.props.settings.goodCountry
+      })
+    } else {
+      foundCountry = scores.filter(score => {
+        return score === this.props.settings.badCountry
+      })
+    }
+    return foundCountry.length ? true : false
+  }
+
+  setMultiplier(type, eventSettings) {
+    // console.log(type, eventSettings)
+    let multiplier = 1
+    switch (type) {
+      case "gold" :
+        if (eventSettings.goodCountry.silver || eventSettings.goodCountry.bronze) {
+          multiplier = multiplier * 0.5
+        }
+        if (eventSettings.badCountry.silver || eventSettings.badCountry.bronze) {
+          multiplier = multiplier * 2
+        }
+        break
+
+      case "silver" :
+        if (eventSettings.goodCountry.bronze) {
+          multiplier = multiplier * 0.5
+        }
+        if (eventSettings.badCountry.gold) {
+          multiplier = multiplier * 0.5
+        }
+        if (eventSettings.goodCountry.gold) {
+          multiplier = multiplier * 2
+        }
+        if (eventSettings.badCountry.bronze) {
+          multiplier = multiplier * 2
+        }
+        break
+
+      case "bronze" :
+        if (eventSettings.goodCountry.gold || eventSettings.goodCountry.silver) {
+          multiplier = multiplier * 2
+        }
+        if (eventSettings.badCountry.gold || eventSettings.badCountry.silver) {
+          multiplier = multiplier * 0.5
+        }
+        break
+    }
+    return multiplier
+  }
+
+  // Using the information provided from the select
+  // edit panel, scores all countries/users
+  scoreEvent(scores) {
+    let teamMultiplier = scores.team ? 2 : 1
+    let eventSettings = {
+      goodCountry: {
+        gold: this.findSpecialCountry("good", scores.gold),
+        silver: this.findSpecialCountry("good", scores.silver),
+        bronze: this.findSpecialCountry("good", scores.bronze)
+      },
+      badCountry: {
+        gold: this.findSpecialCountry("bad", scores.gold),
+        silver: this.findSpecialCountry("bad", scores.silver),
+        bronze: this.findSpecialCountry("bad", scores.bronze)
+      }
+    }
+    let eventMultiplier = {
+      gold: this.setMultiplier("gold", eventSettings),
+      silver: this.setMultiplier("silver", eventSettings),
+      bronze: this.setMultiplier("bronze", eventSettings)
+    }
+    const goldValues = scores.gold.map(gold => {
+      const points = 3 * teamMultiplier * eventMultiplier.gold
+      return {id: gold, points: points}
+    })
+
+    const silverValues = scores.silver.map(silver => {
+      const points = 2 * teamMultiplier * eventMultiplier.silver
+      return {id: silver, points: points}
+    })
+
+    const bronzeValues = scores.bronze.map(bronze => {
+      const points = 1 * teamMultiplier * eventMultiplier.bronze
+      return {id: bronze, points: points}
+    })
+
+    return {gold: goldValues, silver: silverValues, bronze: bronzeValues}
+  }
+
+  // Finds all country values of a medal type and returns them
+  findSelectValues(panel, type) {
+    const selectDiv = panel.getElementsByClassName(type)[0]
+    const selects = Array.from(selectDiv.getElementsByTagName('input'))
+    let values = selects.map(select => {
+      return this.findCountryId(select.value)
+    })
+    values = (values.filter( Boolean )) // Used to remove undefined elements
+    return values
+  }
+
+  // When the save button is clicked
   handleItemSave() {
-    console.log("Saved")
+    const panel = ReactDOM.findDOMNode(this)
+    // Date/Time value
+    const dateValue = panel.getElementsByClassName('form-control')[0].value
+    const datetime = new Date(dateValue).toISOString()
+    // Medal Values
+    const goldValues = this.findSelectValues(panel, "gold")
+    const silverValues = this.findSelectValues(panel, "silver")
+    const bronzeValues = this.findSelectValues(panel, "bronze")
+
+    const calculatedValues = this.scoreEvent({
+      team: this.state.checkboxValue,
+      gold: goldValues,
+      silver: silverValues,
+      bronze: bronzeValues
+    })
+
+    this.props.editEvent(
+      this.props.event._id, 
+      {
+        name: this.state.inputValue,
+        team: this.state.checkboxValue,
+        datetime,
+        gold: calculatedValues.gold,
+        silver: calculatedValues.silver,
+        bronze: calculatedValues.bronze
+      }
+    )
+    this.handleEditToggle()
   }
 
   render() {
