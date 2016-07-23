@@ -184,3 +184,55 @@
       background: rgba(149, 23, 116, 0.3)
       text-transform: uppercase
           
+.event-section
+  .title
+    .edit-button
+      padding: 5px
+      background: #FFF
+      border: 0
+      outline: 0
+      color: #0e65ab
+      border-radius: 2px
+      text-transform: uppercase
+      margin-bottom: 20px
+      font-weight: 700
+      cursor: pointer
+  &.editing
+    .title
+      .edit-button
+        margin-bottom: 10px
+      input
+        box-sizing: border-box
+        width: 100%
+        height: 25px
+        border: 0
+        border-radius: 2px
+        padding: 0 5px
+        margin-bottom: 5px
+      .rdtPicker
+        color: #000
+      .admin-checkbox
+        display: flex
+        align-items: center
+        p
+          margin: 0
+          font-size: 10px
+          text-transform: uppercase
+        input
+          width: 15px
+          margin: 0 7px 0 0
+    .medal-winners
+      padding: 10px 0
+      > div
+        margin: 10px 0
+        box-sizing: border-box
+        display: flex
+        flex-direction: column
+        padding: 0
+      .add-medal
+        font-size: 18px
+    .action-buttons
+      display: flex
+      align-items: center
+      padding: 10px
+      background: #0e65ab
