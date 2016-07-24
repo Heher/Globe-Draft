@@ -9,7 +9,7 @@
   align-items: flex-start
   max-width: 1305px
   margin: 0 auto 40px auto
-  @media only screen and (max-width: 480px)
+  @media only screen and (max-width: 859px)
     display: none
   .event-link
     display: block
@@ -75,7 +75,7 @@
     color: #FFF
     padding: 20px 15px
     border-radius: 4px 4px 0 0
-    @media only screen and (max-width: 899px)
+    @media only screen and (max-width: 966px)
       flex-direction: column
     h4
       font-family: 'Amiko', sans-serif
@@ -87,7 +87,7 @@
     p
       margin: 0 0 0 15px
       font-size: 12px
-      @media only screen and (max-width: 899px)
+      @media only screen and (max-width: 966px)
         margin: 0
     .team-badge
       font-size: 10px
@@ -98,16 +98,16 @@
       // color: #000
       margin-left: 15px
       box-shadow: 1px 1px 2px 0 #666
-      @media only screen and (max-width: 899px)
+      @media only screen and (max-width: 966px)
         margin: 5px 0 0 0
   .medal-winners
     display: flex
     align-items: flex-start
-    @media only screen and (max-width: 899px)
+    @media only screen and (max-width: 966px)
       flex-direction: column
     .golds, .silvers, .bronzes
       width: 33.33%
-      @media only screen and (max-width: 899px)
+      @media only screen and (max-width: 966px)
         width: 100%
     .silvers
       // border-left: 2px solid #0e65ab
@@ -184,3 +184,149 @@
       background: rgba(149, 23, 116, 0.3)
       text-transform: uppercase
           
+.event-section
+  .title
+    .edit-button
+      padding: 5px
+      background: #FFF
+      border: 0
+      outline: 0
+      color: #0e65ab
+      border-radius: 2px
+      text-transform: uppercase
+      margin-bottom: 20px
+      font-weight: 700
+      cursor: pointer
+  @media only screen and (min-width: 967px)
+    .title
+      .edit-button
+        margin: 0 15px 0 0
+
+  &.editing
+    .title
+      .edit-button
+        margin-bottom: 10px
+      input
+        box-sizing: border-box
+        width: 100%
+        height: 25px
+        border: 0
+        border-radius: 2px
+        padding: 0 5px
+        margin-bottom: 5px
+      .rdtPicker
+        color: #000
+      .admin-checkbox
+        display: flex
+        align-items: center
+        p
+          margin: 0
+          font-size: 10px
+          text-transform: uppercase
+        input
+          width: 15px
+          margin: 0 7px 0 0
+    .medal-winners
+      padding: 10px 0
+      > div
+        margin: 10px 0
+        box-sizing: border-box
+        display: flex
+        flex-direction: column
+        padding: 0
+        &.adding
+          .new-winner
+            display: flex
+      .event-select
+        margin-bottom: 5px
+        &:last-of-type
+          margin-bottom: 0
+        &.new-winner
+          display: none
+      .add-medal
+        font-size: 18px
+        cursor: pointer
+    .action-buttons
+      display: flex
+      align-items: center
+      padding: 20px 15px
+      background: #0e65ab
+      button
+        width: 80px
+        padding: 4px
+        border: 0
+        outline: 0
+        background: #FFF
+        border-radius: 2px
+        color: #0e65ab
+        margin-right: 15px
+        text-transform: uppercase
+        font-weight: 700
+        cursor: pointer
+    @media only screen and (min-width: 967px)
+      .title
+        .edit-button
+          margin-bottom: 0
+        input
+          width: auto
+          margin: 0 15px 0 0
+        .admin-checkbox
+          input
+            height: auto
+      .medal-winners
+        > div
+          margin: 0
+        input
+          padding: 5px
+          width: 100px
+
+.events-wrapper
+  form
+    display: flex
+    flex-direction: column
+    margin: 20px 0
+    padding: 10px
+    background: #0e65ab
+    border-radius: 4px
+    h4
+      font-family: 'Amiko', sans-serif
+      font-weight: 400
+      margin: 0
+      margin-bottom: 10px
+      color: #FFF
+      font-size: 12px
+      text-transform: uppercase
+      letter-spacing: 1.3px
+    input
+      width: 150px
+      margin: 0 0 10px 0
+      padding: 0
+      border: 0
+      height: 25px
+      &[type='checkbox']
+        width: auto
+    p
+      margin: 0 10px 0 30px
+      font-size: 12px
+    button
+      background: #FFF
+      color: #0e65ab
+      border: 0
+      outline: 0
+      padding: 5px
+      border-radius: 2px
+      text-transform: uppercase
+      font-weight: 700
+      cursor: pointer
+      width: 150px
+
+    @media only screen and (min-width: 967px)
+      flex-direction: row
+      align-items: center
+      h4
+        margin: 0 15px 0 0
+      input
+        margin: 0 5px 0 0
+      button
+        margin: 0 0 0 20px
+        width: auto

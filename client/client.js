@@ -13,7 +13,6 @@ import Login from './components/Login'
 import RoundStatus from './components/RoundStatus'
 import CountryList from './components/CountryList'
 import Leaderboard from './components/Leaderboard'
-import EventAdminSection from './components/admin/events/EventAdminSection'
 
 import css from './css/index.sass'
 
@@ -26,8 +25,6 @@ const router = (
         <Route path="/draft/picks" component={CountryList}></Route>
         <Route path="/draft/overall" component={RoundStatus}></Route>
         <Route path="/admin" component={Admin}></Route>
-        <Route path="/admin/events" component={EventAdminSection}></Route>
-        <Route path="/admin/events/:day" component={EventAdminSection}></Route>
         <Route path="/login" component={Login}></Route>
         <Route path='/events' component={Events}></Route>
         <Route path='/events/:day' component={Events}></Route>

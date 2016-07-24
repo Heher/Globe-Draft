@@ -1,18 +1,46 @@
 import React from 'react'
 import classNames from 'classnames'
+import Autosuggest from 'react-autosuggest'
+
+import Flag from '../../Flag'
+
+require('../../../css/inputs/country_select.sass')
 
 export default class EventCountrySelect extends React.Component {
   constructor(props) {
     super(props)
     if (this.props.country) {
       this.state = {
-        countryValue: this.props.country._id
+        countryValue: this.props.country.name,
+        suggestions: this.getSuggestions(''),
+        selectedCountry: this.props.country
       }
     } else {
       this.state = {
-        countryValue: ''
+        countryValue: '',
+        suggestions: this.getSuggestions(''),
+        selectedCountry: ''
       }
     }
+    this.onChange = this.onChange.bind(this)
+    this.onSuggestionsUpdateRequested = this.onSuggestionsUpdateRequested.bind(this)
+    this.onSuggestionSelected = this.onSuggestionSelected.bind(this)
+  }
+
+  escapeRegexCharacters(str) {
+    return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  }
+
+  getSuggestions(value) {
+    const escapedValue = this.escapeRegexCharacters(value.trim())
+    
+    if (escapedValue === '') {
+      return [];
+    }
+
+    const regex = new RegExp('\\b' + escapedValue, 'i')
+    
+    return this.props.countries.filter(country => regex.test(this.getSuggestionValue(country)))
   }
 
   sortCountryOptions(countries) {
@@ -27,32 +55,73 @@ export default class EventCountrySelect extends React.Component {
     }
   }
 
-  handleSelectChange(event) {
-    this.setState({countryValue: event.target.value})
+  getSuggestionValue(suggestion) {
+    return suggestion.name
+  }
+
+  renderSuggestion(suggestion) {
+    return (
+      <span><Flag country={suggestion} />{suggestion.name}</span>
+    )
+  }
+
+  onChange(event, { newValue }) {
+    this.setState({
+      countryValue: newValue
+    })
+  }
+
+  onSuggestionsUpdateRequested({ value }) {
+    this.setState({
+      suggestions: this.getSuggestions(value)
+    })
+  }
+
+  onSuggestionSelected(event, { suggestion, suggestionValue, sectionIndex, method }) {
+    this.setState({
+      selectedCountry: suggestion
+    })
+  }
+
+  renderMedal() {
+    if (this.props.country) {
+      return (
+        <span 
+          className="medal add-medal"
+          onClick={this.props.handleAddMedal.bind(this, this.props.type)}>
+          +
+        </span>
+      )
+    } else {
+      return <span className="medal">&nbsp;</span>
+    }
   }
 
   render() {
     const { type, countries, country } = this.props
 
-    let countryOptions = []
+    const inputProps = {
+      placeholder: 'Select Country',
+      value: this.state.countryValue,
+      onChange: this.onChange
+    }
 
-    const sortedOptions = this.sortCountryOptions(countries)
-
-    countryOptions.push(<option value='' key={0}>Not Set</option>)
-    sortedOptions.map((country, index) => {
-      countryOptions.push(<option key={index + 1} value={country._id}>{country.name}</option>)
-    })
-
-    const winnerClass = classNames({
-      'new-winner': !this.props.country
+    const newClass = classNames({
+      'new-winner': !this.props.country && !this.props.noCountries
     })
 
     return (
-      <div className={winnerClass}>
-        <span>&nbsp;</span>
-        <select className={type} onChange={this.handleSelectChange.bind(this)} value={this.state.countryValue}>
-          {countryOptions}
-        </select>
+      <div className={`event-select ${type} ${newClass}`}>
+        {this.renderMedal()}
+        <Flag country={this.state.selectedCountry} />
+        <Autosuggest
+          suggestions={this.state.suggestions}
+          onSuggestionsUpdateRequested={this.onSuggestionsUpdateRequested}
+          onSuggestionSelected={this.onSuggestionSelected}
+          getSuggestionValue={this.getSuggestionValue}
+          renderSuggestion={this.renderSuggestion}
+          inputProps={inputProps}
+        />
       </div>
     )
   }

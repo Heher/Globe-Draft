@@ -5,6 +5,7 @@ import _ from 'underscore'
 import EventDay from './EventDay'
 import EventLink from './EventLink'
 import Leaderboard from './Leaderboard'
+import EventAddItemField from './admin/events/EventAddItemField'
 
 export default class Events extends React.Component {
   
@@ -28,7 +29,7 @@ export default class Events extends React.Component {
   }
 
   render() {
-    const { dataStatus, params } = this.props
+    const { currentUser, dataStatus, params } = this.props
 
     if (dataStatus.usersReceived && dataStatus.eventsReceived && dataStatus.countriesReceived && dataStatus.regionsReceived && dataStatus.settingsReceived) {
       
@@ -61,6 +62,7 @@ export default class Events extends React.Component {
           <div className="date-links">
             {dateLinks}
           </div>
+          {currentUser.isAdmin ? <EventAddItemField {...this.props} /> : null}
           <div className="events-content">
             <div className="events">
               {eventDays}

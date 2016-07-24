@@ -22,7 +22,7 @@ export default class EventAddItemField extends React.Component {
         <h4>Add Event:</h4>
         <input type="text" />
         <DateTime timeFormat="HH:mm"/>
-        <button type="submit">SUBMIT</button>
+        <button type="submit">Submit</button>
       </form>
     )
   }
