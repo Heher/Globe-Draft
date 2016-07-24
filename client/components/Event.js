@@ -20,7 +20,10 @@ export default class Event extends React.Component {
       editing: false,
       inputValue: this.props.event.name,
       dateValue: new Date(this.props.event.datetime),
-      checkboxValue: this.props.event.team
+      checkboxValue: this.props.event.team,
+      goldAdd: false,
+      silverAdd: false,
+      bronzeAdd: false
     }
   }
 
@@ -107,17 +110,46 @@ export default class Event extends React.Component {
     if (countries.length > 0) {
       countries.map((country, index) => {
         selects.push(
-          <EventCountrySelect {...this.props} key={index} country={country} type={type} handleAddMedal={this.handleAddMedal.bind(this)} />
+          <EventCountrySelect 
+            {...this.props}
+            key={index + 1}
+            country={country}
+            type={type}
+            handleAddMedal={this.handleAddMedal.bind(this)}
+            noCountries={false}
+          />
         )
       })
+      selects.push(<EventCountrySelect {...this.props} key={0} type={type} noCountries={false} />)
     } else {
-      selects.push(<EventCountrySelect {...this.props} key={0} type={type} />)
+      selects.push(<EventCountrySelect {...this.props} key={0} type={type} noCountries={true} />)
     }
     return selects
   }
 
-  handleAddMedal() {
-    console.log("Add")
+  handleAddMedal(type) {
+    switch (type) {
+      case 'gold' :
+        this.setState({
+          goldAdd: !this.state.goldAdd
+        })
+        break
+
+      case 'silver' :
+        this.setState({
+          silverAdd: !this.state.silverAdd
+        })
+        break
+
+      case 'bronze' :
+        this.setState({
+          bronzeAdd: !this.state.bronzeAdd
+        })
+        break
+
+      default:
+        return
+    }
   }
 
   findCountryId(country) {
@@ -186,6 +218,7 @@ export default class Event extends React.Component {
   // Using the information provided from the select
   // edit panel, scores all countries/users
   scoreEvent(scores) {
+    console.log(scores)
     let teamMultiplier = scores.team ? 2 : 1
     let eventSettings = {
       goodCountry: {
@@ -227,9 +260,12 @@ export default class Event extends React.Component {
     const selectDiv = panel.getElementsByClassName(type)[0]
     const selects = Array.from(selectDiv.getElementsByTagName('input'))
     let values = selects.map(select => {
-      return this.findCountryId(select.value)
+      if (select.value) { 
+        return this.findCountryId(select.value)
+      }
     })
     values = (values.filter( Boolean )) // Used to remove undefined elements
+    console.log(values)
     return values
   }
 
@@ -240,9 +276,9 @@ export default class Event extends React.Component {
     const dateValue = panel.getElementsByClassName('form-control')[0].value
     const datetime = new Date(dateValue).toISOString()
     // Medal Values
-    const goldValues = this.findSelectValues(panel, "gold")
-    const silverValues = this.findSelectValues(panel, "silver")
-    const bronzeValues = this.findSelectValues(panel, "bronze")
+    const goldValues = this.findSelectValues(panel, "golds")
+    const silverValues = this.findSelectValues(panel, "silvers")
+    const bronzeValues = this.findSelectValues(panel, "bronzes")
 
     const calculatedValues = this.scoreEvent({
       team: this.state.checkboxValue,
@@ -299,13 +335,13 @@ export default class Event extends React.Component {
             </div>
           </div>
           <div className="medal-winners">
-            <div className="golds">
+            <div className={`golds ${this.state.goldAdd ? "adding" : ""}`}>
               {this.renderSelects(goldCountries, "gold")}
             </div>
-            <div className="silvers">
+            <div className={`silvers ${this.state.silverAdd ? "adding" : ""}`}>
               {this.renderSelects(silverCountries, "silver")}
             </div>
-            <div className="bronzes">
+            <div className={`bronzes ${this.state.bronzeAdd ? "adding" : ""}`}>
               {this.renderSelects(bronzeCountries, "bronze")}
             </div>
           </div>

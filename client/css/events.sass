@@ -234,8 +234,18 @@
         display: flex
         flex-direction: column
         padding: 0
+        &.adding
+          .new-winner
+            display: flex
+      .event-select
+        margin-bottom: 5px
+        &:last-of-type
+          margin-bottom: 0
+        &.new-winner
+          display: none
       .add-medal
         font-size: 18px
+        cursor: pointer
     .action-buttons
       display: flex
       align-items: center

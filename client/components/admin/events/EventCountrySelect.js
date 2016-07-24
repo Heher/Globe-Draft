@@ -83,6 +83,20 @@ export default class EventCountrySelect extends React.Component {
     })
   }
 
+  renderMedal() {
+    if (this.props.country) {
+      return (
+        <span 
+          className="medal add-medal"
+          onClick={this.props.handleAddMedal.bind(this, this.props.type)}>
+          +
+        </span>
+      )
+    } else {
+      return <span className="medal">&nbsp;</span>
+    }
+  }
+
   render() {
     const { type, countries, country } = this.props
 
@@ -92,9 +106,13 @@ export default class EventCountrySelect extends React.Component {
       onChange: this.onChange
     }
 
+    const newClass = classNames({
+      'new-winner': !this.props.country && !this.props.noCountries
+    })
+
     return (
-      <div className={`event-select ${type}`}>
-        <span className="medal add-medal" onClick={this.props.handleAddMedal.bind(this)}>+</span>
+      <div className={`event-select ${type} ${newClass}`}>
+        {this.renderMedal()}
         <Flag country={this.state.selectedCountry} />
         <Autosuggest
           suggestions={this.state.suggestions}
