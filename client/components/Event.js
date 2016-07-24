@@ -12,6 +12,7 @@ import SaveItem from './admin/panel/buttons/SaveItem'
 
 require('../css/events.sass')
 require('../css/inputs/country_select.sass')
+require('../css/inputs/date_picker.sass')
 
 export default class Event extends React.Component {
   constructor(props) {

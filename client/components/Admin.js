@@ -7,7 +7,6 @@ import EditEvent from './admin/EditEvent'
 import Login from './Login'
 
 import UserAdminSection from './admin/users/UserAdminSection'
-import EventAdminSection from './admin/events/EventAdminSection'
 import RegionAdminSection from './admin/regions/RegionAdminSection'
 import CountryAdminSection from './admin/countries/CountryAdminSection'
 import SettingAdminSection from './admin/settings/SettingAdminSection'
@@ -29,9 +28,6 @@ export default class Admin extends React.Component {
     switch(type) {
       case "User" :
         this.setState({addingUser: !this.state.addingUser})
-        break
-      case "Event" :
-        this.setState({addingEvent: !this.state.addingEvent})
         break
       case "Region" :
         this.setState({addingRegion: !this.state.addingRegion})
