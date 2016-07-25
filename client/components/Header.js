@@ -59,10 +59,11 @@ export default class Header extends React.Component {
       return (
         <header>
           <div className="header-content">
-            <MenuIcon 
-              {...this.props}
-              toggle={this.toggleMenu.bind(this)}
-            />
+            <div className="menu-button-wrapper" onClick={this.toggleMenu.bind(this)}>
+              <MenuIcon 
+                {...this.props}
+              />
+            </div>
             <div className="title">
               <h1>GLOBE DRAFT</h1>
               <ul className={`nav-links ${renderDraftClass}`}>
@@ -96,10 +97,11 @@ export default class Header extends React.Component {
       return (
         <header>
           <div className="header-content">
-            <MenuIcon 
-              {...this.props}
-              toggle={this.toggleMenu.bind(this)}
-            />
+            <div className="menu-button-wrapper" onClick={this.toggleMenu.bind(this)}>
+              <MenuIcon 
+                {...this.props}
+              />
+            </div>
             <div className="title">
               <h1>GLOBE DRAFT</h1>
               <ul className="nav-links">
