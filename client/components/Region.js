@@ -1,10 +1,17 @@
 import React from "react"
 
 import CountryCard from "./CountryCard"
+import EventIcon from "./icons/EventIcon"
 
 require('../css/region.sass')
 
 export default class Region extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      showRegion: true
+    }
+  }
   sortRegion(countries) {
     if (countries.length) {
       return countries.sort(function(a, b) {
@@ -15,6 +22,12 @@ export default class Region extends React.Component {
     } else {
       return null
     }
+  }
+
+  toggleRegionShow() {
+    this.setState({
+      showRegion: !this.state.showRegion
+    })
   }
 
   render() {
@@ -51,8 +64,10 @@ export default class Region extends React.Component {
       })
 
       return (
-        <div className="region">
-          <h2>{this.props.region.name}</h2><span>{numSelected} selected of {this.props.region.maxCountriesSelected}</span>
+        <div className={`region ${!this.state.showRegion ? "hide" : ""}`}>
+          <h2>{this.props.region.name}</h2>
+          <EventIcon {...this.props} toggle={this.toggleRegionShow.bind(this)}/>
+          <span className="number-selected">{numSelected} selected of {this.props.region.maxCountriesSelected}</span>
           <div className="country-selections">
             {countryList}
           </div>

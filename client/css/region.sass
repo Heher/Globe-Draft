@@ -42,14 +42,27 @@
     h2
       display: inline-block
       font-size: 20px
-      margin: 0 20px 10px 0
+      margin: 0 0 10px 0
       text-transform: uppercase
       letter-spacing: 1.3px
-      & + span
-        font-size: 14px
-        text-transform: uppercase
+    svg
+      width: 18px
+      height: 12px
+      margin-left: 10px
+      cursor: pointer
+      transform: rotate(180deg)
+    .number-selected
+      font-size: 14px
+      text-transform: uppercase
+      margin-left: 20px
     .country-selections
       display: flex
       flex-wrap: wrap
       @media only screen and (max-width: 529px)
         flex-direction: column
+
+    &.hide
+      svg
+        transform: none
+      .country-selections
+        display: none
