@@ -21,15 +21,19 @@ export default class Main extends React.Component {
               <li>Each round, a user chooses one country to draft to their team.</li>
               <li>Every user must choose one country from each region and one
               extra country from the Europe region.</li>
+              <li>Draft continues in snake draft order until all users have drafted
+              all their countries.</li>
             </ol>
             <h4>Scoring</h4>
             <ol>
               <li>
                 <p>Medal winners receive points as follows:</p>
-                <p>Gold: 3 points</p>
-                <p>Silver: 2 points</p>
-                <p>Bronze: 1 point</p>
-                <p>Team events are worth double</p>
+                <div className="point-list">
+                  <p>Gold: 3 points</p>
+                  <p>Silver: 2 points</p>
+                  <p>Bronze: 1 point</p>
+                  <p>Team events are worth double</p>
+                </div>
               </li>
               <li>
                 <p>
@@ -48,11 +52,11 @@ export default class Main extends React.Component {
               </li>
             </ol>
             <h3>Registration</h3>
-            <p>
-              There is a $20 buy-in to play. Once the payment has been received, a user
-              account will be made with an email address connected to a Facebook or Google
-              account of the user's choice to handle logins.
-            </p>
+            <ol>
+              <li>Pay $20 buy-in</li>
+              <li>Provide email linked to Facebook or Google account</li>
+              <li>Login</li>
+            </ol>
           </div>
         </div>
       </div>

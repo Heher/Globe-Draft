@@ -3,12 +3,18 @@
   .hero
     padding: 40px 20%
     background: #0e65ab
+    @media only screen and (max-width: 600px)
+      padding: 20px
+    @media only screen and (min-width: 601px) and (max-width: 760px)
+      padding: 40px 10%
     h2
       text-align: center
       font-size: 30px
       color: #FFF
       text-transform: uppercase
       margin: 20px 0
+      @media only screen and (max-width: 600px)
+        font-size: 20px
     svg
       display: block
       fill: #FFF
@@ -18,9 +24,31 @@
   .rules-wrapper
     max-width: 1305px
     padding: 40px 20%
+    @media only screen and (max-width: 600px)
+      padding: 20px
+    @media only screen and (min-width: 601px) and (max-width: 760px)
+      padding: 40px 10%
     .rules
       margin: 0 auto
       h3
-        // margin: 0
-        font-size: 20px
+        background: #0e65ab
+        color: #FFF
+        padding: 20px
+        margin: 0
+        border-radius: 4px
+        font-size: 12px
+        letter-spacing: 1.3px
         text-transform: uppercase
+      h4
+        margin: 20px 0
+        // text-transform: uppercase
+        font-size: 16px
+      ol
+        padding: 0 0 0 20px
+        font-size: 14px
+        .point-list
+          margin: 10px 0
+        li
+          margin: 15px 0
+        p
+          margin: 10px 0
