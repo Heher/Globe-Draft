@@ -65,7 +65,7 @@ export default class Header extends React.Component {
               />
             </div>
             <div className="title">
-              <h1>GLOBE DRAFT</h1>
+              <h1><Link to="/">GLOBE DRAFT</Link></h1>
               <ul className={`nav-links ${renderDraftClass}`}>
                 <li>
                   <Link to="/events">
@@ -103,7 +103,7 @@ export default class Header extends React.Component {
               />
             </div>
             <div className="title">
-              <h1>GLOBE DRAFT</h1>
+              <h1><Link to="/">GLOBE DRAFT</Link></h1>
               <ul className="nav-links">
                 <li>
                   <Link to="/events">

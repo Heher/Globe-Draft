@@ -13,6 +13,7 @@ import Login from './components/Login'
 import RoundStatus from './components/RoundStatus'
 import CountryList from './components/CountryList'
 import Leaderboard from './components/Leaderboard'
+import Main from './components/Main'
 
 import css from './css/index.sass'
 
@@ -20,7 +21,7 @@ const router = (
   <Provider store={store}>
     <Router history={history}>
       <Route path="/" component={App}>
-        <IndexRoute component={Events}></IndexRoute>
+        <IndexRoute component={Main}></IndexRoute>
         <Route path="/draft" component={Countries}></Route>
         <Route path="/draft/picks" component={CountryList}></Route>
         <Route path="/draft/overall" component={RoundStatus}></Route>

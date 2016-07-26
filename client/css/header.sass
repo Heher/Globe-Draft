@@ -47,6 +47,8 @@ header
           align-items: center
           text-decoration: none
           color: #333
+          span
+            white-space: nowrap
           &:hover
             color: #999
         &.show
@@ -93,6 +95,12 @@ header
     margin: 0
     color: #333
     font-size: 30px
+    white-space: nowrap
+    a
+      text-decoration: none
+      color: #333
+      &:hover
+        color: #999
   h2
     flex-grow: 2
     text-align: center
@@ -113,7 +121,6 @@ header
     box-shadow: none
     border-radius: 0
     margin: 0 0 0 40px
-    padding: 0 15px
     background: #FFF
     @media only screen and (max-width: 892px)
       margin: 10px 0 0 0
@@ -128,11 +135,11 @@ header
       @media only screen and (max-width: 892px)
         margin: 0 auto
       li
-        margin-right: 15px
-        &:last-of-type
-          margin-right: 0
+        // margin-right: 15px
+        // &:last-of-type
+          // margin-right: 0
       .leaderboard-content
-        padding: 0 10px
+        padding: 0 20px
         height: 80px
         @media only screen and (max-width: 892px)
           height: 50px
@@ -140,6 +147,7 @@ header
           margin-right: 10px
         .name
           // font-weight: 700
+          white-space: nowrap
         .points
           display: none
           font-size: 12px
