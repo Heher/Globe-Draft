@@ -12,8 +12,8 @@ export default class Main extends React.Component {
         <div className="hero">
           <h2>Build a team to win the most medals</h2>
           <WorldIcon />
+          <PaymentForm {...this.props} />
         </div>
-        <PaymentForm {...this.props} />
         <div className="rules-wrapper">
           <div className="rules">
             <h3>Registration</h3>

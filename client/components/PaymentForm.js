@@ -6,6 +6,7 @@ const PaymentForm = React.createClass({
 
   getInitialState() {
     return {
+      showForm: false,
       stripeLoading: true,
       stripeLoadingError: false,
       submitDisabled: false,
@@ -47,6 +48,12 @@ const PaymentForm = React.createClass({
     })
   },
 
+  toggleRegistration() {
+    this.setState({
+      showForm: !this.state.showForm
+    })
+  },
+
   render() {
     if (this.state.stripeLoading) {
       return <div>Loading</div>
@@ -57,16 +64,25 @@ const PaymentForm = React.createClass({
     else if (this.state.paymentComplete) {
       return <div>Payment Complete!</div>
     }
-    else {
+    else if (this.state.showForm) {
       return (
-        <form onSubmit={this.onSubmit} >
-          <span>{ this.state.paymentError }</span><br />
-          <input type='text' data-stripe='number' placeholder='credit card number' /><br />
-          <input type='text' data-stripe='exp-month' placeholder='expiration month' /><br />
-          <input type='text' data-stripe='exp-year' placeholder='expiration year' /><br />
-          <input type='text' data-stripe='cvc' placeholder='cvc' /><br />
-          <input disabled={this.state.submitDisabled} type='submit' value='Purchase' />
-        </form>
+        <div className="registration">
+          <p>$20 buy-in:</p>
+          <form onSubmit={this.onSubmit} >
+            <span>{ this.state.paymentError }</span>
+            <input type='text' data-stripe='number' placeholder='Card Number' />
+            <div className="card-details">
+              <input type='text' data-stripe='exp-month' placeholder='MM' />
+              <input type='text' data-stripe='exp-year' placeholder='YYYY' />
+              <input type='text' data-stripe='cvc' placeholder='CVC' />
+            </div>
+            <input disabled={this.state.submitDisabled} type='submit' value='REGISTER' />
+          </form>
+        </div>
+      )
+    } else {
+      return (
+        <button onClick={this.toggleRegistration}>REGISTER</button>
       )
     }
   }
