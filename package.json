@@ -22,13 +22,11 @@
     "file-loader": "^0.8.5",
     "isomorphic-fetch": "^2.2.1",
     "json-loader": "^0.5.4",
+    "moment": "^2.14.1",
     "mongodb": "^2.1.21",
     "mongoose": "^4.4.19",
     "mongoose-findorcreate": "^0.1.2",
     "node-sass": "^3.7.0",
-    "passport": "^0.3.2",
-    "passport-facebook": "^2.1.1",
-    "passport-twitter": "^1.0.4",
     "react": "^15.0.2",
     "react-addons-css-transition-group": "^15.0.2",
     "react-autosuggest": "^3.8.0",
@@ -39,6 +37,7 @@
     "react-redux": "^4.4.5",
     "react-router": "^2.4.0",
     "react-router-redux": "^4.0.4",
+    "react-script-loader": "0.0.1",
     "react-transform-catch-errors": "^1.0.2",
     "react-transform-hmr": "^1.0.4",
     "redbox-react": "^1.2.4",
@@ -47,13 +46,11 @@
     "redux-thunk": "^2.1.0",
     "rimraf": "^2.5.2",
     "sass-loader": "^3.2.0",
+    "stripe": "^4.9.0",
     "style-loader": "^0.13.1",
     "svg-url-loader": "^1.0.3",
     "underscore": "^1.8.3",
-    "url-loader": "^0.5.7",
-    "webpack": "^1.13.0",
-    "webpack-dev-middleware": "^1.6.1",
-    "webpack-hot-middleware": "^2.10.0"
+    "url-loader": "^0.5.7"
   },
   "scripts": {
     "build:webpack": "NODE_ENV=production webpack --config webpack.config.prod.js",
@@ -69,6 +66,9 @@
     "expect": "^1.20.1",
     "expect-jsx": "^2.5.1",
     "mocha": "^2.4.5",
-    "react-addons-test-utils": "^15.0.2"
+    "react-addons-test-utils": "^15.0.2",
+    "webpack": "^1.13.0",
+    "webpack-dev-middleware": "^1.6.1",
+    "webpack-hot-middleware": "^2.10.0"
   }
 }

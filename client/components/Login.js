@@ -43,7 +43,7 @@ export default class Login extends React.Component {
       return (
         <li>
           <Link to="#" onClick={this.props.toggleLoginButtons.bind(this)}>
-            <span>Login / Register</span>
+            <span>Login</span>
           </Link>
         </li>
       )

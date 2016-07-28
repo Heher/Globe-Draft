@@ -3,3 +3,4 @@
 /db/config/
 db.js
 /dist/
+/db/routes/stripe.js

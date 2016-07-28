@@ -476,3 +476,30 @@ export function savedCountryEdit(id, payload) {
     payload
   }
 }
+
+export function chargeCard(token) {
+  return dispatch => {
+    return fetch('/stripe', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        stripeToken: token
+      })
+    })
+      .then(response => 
+        response.json().then(charge => ({ charge, response }))
+      ).then(({ charge, response }) => {
+        if (!response.ok) {
+          console.log("Poop")
+          return Promise.reject(charge)
+        }
+        else {
+          console.log(charge)
+          console.log("Success")
+        }
+      }).catch(err => console.log("Error: ", err))
+  }
+}

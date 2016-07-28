@@ -1,6 +1,7 @@
 import React from 'react'
 
 import WorldIcon from './icons/WorldIcon'
+import PaymentForm from './PaymentForm'
 
 require('../css/main.sass')
 
@@ -12,8 +13,15 @@ export default class Main extends React.Component {
           <h2>Build a team to win the most medals</h2>
           <WorldIcon />
         </div>
+        <PaymentForm {...this.props} />
         <div className="rules-wrapper">
           <div className="rules">
+            <h3>Registration</h3>
+            <ol>
+              <li>Pay $20 buy-in</li>
+              <li>Provide email linked to Facebook or Google account</li>
+              <li>Login</li>
+            </ol>
             <h3>Rules</h3>
             <h4>The Draft</h4>
             <ol>
@@ -50,12 +58,6 @@ export default class Main extends React.Component {
                   will halve their points.
                 </p>
               </li>
-            </ol>
-            <h3>Registration</h3>
-            <ol>
-              <li>Pay $20 buy-in</li>
-              <li>Provide email linked to Facebook or Google account</li>
-              <li>Login</li>
             </ol>
           </div>
         </div>
