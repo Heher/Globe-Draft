@@ -43,6 +43,11 @@
         text-align: center
         letter-spacing: 1px
         margin: 0 0 20px 0
+      @media only screen and (max-width: 600px)
+        width: 100%
+        p
+          font-size: 12px
+          margin-bottom: 10px
     .login-buttons
       display: flex
       align-items: center
@@ -56,6 +61,14 @@
           line-height: normal
         &.facebook-login
           margin-right: 10px
+      @media only screen and (max-width: 600px)
+        width: 140px
+        button
+          width: 60px
+          padding: 10px
+          &.facebook-login
+            margin-right: 20px
+
 
   .rules-wrapper
     max-width: 1305px
