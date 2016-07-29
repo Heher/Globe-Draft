@@ -11,7 +11,7 @@ export default class Logout extends React.Component {
   render() {
     const { currentUser } = this.props
     return (
-      <Link to="/events" onClick={this.handleLogout.bind(this, currentUser._id)}>
+      <Link to="/" onClick={this.handleLogout.bind(this, currentUser._id)}>
         <span>Log Out</span>
       </Link>
     )

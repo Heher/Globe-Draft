@@ -57,10 +57,10 @@ h1, h2, h3, h4, h5
     max-width: 1310px
     margin: 0 auto
 
-.login-status
+.status-bar
   display: none
   padding: 10px 20px
-  .login-status-copy
+  .status
     max-width: 1305px
     margin: 0 auto
     p
@@ -68,9 +68,75 @@ h1, h2, h3, h4, h5
       color: #F0F0F0
       font-size: 14px
       text-transform: uppercase
-  &.error
+  &.error, &.payment-needed
     display: block
     background: #951774
   &.success
     display: block
     background: #39961B
+  // &.payment-needed
+  //   display: block
+  //   background: #DBA012
+
+.registration
+  max-width: 1305px
+  padding: 0 20px
+  margin: 10px auto
+  p
+    color: #FFF
+    font-size: 14px
+    margin: 0 0 5px 0
+    text-transform: uppercase
+  form
+    width: 590px
+    display: flex
+    flex-wrap: wrap
+    input
+      box-sizing: border-box
+      display: block
+      width: 200px
+      height: 30px
+      padding: 4px
+      margin: 0 10px 0 0
+      border-radius: 2px
+      border: 0
+    .card-details
+      display: flex
+      input
+        width: 50px
+    input[type="submit"]
+      width: 150px
+      height: 30px
+      border: 0
+      outline: 0
+      background: #0e65ab
+      color: #FFF
+      border-radius: 2px
+      margin: 0
+      cursor: pointer
+  span
+    display: block
+    margin-top: 10px
+    font-size: 12px
+    color: #FFF
+  @media only screen and (max-width: 480px)
+    max-width: 400px
+    p
+      margin-bottom: 10px
+    form
+      flex-direction: column
+      width: auto
+      input
+        width: 170px
+        margin: 0 0 5px 0
+      .card-details
+        input
+          margin: 0 10px 0 0
+      input[type="submit"]
+        width: 170px
+        margin-top: 10px
+  @media only screen and (max-width: 605px)
+    form
+      width: auto
+      input[type="submit"]
+        margin-top: 10px

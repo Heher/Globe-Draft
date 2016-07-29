@@ -10,10 +10,6 @@ export default class MobileMenu extends React.Component {
     super(props)
   }
 
-  loginStatus() {
-
-  }
-
   render() {
     const { settings, currentUser, canDraft, showMenu } = this.props
 

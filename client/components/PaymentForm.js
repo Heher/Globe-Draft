@@ -22,7 +22,7 @@ const PaymentForm = React.createClass({
 
   onScriptLoaded() {
     if (!PaymentForm.getStripeToken) {
-      Stripe.setPublishableKey('pk_test_HMkCJyde6gvUEeFEGlsvdeI9')
+      Stripe.setPublishableKey('pk_live_VP4EFOSVzzJ1awGEgk3vyP0i')
       this.setState({ stripeLoading: false, stripeLoadingError: false })
     }
   },
@@ -43,7 +43,7 @@ const PaymentForm = React.createClass({
       else {
         self.setState({ paymentComplete: true, submitDisabled: false, token: response.id })
         // make request to your server here!
-        self.props.chargeCard(self.state.token)
+        self.props.chargeCard(self.props.currentUser._id, self.state.token)
       }
     })
   },
@@ -56,33 +56,33 @@ const PaymentForm = React.createClass({
 
   render() {
     if (this.state.stripeLoading) {
-      return <div>Loading</div>
-    }
-    else if (this.state.stripeLoadingError) {
-      return <div>Error</div>
-    }
-    else if (this.state.paymentComplete) {
-      return <div>Payment Complete!</div>
-    }
-    else if (this.state.showForm) {
       return (
         <div className="registration">
-          <p>$20 buy-in:</p>
+          <p>Loading</p>
+        </div>
+      )
+    }
+    else if (this.state.stripeLoadingError) {
+      return (
+        <div className="registration">
+          <p>Error loading payment form. Please try again.</p>
+        </div>
+      )
+    } else {
+      return (
+        <div className="registration">
+          <p>Pay $20 buy-in to complete registration:</p>
           <form onSubmit={this.onSubmit} >
-            <span>{ this.state.paymentError }</span>
             <input type='text' data-stripe='number' placeholder='Card Number' />
             <div className="card-details">
               <input type='text' data-stripe='exp-month' placeholder='MM' />
               <input type='text' data-stripe='exp-year' placeholder='YYYY' />
               <input type='text' data-stripe='cvc' placeholder='CVC' />
             </div>
-            <input disabled={this.state.submitDisabled} type='submit' value='REGISTER' />
+            <input disabled={this.state.submitDisabled} type='submit' value='PAY' />
           </form>
+          <span>{ this.state.paymentError }</span>
         </div>
-      )
-    } else {
-      return (
-        <button onClick={this.toggleRegistration}>REGISTER</button>
       )
     }
   }

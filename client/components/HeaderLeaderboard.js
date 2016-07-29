@@ -62,7 +62,7 @@ export default class HeaderLeaderboard extends React.Component {
   render() {
     const { currentUser, dataStatus, settings, draftComplete } = this.props
     if (dataStatus.usersReceived && dataStatus.eventsReceived && dataStatus.countriesReceived && dataStatus.regionsReceived && dataStatus.settingsReceived ) {
-      const users = this.props.users.map((user, index) => {
+      const users = this.props.paidUsers.map((user, index) => {
         const userCountries = this.findUserCountries(user._id)
         let userCountrySum = 0
         userCountries.map(country => {

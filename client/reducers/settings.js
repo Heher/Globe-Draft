@@ -43,6 +43,18 @@ function settings(state = [], action) {
         loginSuccess: true
       }
 
+    case 'USER_NEEDS_TO_PAY' :
+      return {
+        ...state,
+        userNeedsToPay: true
+      }
+
+    case 'CARD_CHARGE_SUCCESS' :
+      return {
+        ...state,
+        cardChargeSuccess: true
+      }
+
     default:
       return state
   }

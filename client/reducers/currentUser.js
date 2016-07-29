@@ -8,6 +8,12 @@ function currentUser(state = [], action) {
     case 'LOGOUT_USER' :
       return {}
 
+    case 'UPDATE_CURRENT_USER' :
+      return {
+        ...state,
+        ...payload
+      }
+
     default:
       return state
   }

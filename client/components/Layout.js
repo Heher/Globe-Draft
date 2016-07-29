@@ -2,7 +2,7 @@ import React from "react"
 import { Link } from "react-router"
 
 import Header from './Header'
-import LoginStatus from './LoginStatus'
+import StatusBar from './StatusBar'
 import AdminSection from './admin/AdminSection'
 
 export default class Layout extends React.Component {
@@ -38,24 +38,29 @@ export default class Layout extends React.Component {
         draftComplete = true
       }
 
-      if (currentUser._id) {
+      if (currentUser._id && currentUser.hasPaid) {
         if ((settings.userTurn === currentUser.draftNum) && (settings.round <= totalDraftRounds) && (settings.draftStarted)) {
           canDraft = true
         }
       }
+
+      const paidUsers = this.props.users.filter(user => {
+        return user.hasPaid
+      })
 
       const createProps = {
         ...this.props,
         userDrafting,
         canDraft,
         draftComplete,
-        totalDraftRounds
+        totalDraftRounds,
+        paidUsers
       }
 
       return (
         <div>
-          <Header {...this.props} userDrafting={userDrafting} canDraft={canDraft} draftComplete={draftComplete} />
-          <LoginStatus {...this.props} />
+          <Header {...this.props} userDrafting={userDrafting} canDraft={canDraft} draftComplete={draftComplete} paidUsers={paidUsers} />
+          <StatusBar {...this.props} />
           <div className="page">
             <div className="content">
               {React.cloneElement(this.props.children, createProps)}

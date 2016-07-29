@@ -18,8 +18,8 @@ export default class CountryEditIcon extends React.Component {
         <rect x="22.5" y="15.2" transform="matrix(0.7444 0.6677 -0.6677 0.7444 25.2784 -10.8496)" width="8.5" height="24.8"/>
         <polyline points="13.1 42.9 20.6 40.9 14.2 35.2 13.1 42.9 "/>
         <rect x="33.1" y="14.2" transform="matrix(0.7445 0.6677 -0.6677 0.7445 20.0919 -20.9498)" width="8.5" height="3.1"/>
-        <text y="69.7" font-size="5px" font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif" class="a">  Created by Nicolas Morand</text>
-        <text y="74.7" font-size="5px" font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif" class="a">  from the Noun Project</text>
+        <text y="69.7">  Created by Nicolas Morand</text>
+        <text y="74.7">  from the Noun Project</text>
       </svg>
     )
   }

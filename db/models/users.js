@@ -9,7 +9,8 @@ var userSchema = new Schema({
   selected: Boolean,
   draftNum: Number,
   editing: Boolean,
-  isAdmin: Boolean
+  isAdmin: Boolean,
+  hasPaid: Boolean
 });
 
 module.exports = mongoose.model('User', userSchema);

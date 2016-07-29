@@ -14,7 +14,7 @@ export default class RoundStatus extends React.Component {
   render() {
     const { draftComplete, settings } = this.props
 
-    const sortedUsers = this.sortUsers(this.props.users.slice(0)) // Slice is used to not mutate original array
+    const sortedUsers = this.sortUsers(this.props.paidUsers.slice(0)) // Slice is used to not mutate original array
     const userCards = sortedUsers.map((user, index) => {
       const selected = ((user.draftNum === this.props.settings.userTurn) && settings.draftStarted && !draftComplete)
       return <UserCard key={index} {...this.props} position={index + 1} selected={selected} user={user} />

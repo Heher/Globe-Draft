@@ -10,7 +10,8 @@ export default class UserPanelItem extends React.Component {
     super(props)
     this.state = {
       inputValue: this.props.user.name,
-      checkboxValue: this.props.user.isAdmin
+      checkboxValue: this.props.user.isAdmin,
+      paidCheckboxValue: this.props.user.hasPaid
     }
   }
 
@@ -22,6 +23,10 @@ export default class UserPanelItem extends React.Component {
     this.setState({checkboxValue: event.target.checked})
   }
 
+  handlePaidCheckboxChange(event) {
+    this.setState({paidCheckboxValue: event.target.checked})
+  }
+
   handleItemSave() {
     const panel = ReactDOM.findDOMNode(this)
     const tokenValue = panel.getElementsByClassName('admin-token')[0].value
@@ -30,6 +35,7 @@ export default class UserPanelItem extends React.Component {
     this.props.editUser(this.props.user._id, {
       name: this.state.inputValue,
       isAdmin: this.state.checkboxValue,
+      hasPaid: this.state.paidCheckboxValue,
       id_token: tokenValue,
       email: emailValue
     })
@@ -45,9 +51,11 @@ export default class UserPanelItem extends React.Component {
           user={user}
           inputValue={this.state.inputValue}
           checkboxValue={this.state.checkboxValue}
+          paidCheckboxValue={this.state.paidCheckboxValue}
           handleInputChange={this.handleInputChange.bind(this)}
           handleItemSave={this.handleItemSave.bind(this)}
           handleCheckboxChange={this.handleCheckboxChange.bind(this)}
+          handlePaidCheckboxChange={this.handlePaidCheckboxChange.bind(this)}
         />
       )
     } else {

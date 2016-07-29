@@ -71,7 +71,7 @@ export default class Leaderboard extends React.Component {
 
   render() {
     const { currentUser, settings, draftComplete } = this.props
-    const users = this.props.users.map((user, index) => {
+    const users = this.props.paidUsers.map((user, index) => {
       const userCountries = this.findUserCountries(user._id)
       let userCountrySum = 0
       userCountries.map(country => {

@@ -47,6 +47,43 @@ export function receiveUsers(users) {
   }
 }
 
+export function editUser(id, payload) {
+  return dispatch => {
+    return fetch('/api/users', {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        id: id,
+        payload: payload
+      })
+    })
+      .then(response => 
+        response.json().then(user => ({ user, response }))
+      ).then(({ user, response }) => {
+        if (!response.ok) {
+          console.log("Poop")
+          dispatch(userFetchError(user.message))
+          return Promise.reject(user)
+        }
+        else {
+          dispatch(savedUser(user._id, user))
+        }
+      }).catch(err => console.log("Error: ", err))
+  }
+}
+
+export function savedUser(id, payload) {
+  console.log(payload)
+  return {
+    type: "SAVED_USER",
+    id,
+    payload
+  }
+}
+
 export function findOrCreateFacebookUser(payload) {
   return dispatch => {
     return fetch('/auth/facebook', { 
@@ -125,6 +162,13 @@ export function setCurrentUser(payload) {
   }
 }
 
+export function updateCurrentUser(payload) {
+  return {
+    type: "UPDATE_CURRENT_USER",
+    payload
+  }
+}
+
 export function logoutUser(id) {
   return {
     type: "LOGOUT_USER",
@@ -146,7 +190,42 @@ export function loginEmailNotFound() {
 }
 
 export function loginSuccess() {
+  console.log("HEY")
   return {
     type: "LOGIN_SUCCESS"
+  }
+}
+
+export function userNeedsToPay() {
+  return {
+    type: "USER_NEEDS_TO_PAY"
+  }
+}
+
+export function chargeCard(id, token) {
+  return dispatch => {
+    return fetch('/stripe', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        stripeToken: token
+      })
+    })
+      .then(response => 
+        response.json().then(charge => ({ charge, response }))
+      ).then(({ charge, response }) => {
+        if (!response.ok) {
+          console.log("Poop")
+          return Promise.reject(charge)
+        }
+        else {
+          dispatch(editUser(id, {hasPaid: true}))
+          dispatch(updateCurrentUser({hasPaid: true}))
+          dispatch(loginSuccess())
+        }
+      }).catch(err => console.log("Error: ", err))
   }
 }

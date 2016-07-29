@@ -25,43 +25,6 @@ export function changeUser(id) {
   }
 }
 
-export function editUser(id, payload) {
-  return dispatch => {
-    return fetch('/api/users', {
-      method: 'PUT',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        id: id,
-        payload: payload
-      })
-    })
-      .then(response => 
-        response.json().then(user => ({ user, response }))
-      ).then(({ user, response }) => {
-        if (!response.ok) {
-          console.log("Poop")
-          dispatch(userFetchError(user.message))
-          return Promise.reject(user)
-        }
-        else {
-          console.log(user)
-          dispatch(savedUser(user._id, user))
-        }
-      }).catch(err => console.log("Error: ", err))
-  }
-}
-
-export function savedUser(id, payload) {
-  return {
-    type: "SAVED_USER",
-    id,
-    payload
-  }
-}
-
 export function addUserToState(json) {
   return {
     type: "ADD_USER",
@@ -477,29 +440,8 @@ export function savedCountryEdit(id, payload) {
   }
 }
 
-export function chargeCard(token) {
-  return dispatch => {
-    return fetch('/stripe', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        stripeToken: token
-      })
-    })
-      .then(response => 
-        response.json().then(charge => ({ charge, response }))
-      ).then(({ charge, response }) => {
-        if (!response.ok) {
-          console.log("Poop")
-          return Promise.reject(charge)
-        }
-        else {
-          console.log(charge)
-          console.log("Success")
-        }
-      }).catch(err => console.log("Error: ", err))
+export function chargeSuccess() {
+  return {
+    type: "CARD_CHARGE_SUCCESS"
   }
 }

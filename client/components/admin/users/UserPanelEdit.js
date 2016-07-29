@@ -38,6 +38,14 @@ export default class UserPanelEdit extends React.Component {
           />
           <CancelEdit {...this.props} item={user} type="User" />
         </div>
+        <div className="paid-checkbox">
+          <p>Has Paid:</p>
+          <input
+            type="checkbox"
+            checked={this.props.paidCheckboxValue ? "checked" : ""}
+            onChange={this.props.handlePaidCheckboxChange.bind(this)}
+          />
+        </div>
         <div className="admin-checkbox">
           <p>Make Admin:</p>
           <input
