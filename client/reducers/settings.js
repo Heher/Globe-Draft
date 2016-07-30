@@ -1,5 +1,5 @@
 function settings(state = [], action) {
-  const { lastOfRound, round, payload } = action
+  const { lastOfRound, round, payload, error } = action
 
   switch(action.type) {
     case 'RECEIVE_SETTINGS' :
@@ -34,7 +34,8 @@ function settings(state = [], action) {
     case 'LOGIN_EMAIL_NOT_FOUND' :
       return {
         ...state,
-        loginError: true
+        loginError: true,
+        loginErrorCopy: error
       }
 
     case 'LOGIN_SUCCESS' :

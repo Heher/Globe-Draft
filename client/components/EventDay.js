@@ -12,6 +12,19 @@ export default class EventDay extends React.Component {
     }
   }
 
+  showToggle() {
+    if (!this.props.daySelected) {
+      return (
+        <EventIcon 
+          {...this.props}
+          toggle={this.toggleEvents.bind(this)} 
+        />
+      )
+    } else {
+      return null
+    }
+  }
+
   toggleEvents() {
     this.setState({
       showEvents: !this.state.showEvents
@@ -48,10 +61,7 @@ export default class EventDay extends React.Component {
       <div className={`event-day ${this.state.showEvents ? "show" : "hide"}`}>
         <div className="title">
           <h2 onClick={this.toggleEvents.bind(this)}>{this.convertDate(this.props.title)}</h2>
-          <EventIcon 
-            {...this.props}
-            toggle={this.toggleEvents.bind(this)} 
-          />
+          {this.showToggle()}
         </div>
         {events}
       </div>

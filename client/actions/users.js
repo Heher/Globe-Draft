@@ -76,7 +76,6 @@ export function editUser(id, payload) {
 }
 
 export function savedUser(id, payload) {
-  console.log(payload)
   return {
     type: "SAVED_USER",
     id,
@@ -126,15 +125,15 @@ export function findOrCreateGoogleUser(payload) {
         payload: payload.wc
       })
     })
-      .then(response => 
+      .then(response =>
         response.json()
         .then(user => ({ user, response }))
       ).then(({ user, response }) =>  {
         if (!response.ok) {
           dispatch(loginError(user.message))
           return Promise.reject(user)
-        } else if (user.error === "Email") {
-          dispatch(loginEmailNotFound())
+        } else if (user.errorType === "Email") {
+          dispatch(loginEmailNotFound(user.error))
         } else {
           localStorage.setItem('id_token', user.id_token)
           dispatch(setCurrentUser(user))
@@ -183,14 +182,14 @@ export function signInAsUser(users, token) {
   }
 }
 
-export function loginEmailNotFound() {
+export function loginEmailNotFound(error) {
   return {
-    type: "LOGIN_EMAIL_NOT_FOUND"
+    type: "LOGIN_EMAIL_NOT_FOUND",
+    error
   }
 }
 
 export function loginSuccess() {
-  console.log("HEY")
   return {
     type: "LOGIN_SUCCESS"
   }

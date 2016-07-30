@@ -23,7 +23,6 @@ module.exports = function(app) {
             response.json(user);
           }
         })
-        // response.json({error: "Email"});
       } else if (user.id_token === '') {
         User.findByIdAndUpdate(user._id, { $set: {id_token: request.body.payload.id} }, {new: true}, function(err, user) {
           if (err) {
@@ -41,7 +40,7 @@ module.exports = function(app) {
   app.post('/auth/google', function(request, response) {
     User.findOne({'email': request.body.payload.hg}, function(err, user) {
       if (err) {
-        response.json({error: "Email"});
+        response.json({errorType: "Email", error: err});
       }
       if (!user) {
         User.create({
@@ -54,16 +53,15 @@ module.exports = function(app) {
           isAdmin: request.body.payload.isAdmin
         }, function(err, user) {
           if (err) {
-            response.json({error: "Email"});
+            response.json({errorType: "Email", error: err});
           } else {
             response.json(user);
           }
         });
-        // response.json({error: "Email"});
       } else if (user.id_token === '') {
         User.findByIdAndUpdate(user._id, { $set: {id_token: request.body.payload.Ka} }, {new: true}, function(err, user) {
           if (err) {
-            response.json({error: "Email"});
+            response.json({errorType: "Email", error: err});
           } else {
             response.json(user);
           }
