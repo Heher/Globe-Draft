@@ -22,7 +22,7 @@ const PaymentForm = React.createClass({
 
   onScriptLoaded() {
     if (!PaymentForm.getStripeToken) {
-      Stripe.setPublishableKey('pk_live_VP4EFOSVzzJ1awGEgk3vyP0i')
+      Stripe.setPublishableKey('pk_live_4Fqx6shhRXkvx3IINsb1l9Cg')
       this.setState({ stripeLoading: false, stripeLoadingError: false })
     }
   },
@@ -79,7 +79,12 @@ const PaymentForm = React.createClass({
               <input type='text' data-stripe='exp-year' placeholder='YYYY' />
               <input type='text' data-stripe='cvc' placeholder='CVC' />
             </div>
-            <input disabled={this.state.submitDisabled} type='submit' value='PAY' />
+            <input 
+              className={this.state.submitDisabled ? "disabled" : ""}
+              disabled={this.state.submitDisabled} 
+              type='submit' 
+              value='PAY'
+            />
           </form>
           <span>{ this.state.paymentError }</span>
         </div>
