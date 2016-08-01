@@ -35,6 +35,18 @@ export default class Countries extends React.Component {
     })
   }
 
+  sortRegions(regions) {
+    if (regions.length) {
+      return regions.sort(function(a, b) {
+        if(a.name < b.name) return -1
+        if(a.name > b.name) return 1
+        return 0
+      })
+    } else {
+      return null
+    }
+  }
+
   render() {
     const { dataStatus, currentUser } = this.props
 
@@ -44,7 +56,9 @@ export default class Countries extends React.Component {
       })[0]
     })
 
-    const regionList = this.props.regions.map((region, index) => {
+    const sortedRegions = this.sortRegions(this.props.regions)
+
+    const regionList = sortedRegions.map((region, index) => {
       return (
         <Region
           {...this.props}
