@@ -1,8 +1,8 @@
 import React from 'react'
 
-import WorldIcon from './icons/WorldIcon'
 import PaymentForm from './PaymentForm'
 import Register from './Register'
+import WorldMap from './WorldMap'
 
 require('../css/main.sass')
 
@@ -12,7 +12,7 @@ export default class Main extends React.Component {
       <div className="main-page">
         <div className="hero">
           <h2>Build a team to win the most medals</h2>
-          <WorldIcon />
+          <WorldMap {...this.props} />
           <Register {...this.props} />
         </div>
         <div className="rules-wrapper">
