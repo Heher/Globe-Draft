@@ -7,22 +7,7 @@ module.exports = function(app) {
         response.json({error: "Email"});
       }
       if (!user) {
-        User.create({
-          id_token: request.body.payload.id,
-          name:  request.body.payload.first_name,
-          email: request.body.payload.email,
-          selected: false,
-          draftNum: 0,
-          editing: false,
-          isAdmin: false,
-          hasPaid: false
-        }, function(err, user) {
-          if (err) {
-            response.json({error: "Email"});
-          } else {
-            response.json(user);
-          }
-        })
+        response.json({error: "Email"});
       } else if (user.id_token === '') {
         User.findByIdAndUpdate(user._id, { $set: {id_token: request.body.payload.id} }, {new: true}, function(err, user) {
           if (err) {
@@ -43,21 +28,7 @@ module.exports = function(app) {
         response.json({errorType: "Email", error: err});
       }
       if (!user) {
-        User.create({
-          id_token: request.body.payload.Ka,
-          name:  request.body.payload.Za,
-          email: request.body.payload.hg,
-          selected: false,
-          draftNum: 0,
-          editing: false,
-          isAdmin: request.body.payload.isAdmin
-        }, function(err, user) {
-          if (err) {
-            response.json({errorType: "Email", error: err});
-          } else {
-            response.json(user);
-          }
-        });
+        response.json({errorType: "Email", error: err});
       } else if (user.id_token === '') {
         User.findByIdAndUpdate(user._id, { $set: {id_token: request.body.payload.Ka} }, {new: true}, function(err, user) {
           if (err) {

@@ -13,7 +13,6 @@ export default class Main extends React.Component {
         <div className="hero">
           <h2>Build a team to win the most medals</h2>
           <WorldMap {...this.props} />
-          <Register {...this.props} />
         </div>
         <div className="rules-wrapper">
           <div className="rules">
