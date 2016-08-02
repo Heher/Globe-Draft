@@ -1,5 +1,5 @@
 {
-  "name": "fantasy-olym",
+  "name": "globe-draft",
   "version": "0.0.1",
   "description": "",
   "main": "client.js",
@@ -16,6 +16,9 @@
     "body-parser": "^1.15.1",
     "classnames": "^2.2.5",
     "css-loader": "^0.23.1",
+    "d3": "^3.5.3",
+    "d3-geo-projection": "^1.0.2",
+    "datamaps": "^0.5.7",
     "es6-promise": "^3.2.1",
     "express": "^4.13.4",
     "express-session": "^1.13.0",
@@ -49,6 +52,7 @@
     "stripe": "^4.9.0",
     "style-loader": "^0.13.1",
     "svg-url-loader": "^1.0.3",
+    "topojson": "^1.6.26",
     "underscore": "^1.8.3",
     "url-loader": "^0.5.7"
   },
