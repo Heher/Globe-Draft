@@ -2,7 +2,36 @@ import d3 from 'd3'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import topojson from 'topojson'
-import Datamap from 'datamaps'
+import Datamap from 'datamaps/dist/datamaps.world.hires.min'
+
+Datamap.prototype.updatePopup = function (element, d, options) {
+  var self = this
+  var country = null
+  element.on('mousemove', null)
+  element.on('mousemove', function() {
+    var data = JSON.parse(element.attr('data-info'))
+    let info = options.popupTemplate(d, data) || ""
+    if (info !== country) {
+      country = info
+      console.log(info)
+      d3.select('#datamap-info').html(info)
+    }
+    // var position = d3.mouse(self.options.element);
+    // d3.select(self.svg[0][0].parentNode).select('.datamaps-hoverover')
+    //   .style('top', ( (position[1] + 30)) + "px")
+    //   .html(function() {
+    //     var data = JSON.parse(element.attr('data-info'));
+    //     try {
+    //       return options.popupTemplate(d, data);
+    //     } catch (e) {
+    //       return "";
+    //     }
+    //   })
+    //   .style('left', ( position[0]) + "px");
+  })
+
+  // d3.select(self.svg[0][0].parentNode).select('.datamaps-hoverover').style('display', 'block');
+};
 
 export default class WorldMap extends React.Component {
   constructor(props){
@@ -46,7 +75,6 @@ export default class WorldMap extends React.Component {
   }
 
   renderMap() {
-    this.renderCountries()
     return new Datamap({
       element: ReactDOM.findDOMNode(this),
       scope: 'world',
@@ -60,9 +88,13 @@ export default class WorldMap extends React.Component {
       },
       geographyConfig: {
         borderColor: '#BBB',
+        borderWidth: 1,
+        borderOpacity: 0.3,
         highlightFillColor: '#9EC1DD',
         highlightBorderColor: 'rgba(14, 101, 171, 0.1)',
-        popupOnHover: false
+        popupTemplate: function(geography, data) {
+          return `${geography.properties.name}`
+        }
       },
       data: this.renderCountries()
     })
@@ -75,7 +107,7 @@ export default class WorldMap extends React.Component {
   }
 
   componentDidMount() {
-    const mapContainer = d3.select('#datamap-container')
+    const mapContainer = d3.select('div #datamap-container')
     const initialScreenWidth = this.currentScreenWidth()
     const containerWidth = (initialScreenWidth < 1000) ?
       { width: initialScreenWidth + 'px',  height: (initialScreenWidth * 0.7) + 'px' } :
@@ -107,7 +139,9 @@ export default class WorldMap extends React.Component {
 
   render() {
     return (
-      <div id="datamap-container"></div>
+      <div id="datamap-container">
+        <p id="datamap-info"></p>
+      </div>
     )
   }
 }
