@@ -2,7 +2,7 @@ import d3 from 'd3'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import topojson from 'topojson'
-import Datamap from 'datamaps'
+import Datamap from 'datamaps/dist/datamaps.world.hires.min'
 
 export default class WorldMap extends React.Component {
   constructor(props){
@@ -60,6 +60,7 @@ export default class WorldMap extends React.Component {
       },
       geographyConfig: {
         borderColor: '#BBB',
+        borderOpacity: 0.4,
         highlightFillColor: '#9EC1DD',
         highlightBorderColor: 'rgba(14, 101, 171, 0.1)',
         popupOnHover: false
