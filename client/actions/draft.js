@@ -1,16 +1,5 @@
 import fetch from 'isomorphic-fetch'
 
-export function draftCountry(country, userId, round, draftNum, lastOfRound) {
-  return {
-    type: "DRAFT_COUNTRY",
-    countryId: country.id,
-    userId,
-    round,
-    draftNum,
-    lastOfRound
-  }
-}
-
 export function draftCountry(countryPayload, payload) {
   return dispatch => {
     return fetch('/api/countries', {
