@@ -13,8 +13,7 @@ Datamap.prototype.updatePopup = function (element, d, options) {
     let info = options.popupTemplate(d, data) || ""
     if (info !== country) {
       country = info
-      console.log(info)
-      d3.select('#datamap-info').html(info)
+      d3.select('.datamap-info').html(info)
     }
     // var position = d3.mouse(self.options.element);
     // d3.select(self.svg[0][0].parentNode).select('.datamaps-hoverover')
@@ -76,7 +75,7 @@ export default class WorldMap extends React.Component {
 
   renderMap() {
     return new Datamap({
-      element: ReactDOM.findDOMNode(this),
+      element: ReactDOM.findDOMNode(this).getElementsByClassName('datamap-container')[0],
       scope: 'world',
       projection: 'mercator',
       fills: {
@@ -107,7 +106,7 @@ export default class WorldMap extends React.Component {
   }
 
   componentDidMount() {
-    const mapContainer = d3.select('div #datamap-container')
+    const mapContainer = d3.select('div .datamap-container')
     const initialScreenWidth = this.currentScreenWidth()
     const containerWidth = (initialScreenWidth < 1000) ?
       { width: initialScreenWidth + 'px',  height: (initialScreenWidth * 0.7) + 'px' } :
@@ -139,8 +138,9 @@ export default class WorldMap extends React.Component {
 
   render() {
     return (
-      <div id="datamap-container">
-        <p id="datamap-info"></p>
+      <div>
+        <div className="datamap-container"></div>
+        <p className="datamap-info"></p>
       </div>
     )
   }
