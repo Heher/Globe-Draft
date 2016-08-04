@@ -89,7 +89,7 @@ export default class WorldMap extends React.Component {
       geographyConfig: {
         borderColor: '#BBB',
         borderWidth: 1,
-        borderOpacity: 0.3,
+        borderOpacity: 0.4,
         highlightFillColor: '#9EC1DD',
         highlightBorderColor: 'rgba(14, 101, 171, 0.1)',
         popupTemplate: function(geography, data) {
