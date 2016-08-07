@@ -3,6 +3,7 @@ import classNames from 'classnames'
 
 import CountryItem from './CountryItem'
 import Flag from './Flag'
+import UserCountryPoints from './UserCountryPoints'
 
 require('../css/leaderboard.sass')
 
@@ -106,10 +107,13 @@ export default class Leaderboard extends React.Component {
             </div>
             <span className="points">{user.points}</span>
           </div>
-          <div className="points-back">
-            <p><span className="gold"></span>{user.points - goldUserPoints > 0 ? "+" : ""}{user.points - goldUserPoints}</p>
-            <p><span className="silver"></span>{user.points - silverUserPoints > 0 ? "+" : ""}{user.points - silverUserPoints}</p>
-            <p><span className="bronze"></span>{user.points - bronzeUserPoints > 0 ? "+" : ""}{user.points - bronzeUserPoints}</p>
+          <div className="user-details">
+            <div className="points-back">
+              <p><span className="gold"></span>{user.points - goldUserPoints > 0 ? "+" : ""}{user.points - goldUserPoints}</p>
+              <p><span className="silver"></span>{user.points - silverUserPoints > 0 ? "+" : ""}{user.points - silverUserPoints}</p>
+              <p><span className="bronze"></span>{user.points - bronzeUserPoints > 0 ? "+" : ""}{user.points - bronzeUserPoints}</p>
+            </div>
+            {this.state.leaderboardOpen === index ? <UserCountryPoints {...this.props} userId={user._id} /> : null}
           </div>
         </li>
       )

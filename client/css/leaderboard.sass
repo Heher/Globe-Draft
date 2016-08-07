@@ -37,32 +37,32 @@
       .name-rank
         display: flex
         align-items: center
-    span
-      &.rank
-        display: block
-        width: 26px
-        height: 26px
-        line-height: 26px
-        margin: 0 15px 0 0
-        text-align: center
-        background: #0e65ab
-        color: #FFF
-        border-radius: 26px
-        box-shadow: 1px 1px 4px 0 #666
-        &.gold
-          background: #DBA012
-        &.silver
-          background: #B3B3B3
-        &.bronze
-          background: #cd7f32
-      &.name
-        margin: 0
-        text-transform: uppercase
-      &.points
-        display: block
-        margin: 0
-        font-weight: 700
-        font-size: 16px
+  span
+    &.rank
+      display: block
+      width: 26px
+      height: 26px
+      line-height: 26px
+      margin: 0 15px 0 0
+      text-align: center
+      background: #0e65ab
+      color: #FFF
+      border-radius: 26px
+      box-shadow: 1px 1px 4px 0 #666
+      &.gold
+        background: #DBA012
+      &.silver
+        background: #B3B3B3
+      &.bronze
+        background: #cd7f32
+    &.name
+      margin: 0
+      text-transform: uppercase
+    &.points
+      display: block
+      margin: 0
+      font-weight: 700
+      font-size: 16px
 
   .leaderboard-content
     display: flex
@@ -92,12 +92,15 @@
         height: 30px
         line-height: 30px
 
-.points-back
+.user-details
   display: none
+  flex-direction: column
   background: rgba(14,101,171,.15)
   padding: 10px 5px
   border-top: 1px solid rgba(14,101,171,.3)
   border-bottom: 1px solid #CCC
+  .points-back
+    display: flex
   p
     display: flex
     align-items: center
@@ -106,9 +109,9 @@
     width: 33.33%
     span
       display: block
-      width: 16px
-      height: 16px
-      line-height: 16px
+      width: 18px
+      height: 18px
+      line-height: 18px
       margin: 0 10px 0 0
       text-align: center
       background: #0e65ab
@@ -121,6 +124,12 @@
         background: #B3B3B3
       &.bronze
         background: #cd7f32
+  button
+    margin-top: 20px
+  ul
+    background: transparent
+    margin-top: 10px
+    border-top: 1px solid #BBB
 
 .sidebar
   .leaderboard
@@ -142,5 +151,28 @@
         & + li
           .leaderboard-content
             border-top: 1px solid rgba(14,101,171,.3)
-        .points-back
+        .user-details
           display: flex
+
+.user-country-content
+  display: flex
+  align-items: center
+  justify-content: space-between
+  padding: 2px 10px
+  .name-rank
+    .rank
+      font-size: 12px
+      width: 16px
+      height: 16px
+      line-height: 16px
+    .name
+      display: flex
+      align-items: center
+      img
+        width: 20px
+        height: 20px
+        margin-right: 10px
+      font-size: 12px
+  span.points
+    font-size: 14px
+    font-weight: 400
