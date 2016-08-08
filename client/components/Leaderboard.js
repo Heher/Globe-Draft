@@ -11,7 +11,7 @@ export default class Leaderboard extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      leaderboardOpen: 0
+      leaderboardOpen: null
     }
   }
 
@@ -65,9 +65,15 @@ export default class Leaderboard extends React.Component {
   }
 
   openLeaderboard(index) {
-    this.setState({
-      leaderboardOpen: index
-    })
+    if (index === this.state.leaderboardOpen) {
+      this.setState({
+        leaderboardOpen: null
+      })
+    } else {
+      this.setState({
+        leaderboardOpen: index
+      })
+    }
   }
 
   render() {

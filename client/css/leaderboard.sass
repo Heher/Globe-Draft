@@ -95,7 +95,7 @@
 .user-details
   display: none
   flex-direction: column
-  background: rgba(14,101,171,.15)
+  background: rgba(14,101,171,.2)
   padding: 10px 5px
   border-top: 1px solid rgba(14,101,171,.3)
   border-bottom: 1px solid #CCC
@@ -129,30 +129,30 @@
   ul
     background: transparent
     margin-top: 10px
-    border-top: 1px solid #BBB
+    border-top: 1px solid #999
 
-.sidebar
-  .leaderboard
-    ul
-      padding: 0
-    li
+
+.leaderboard
+  ul
+    padding: 0
+  li
+    .leaderboard-content
+      padding: 15px 20px
+      cursor: pointer
+      &:hover
+        background: rgba(14,101,171,.1)
+    &:first-of-type
       .leaderboard-content
-        padding: 15px 20px
-        cursor: pointer
-        &:hover
-          background: rgba(14,101,171,.1)
-      &:first-of-type
+        border-top: 0
+    &.open
+      .leaderboard-content
+        background: rgba(14,101,171,.1)
+        border-bottom: 1px solid #CCC
+      & + li
         .leaderboard-content
-          border-top: 0
-      &.open
-        .leaderboard-content
-          // border-top: 1px solid rgba(14,101,171,.3)
-          border-bottom: 1px solid #CCC
-        & + li
-          .leaderboard-content
-            border-top: 1px solid rgba(14,101,171,.3)
-        .user-details
-          display: flex
+          border-top: 1px solid rgba(14,101,171,.3)
+      .user-details
+        display: flex
 
 .user-country-content
   display: flex
