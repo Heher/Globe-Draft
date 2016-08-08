@@ -177,7 +177,6 @@ export default class Event extends React.Component {
   }
 
   setMultiplier(type, eventSettings) {
-    // console.log(type, eventSettings)
     let multiplier = 1
     switch (type) {
       case "gold" :
@@ -219,7 +218,6 @@ export default class Event extends React.Component {
   // Using the information provided from the select
   // edit panel, scores all countries/users
   scoreEvent(scores) {
-    console.log(scores)
     let teamMultiplier = scores.team ? 2 : 1
     let eventSettings = {
       goodCountry: {
@@ -266,7 +264,6 @@ export default class Event extends React.Component {
       }
     })
     values = (values.filter( Boolean )) // Used to remove undefined elements
-    console.log(values)
     return values
   }
 

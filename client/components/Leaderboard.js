@@ -76,6 +76,30 @@ export default class Leaderboard extends React.Component {
     }
   }
 
+  findMedals(users) {
+    let medals = {
+      gold: users[0].points,
+      silver: 0,
+      bronze: 0
+    }
+    let place = 1
+    let previousPoints = medals.gold
+    users.map(user => {
+      if (place <= 3) {
+        if (user.points !== previousPoints) {
+          previousPoints = user.points
+          place = place + 1
+          if (place === 2) {
+            medals.silver = user.points
+          } else if (place === 3) {
+            medals.bronze = user.points
+          }
+        }
+      }
+    })
+    return medals
+  }
+
   render() {
     const { currentUser, settings, draftComplete } = this.props
     const users = this.props.paidUsers.map((user, index) => {
@@ -90,14 +114,23 @@ export default class Leaderboard extends React.Component {
     })
 
     const sortedUsers = this.sortByPoints(users)
-    const goldUserPoints = sortedUsers[0].points
-    const silverUserPoints = sortedUsers[1].points
-    const bronzeUserPoints = sortedUsers[2].points
+
+    const userMedals = this.findMedals(sortedUsers)
+
+    let previousPoints = sortedUsers[0].points
+    let place = 1
+
     const renderUsers = sortedUsers.map((user, index) => {
+
+      if (user.points !== previousPoints) {
+        place = place + 1
+        previousPoints = user.points
+      }
+
       const renderClasses = classNames({
-        'gold': index === 0,
-        'silver': index === 1,
-        'bronze': index === 2 
+        'gold': place === 1,
+        'silver': place === 2,
+        'bronze': place === 3 
       })
 
       const userClass = classNames({
@@ -108,16 +141,16 @@ export default class Leaderboard extends React.Component {
         <li className={this.state.leaderboardOpen === index ? "open" : ""} key={index}>
           <div className={`leaderboard-content ${userClass}`} onClick={this.openLeaderboard.bind(this, index)}>
             <div className="name-rank">
-              <span className={`rank ${renderClasses}`}>{index + 1}</span>
+              <span className={`rank ${renderClasses}`}>{place}</span>
               <span className="name">{this.showUserInfo(user.name, "No Data")}</span>
             </div>
             <span className="points">{user.points}</span>
           </div>
           <div className="user-details">
             <div className="points-back">
-              <p><span className="gold"></span>{user.points - goldUserPoints > 0 ? "+" : ""}{user.points - goldUserPoints}</p>
-              <p><span className="silver"></span>{user.points - silverUserPoints > 0 ? "+" : ""}{user.points - silverUserPoints}</p>
-              <p><span className="bronze"></span>{user.points - bronzeUserPoints > 0 ? "+" : ""}{user.points - bronzeUserPoints}</p>
+              <p><span className="gold"></span>{user.points - userMedals.gold > 0 ? "+" : ""}{user.points - userMedals.gold}</p>
+              <p><span className="silver"></span>{user.points - userMedals.silver > 0 ? "+" : ""}{user.points - userMedals.silver}</p>
+              <p><span className="bronze"></span>{user.points - userMedals.bronze > 0 ? "+" : ""}{user.points - userMedals.bronze}</p>
             </div>
             {this.state.leaderboardOpen === index ? <UserCountryPoints {...this.props} userId={user._id} /> : null}
           </div>
