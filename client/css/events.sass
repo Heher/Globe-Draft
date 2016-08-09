@@ -43,13 +43,18 @@
         border-top: 10px solid #DBA012
 .event-day
   margin-bottom: 50px
-  .title
+  .day-title
     display: flex
-    align-items: baseline
+    align-items: center
+    margin: 0 0 10px 0
+    min-height: 35px
+    .header
+      display: flex
+      align-items: baseline
   h2
     font-family: 'Amiko', sans-serif
     font-weight: 400
-    margin: 0 0 10px 0
+    margin: 0
     font-size: 20px
     text-transform: uppercase
     cursor: pointer
@@ -66,6 +71,22 @@
   &.hide
     .event-section
       display: none
+  .player-of-day
+    margin: 0 0 0 20px
+    display: flex
+    flex-direction: column
+    .title
+      font-size: 12px
+      text-transform: uppercase
+    .player
+      font-size: 18px
+      text-transform: uppercase
+      margin: 0
+      display: flex
+      // justify-content: space-between
+      span
+        font-weight: 700
+        margin-left: 10px
 
 .event-section
   background: #FFF
