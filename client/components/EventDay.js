@@ -80,30 +80,59 @@ export default class EventDay extends React.Component {
     return country
   }
 
-  renderPlayerOfDay(events) {
-    let topPlayer = {
-      name: "",
-      points: 0
+  sortByPoints(users) {
+    if (users.length) {
+      return users.sort(function(a, b) {
+        if(a.points < b.points) return 1
+        if(a.points > b.points) return -1
+        return 0
+      })
+    } else {
+      return null
     }
-    this.props.paidUsers.map((user, index) => {
+  }
+
+  renderPlayerOfDay(events) {
+
+    const users = this.props.paidUsers.map((user, index) => {
       const userCountries = this.findUserCountries(user._id)
       let userCountrySum = 0
       userCountries.map(country => {
         const summedCountry = this.sumCountry(country, events)
         userCountrySum = userCountrySum + country.points
       })
-      if (userCountrySum > topPlayer.points) {
-        topPlayer.name = user.name
-        topPlayer.points = userCountrySum
+      user.points = userCountrySum
+      return user
+    })
+    const sortedUsers = this.sortByPoints(users)
+
+    let topPlayer = []
+    const topPoints = sortedUsers[0].points
+
+    sortedUsers.map(user => {
+      if (user.points === topPoints) {
+        topPlayer.push(user.name)
       }
     })
-    if (topPlayer.points > 0) {
-      return (
-        <div className="player-of-day">
-          <span className="title">Player of the Day</span>
-          <p className="player">{topPlayer.name} <span>{topPlayer.points}</span></p>
-        </div>
-      )
+    if (topPoints > 0) {
+      const players = topPlayer.map((player, index) => {
+        return <p key={index} className="player">{player} <span>{topPoints}</span></p>
+      })
+      if (topPlayer.length > 1) {
+        return (
+          <div className="player-of-day">
+            <span className="title">Players of the Day</span>
+            {players}
+          </div>
+        )
+      } else {
+        return (
+          <div className="player-of-day">
+            <span className="title">Player of the Day</span>
+            {players}
+          </div>
+        )
+      }
     } else {
       return null
     }
