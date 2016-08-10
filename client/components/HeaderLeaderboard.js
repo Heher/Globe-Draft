@@ -59,9 +59,42 @@ export default class HeaderLeaderboard extends React.Component {
     }
   }
 
+  findMedals(users) {
+    let medals = []
+    let rank = 0
+    let previousPoints = 0
+    users.map(user => {
+      if (rank <= 3) {
+        if (user.points === previousPoints) {
+          medals[rank].players = [
+            ...medals[rank].players,
+            user
+          ]
+        } else if (rank < 3) {
+          rank = rank + 1
+          previousPoints = user.points
+          medals[rank] = {
+            players: [user],
+            points: user.points
+          }
+        }
+      }
+    })
+    return medals
+  }
+
+  renderMedalWinners(players, rank, currentUser) {
+    return players.map((player, index) => {
+      const userClass = classNames({
+        'user': (player._id === currentUser._id)
+      })
+      return <span key={index + rank} className="name">{player.name}</span>
+    })
+  }
+
   render() {
     const { currentUser, dataStatus, settings, draftComplete } = this.props
-    if (dataStatus.usersReceived && dataStatus.eventsReceived && dataStatus.countriesReceived && dataStatus.regionsReceived && dataStatus.settingsReceived ) {
+    if (dataStatus.usersReceived && dataStatus.eventsReceived && dataStatus.countriesReceived && dataStatus.regionsReceived && dataStatus.settingsReceived && (!settings.draftStarted && draftComplete)) {
       const users = this.props.paidUsers.map((user, index) => {
         const userCountries = this.findUserCountries(user._id)
         let userCountrySum = 0
@@ -74,35 +107,33 @@ export default class HeaderLeaderboard extends React.Component {
       })
 
       const sortedUsers = this.sortByPoints(users)
-      const renderUsers = sortedUsers.map((user, index) => {
-        if (index < 3) {
-          const renderClasses = classNames({
-            'gold': index === 0,
-            'silver': index === 1,
-            'bronze': index === 2 
-          })
+      const medalUsers = this.findMedals(sortedUsers)
 
-          const userClass = classNames({
-            'user': (!settings.draftStarted && draftComplete) && (user._id === currentUser._id)
-          })
-
-          return (
-            <li key={index}>
-              <div className={`leaderboard-content ${userClass}`}>
-                <div className="name-rank">
-                  <span className={`rank ${renderClasses}`}>{this.showUserInfo(user.points, "")}</span>
-                  <span className="name">{this.showUserInfo(user.name, "No Data")}</span>
+      let renderMedals = []
+      for (let medal in medalUsers) {
+        const renderClasses = classNames({
+          'gold': medal === "1",
+          'silver': medal === "2",
+          'bronze': medal === "3" 
+        })
+        renderMedals.push(
+          <li key={medal}>
+            <div className="leaderboard-content">
+              <div className="name-rank">
+                <span className={`rank ${renderClasses}`}>{medalUsers[medal].points}</span>
+                <div className="names">
+                  {this.renderMedalWinners(medalUsers[medal].players, medal, currentUser)}
                 </div>
               </div>
-            </li>
-          )
-        }
-      })
+            </div>
+          </li>
+        )
+      }
 
       return (
         <div className="leaderboard header-leaderboard">
           <ul>
-            {renderUsers}
+            {renderMedals}
           </ul>
         </div>
       )

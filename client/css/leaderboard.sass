@@ -86,11 +86,25 @@
 
 .header-leaderboard
   ul
+    .leaderboard-content
+      cursor: default
+      &:hover
+        background: #FFF
     span
       &.rank
         width: 30px
         height: 30px
         line-height: 30px
+        margin-right: 6px
+    .names
+      display: flex
+      flex-direction: column
+      .name
+        display: block
+        line-height: 1em
+        padding: 4px
+        &.user
+          background: rgba(57, 150, 27, 0.2)
 
 .user-details
   display: none
@@ -135,12 +149,12 @@
 .leaderboard
   ul
     padding: 0
+  .leaderboard-content
+    padding: 15px 20px
+    cursor: pointer
+    &:hover
+      background: rgba(14,101,171,.1)
   li
-    .leaderboard-content
-      padding: 15px 20px
-      cursor: pointer
-      &:hover
-        background: rgba(14,101,171,.1)
     &:first-of-type
       .leaderboard-content
         border-top: 0

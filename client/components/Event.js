@@ -10,6 +10,8 @@ import EventCountrySelect from './admin/events/EventCountrySelect'
 import DeleteItem from './admin/panel/buttons/DeleteItem'
 import SaveItem from './admin/panel/buttons/SaveItem'
 
+import { findByQuery } from '../utilities/query'
+
 require('../css/events.sass')
 require('../css/inputs/country_select.sass')
 require('../css/inputs/date_picker.sass')
@@ -29,9 +31,7 @@ export default class Event extends React.Component {
   }
 
   findCountry(country) {
-    let foundCountry = this.props.countries.filter(propCountry => {
-      return propCountry._id === country.id
-    })[0]
+    let foundCountry = findByQuery(this.props.countries, country.id, "_id")
     const newCountry = {
       ...foundCountry,
       points: country.points
@@ -154,9 +154,7 @@ export default class Event extends React.Component {
   }
 
   findCountryId(country) {
-    const foundCountry = this.props.countries.filter(filterCountry => {
-      return filterCountry.name === country
-    })[0]
+    const foundCountry = findByQuery(this.props.countries, country, "name")
     return foundCountry._id
   }
 
