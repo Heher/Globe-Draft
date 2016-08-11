@@ -117,15 +117,19 @@ export default class Leaderboard extends React.Component {
 
     const userMedals = this.findMedals(sortedUsers)
 
-    let previousPoints = sortedUsers[0].points
-    let place = 1
+    let previousPoints = 0
+    let place = 0
+    let showRank = true
 
     const renderUsers = sortedUsers.map((user, index) => {
-
       if (user.points !== previousPoints) {
         place = place + 1
-        previousPoints = user.points
+        showRank = true
+      } else {
+        showRank = false
       }
+
+      previousPoints = user.points
 
       const renderClasses = classNames({
         'gold': place === 1,
@@ -134,14 +138,15 @@ export default class Leaderboard extends React.Component {
       })
 
       const userClass = classNames({
-        'user': (!settings.draftStarted && draftComplete) && (user._id === currentUser._id)
+        'user': (!settings.draftStarted && draftComplete) && (user._id === currentUser._id),
+        'tie': !showRank
       })
 
       return (
         <li className={this.state.leaderboardOpen === index ? "open" : ""} key={index}>
           <div className={`leaderboard-content ${userClass}`} onClick={this.openLeaderboard.bind(this, index)}>
             <div className="name-rank">
-              <span className={`rank ${renderClasses}`}>{place}</span>
+              {showRank ? <span className={`rank ${renderClasses}`}>{place}</span> : null}
               <span className="name">{this.showUserInfo(user.name, "No Data")}</span>
             </div>
             <span className="points">{user.points}</span>
