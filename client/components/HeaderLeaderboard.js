@@ -59,13 +59,14 @@ export default class HeaderLeaderboard extends React.Component {
     }
   }
 
-  findMedals(users) {
+  findMedals(users, currentUser) {
     let medals = []
     let rank = 0
     let previousPoints = 0
     users.map(user => {
       if (rank <= 3) {
         if (user.points === previousPoints) {
+          medals[rank].isUser = currentUser._id === user._id
           medals[rank].players = [
             ...medals[rank].players,
             user
@@ -75,7 +76,8 @@ export default class HeaderLeaderboard extends React.Component {
           previousPoints = user.points
           medals[rank] = {
             players: [user],
-            points: user.points
+            points: user.points,
+            isUser: currentUser._id === user._id
           }
         }
       }
@@ -83,11 +85,8 @@ export default class HeaderLeaderboard extends React.Component {
     return medals
   }
 
-  renderMedalWinners(players, rank, currentUser) {
+  renderMedalWinners(players, rank) {
     return players.map((player, index) => {
-      const userClass = classNames({
-        'user': (player._id === currentUser._id)
-      })
       return <span key={index + rank} className="name">{player.name}</span>
     })
   }
@@ -107,22 +106,25 @@ export default class HeaderLeaderboard extends React.Component {
       })
 
       const sortedUsers = this.sortByPoints(users)
-      const medalUsers = this.findMedals(sortedUsers)
+      const medalUsers = this.findMedals(sortedUsers, currentUser)
 
       let renderMedals = []
       for (let medal in medalUsers) {
         const renderClasses = classNames({
           'gold': medal === "1",
           'silver': medal === "2",
-          'bronze': medal === "3" 
+          'bronze': medal === "3"
+        })
+        const userClass = classNames({
+          'user': medalUsers[medal].isUser
         })
         renderMedals.push(
           <li key={medal}>
-            <div className="leaderboard-content">
+            <div className={`leaderboard-content ${userClass}`}>
               <div className="name-rank">
                 <span className={`rank ${renderClasses}`}>{medalUsers[medal].points}</span>
                 <div className="names">
-                  {this.renderMedalWinners(medalUsers[medal].players, medal, currentUser)}
+                  {this.renderMedalWinners(medalUsers[medal].players, medal)}
                 </div>
               </div>
             </div>
