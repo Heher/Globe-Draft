@@ -8,7 +8,7 @@ module.exports = function(app) {
       }
       if (!user) {
         response.json({error: "Email"});
-      } else if (user.id_token === '') {
+      } else if (user.id_token === '' || user.id_token !== request.body.payload.id) {
         User.findByIdAndUpdate(user._id, { $set: {id_token: request.body.payload.id} }, {new: true}, function(err, user) {
           if (err) {
             response.json({error: "Email"});
