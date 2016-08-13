@@ -7,6 +7,16 @@ import WorldMap from './WorldMap'
 require('../css/main.sass')
 
 export default class Main extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+
+  renderRegions() {
+    return this.props.regions.map((region, index) => {
+      return <li key={index}>{region.name}: {region.maxCountriesSelected}</li>
+    })
+  }
+
   render() {
     return (
       <div className="main-page">
@@ -17,15 +27,17 @@ export default class Main extends React.Component {
         <div className="rules-wrapper">
           <div className="rules">
             <h3>Rules</h3>
-            <h4>The Draft</h4>
-            <ol>
-              <li>All users are randomly assigned a draft order.</li>
-              <li>Each round, a user chooses one country to draft to their team.</li>
+            <ul>
+              <li>Each competitor must draft the following number of countries from each of the world regions:
+                <ul>
+                  {this.renderRegions()}
+                </ul>
+              </li>
               <li>Every user must choose one country from each region and one
               extra country from the Europe region.</li>
               <li>Draft continues in snake draft order until all users have drafted
               all their countries.</li>
-            </ol>
+            </ul>
             <h4>Scoring</h4>
             <ol>
               <li>
