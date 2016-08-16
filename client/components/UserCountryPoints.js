@@ -1,6 +1,9 @@
 import React from 'react'
+import { Link } from 'react-router'
 
 import Flag from './Flag'
+
+import { spacesToDashes } from '../utilities/format'
 
 export default class UserCountryPoints extends React.Component {
   findUserCountries(userId) {
@@ -58,11 +61,13 @@ export default class UserCountryPoints extends React.Component {
         return (
           <li key={index}>
             <div className="user-country-content">
+              <Link to={`/events/${spacesToDashes(country.name)}`}>
               <div className="name-rank">
                 <span className="rank">{index + 1}</span>
                 <span className="name"><Flag country={country}/>{country.name}</span>
               </div>
               <span className="points">{country.points}</span>
+              </Link>
             </div>
           </li>
         )

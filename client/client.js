@@ -28,7 +28,7 @@ const router = (
         <Route path="/admin" component={Admin}></Route>
         <Route path="/login" component={Login}></Route>
         <Route path='/events' component={Events}></Route>
-        <Route path='/events/:day' component={Events}></Route>
+        <Route path='/events/:filter' component={Events}></Route>
         <Route path='/signin' component={Login}></Route>
         <Route path='/leaderboard' component={Leaderboard}></Route>
       </Route>

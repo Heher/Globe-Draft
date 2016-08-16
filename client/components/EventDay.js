@@ -3,6 +3,7 @@ import moment from 'moment'
 
 import Event from './Event'
 import EventIcon from './icons/EventIcon'
+import Flag from './Flag'
 
 export default class EventDay extends React.Component {
   constructor(props) {
@@ -93,7 +94,6 @@ export default class EventDay extends React.Component {
   }
 
   renderPlayerOfDay(events) {
-
     const users = this.props.paidUsers.map((user, index) => {
       const userCountries = this.findUserCountries(user._id)
       let userCountrySum = 0
@@ -138,10 +138,36 @@ export default class EventDay extends React.Component {
     }
   }
 
+  renderCountryTotal(events, country) {
+    let sum = 0
+    events.map(event => {
+      event.gold.map(gold => {
+        if (gold.id === country._id) {
+          sum = sum + gold.points
+        }
+      })
+      event.silver.map(silver => {
+        if (silver.id === country._id) {
+          sum = sum + silver.points
+        }
+      })
+      event.bronze.map(bronze => {
+        if (bronze.id === country._id) {
+          sum = sum + bronze.points
+        }
+      })
+    })
+    return (
+      <div className="player-of-day">
+        <p className="player"><Flag country={country} />{country.name} <span>{sum}</span></p>
+      </div>
+    )
+  }
+
   render() {
     const sortedEvents = this.sortEvents(this.props.eventGroup)
     const events = sortedEvents.map((event, index) => {
-      return <Event {...this.props} key={index} event={event} />
+      return <Event {...this.props} key={index} event={event} country={this.props.country ? this.props.country._id: null}/>
     })
 
     return (
@@ -151,7 +177,7 @@ export default class EventDay extends React.Component {
             <h2 onClick={this.toggleEvents.bind(this)}>{this.convertDate(this.props.title)}</h2>
             {this.showToggle()}
           </div>
-          {this.renderPlayerOfDay(this.props.eventGroup)}
+          {this.props.filterType === "country" ? this.renderCountryTotal(sortedEvents, this.props.country) : this.renderPlayerOfDay(this.props.eventGroup)}
         </div>
         {events}
       </div>

@@ -83,7 +83,11 @@
       text-transform: uppercase
       margin: 0
       display: flex
-      // justify-content: space-between
+      align-items: center
+      img
+        width: 26px
+        height: 26px
+        margin-right: 10px
       span
         font-weight: 700
         margin-left: 10px
@@ -164,6 +168,8 @@
         background: rgba(57, 150, 27, 0.3)
         .avatar
           // background: rgba(57, 150, 27, 0.3)
+      &.selected
+        background: rgba(149,23,116,.3)
       p
         display: flex
         flex-direction: column

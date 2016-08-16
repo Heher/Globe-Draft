@@ -8,6 +8,9 @@ var webpackDevMiddleware = require('webpack-dev-middleware');
 var webpackHotMiddleware = require('webpack-hot-middleware');
 var bodyParser = require('body-parser');
 
+var Dashboard = require('webpack-dashboard');
+var DashboardPlugin = require('webpack-dashboard/plugin');
+
 var port = process.env.PORT || 8080;
 
 var app = express();
@@ -16,11 +19,17 @@ module.exports = app;
 
 var compiler = webpack(config);
 
+var dashboard = new Dashboard();
+compiler.apply(new DashboardPlugin(dashboard.setData));
+
 app.use(webpackDevMiddleware(compiler, {
+  quiet: true,
   noInfo: true, 
   publicPath: config.output.publicPath
 }));
-app.use(webpackHotMiddleware(compiler));
+app.use(webpackHotMiddleware(compiler, {
+  log: () => {}
+}));
 
 app.use(bodyParser.json());       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
