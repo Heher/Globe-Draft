@@ -112,18 +112,24 @@ export default class Events extends React.Component {
           })
         } else if (filterType === "country") {
           dateLinks.push(<EventLink key={0} {...this.props} mainLink="events"/>)
-          sortedEvents.map((day, index) => {
+          if (sortedEvents.length > 0) {
+            sortedEvents.map((day, index) => {
+              eventDays.push(
+                <EventDay 
+                  key={index + 1} 
+                  {...this.props}
+                  title={day.day}
+                  eventGroup={day.events}
+                  filterType={filterType}
+                  country={country}
+                />
+              )
+            })
+          } else {
             eventDays.push(
-              <EventDay 
-                key={index + 1} 
-                {...this.props}
-                title={day.day}
-                eventGroup={day.events}
-                filterType={filterType}
-                country={country}
-              />
+              <h2 key={0}>No medals</h2>
             )
-          })
+          }
           allEvents.map((day, index) => {
             dateLinks.push(
               <EventLink 
