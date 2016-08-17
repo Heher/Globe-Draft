@@ -219,7 +219,7 @@ export default class EventDay extends React.Component {
     })
     return (
       <div className="player-of-day">
-        <p className="player"><Flag country={country} />{country.name} <span>{sum}</span></p>
+        <p className="player"><Flag country={country} />{country.name} <span className="points">{sum}</span></p>
       </div>
     )
   }
