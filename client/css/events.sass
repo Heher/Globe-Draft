@@ -45,7 +45,6 @@
   margin-bottom: 50px
   .day-title
     display: flex
-    align-items: center
     margin: 0 0 10px 0
     min-height: 35px
     .header
@@ -71,14 +70,14 @@
   &.hide
     .event-section
       display: none
-  .player-of-day
+  .player-of-day, .country-of-day
     margin: 0 0 0 20px
     display: flex
     flex-direction: column
     .title
       font-size: 12px
       text-transform: uppercase
-    .player
+    .player, .country
       font-size: 18px
       text-transform: uppercase
       margin: 0
@@ -88,9 +87,26 @@
         width: 26px
         height: 26px
         margin-right: 10px
-      span
+      .points
         font-weight: 700
         margin-left: 10px
+    .country
+      display: flex
+      flex-direction: column
+      align-items: flex-start
+      margin-top: 8px
+      &:first-of-type
+        margin-top: 0
+      .country-name
+        margin: 0
+        display: flex
+      .country-info
+        display: flex
+        flex-direction: column
+      .user
+        font-size: 10px
+        font-weight: 400
+        margin: 0
 
 .event-section
   background: #FFF

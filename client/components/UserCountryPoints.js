@@ -62,11 +62,15 @@ export default class UserCountryPoints extends React.Component {
           <li key={index}>
             <div className="user-country-content">
               <Link to={`/events/${spacesToDashes(country.name)}`}>
-              <div className="name-rank">
-                <span className="rank">{index + 1}</span>
-                <span className="name"><Flag country={country}/>{country.name}</span>
-              </div>
-              <span className="points">{country.points}</span>
+                <div className="name-rank">
+                  <span className="rank">{index + 1}</span>
+                  <Flag country={country}/>
+                  <div className="country-name">
+                    {country.name}
+                    <span className="round">Round {country.round}</span>
+                  </div>
+                </div>
+                <span className="points">{country.points}</span>
               </Link>
             </div>
           </li>
