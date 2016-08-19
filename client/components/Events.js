@@ -7,6 +7,9 @@ import EventLink from './EventLink'
 import Leaderboard from './Leaderboard'
 import EventAddItemField from './admin/events/EventAddItemField'
 
+import { findByQuery } from '../utilities/query'
+import { dashesToSpaces } from '../utilities/format'
+
 export default class Events extends React.Component {
   
   groupEventsByDay(events) {
@@ -28,27 +31,116 @@ export default class Events extends React.Component {
     }
   }
 
+  findCountryEvents(countryId) {
+    let eventList = []
+    this.props.events.map(event => {
+      let found = false
+      event.gold.map(gold => {
+        if (gold.id === countryId) {
+          eventList.push(event)
+          found = true
+        }
+      })
+      if (!found) {
+        event.silver.map(silver => {
+          if (silver.id === countryId) {
+            eventList.push(event)
+            found = true
+          }
+        })
+      }
+      if (!found) {
+        event.bronze.map(bronze => {
+          if (bronze.id === countryId) {
+            eventList.push(event)
+          }
+        })
+      }
+    })
+    return eventList
+  }
+
+  formatEvents(events) {
+    const groupedEvents = this.groupEventsByDay(events)
+    const groupedEventsArray = []
+    for (let day in groupedEvents) {
+      groupedEventsArray.push({"day": day, "events": groupedEvents[day]})
+    }
+    const sortedEvents = this.sortByDay(groupedEventsArray)
+    return { groupedEvents, sortedEvents }
+  }
+
   render() {
     const { currentUser, dataStatus, params } = this.props
 
     if (dataStatus.usersReceived && dataStatus.eventsReceived && dataStatus.countriesReceived && dataStatus.regionsReceived && dataStatus.settingsReceived) {
       
+      let filterType = ''
+      let startingEvents = []
+      let country = {}
+
+      if (params.filter) {
+        if (/[0-9]+-[0-9]+-[0-9]+/.test(params.filter)) {
+          filterType = "day"
+        } else {
+          filterType = "country"
+        }
+      }
+
+      if (filterType === "country") {
+        const countryName = dashesToSpaces(params.filter)
+        country = findByQuery(this.props.countries, countryName, "name")
+        startingEvents = this.findCountryEvents(country._id)
+      } else {
+        startingEvents = this.props.events
+      }
+
       let eventDays = []
       let dateLinks = []
 
-      const groupedEvents = this.groupEventsByDay(this.props.events)
-      const groupedEventsArray = []
-      for (let day in groupedEvents) {
-        groupedEventsArray.push({"day": day, "events": groupedEvents[day]})
-      }
-      const sortedEvents = this.sortByDay(groupedEventsArray)
+      const { sortedEvents } = this.formatEvents(startingEvents)
+      const { groupedEvents } = this.formatEvents(this.props.events)
+      const allEvents = this.formatEvents(this.props.events).sortedEvents
 
-      if (params.day) {
-        dateLinks.push(<EventLink key={0} {...this.props} mainLink="events" />)
-        eventDays.push(<EventDay key={params.day} {...this.props} title={params.day} eventGroup={groupedEvents[params.day]} daySelected={true} />)
-        sortedEvents.map((day, index) => {
-          dateLinks.push(<EventLink key={index + 1} {...this.props} day={day.day} mainLink="events" />)
-        })
+
+      if (filterType) {
+        if (filterType === "day") {
+          dateLinks.push(<EventLink key={0} {...this.props} mainLink="events" />)
+          eventDays.push(<EventDay key={params.filter} {...this.props} title={params.filter} eventGroup={groupedEvents[params.filter]} daySelected={true} />)
+          sortedEvents.map((day, index) => {
+            dateLinks.push(<EventLink key={index + 1} {...this.props} day={day.day} mainLink="events" />)
+          })
+        } else if (filterType === "country") {
+          dateLinks.push(<EventLink key={0} {...this.props} mainLink="events"/>)
+          if (sortedEvents.length > 0) {
+            sortedEvents.map((day, index) => {
+              eventDays.push(
+                <EventDay 
+                  key={index + 1} 
+                  {...this.props}
+                  title={day.day}
+                  eventGroup={day.events}
+                  filterType={filterType}
+                  country={country}
+                />
+              )
+            })
+          } else {
+            eventDays.push(
+              <h2 key={0}>No medals</h2>
+            )
+          }
+          allEvents.map((day, index) => {
+            dateLinks.push(
+              <EventLink 
+                key={index + 1}
+                {...this.props}
+                day={day.day} 
+                mainLink="events" 
+              />
+            )
+          })
+        }
       } else {
         dateLinks.push(<EventLink key={0} {...this.props} mainLink="events"/>)
         sortedEvents.map((day, index) => {

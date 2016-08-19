@@ -46,7 +46,8 @@ export default class Event extends React.Component {
           'good': country._id === this.props.settings.goodCountry,
           'bad': country._id === this.props.settings.badCountry,
           'taken': country.userId,
-          'owned': country.userId === this.props.currentUser._id
+          'owned': country.userId === this.props.currentUser._id,
+          'selected': country._id === this.props.country
         })
         return (
           <div key={index} className={`winner ${settingsClasses}`}>
