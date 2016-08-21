@@ -45,12 +45,13 @@ export default class WorldMap extends React.Component {
     return data
   }
 
-  renderMap() {
+  renderMap(projection, rotation) {
     this.renderCountries()
     return new Datamap({
       element: ReactDOM.findDOMNode(this),
       scope: 'world',
-      projection: 'mercator',
+      projection: projection,
+      rotation: rotation,
       fills: {
         defaultFill: "#FFF",
         goodCountry: "#BBB",
@@ -82,8 +83,10 @@ export default class WorldMap extends React.Component {
       { width: initialScreenWidth + 'px',  height: (initialScreenWidth * 0.7) + 'px' } :
       { width: '960px', height: '650px' }
 
+    console.log(containerWidth)
+
     mapContainer.style(containerWidth)
-    this.datamap = this.renderMap()
+    this.datamap = this.renderMap(this.props.projection, this.props.rotation)
     window.addEventListener('resize', () => {
       const currentScreenWidth = this.currentScreenWidth()
       const mapContainerWidth = mapContainer.style('width')
@@ -93,7 +96,7 @@ export default class WorldMap extends React.Component {
           width: '960px',
           height: '650px'
         })
-        this.datamap = this.renderMap()
+        this.datamap = this.renderMap(this.props.projection, this.props.rotation)
       }
       else if (this.currentScreenWidth() <= 1000) {
         d3.select('.datamap').remove()
@@ -101,7 +104,7 @@ export default class WorldMap extends React.Component {
           width: currentScreenWidth + 'px',
           height: (currentScreenWidth * 0.7) + 'px'
         })
-        this.datamap = this.renderMap()
+        this.datamap = this.renderMap(this.props.projection, this.props.rotation)
       }
     })
   }
