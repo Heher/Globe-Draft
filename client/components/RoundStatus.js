@@ -6,9 +6,7 @@ require('../css/round_status.sass')
 
 export default class RoundStatus extends React.Component {
   sortUsers(users) {
-    return users.sort(function(a, b) {
-      return a.draftNum - b.draftNum
-    })
+    return users.sort((a, b) => a.draftNum - b.draftNum)
   }
 
   render() {
@@ -22,7 +20,7 @@ export default class RoundStatus extends React.Component {
 
     return (
       <div className="round-status">
-        <h2>{draftComplete || !settings.draftStarted ? "Drafts" : `Round ${this.props.settings.round}`}</h2>
+        <h2>{draftComplete || !settings.draftStarted ? 'Drafts' : `Round ${this.props.settings.round}`}</h2>
         <ul>
           {userCards}
         </ul>

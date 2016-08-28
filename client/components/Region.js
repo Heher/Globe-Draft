@@ -1,7 +1,7 @@
-import React from "react"
+import React from 'react'
 
-import CountryCard from "./CountryCard"
-import EventIcon from "./icons/EventIcon"
+import CountryCard from './CountryCard'
+import EventIcon from './icons/EventIcon'
 
 require('../css/region.sass')
 
@@ -14,14 +14,13 @@ export default class Region extends React.Component {
   }
   sortRegion(countries) {
     if (countries.length) {
-      return countries.sort(function(a, b) {
-        if(a.name < b.name) return -1
-        if(a.name > b.name) return 1
+      return countries.sort((a, b) => {
+        if (a.name < b.name) return -1
+        if (a.name > b.name) return 1
         return 0
       })
-    } else {
-      return null
     }
+    return null
   }
 
   toggleRegionShow() {
@@ -42,18 +41,16 @@ export default class Region extends React.Component {
 
     const completed = (numSelected === this.props.region.maxCountriesSelected)
 
-    const countries = this.props.countryList.filter(country => {
-      return country.regionId === this.props.region._id
-    })
+    const countries = this.props.countryList.filter(country => country.regionId === this.props.region._id)
 
     if (countries.length > 0) {
-      const countryValues = (countries.filter( Boolean ))
+      const countryValues = (countries.filter(Boolean))
 
       const sortedCountries = this.sortRegion(countryValues)
 
       const countryList = sortedCountries.map((country, index) => {
         return (
-          <CountryCard 
+          <CountryCard
             {...this.props}
             key={index}
             i={index}
@@ -64,7 +61,7 @@ export default class Region extends React.Component {
       })
 
       return (
-        <div className={`region ${!this.state.showRegion ? "hide" : ""}`}>
+        <div className={`region ${!this.state.showRegion ? 'hide' : ''}`}>
           <h2 onClick={this.toggleRegionShow.bind(this)}>{this.props.region.name}</h2>
           <EventIcon {...this.props} toggle={this.toggleRegionShow.bind(this)}/>
           <span className="number-selected">{numSelected} selected of {this.props.region.maxCountriesSelected}</span>
@@ -73,8 +70,7 @@ export default class Region extends React.Component {
           </div>
         </div>
       )
-    } else {
-      return null
     }
+    return null
   }
 }

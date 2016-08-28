@@ -1,18 +1,17 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import DateTime from 'react-datetime'
 import moment from 'moment'
 import classNames from 'classnames'
 
 import Flag from './Flag'
-import Avatar from './Avatar'
+import avatar from './Avatar'
 import EventCountrySelect from './admin/events/EventCountrySelect'
 import DeleteItem from './admin/panel/buttons/DeleteItem'
 import SaveItem from './admin/panel/buttons/SaveItem'
 
 import { findByQuery } from '../utilities/query'
 
-require('../css/events.sass')
+require('../css/event.sass')
 require('../css/inputs/country_select.sass')
 require('../css/inputs/date_picker.sass')
 
@@ -30,8 +29,44 @@ export default class Event extends React.Component {
     }
   }
 
+  renderWinners(countries) {
+    if (countries.length > 0) {
+      return countries.map((country, index) => {
+        const settingsClasses = classNames({
+          good: country._id === this.props.settings.goodCountry,
+          bad: country._id === this.props.settings.badCountry,
+          taken: country.userId,
+          owned: country.userId === this.props.currentUser._id,
+          selected: country._id === this.props.country
+        })
+        return (
+          <div key={index} className={`winner ${settingsClasses}`}>
+            <div className="winner-name">
+              <span className="medal ">{country.points}</span>
+              <Flag country={country} />
+              <p>
+                {country.name}
+                {country.userId ? avatar(this.props.users, country.userId) : null}
+              </p>
+            </div>
+          </div>
+        )
+      })
+    }
+    return (
+      <div key={0} className="winner">
+        <div className="winner-name">
+          <span className="medal">&nbsp;</span>
+          <p>
+            No Winner
+          </p>
+        </div>
+      </div>
+    )// &nbsp needed for flexbox to correctly align
+  }
+
   findCountry(country) {
-    let foundCountry = findByQuery(this.props.countries, country.id, "_id")
+    const foundCountry = findByQuery(this.props.countries, country.id, '_id')
     const newCountry = {
       ...foundCountry,
       points: country.points
@@ -39,45 +74,8 @@ export default class Event extends React.Component {
     return newCountry
   }
 
-  renderWinners(countries) {
-    if (countries.length > 0) {
-      return countries.map((country, index) => {
-        const settingsClasses = classNames({
-          'good': country._id === this.props.settings.goodCountry,
-          'bad': country._id === this.props.settings.badCountry,
-          'taken': country.userId,
-          'owned': country.userId === this.props.currentUser._id,
-          'selected': country._id === this.props.country
-        })
-        return (
-          <div key={index} className={`winner ${settingsClasses}`}>
-            <div className="winner-name">
-              <span className="medal ">{country.points}</span>
-              <Flag country={country}/>
-              <p>
-                {country.name}
-                {country.userId ? <Avatar {...this.props} userId={country.userId}/> : null}
-              </p>
-            </div>
-          </div>
-        )
-      })
-    } else {
-      return (
-        <div key={0} className="winner">
-          <div className="winner-name">
-            <span className="medal">&nbsp;</span>
-            <p>
-              No Winner
-            </p>
-          </div>
-        </div>
-      )// &nbsp needed for flexbox to correctly align
-    }
-  }
-
   convertDate(datetime) {
-    return moment(datetime, moment.ISO_8601).format("ddd, M/D, h:mm A")
+    return moment(datetime, moment.ISO_8601).format('ddd, M/D, h:mm A')
   }
 
   handleEditToggle() {
@@ -87,32 +85,31 @@ export default class Event extends React.Component {
   }
 
   handleInputChange(event) {
-    this.setState({inputValue: event.target.value})
+    this.setState({ inputValue: event.target.value })
   }
 
   handleCheckboxChange(event) {
-    this.setState({checkboxValue: event.target.checked})
+    this.setState({ checkboxValue: event.target.checked })
   }
 
   sortCountryOptions(countries) {
     if (countries.length) {
-      return countries.sort(function(a, b) {
-        if(a.name < b.name) return -1
-        if(a.name > b.name) return 1
+      return countries.sort((a, b) => {
+        if (a.name < b.name) return -1
+        if (a.name > b.name) return 1
         return 0
       })
-    } else {
-      return null
     }
+    return null
   }
 
   renderSelects(countries, type) {
-    let selects = []
+    const selects = []
 
     if (countries.length > 0) {
-      countries.map((country, index) => {
+      countries.forEach((country, index) => {
         selects.push(
-          <EventCountrySelect 
+          <EventCountrySelect
             {...this.props}
             key={index + 1}
             country={country}
@@ -155,7 +152,7 @@ export default class Event extends React.Component {
   }
 
   findCountryId(country) {
-    const foundCountry = findByQuery(this.props.countries, country, "name")
+    const foundCountry = findByQuery(this.props.countries, country, 'name')
     return foundCountry._id
   }
 
@@ -163,22 +160,18 @@ export default class Event extends React.Component {
   // a good or bad country and at what position
   findSpecialCountry(countryType, scores) {
     let foundCountry
-    if (countryType === "good") {
-      foundCountry = scores.filter(score => {
-        return score === this.props.settings.goodCountry
-      })
+    if (countryType === 'good') {
+      foundCountry = scores.filter(score => score === this.props.settings.goodCountry)
     } else {
-      foundCountry = scores.filter(score => {
-        return score === this.props.settings.badCountry
-      })
+      foundCountry = scores.filter(score => score === this.props.settings.badCountry)
     }
-    return foundCountry.length ? true : false
+    return foundCountry.length > 0
   }
 
   setMultiplier(type, eventSettings) {
     let multiplier = 1
     switch (type) {
-      case "gold" :
+      case 'gold' :
         if (eventSettings.goodCountry.silver || eventSettings.goodCountry.bronze) {
           multiplier = multiplier * 0.5
         }
@@ -187,7 +180,7 @@ export default class Event extends React.Component {
         }
         break
 
-      case "silver" :
+      case 'silver' :
         if (eventSettings.goodCountry.bronze) {
           multiplier = multiplier * 0.5
         }
@@ -202,13 +195,16 @@ export default class Event extends React.Component {
         }
         break
 
-      case "bronze" :
+      case 'bronze' :
         if (eventSettings.goodCountry.gold || eventSettings.goodCountry.silver) {
           multiplier = multiplier * 2
         }
         if (eventSettings.badCountry.gold || eventSettings.badCountry.silver) {
           multiplier = multiplier * 0.5
         }
+        break
+
+      default :
         break
     }
     return multiplier
@@ -217,65 +213,75 @@ export default class Event extends React.Component {
   // Using the information provided from the select
   // edit panel, scores all countries/users
   scoreEvent(scores) {
-    let teamMultiplier = scores.team ? 2 : 1
-    let eventSettings = {
+    const teamMultiplier = scores.team ? 2 : 1
+    const eventSettings = {
       goodCountry: {
-        gold: this.findSpecialCountry("good", scores.gold),
-        silver: this.findSpecialCountry("good", scores.silver),
-        bronze: this.findSpecialCountry("good", scores.bronze)
+        gold: this.findSpecialCountry('good', scores.gold),
+        silver: this.findSpecialCountry('good', scores.silver),
+        bronze: this.findSpecialCountry('good', scores.bronze)
       },
       badCountry: {
-        gold: this.findSpecialCountry("bad", scores.gold),
-        silver: this.findSpecialCountry("bad", scores.silver),
-        bronze: this.findSpecialCountry("bad", scores.bronze)
+        gold: this.findSpecialCountry('bad', scores.gold),
+        silver: this.findSpecialCountry('bad', scores.silver),
+        bronze: this.findSpecialCountry('bad', scores.bronze)
       }
     }
-    let eventMultiplier = {
-      gold: this.setMultiplier("gold", eventSettings),
-      silver: this.setMultiplier("silver", eventSettings),
-      bronze: this.setMultiplier("bronze", eventSettings)
+    const eventMultiplier = {
+      gold: this.setMultiplier('gold', eventSettings),
+      silver: this.setMultiplier('silver', eventSettings),
+      bronze: this.setMultiplier('bronze', eventSettings)
     }
     const goldValues = scores.gold.map(gold => {
       const points = 3 * teamMultiplier * eventMultiplier.gold
-      return {id: gold, points: points}
+      return {
+        id: gold,
+        points
+      }
     })
 
     const silverValues = scores.silver.map(silver => {
       const points = 2 * teamMultiplier * eventMultiplier.silver
-      return {id: silver, points: points}
+      return {
+        id: silver,
+        points
+      }
     })
 
     const bronzeValues = scores.bronze.map(bronze => {
       const points = 1 * teamMultiplier * eventMultiplier.bronze
-      return {id: bronze, points: points}
+      return {
+        id: bronze,
+        points
+      }
     })
 
-    return {gold: goldValues, silver: silverValues, bronze: bronzeValues}
+    return { gold: goldValues, silver: silverValues, bronze: bronzeValues }
   }
 
   // Finds all country values of a medal type and returns them
   findSelectValues(panel, type) {
     const selectDiv = panel.getElementsByClassName(type)[0]
     const selects = Array.from(selectDiv.getElementsByTagName('input'))
-    let values = selects.map(select => {
-      if (select.value) { 
+    let values = selects.forEach(select => {
+      if (select.value) {
         return this.findCountryId(select.value)
       }
+      return null
     })
-    values = (values.filter( Boolean )) // Used to remove undefined elements
+    values = (values.filter(Boolean)) // Used to remove undefined elements
     return values
   }
 
   // When the save button is clicked
   handleItemSave() {
-    const panel = ReactDOM.findDOMNode(this)
+    const panel = this.node
     // Date/Time value
     const dateValue = panel.getElementsByClassName('form-control')[0].value
     const datetime = new Date(dateValue).toISOString()
     // Medal Values
-    const goldValues = this.findSelectValues(panel, "golds")
-    const silverValues = this.findSelectValues(panel, "silvers")
-    const bronzeValues = this.findSelectValues(panel, "bronzes")
+    const goldValues = this.findSelectValues(panel, 'golds')
+    const silverValues = this.findSelectValues(panel, 'silvers')
+    const bronzeValues = this.findSelectValues(panel, 'bronzes')
 
     const calculatedValues = this.scoreEvent({
       team: this.state.checkboxValue,
@@ -285,7 +291,7 @@ export default class Event extends React.Component {
     })
 
     this.props.editEvent(
-      this.props.event._id, 
+      this.props.event._id,
       {
         name: this.state.inputValue,
         team: this.state.checkboxValue,
@@ -301,15 +307,9 @@ export default class Event extends React.Component {
   render() {
     const { event, currentUser } = this.props
 
-    const goldCountries = event.gold.map((country, index) => {
-      return this.findCountry(country)
-    })
-    const silverCountries = event.silver.map((country, index) => {
-      return this.findCountry(country)
-    })
-    const bronzeCountries = event.bronze.map((country, index) => {
-      return this.findCountry(country)
-    })
+    const goldCountries = event.gold.map(country => this.findCountry(country))
+    const silverCountries = event.silver.map(country => this.findCountry(country))
+    const bronzeCountries = event.bronze.map(country => this.findCountry(country))
 
     if (this.state.editing) {
       return (
@@ -321,55 +321,54 @@ export default class Event extends React.Component {
               onChange={this.handleInputChange.bind(this)}
               value={this.state.inputValue}
             />
-            <DateTime defaultValue={this.state.dateValue} timeFormat="HH:mm"/>
+            <DateTime defaultValue={this.state.dateValue} timeFormat="HH:mm" />
             <div className="admin-checkbox">
               <input
                 type="checkbox"
-                checked={this.state.checkboxValue ? "checked" : ""}
+                checked={this.state.checkboxValue ? 'checked' : ''}
                 onChange={this.handleCheckboxChange.bind(this)}
               />
               <p>Team Event</p>
             </div>
           </div>
           <div className="medal-winners">
-            <div className={`golds ${this.state.goldAdd ? "adding" : ""}`}>
-              {this.renderSelects(goldCountries, "gold")}
+            <div className={`golds ${this.state.goldAdd ? 'adding' : ''}`}>
+              {this.renderSelects(goldCountries, 'gold')}
             </div>
-            <div className={`silvers ${this.state.silverAdd ? "adding" : ""}`}>
-              {this.renderSelects(silverCountries, "silver")}
+            <div className={`silvers ${this.state.silverAdd ? 'adding' : ''}`}>
+              {this.renderSelects(silverCountries, 'silver')}
             </div>
-            <div className={`bronzes ${this.state.bronzeAdd ? "adding" : ""}`}>
-              {this.renderSelects(bronzeCountries, "bronze")}
+            <div className={`bronzes ${this.state.bronzeAdd ? 'adding' : ''}`}>
+              {this.renderSelects(bronzeCountries, 'bronze')}
             </div>
           </div>
           <div className="action-buttons">
-            <SaveItem {...this.props} item={event} type="Event" handleItemSave={this.handleItemSave.bind(this)}/>
+            <SaveItem {...this.props} item={event} type="Event" handleItemSave={this.handleItemSave.bind(this)} />
             <DeleteItem {...this.props} item={event} type="Event" />
           </div>
         </div>
       )
-    } else {
-      return (
-        <div className="event-section">
-          <div className="title">
-            {currentUser.isAdmin ? <button className="edit-button" onClick={this.handleEditToggle.bind(this)}>Edit</button> : null}
-            <h4>{event.name}</h4>
-            {event.datetime ? <p>{this.convertDate(event.datetime)}</p> : null}
-            {event.team ? <span className="team-badge">Team</span> : null}
+    }
+    return (
+      <div className="event-section">
+        <div className="title">
+          {currentUser.isAdmin ? <button className="edit-button" onClick={this.handleEditToggle.bind(this)}>Edit</button> : null}
+          <h4>{event.name}</h4>
+          {event.datetime ? <p>{this.convertDate(event.datetime)}</p> : null}
+          {event.team ? <span className="team-badge">Team</span> : null}
+        </div>
+        <div className="medal-winners">
+          <div className="golds">
+            {this.renderWinners(goldCountries)}
           </div>
-          <div className="medal-winners">
-            <div className="golds">
-              {this.renderWinners(goldCountries)}
-            </div>
-            <div className="silvers">
-              {this.renderWinners(silverCountries)}
-            </div>
-            <div className="bronzes">
-              {this.renderWinners(bronzeCountries)}
-            </div>
+          <div className="silvers">
+            {this.renderWinners(silverCountries)}
+          </div>
+          <div className="bronzes">
+            {this.renderWinners(bronzeCountries)}
           </div>
         </div>
-      )
-    }
+      </div>
+    )
   }
 }

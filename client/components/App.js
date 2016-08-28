@@ -7,10 +7,17 @@ import * as draftActions from '../actions/draft'
 import * as actionCreators from '../actions/actionCreators'
 import Layout from './Layout'
 
-const combinedActions = Object.assign({}, actionCreators, userActions, countryActions, settingActions, draftActions)
+const combinedActions = Object.assign(
+  {},
+  actionCreators,
+  userActions,
+  countryActions,
+  settingActions,
+  draftActions
+)
 
 function mapStateToProps(state) {
-  return{
+  return {
     regions: state.regions,
     countries: state.countries,
     users: state.users,

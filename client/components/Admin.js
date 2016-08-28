@@ -1,10 +1,4 @@
-import React from "react"
-import { Link } from 'react-router'
-
-import AdminSection from './admin/AdminSection'
-import AddItemField from './admin/AddItemField'
-import EditEvent from './admin/EditEvent'
-import Login from './Login'
+import React from 'react'
 
 import UserAdminSection from './admin/users/UserAdminSection'
 import RegionAdminSection from './admin/regions/RegionAdminSection'
@@ -25,18 +19,18 @@ export default class Admin extends React.Component {
   }
 
   showAddItemPanel(type) {
-    switch(type) {
-      case "User" :
-        this.setState({addingUser: !this.state.addingUser})
+    switch (type) {
+      case 'User' :
+        this.setState({ addingUser: !this.state.addingUser })
         break
-      case "Region" :
-        this.setState({addingRegion: !this.state.addingRegion})
+      case 'Region' :
+        this.setState({ addingRegion: !this.state.addingRegion })
         break
-      case "Country" :
-        this.setState({addingCountry: !this.state.addingCountry})
+      case 'Country' :
+        this.setState({ addingCountry: !this.state.addingCountry })
         break
       default :
-        ""
+        break
     }
   }
 
@@ -49,11 +43,11 @@ export default class Admin extends React.Component {
           <div className="content">
             <div className="admin-panel">
               <h1>Admin Panel</h1>
-              <h2>Users</h2><span onClick={this.showAddItemPanel.bind(this, "User")}>+</span>
+              <h2>Users</h2><span onClick={this.showAddItemPanel.bind(this, 'User')}>+</span>
               <UserAdminSection {...this.props} addingUser={this.state.addingUser} />
-              <h2>Regions</h2><span onClick={this.showAddItemPanel.bind(this, "Region")}>+</span>
+              <h2>Regions</h2><span onClick={this.showAddItemPanel.bind(this, 'Region')}>+</span>
               <RegionAdminSection {...this.props} addingRegion={this.state.addingRegion} />
-              <h2>Countries</h2><span onClick={this.showAddItemPanel.bind(this, "Country")}>+</span>
+              <h2>Countries</h2><span onClick={this.showAddItemPanel.bind(this, 'Country')}>+</span>
               <CountryAdminSection {...this.props} addingCountry={this.state.addingCountry} />
               <h2>Settings</h2>
               <SettingAdminSection {...this.props} />
@@ -61,10 +55,9 @@ export default class Admin extends React.Component {
           </div>
         </div>
       )
-    } else {
-      return (
-        <h2>Not Allowed</h2>
-      )
     }
+    return (
+      <h2>Not Allowed</h2>
+    )
   }
 }

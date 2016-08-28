@@ -1,19 +1,18 @@
 import React from 'react'
 import DateTime from 'react-datetime'
 
+require('../../../css/admin/events/add_event.sass')
+
 export default class EventAddItemField extends React.Component {
-  constructor(props) {
-    super(props)
-  }
 
   handleFormSubmit(event) {
     event.preventDefault()
     const nameInput = event.target.getElementsByTagName('input')[0]
     const dateInput = event.target.getElementsByClassName('form-control')[0]
-    let inputValue = nameInput.value
-    let dateValue = dateInput.value
+    const inputValue = nameInput.value
+    const dateValue = dateInput.value
     this.props.addEvent(inputValue, dateValue)
-    nameInput.value = ""
+    nameInput.value = ''
   }
 
   render() {
@@ -21,7 +20,7 @@ export default class EventAddItemField extends React.Component {
       <form onSubmit={event => this.handleFormSubmit(event)}>
         <h4>Add Event:</h4>
         <input type="text" />
-        <DateTime timeFormat="HH:mm"/>
+        <DateTime timeFormat="HH:mm" />
         <button type="submit">Submit</button>
       </form>
     )

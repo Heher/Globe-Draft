@@ -8,9 +8,9 @@ export default class PanelInfo extends React.Component {
 
     switch(type) {
       case "Country" :
-        const countryRegion = this.props.regions.filter(region => {
+        const countryRegion = this.props.regions.find(region => {
           return region._id === item.regionId
-        })[0]
+        })
         return (
           <div className="panel">
             <p>{item.name}</p>
