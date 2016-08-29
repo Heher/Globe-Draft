@@ -2,6 +2,8 @@ import React from 'react'
 
 import RegionSelect from './RegionSelect'
 
+require('../../css/admin/events/add_event.sass')
+
 export default class AddItemField extends React.Component {
   constructor(props) {
     super(props)

@@ -1,5 +1,5 @@
 export function findByQuery(list, query, property) {
-  return list.filter(listProp => {
+  return list.find(listProp => {
     return listProp[property] === query
-  })[0]
+  })
 }

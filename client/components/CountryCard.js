@@ -1,22 +1,13 @@
 import React from 'react'
 import classNames from 'classnames'
 
-import Avatar from './Avatar'
+import avatar from './Avatar'
 import Flag from './Flag'
 import ChoiceSubmit from './ChoiceSubmit'
 
 require('../css/country.sass')
 
 export default class CountryCard extends React.Component {
-
-  constructor(props) {
-    super(props)
-  }
-
-  countryIsOwned(userId) {
-    return userId ? true : false
-  }
-
   userOwnsCountry(countryUserId, currentUserId) {
     return countryUserId === currentUserId
   }
@@ -41,16 +32,16 @@ export default class CountryCard extends React.Component {
   }
 
   render() {
-    const { _id, name, shortName, userId, selected, drafted } = this.props.country
+    const { name, shortName, userId, selected, drafted } = this.props.country
     const { canDraft, regionCompleted } = this.props
     const currentUserId = this.props.currentUser._id
 
     const renderClasses = classNames({
-      'owned': (currentUserId === userId) && drafted,
-      'taken': (currentUserId !== userId) && drafted,
-      'disabled': (currentUserId !== userId) && !selected && regionCompleted,
-      'selected': (currentUserId === userId) && selected,
-      'waitingTurn': !canDraft
+      owned: (currentUserId === userId) && drafted,
+      taken: (currentUserId !== userId) && drafted,
+      disabled: (currentUserId !== userId) && !selected && regionCompleted,
+      selected: (currentUserId === userId) && selected,
+      waitingTurn: !canDraft
     })
 
     const canBeSelected = !userId && !regionCompleted
@@ -61,15 +52,15 @@ export default class CountryCard extends React.Component {
 
     return (
       <div>
-        <div 
-          className = {`countryCard ${renderClasses}`}
+        <div
+          className={`countryCard ${renderClasses}`}
           onClick={this.handleClick.bind(this, canDraft, canBeDeselected, canBeSelected)}
         >
           <div className="country-card-info">
-            <Flag country={this.props.country}/>
+            <Flag country={this.props.country} />
             <p>
               {selected ? shortName : name}
-              {needsAvatar ? <Avatar {...this.props} userId={userId}/> : null}
+              {needsAvatar ? avatar(this.props.users, userId) : null}
             </p>
           </div>
           <ChoiceSubmit {...this.props} selectedCountry={this.props.country} />

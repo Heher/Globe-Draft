@@ -145,9 +145,9 @@ export function findOrCreateGoogleUser(payload) {
 
 export function findCurrentUser(users, token) {
   return dispatch => {
-    const currentUser = users.filter(user => {
+    const currentUser = users.find(user => {
       return user.id_token === token
-    })[0]
+    })
     if (currentUser) {
       dispatch(setCurrentUser(currentUser))
     }

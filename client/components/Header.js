@@ -4,9 +4,7 @@ import classNames from 'classnames'
 
 import Login from './Login'
 import Logout from './Logout'
-import ChangeUser from './ChangeUser'
 import MobileMenu from './MobileMenu'
-import DraftIcon from './icons/DraftIcon'
 import HeaderLeaderboard from './HeaderLeaderboard'
 import MenuIcon from './icons/MenuIcon'
 
@@ -37,20 +35,18 @@ export default class Header extends React.Component {
   renderDraftStatus(draftStarted, canDraft) {
     if (draftStarted) {
       if (canDraft) {
-        return "Your turn to draft."
-      } else {
-        return "Another player is drafting. Please wait."
+        return 'Your turn to draft.'
       }
-    } else {
-      return ""
+      return 'Another player is drafting. Please wait.'
     }
+    return ''
   }
 
   render() {
     const { currentUser, dataStatus, settings } = this.props
 
     if (currentUser._id) {
-      const { userDrafting, canDraft, settings } = this.props
+      const { userDrafting, canDraft } = this.props
 
       const renderDraftClass = classNames({
         'user-turn': settings.draftStarted && canDraft
@@ -60,9 +56,7 @@ export default class Header extends React.Component {
         <header>
           <div className="header-content">
             <div className="menu-button-wrapper" onClick={this.toggleMenu.bind(this)}>
-              <MenuIcon 
-                {...this.props}
-              />
+              <MenuIcon {...this.props} />
             </div>
             <div className="title">
               <h1><Link to="/">GLOBE DRAFT</Link></h1>
@@ -88,52 +82,48 @@ export default class Header extends React.Component {
             {...this.props}
             showMenu={this.state.showMenu}
             toggle={this.toggleMenu.bind(this)}
-            loginButtonShow={this.state.loginButtonShow} 
-            toggleLoginButtons={this.toggleLoginButtons.bind(this)}
-          />
-        </header>
-      )
-    } else {
-      return (
-        <header>
-          <div className="header-content">
-            <div className="menu-button-wrapper" onClick={this.toggleMenu.bind(this)}>
-              <MenuIcon 
-                {...this.props}
-              />
-            </div>
-            <div className="title">
-              <h1><Link to="/">GLOBE DRAFT</Link></h1>
-              <ul className="nav-links">
-                <li>
-                  <Link to="/events">
-                    <span>Events</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/draft">
-                    <span>Draft</span>
-                  </Link>
-                </li>
-                <Login
-                  {...this.props}
-                  loginButtonShow={this.state.loginButtonShow} 
-                  toggleLoginButtons={this.toggleLoginButtons.bind(this)}
-                />
-              </ul>
-            </div>
-            <HeaderLeaderboard {...this.props} />
-          </div>
-          <MobileMenu
-            {...this.props}
-            showMenu={this.state.showMenu}
-            toggle={this.toggleMenu.bind(this)}
-            loginButtonShow={this.state.loginButtonShow} 
+            loginButtonShow={this.state.loginButtonShow}
             toggleLoginButtons={this.toggleLoginButtons.bind(this)}
           />
         </header>
       )
     }
+    return (
+      <header>
+        <div className="header-content">
+          <div className="menu-button-wrapper" onClick={this.toggleMenu.bind(this)}>
+            <MenuIcon {...this.props} />
+          </div>
+          <div className="title">
+            <h1><Link to="/">GLOBE DRAFT</Link></h1>
+            <ul className="nav-links">
+              <li>
+                <Link to="/events">
+                  <span>Events</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/draft">
+                  <span>Draft</span>
+                </Link>
+              </li>
+              <Login
+                {...this.props}
+                loginButtonShow={this.state.loginButtonShow}
+                toggleLoginButtons={this.toggleLoginButtons.bind(this)}
+              />
+            </ul>
+          </div>
+          <HeaderLeaderboard {...this.props} />
+        </div>
+        <MobileMenu
+          {...this.props}
+          showMenu={this.state.showMenu}
+          toggle={this.toggleMenu.bind(this)}
+          loginButtonShow={this.state.loginButtonShow}
+          toggleLoginButtons={this.toggleLoginButtons.bind(this)}
+        />
+      </header>
+    )
   }
-
 }

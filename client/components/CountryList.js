@@ -1,4 +1,4 @@
-import React from "react"
+import React from 'react'
 
 import CountryItem from './CountryItem'
 
@@ -7,7 +7,7 @@ require('../css/country_list.sass')
 export default class CountryList extends React.Component {
 
   render() {
-    let countries = []
+    const countries = []
     for (let round = 1; round <= this.props.totalDraftRounds; round++) {
       countries.push(<CountryItem {...this.props} key={round} round={round} />)
     }

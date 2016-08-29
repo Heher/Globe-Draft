@@ -39,9 +39,9 @@ export default class CountryPanelItem extends React.Component {
   }
 
   findRegion(regionId) {
-    return this.props.regions.filter(propRegion => {
+    return this.props.regions.find(propRegion => {
       return propRegion._id === regionId
-    })[0]
+    })
   }
 
   render() {

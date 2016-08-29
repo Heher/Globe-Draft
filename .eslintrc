@@ -1,0 +1,23 @@
+{
+  "env": {
+    "es6": true,
+    "browser": true
+  },
+  "extends": "airbnb",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true
+    }
+  },
+  "rules": {
+    "semi": 0,
+    "no-unexpected-multiline": 2,
+    "no-underscore-dangle": 0,
+    "comma-dangle": 0,
+    "arrow-body-style": 1,
+    "operator-assignment": 0,
+    "react/jsx-filename-extension": 0,
+    "react/jsx-no-bind": 1,
+    "react/jsx-boolean-value": 0
+  }
+}

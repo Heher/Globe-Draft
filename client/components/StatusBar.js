@@ -20,14 +20,14 @@ export default class StatusBar extends React.Component {
           </div>
         </div>
       )
-    } else {
-      return (
-        <div className={`status-bar ${settings.loginError ? "error" : ""}`}>
-          <div className="status">
-            <p>{settings.loginErrorCopy}</p>
-          </div>
-        </div>
-      )
     }
+
+    return (
+      <div className={`status-bar ${settings.loginError ? "error" : ""}`}>
+        <div className="status">
+          <p>{settings.loginErrorCopy}</p>
+        </div>
+      </div>
+    )
   }
 }

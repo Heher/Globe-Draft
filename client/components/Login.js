@@ -34,19 +34,18 @@ export default class Login extends React.Component {
               callback={this.handleGoogleLogin.bind(this)}
               cssClass="google-login"
             >
-              <i className="fa fa-google"></i>
+              <i className="fa fa-google" />
             </GoogleLogin>
           </div>
         </li>
       )
-    } else {
-      return (
-        <li>
-          <Link to="#" onClick={this.props.toggleLoginButtons.bind(this)}>
-            <span>Login</span>
-          </Link>
-        </li>
-      )
     }
+    return (
+      <li>
+        <Link to="#" onClick={this.props.toggleLoginButtons.bind(this)}>
+          <span>Login</span>
+        </Link>
+      </li>
+    )
   }
 }

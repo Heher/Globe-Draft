@@ -1,69 +1,58 @@
 import React from 'react'
 import classNames from 'classnames'
 
-import CountryItem from './CountryItem'
-
-// require('../css/leaderboard.sass')
-
 export default class HeaderLeaderboard extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-
   sortByPoints(countries) {
     if (countries.length) {
-      return countries.sort(function(a, b) {
-        if(a.points < b.points) return 1
-        if(a.points > b.points) return -1
+      return countries.sort((a, b) => {
+        if (a.points < b.points) return 1
+        if (a.points > b.points) return -1
         return 0
       })
-    } else {
-      return null
     }
+    return null
   }
 
   findUserCountries(userId) {
-    return this.props.countries.filter(country => {
-      return country.userId === userId
-    })
+    return this.props.countries.filter(country => country.userId === userId)
   }
 
   sumCountry(country) {
     let sum = 0
-    this.props.events.map(event => {
-      event.gold.map(gold => {
-        if (gold.id === country._id) {
+    let newCountry = country
+    this.props.events.forEach(event => {
+      event.gold.forEach(gold => {
+        if (gold.id === newCountry._id) {
           sum = sum + gold.points
         }
       })
-      event.silver.map(silver => {
-        if (silver.id === country._id) {
+      event.silver.forEach(silver => {
+        if (silver.id === newCountry._id) {
           sum = sum + silver.points
         }
       })
-      event.bronze.map(bronze => {
-        if (bronze.id === country._id) {
+      event.bronze.forEach(bronze => {
+        if (bronze.id === newCountry._id) {
           sum = sum + bronze.points
         }
       })
     })
-    country.points = sum
-    return country
+    newCountry.points = sum
+    return newCountry
   }
 
   showUserInfo(info, alternateInfo) {
     if (!this.props.settings.draftStarted && this.props.draftComplete) {
       return info
-    } else {
-      return alternateInfo
     }
+    return alternateInfo
   }
 
   findMedals(users, currentUser) {
-    let medals = []
+    const medals = []
     let rank = 0
     let previousPoints = 0
-    users.map(user => {
+    users.forEach(user => {
       if (rank <= 3) {
         if (user.points === previousPoints) {
           medals[rank].isUser = currentUser._id === user._id
@@ -94,29 +83,30 @@ export default class HeaderLeaderboard extends React.Component {
   render() {
     const { currentUser, dataStatus, settings, draftComplete } = this.props
     if (dataStatus.usersReceived && dataStatus.eventsReceived && dataStatus.countriesReceived && dataStatus.regionsReceived && dataStatus.settingsReceived && (!settings.draftStarted && draftComplete)) {
-      const users = this.props.paidUsers.map((user, index) => {
+      const users = this.props.paidUsers.map(user => {
         const userCountries = this.findUserCountries(user._id)
+        const newUser = user
         let userCountrySum = 0
-        userCountries.map(country => {
+        userCountries.forEach(country => {
           const summedCountry = this.sumCountry(country)
-          userCountrySum = userCountrySum + country.points
+          userCountrySum = userCountrySum + summedCountry.points
         })
-        user.points = userCountrySum
-        return user
+        newUser.points = userCountrySum
+        return newUser
       })
 
       const sortedUsers = this.sortByPoints(users)
       const medalUsers = this.findMedals(sortedUsers, currentUser)
 
-      let renderMedals = []
-      for (let medal in medalUsers) {
+      const renderMedals = []
+      Object.keys(medalUsers).forEach(medal => {
         const renderClasses = classNames({
-          'gold': medal === "1",
-          'silver': medal === "2",
-          'bronze': medal === "3"
+          gold: medal === '1',
+          silver: medal === '2',
+          bronze: medal === '3'
         })
         const userClass = classNames({
-          'user': medalUsers[medal].isUser
+          user: medalUsers[medal].isUser
         })
         renderMedals.push(
           <li key={medal}>
@@ -130,7 +120,7 @@ export default class HeaderLeaderboard extends React.Component {
             </div>
           </li>
         )
-      }
+      })
 
       return (
         <div className="leaderboard header-leaderboard">
@@ -139,8 +129,7 @@ export default class HeaderLeaderboard extends React.Component {
           </ul>
         </div>
       )
-    } else {
-      return null
     }
+    return null
   }
 }

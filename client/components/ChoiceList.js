@@ -1,6 +1,5 @@
 import React from 'react'
 
-import CountryItem from './CountryItem'
 import ChoiceRound from './ChoiceRound'
 
 require('../css/choice_list.sass')
@@ -8,7 +7,6 @@ require('../css/choice_list.sass')
 export default class ChoiceList extends React.Component {
 
   render() {
-
     const rounds = this.props.settings.round
 
     const draftedCountries = this.props.countries.filter(country => {

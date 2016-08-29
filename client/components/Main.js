@@ -1,7 +1,5 @@
 import React from 'react'
 
-import PaymentForm from './PaymentForm'
-import Register from './Register'
 import WorldMap from './WorldMap'
 
 require('../css/main.sass')

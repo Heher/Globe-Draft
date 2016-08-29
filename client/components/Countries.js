@@ -1,31 +1,22 @@
 import React from 'react'
-import { Link } from 'react-router'
 
-import Header from './Header'
 import Region from './Region'
 import CountryList from './CountryList'
-import ChangeUser from './ChangeUser'
-import ChoiceList from './ChoiceList'
-import ChoiceSubmit from './ChoiceSubmit'
 import RoundStatus from './RoundStatus'
-import MobileDraftMenu from './MobileDraftMenu'
 
 export default class Countries extends React.Component {
-  
   constructor(props) {
     super(props)
-    const countryIds = this.props.countries.map(country => {
-      return country._id
-    })
+    const countryIds = this.props.countries.map(country => country._id)
     this.state = {
       countryList: countryIds
     }
   }
 
   countrySearch(event) {
-    let searchResult = []
+    const searchResult = []
     const query = event.target.value.toLowerCase()
-    this.props.countries.map(country => {
+    this.props.countries.forEach(country => {
       if (country.name.toLowerCase().indexOf(query) !== -1) {
         searchResult.push(country._id)
       }
@@ -37,23 +28,20 @@ export default class Countries extends React.Component {
 
   sortRegions(regions) {
     if (regions.length) {
-      return regions.sort(function(a, b) {
-        if(a.name < b.name) return -1
-        if(a.name > b.name) return 1
+      return regions.sort((a, b) => {
+        if (a.name < b.name) return -1
+        if (a.name > b.name) return 1
         return 0
       })
-    } else {
-      return null
     }
+    return null
   }
 
   render() {
     const { dataStatus, currentUser } = this.props
 
     const fullCountryList = this.state.countryList.map(countryId => {
-      return this.props.countries.filter(propCountry => {
-        return countryId === propCountry._id
-      })[0]
+      return this.props.countries.find(propCountry => countryId === propCountry._id)
     })
 
     const sortedRegions = this.sortRegions(this.props.regions)
@@ -100,10 +88,9 @@ export default class Countries extends React.Component {
           </div>
         )
       }
-    } else {
-      return (
-        <h1>Loading</h1>
-      )
     }
+    return (
+      <h1>Loading</h1>
+    )
   }
 }
