@@ -103,7 +103,8 @@ export default class Leaderboard extends React.Component {
       const newUser = user
       let userCountrySum = 0
       userCountries.forEach(country => {
-        userCountrySum = userCountrySum + country.points
+        const summedCountry = this.sumCountry(country)
+        userCountrySum = userCountrySum + summedCountry.points
       })
       newUser.points = userCountrySum
       return newUser
