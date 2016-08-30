@@ -29,28 +29,46 @@ export default class Leaderboard extends React.Component {
     return this.props.countries.filter(country => country.userId === userId)
   }
 
+  sumCountryMedals(medalList, country) {
+    return medalList.filter(eventMedal => eventMedal.id === country._id).reduce((medalSum, medal) => {
+      return medal.points
+    }, 0)
+  }
+
   sumCountry(country) {
-    let sum = 0
+    const reducedSum = this.props.events.reduce((sum, event) => {
+      const golds = this.sumCountryMedals(event.gold, country)
+      const silvers = this.sumCountryMedals(event.silver, country)
+      const bronzes = this.sumCountryMedals(event.bronze, country)
+
+      return sum + (golds + silvers + bronzes)
+    }, 0)
+
     const newCountry = country
-    this.props.events.forEach(event => {
-      event.gold.forEach(gold => {
-        if (gold.id === country._id) {
-          sum = sum + gold.points
-        }
-      })
-      event.silver.forEach(silver => {
-        if (silver.id === country._id) {
-          sum = sum + silver.points
-        }
-      })
-      event.bronze.forEach(bronze => {
-        if (bronze.id === country._id) {
-          sum = sum + bronze.points
-        }
-      })
-    })
-    newCountry.points = sum
+    newCountry.points = reducedSum
     return newCountry
+
+    // let sum = 0
+    // const newCountry = country
+    // this.props.events.forEach(event => {
+    //   event.gold.forEach(gold => {
+    //     if (gold.id === country._id) {
+    //       sum = sum + gold.points
+    //     }
+    //   })
+    //   event.silver.forEach(silver => {
+    //     if (silver.id === country._id) {
+    //       sum = sum + silver.points
+    //     }
+    //   })
+    //   event.bronze.forEach(bronze => {
+    //     if (bronze.id === country._id) {
+    //       sum = sum + bronze.points
+    //     }
+    //   })
+    // })
+    // newCountry.points = sum
+    // return newCountry
   }
 
   showUserInfo(info, alternateInfo) {
