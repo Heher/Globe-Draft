@@ -1,5 +1,7 @@
 import React from 'react'
 
+import '../../../css/admin/add_item.sass'
+
 export default class RegionAddItemField extends React.Component {
   constructor(props) {
     super(props)
@@ -15,7 +17,7 @@ export default class RegionAddItemField extends React.Component {
 
   render() {
     return (
-      <form onSubmit={event => this.handleFormSubmit(event)}>
+      <form className="add-item" onSubmit={event => this.handleFormSubmit(event)}>
         <h4>Add Region:</h4>
         <input type="text" />
         <button type="submit">SUBMIT</button>

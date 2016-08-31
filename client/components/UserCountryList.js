@@ -7,16 +7,14 @@ require('../css/country_list.sass')
 export default class UserCountryList extends React.Component {
 
   render() {
-    const { user } = this.props
+    const { user, countries } = this.props
 
-    const countries = this.props.countries.map((country, index) => {
+    const userCountries = countries.map((country, index) => {
       if ((country.userId === user._id) && country.drafted) {
         return <UserCountryItem {...this.props} key={index} i={index} country={country} />
       }
       return null
-    })
-
-    const userCountries = countries.filter(Boolean)
+    }).filter(Boolean)
 
     userCountries.sort((a, b) => a.props.country.round - b.props.country.round)
 
@@ -28,4 +26,9 @@ export default class UserCountryList extends React.Component {
       </div>
     )
   }
+}
+
+UserCountryList.propTypes = {
+  user: React.PropTypes.object.isRequired,
+  countries: React.PropTypes.array.isRequired
 }

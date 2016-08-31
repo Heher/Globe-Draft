@@ -4,21 +4,22 @@ import CountryItem from './CountryItem'
 
 require('../css/country_list.sass')
 
-export default class CountryList extends React.Component {
-
-  render() {
-    const countries = []
-    for (let round = 1; round <= this.props.totalDraftRounds; round++) {
-      countries.push(<CountryItem {...this.props} key={round} round={round} />)
-    }
-
-    return (
-      <div className="country-list">
-        <h2>Your Countries</h2>
-        <ul>
-          {countries}
-        </ul>
-      </div>
-    )
+export default function CountryList(props) {
+  const countries = []
+  for (let round = 1; round <= props.totalDraftRounds; round++) {
+    countries.push(<CountryItem {...props} key={round} round={round} />)
   }
+
+  return (
+    <div className="country-list">
+      <h2>Your Countries</h2>
+      <ul>
+        {countries}
+      </ul>
+    </div>
+  )
+}
+
+CountryList.propTypes = {
+  totalDraftRounds: React.PropTypes.number
 }

@@ -28,14 +28,14 @@ export default class Register extends React.Component {
             appId="1706414629623051"
             textButton=""
             fields="first_name, last_name, email"
-            callback={this.handleFacebookLogin.bind(this)}
+            callback={() => this.handleFacebookLogin()}
             cssClass="facebook-login"
             icon="fa-facebook"
           />
           <GoogleLogin
             clientId="813058411917-1su4rbp4op2fjenk5bgmra7jiafoc7fr.apps.googleusercontent.com"
             buttonText=""
-            callback={this.handleGoogleLogin.bind(this)}
+            callback={() => this.handleGoogleLogin()}
             cssClass="google-login"
           >
             <i className="fa fa-google" />
@@ -44,4 +44,10 @@ export default class Register extends React.Component {
       </div>
     )
   }
+}
+
+Register.propTypes = {
+  findOrCreateFacebookUser: React.PropTypes.func.isRequired,
+  findOrCreateGoogleUser: React.PropTypes.func.isRequired,
+  currentUser: React.PropTypes.object.isRequired,
 }

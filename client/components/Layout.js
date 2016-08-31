@@ -15,8 +15,8 @@ export default class Layout extends React.Component {
   render() {
     const { users, currentUser, dataStatus, settings, regions } = this.props
 
-    if (dataStatus.usersReceived && dataStatus.eventsReceived && dataStatus.countriesReceived && dataStatus.regionsReceived && dataStatus.settingsReceived ) {
-      const userDrafting = this.props.users.find(user => user.draftNum === this.props.settings.userTurn)
+    if (dataStatus.usersReceived && dataStatus.eventsReceived && dataStatus.countriesReceived && dataStatus.regionsReceived && dataStatus.settingsReceived) {
+      const userDrafting = users.find(user => user.draftNum === settings.userTurn)
 
       let canDraft = false
       let draftComplete = false
@@ -36,9 +36,7 @@ export default class Layout extends React.Component {
         }
       }
 
-      const paidUsers = this.props.users.filter(user => {
-        return user.hasPaid
-      })
+      const paidUsers = users.filter(user => user.hasPaid)
 
       const createProps = {
         userDrafting,
@@ -51,7 +49,13 @@ export default class Layout extends React.Component {
 
       return (
         <div>
-          <Header {...this.props} userDrafting={userDrafting} canDraft={canDraft} draftComplete={draftComplete} paidUsers={paidUsers} />
+          <Header
+            {...this.props}
+            userDrafting={userDrafting}
+            canDraft={canDraft}
+            draftComplete={draftComplete}
+            paidUsers={paidUsers}
+          />
           <StatusBar {...this.props} />
           <div className="page">
             <div className="content">
@@ -72,4 +76,18 @@ export default class Layout extends React.Component {
       </div>
     )
   }
+}
+
+Layout.propTypes = {
+  children: React.PropTypes.node,
+  fetchUsers: React.PropTypes.func.isRequired,
+  fetchEvents: React.PropTypes.func.isRequired,
+  fetchCountries: React.PropTypes.func.isRequired,
+  fetchRegions: React.PropTypes.func.isRequired,
+  fetchSettings: React.PropTypes.func.isRequired,
+  users: React.PropTypes.array.isRequired,
+  currentUser: React.PropTypes.object.isRequired,
+  dataStatus: React.PropTypes.object.isRequired,
+  settings: React.PropTypes.object.isRequired,
+  regions: React.PropTypes.array.isRequired
 }

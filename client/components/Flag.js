@@ -1,8 +1,8 @@
 import React from 'react'
 
 export default class Flag extends React.Component {
-  spacesToDashes(country) {
-    return country.replace(/\s+/g, '-')
+  spacesToDashes(countryName) {
+    return countryName.replace(/\s+/g, '-')
   }
 
   get countryImg() {
@@ -17,4 +17,8 @@ export default class Flag extends React.Component {
       <img className="flag" src={this.countryImg} alt={`Flag of ${this.props.country.name}`} />
     )
   }
+}
+
+Flag.propTypes = {
+  country: React.PropTypes.object.isRequired
 }

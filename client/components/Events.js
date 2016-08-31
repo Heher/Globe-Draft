@@ -173,3 +173,18 @@ export default class Events extends React.Component {
     )
   }
 }
+
+Events.propTypes = {
+  events: React.PropTypes.array.isRequired,
+  currentUser: React.PropTypes.object.isRequired,
+  dataStatus: React.PropTypes.object.isRequired,
+  params: React.PropTypes.object,
+  countries: React.PropTypes.array.isRequired
+}
+
+Events.defaultProps = {
+  events: [],
+  currentUser: {},
+  dataStatus: {},
+  countries: []
+}

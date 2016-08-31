@@ -1,7 +1,7 @@
 import React from 'react'
 import DateTime from 'react-datetime'
 
-require('../../../css/admin/events/add_event.sass')
+require('../../../css/admin/add_item.sass')
 
 export default class EventAddItemField extends React.Component {
 
@@ -17,7 +17,7 @@ export default class EventAddItemField extends React.Component {
 
   render() {
     return (
-      <form onSubmit={event => this.handleFormSubmit(event)}>
+      <form className="add-item" onSubmit={event => this.handleFormSubmit(event)}>
         <h4>Add Event:</h4>
         <input type="text" />
         <DateTime timeFormat="HH:mm" />
@@ -25,4 +25,8 @@ export default class EventAddItemField extends React.Component {
       </form>
     )
   }
+}
+
+EventAddItemField.propTypes = {
+  addEvent: React.PropTypes.func.isRequired
 }

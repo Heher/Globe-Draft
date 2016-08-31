@@ -1,6 +1,6 @@
 import React from 'react'
 
-require('../../../css/admin/users/add_user.sass')
+import '../../../css/admin/add_item.sass'
 
 export default class UserAddItemField extends React.Component {
   constructor(props) {
@@ -20,7 +20,7 @@ export default class UserAddItemField extends React.Component {
   render() {
     const { type } = this.props
     return (
-      <form onSubmit={event => this.handleFormSubmit(event)}>
+      <form className="add-item" onSubmit={event => this.handleFormSubmit(event)}>
         <h4>Add User:</h4>
         <input type="text" />
         <p>Make Admin:</p>

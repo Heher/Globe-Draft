@@ -7,80 +7,85 @@ import Logout from './Logout'
 
 require('../css/mobile_draft_menu.sass')
 
-export default class MobileMenu extends React.Component {
-  render() {
-    const { settings, currentUser, canDraft, showMenu } = this.props
+export default function MobileMenu(props) {
+  const { settings, currentUser, canDraft, showMenu } = props
 
-    const renderDraftClass = classNames({
-      'user-turn': settings.draftStarted && canDraft
-    })
+  const renderDraftClass = classNames({
+    'user-turn': settings.draftStarted && canDraft
+  })
 
-    if (currentUser._id) {
-      return (
-        <div className={`mobile-menu ${showMenu ? 'show' : ''}`}>
-          <ul className={`nav-links ${renderDraftClass}`}>
-            <li>
-              <Link to="/events" onClick={this.props.toggle.bind(this)}>
-                <span>Events</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="/leaderboard" onClick={this.props.toggle.bind(this)}>
-                <span>Leaderboard</span>
-              </Link>
-            </li>
-            <li>
-              <Link className="nav-draft" to="/draft" onClick={this.props.toggle.bind(this)}>
-                <span>Draft</span>
-              </Link>
-            </li>
-            <li className="sublink">
-              <Link to="/draft/overall" activeClassName="active" onClick={this.props.toggle.bind(this)}>
-                <span>All Drafts</span>
-              </Link>
-            </li>
-            <li className="sublink">
-              <Link to="/draft/picks" activeClassName="active" onClick={this.props.toggle.bind(this)}>
-                <span>Your Picks</span>
-              </Link>
-            </li>
-            <li>
-              <Logout {...this.props} onClick={this.props.toggle.bind(this)} />
-            </li>
-          </ul>
-        </div>
-      )
-    }
+  if (currentUser._id) {
     return (
       <div className={`mobile-menu ${showMenu ? 'show' : ''}`}>
-        <ul className="nav-links">
+        <ul className={`nav-links ${renderDraftClass}`}>
           <li>
-            <Link to="/events" onClick={this.props.toggle.bind(this)}>
+            <Link to="/events" onClick={() => props.toggle()}>
               <span>Events</span>
             </Link>
           </li>
           <li>
-            <Link to="/draft" onClick={this.props.toggle.bind(this)}>
+            <Link to="/leaderboard" onClick={() => props.toggle()}>
+              <span>Leaderboard</span>
+            </Link>
+          </li>
+          <li>
+            <Link className="nav-draft" to="/draft" onClick={() => props.toggle()}>
               <span>Draft</span>
             </Link>
           </li>
           <li className="sublink">
-            <Link to="/draft/overall" activeClassName="active" onClick={this.props.toggle.bind(this)}>
+            <Link to="/draft/overall" activeClassName="active" onClick={() => props.toggle()}>
               <span>All Drafts</span>
             </Link>
           </li>
           <li className="sublink">
-            <Link to="/draft/picks" activeClassName="active" onClick={this.props.toggle.bind(this)}>
+            <Link to="/draft/picks" activeClassName="active" onClick={() => props.toggle()}>
               <span>Your Picks</span>
             </Link>
           </li>
-          <Login
-            {...this.props}
-            loginButtonShow={this.props.loginButtonShow}
-            toggleLoginButtons={this.props.toggleLoginButtons.bind(this)}
-          />
+          <li>
+            <Logout {...props} onClick={() => props.toggle()} />
+          </li>
         </ul>
       </div>
     )
   }
+
+  return (
+    <div className={`mobile-menu ${showMenu ? 'show' : ''}`}>
+      <ul className="nav-links">
+        <li>
+          <Link to="/events" onClick={() => props.toggle()}>
+            <span>Events</span>
+          </Link>
+        </li>
+        <li>
+          <Link to="/draft" onClick={() => props.toggle()}>
+            <span>Draft</span>
+          </Link>
+        </li>
+        <li className="sublink">
+          <Link to="/draft/overall" activeClassName="active" onClick={() => props.toggle()}>
+            <span>All Drafts</span>
+          </Link>
+        </li>
+        <li className="sublink">
+          <Link to="/draft/picks" activeClassName="active" onClick={() => props.toggle()}>
+            <span>Your Picks</span>
+          </Link>
+        </li>
+        <Login
+          {...props}
+          loginButtonShow={props.loginButtonShow}
+          toggleLoginButtons={() => props.toggleLoginButtons()}
+        />
+      </ul>
+    </div>
+  )
+}
+
+MobileMenu.propTypes = {
+  toggle: React.PropTypes.func.isRequired,
+  loginButtonShow: React.PropTypes.bool.isRequired,
+  toggleLoginButtons: React.PropTypes.func.isRequired
 }

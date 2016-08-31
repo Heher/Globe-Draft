@@ -21,6 +21,7 @@ export default class CountryCard extends React.Component {
     } else if (canBeSelected) {
       this.select(this.props.region._id, this.props.country._id, this.props.currentUser._id)
     }
+    return null
   }
 
   select(region, country, user) {
@@ -54,7 +55,7 @@ export default class CountryCard extends React.Component {
       <div>
         <div
           className={`countryCard ${renderClasses}`}
-          onClick={this.handleClick.bind(this, canDraft, canBeDeselected, canBeSelected)}
+          onClick={() => this.handleClick(canDraft, canBeDeselected, canBeSelected)}
         >
           <div className="country-card-info">
             <Flag country={this.props.country} />
@@ -68,4 +69,15 @@ export default class CountryCard extends React.Component {
       </div>
     )
   }
+}
+
+CountryCard.propTypes = {
+  region: React.PropTypes.object.isRequired,
+  country: React.PropTypes.object.isRequired,
+  currentUser: React.PropTypes.object.isRequired,
+  users: React.PropTypes.array.isRequired,
+  canDraft: React.PropTypes.bool.isRequired,
+  regionCompleted: React.PropTypes.bool.isRequired,
+  selectCountry: React.PropTypes.func.isRequired,
+  deselectCountry: React.PropTypes.func.isRequired
 }

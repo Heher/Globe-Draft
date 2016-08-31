@@ -92,3 +92,9 @@ export default class UserCountryPoints extends React.Component {
     )
   }
 }
+
+UserCountryPoints.propTypes = {
+  countries: React.PropTypes.array.isRequired,
+  events: React.PropTypes.array.isRequired,
+  userId: React.PropTypes.string.isRequired
+}

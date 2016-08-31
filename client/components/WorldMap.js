@@ -20,7 +20,7 @@ export default class WorldMap extends React.Component {
     }
     if (this.findDrafts().length > 0) {
       const drafts = this.findDrafts()
-      drafts.map(draft => {
+      drafts.forEach(draft => {
         if (this.props.currentUser._id && (this.props.currentUser._id === draft.userId)) {
           data[draft.shortName] = { fillKey: 'owned' }
         } else {
@@ -31,12 +31,12 @@ export default class WorldMap extends React.Component {
     return data
   }
 
-  findDrafts() {
-    return this.props.countries.filter(country => country.userId !== '')
-  }
-
   findCountry(country) {
     return this.props.countries.find(propCountry => country === propCountry._id)
+  }
+
+  findDrafts() {
+    return this.props.countries.filter(country => country.userId !== '')
   }
 
   renderMap() {
@@ -101,7 +101,13 @@ export default class WorldMap extends React.Component {
 
   render() {
     return (
-      <div id="datamap-container" ref={node => this.node = node} />
+      <div id="datamap-container" ref={node => (this.node = node)} />
     )
   }
+}
+
+WorldMap.propTypes = {
+  settings: React.PropTypes.object.isRequired,
+  currentUser: React.PropTypes.object.isRequired,
+  countries: React.PropTypes.array.isRequired
 }

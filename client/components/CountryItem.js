@@ -7,16 +7,14 @@ require('../css/country_item.sass')
 export default class CountryItem extends React.Component {
 
   render() {
-    const { round } = this.props
+    const { round, countries, currentUser } = this.props
 
-    const foundCountry = this.props.countries.find(country => {
-      return ((country.userId === this.props.currentUser._id) && (country.round === round) && country.drafted)
+    const foundCountry = countries.find(country => {
+      return ((country.userId === currentUser._id) && (country.round === round) && country.drafted)
     })
 
     if (foundCountry) {
-      const countryRegion = this.props.regions.find(region => {
-        return region._id === foundCountry.regionId
-      })
+      const countryRegion = this.props.regions.find(region => region._id === foundCountry.regionId)
 
       return (
         <li className="country-item">
@@ -40,4 +38,11 @@ export default class CountryItem extends React.Component {
       </li>
     )
   }
+}
+
+CountryItem.propTypes = {
+  round: React.PropTypes.number.isRequired,
+  countries: React.PropTypes.array.isRequired,
+  currentUser: React.PropTypes.object.isRequired,
+  regions: React.PropTypes.array.isRequired
 }

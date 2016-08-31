@@ -15,6 +15,7 @@ export default class EventDay extends React.Component {
     this.state = {
       showEvents: true
     }
+    this.toggleEvents = this.toggleEvents.bind(this)
   }
 
   showToggle() {
@@ -22,7 +23,7 @@ export default class EventDay extends React.Component {
       return (
         <EventIcon
           {...this.props}
-          toggle={this.toggleEvents.bind(this)}
+          toggle={this.toggleEvents}
         />
       )
     }
@@ -234,7 +235,7 @@ export default class EventDay extends React.Component {
       <div className={`event-day ${this.state.showEvents ? 'show' : 'hide'}`}>
         <div className="day-title">
           <div className="header">
-            <h2 onClick={this.toggleEvents.bind(this)}>{this.convertDate(this.props.title)}</h2>
+            <h2 onClick={this.toggleEvents}>{this.convertDate(this.props.title)}</h2>
             {this.showToggle()}
           </div>
           {this.props.filterType === 'country' ? this.renderCountryTotal(sortedEvents, this.props.country) : this.renderPlayerOfDay(this.props.eventGroup)}
@@ -244,4 +245,14 @@ export default class EventDay extends React.Component {
       </div>
     )
   }
+}
+
+EventDay.propTypes = {
+  daySelected: React.PropTypes.bool,
+  countries: React.PropTypes.array.isRequired,
+  paidUsers: React.PropTypes.array.isRequired,
+  eventGroup: React.PropTypes.array.isRequired,
+  country: React.PropTypes.object,
+  filterType: React.PropTypes.string,
+  title: React.PropTypes.string
 }

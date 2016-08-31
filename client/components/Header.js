@@ -17,6 +17,8 @@ export default class Header extends React.Component {
       showMenu: false,
       loginButtonShow: false
     }
+    this.toggleMenu = this.toggleMenu.bind(this)
+    this.toggleLoginButtons = this.toggleLoginButtons.bind(this)
   }
 
   toggleMenu() {
@@ -43,10 +45,10 @@ export default class Header extends React.Component {
   }
 
   render() {
-    const { currentUser, dataStatus, settings } = this.props
+    const { currentUser, settings } = this.props
 
     if (currentUser._id) {
-      const { userDrafting, canDraft } = this.props
+      const { canDraft } = this.props
 
       const renderDraftClass = classNames({
         'user-turn': settings.draftStarted && canDraft
@@ -55,7 +57,7 @@ export default class Header extends React.Component {
       return (
         <header>
           <div className="header-content">
-            <div className="menu-button-wrapper" onClick={this.toggleMenu.bind(this)}>
+            <div className="menu-button-wrapper" onClick={this.toggleMenu}>
               <MenuIcon {...this.props} />
             </div>
             <div className="title">
@@ -81,9 +83,9 @@ export default class Header extends React.Component {
           <MobileMenu
             {...this.props}
             showMenu={this.state.showMenu}
-            toggle={this.toggleMenu.bind(this)}
+            toggle={this.toggleMenu}
             loginButtonShow={this.state.loginButtonShow}
-            toggleLoginButtons={this.toggleLoginButtons.bind(this)}
+            toggleLoginButtons={this.toggleLoginButtons}
           />
         </header>
       )
@@ -91,7 +93,7 @@ export default class Header extends React.Component {
     return (
       <header>
         <div className="header-content">
-          <div className="menu-button-wrapper" onClick={this.toggleMenu.bind(this)}>
+          <div className="menu-button-wrapper" onClick={this.toggleMenu}>
             <MenuIcon {...this.props} />
           </div>
           <div className="title">
@@ -110,7 +112,7 @@ export default class Header extends React.Component {
               <Login
                 {...this.props}
                 loginButtonShow={this.state.loginButtonShow}
-                toggleLoginButtons={this.toggleLoginButtons.bind(this)}
+                toggleLoginButtons={this.toggleLoginButtons}
               />
             </ul>
           </div>
@@ -119,11 +121,21 @@ export default class Header extends React.Component {
         <MobileMenu
           {...this.props}
           showMenu={this.state.showMenu}
-          toggle={this.toggleMenu.bind(this)}
+          toggle={this.toggleMenu}
           loginButtonShow={this.state.loginButtonShow}
-          toggleLoginButtons={this.toggleLoginButtons.bind(this)}
+          toggleLoginButtons={this.toggleLoginButtons}
         />
       </header>
     )
   }
+}
+
+Header.propTypes = {
+  currentUser: React.PropTypes.object,
+  settings: React.PropTypes.object.isRequired,
+  canDraft: React.PropTypes.bool.isRequired
+}
+
+Header.defaultProps = {
+  canDraft: false
 }

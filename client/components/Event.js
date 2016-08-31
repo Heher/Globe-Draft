@@ -27,6 +27,12 @@ export default class Event extends React.Component {
       silverAdd: false,
       bronzeAdd: false
     }
+    this.handleAddMedal = this.handleAddMedal.bind(this)
+    this.handleEditToggle = this.handleEditToggle.bind(this)
+    this.handleInputChange = this.handleInputChange.bind(this)
+    this.handleCheckboxChange = this.handleCheckboxChange.bind(this)
+    this.handleItemSave = this.handleItemSave.bind(this)
+    this.handleEditToggle = this.handleEditToggle.bind(this)
   }
 
   renderWinners(countries) {
@@ -65,19 +71,6 @@ export default class Event extends React.Component {
     )// &nbsp needed for flexbox to correctly align
   }
 
-  findCountry(country) {
-    const foundCountry = findByQuery(this.props.countries, country.id, '_id')
-    const newCountry = {
-      ...foundCountry,
-      points: country.points
-    }
-    return newCountry
-  }
-
-  convertDate(datetime) {
-    return moment(datetime, moment.ISO_8601).format('ddd, M/D, h:mm A')
-  }
-
   handleEditToggle() {
     this.setState({
       editing: !this.state.editing
@@ -103,6 +96,19 @@ export default class Event extends React.Component {
     return null
   }
 
+  convertDate(datetime) {
+    return moment(datetime, moment.ISO_8601).format('ddd, M/D, h:mm A')
+  }
+
+  findCountry(country) {
+    const foundCountry = findByQuery(this.props.countries, country.id, '_id')
+    const newCountry = {
+      ...foundCountry,
+      points: country.points
+    }
+    return newCountry
+  }
+
   renderSelects(countries, type) {
     const selects = []
 
@@ -114,7 +120,7 @@ export default class Event extends React.Component {
             key={index + 1}
             country={country}
             type={type}
-            handleAddMedal={this.handleAddMedal.bind(this)}
+            handleAddMedal={this.handleAddMedal}
             noCountries={false}
           />
         )
@@ -315,10 +321,10 @@ export default class Event extends React.Component {
       return (
         <div className="event-section editing">
           <div className="title">
-            {currentUser.isAdmin ? <button className="edit-button" onClick={this.handleEditToggle.bind(this)}>Cancel</button> : null}
+            {currentUser.isAdmin ? <button className="edit-button" onClick={this.handleEditToggle}>Cancel</button> : null}
             <input
               type="text"
-              onChange={this.handleInputChange.bind(this)}
+              onChange={this.handleInputChange}
               value={this.state.inputValue}
             />
             <DateTime defaultValue={this.state.dateValue} timeFormat="HH:mm" />
@@ -326,7 +332,7 @@ export default class Event extends React.Component {
               <input
                 type="checkbox"
                 checked={this.state.checkboxValue ? 'checked' : ''}
-                onChange={this.handleCheckboxChange.bind(this)}
+                onChange={this.handleCheckboxChange}
               />
               <p>Team Event</p>
             </div>
@@ -343,7 +349,7 @@ export default class Event extends React.Component {
             </div>
           </div>
           <div className="action-buttons">
-            <SaveItem {...this.props} item={event} type="Event" handleItemSave={this.handleItemSave.bind(this)} />
+            <SaveItem {...this.props} item={event} type="Event" handleItemSave={this.handleItemSave} />
             <DeleteItem {...this.props} item={event} type="Event" />
           </div>
         </div>
@@ -352,7 +358,7 @@ export default class Event extends React.Component {
     return (
       <div className="event-section">
         <div className="title">
-          {currentUser.isAdmin ? <button className="edit-button" onClick={this.handleEditToggle.bind(this)}>Edit</button> : null}
+          {currentUser.isAdmin ? <button className="edit-button" onClick={this.handleEditToggle}>Edit</button> : null}
           <h4>{event.name}</h4>
           {event.datetime ? <p>{this.convertDate(event.datetime)}</p> : null}
           {event.team ? <span className="team-badge">Team</span> : null}
@@ -371,4 +377,14 @@ export default class Event extends React.Component {
       </div>
     )
   }
+}
+
+Event.propTypes = {
+  event: React.PropTypes.object.isRequired,
+  settings: React.PropTypes.object.isRequired,
+  currentUser: React.PropTypes.object.isRequired,
+  users: React.PropTypes.array.isRequired,
+  countries: React.PropTypes.array.isRequired,
+  editEvent: React.PropTypes.func.isRequired,
+  country: React.PropTypes.string
 }

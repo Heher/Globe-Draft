@@ -45,3 +45,8 @@ export default class EventButton extends React.Component {
     )
   }
 }
+
+EventButton.propTypes = {
+  mainLink: React.PropTypes.string,
+  day: React.PropTypes.string
+}

@@ -17,28 +17,29 @@ export default class HeaderLeaderboard extends React.Component {
     return this.props.countries.filter(country => country.userId === userId)
   }
 
+  // Takes in an array of medalTypes (gold, silver, or bronze) from an event
+  // and a specific country. Then outputs a sum of that country's points from
+  // that country and medalType.
+  sumCountryMedals(medalList, country) {
+    return medalList
+      .filter(eventMedal => eventMedal.id === country._id)
+      .reduce((medalSum, medal) => medalSum + medal.points, 0)
+  }
+
+  // Takes in a specific country and outputs that country's total points
+  // across all events.
   sumCountry(country) {
-    let sum = 0
-    let newCountry = country
-    this.props.events.forEach(event => {
-      event.gold.forEach(gold => {
-        if (gold.id === newCountry._id) {
-          sum = sum + gold.points
-        }
-      })
-      event.silver.forEach(silver => {
-        if (silver.id === newCountry._id) {
-          sum = sum + silver.points
-        }
-      })
-      event.bronze.forEach(bronze => {
-        if (bronze.id === newCountry._id) {
-          sum = sum + bronze.points
-        }
-      })
-    })
-    newCountry.points = sum
-    return newCountry
+    const reducedSum = this.props.events.reduce((sum, event) => {
+      return sum + (
+        this.sumCountryMedals(event.gold, country) +
+        this.sumCountryMedals(event.silver, country) +
+        this.sumCountryMedals(event.bronze, country))
+    }, 0)
+
+    return {
+      ...country,
+      points: reducedSum
+    }
   }
 
   showUserInfo(info, alternateInfo) {
@@ -75,9 +76,7 @@ export default class HeaderLeaderboard extends React.Component {
   }
 
   renderMedalWinners(players, rank) {
-    return players.map((player, index) => {
-      return <span key={index + rank} className="name">{player.name}</span>
-    })
+    return players.map((player, index) => <span key={index + rank} className="name">{player.name}</span>)
   }
 
   render() {
@@ -132,4 +131,19 @@ export default class HeaderLeaderboard extends React.Component {
     }
     return null
   }
+}
+
+HeaderLeaderboard.propTypes = {
+  countries: React.PropTypes.array.isRequired,
+  events: React.PropTypes.array.isRequired,
+  settings: React.PropTypes.object.isRequired,
+  draftComplete: React.PropTypes.bool.isRequired,
+  currentUser: React.PropTypes.object.isRequired,
+  dataStatus: React.PropTypes.object.isRequired,
+  paidUsers: React.PropTypes.array.isRequired
+}
+
+HeaderLeaderboard.defaultProps = {
+  draftComplete: false,
+  paidUsers: []
 }

@@ -17,7 +17,6 @@
     "arrow-body-style": 1,
     "operator-assignment": 0,
     "react/jsx-filename-extension": 0,
-    "react/jsx-no-bind": 1,
     "react/jsx-boolean-value": 0
   }
 }

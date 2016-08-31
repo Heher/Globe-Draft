@@ -11,6 +11,7 @@ export default class Countries extends React.Component {
     this.state = {
       countryList: countryIds
     }
+    this.countrySearch = this.countrySearch.bind(this)
   }
 
   countrySearch(event) {
@@ -38,11 +39,13 @@ export default class Countries extends React.Component {
   }
 
   render() {
-    const { dataStatus, currentUser } = this.props
+    const { dataStatus, currentUser, countries } = this.props
 
-    const fullCountryList = this.state.countryList.map(countryId => {
-      return this.props.countries.find(propCountry => countryId === propCountry._id)
-    })
+    // Takes the current list of countryIds and returns a
+    // list of the full country object for each of them.
+    const fullCountryList =
+      this.state.countryList
+        .map(countryId => countries.find(propCountry => countryId === propCountry._id))
 
     const sortedRegions = this.sortRegions(this.props.regions)
 
@@ -63,7 +66,7 @@ export default class Countries extends React.Component {
           <div className="draft-countries">
             <div className="regions">
               <div className="search-wrapper">
-                <input className="country-search" type="text" onChange={this.countrySearch.bind(this)} placeholder="SEARCH" />
+                <input className="country-search" type="text" onChange={this.countrySearch} placeholder="SEARCH" />
               </div>
               {regionList}
             </div>
@@ -73,24 +76,37 @@ export default class Countries extends React.Component {
             </div>
           </div>
         )
-      } else {
-        return (
-          <div className="draft-countries">
-            <div className="regions">
-              <div className="search-wrapper">
-                <input className="country-search" type="text" onChange={this.countrySearch.bind(this)} placeholder="SEARCH" />
-              </div>
-              {regionList}
-            </div>
-            <div className="sidebar">
-              <RoundStatus {...this.props} />
-            </div>
-          </div>
-        )
       }
+      return (
+        <div className="draft-countries">
+          <div className="regions">
+            <div className="search-wrapper">
+              <input className="country-search" type="text" onChange={this.countrySearch} placeholder="SEARCH" />
+            </div>
+            {regionList}
+          </div>
+          <div className="sidebar">
+            <RoundStatus {...this.props} />
+          </div>
+        </div>
+      )
     }
     return (
       <h1>Loading</h1>
     )
   }
+}
+
+Countries.propTypes = {
+  countries: React.PropTypes.array.isRequired,
+  dataStatus: React.PropTypes.object.isRequired,
+  currentUser: React.PropTypes.object.isRequired,
+  regions: React.PropTypes.array.isRequired
+}
+
+Countries.defaultProps = {
+  countries: [],
+  dataStatus: {},
+  currentUser: {},
+  regions: []
 }
