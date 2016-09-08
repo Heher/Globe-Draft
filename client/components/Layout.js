@@ -59,7 +59,7 @@ export default class Layout extends React.Component {
           <StatusBar {...this.props} />
           <div className="page">
             <div className="content">
-              {React.cloneElement(this.props.children, createProps)}
+              {this.props.children}
             </div>
           </div>
         </div>

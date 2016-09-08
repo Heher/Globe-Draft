@@ -17,9 +17,9 @@ export default class UserAdminSection extends React.Component {
       return null
     }
   }
-  
+
   render() {
-    const { dataStatus, users } = this.props
+    const { dataStatus, users, currentUser } = this.props
     let listItems = []
     if (dataStatus.usersReceived) {
       const sortedUsers = this.sortUsers(users)
@@ -34,15 +34,22 @@ export default class UserAdminSection extends React.Component {
       'show': this.props.addingUser
     })
 
-    return (
-      <div>
-        <div className={`add-item ${renderClasses}`}>
-          <UserAddItemField {...this.props} />
+    if (dataStatus.usersReceived &&
+        dataStatus.eventsReceived &&
+        dataStatus.countriesReceived &&
+        dataStatus.regionsReceived &&
+        dataStatus.settingsReceived &&
+        currentUser.isAdmin) {
+      return (
+        <div>
+          <div className={`add-item ${renderClasses}`}>
+            <UserAddItemField {...this.props} />
+          </div>
+          <div className="users-section">
+            {listItems}
+          </div>
         </div>
-        <div className="users-section">
-          {listItems}
-        </div>
-      </div>
-    )
+      )
+    }
   }
 }

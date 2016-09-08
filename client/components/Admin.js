@@ -4,8 +4,10 @@ import UserAdminSection from './admin/users/UserAdminSection'
 import RegionAdminSection from './admin/regions/RegionAdminSection'
 import CountryAdminSection from './admin/countries/CountryAdminSection'
 import SettingAdminSection from './admin/settings/SettingAdminSection'
+import AdminSidebar from './AdminSidebar'
 
-require('../css/admin.sass')
+import '../css/admin.sass'
+import '../css/admin/admin_container.sass'
 
 export default class Admin extends React.Component {
   constructor() {
@@ -37,33 +39,11 @@ export default class Admin extends React.Component {
   render() {
     const { dataStatus, currentUser } = this.props
 
-    if (dataStatus.usersReceived &&
-      dataStatus.eventsReceived &&
-      dataStatus.countriesReceived &&
-      dataStatus.regionsReceived &&
-      dataStatus.settingsReceived &&
-      currentUser.isAdmin
-    ) {
-      return (
-        <div className="page">
-          <div className="content">
-            <div className="admin-panel">
-              <h1>Admin Panel</h1>
-              <h2>Users</h2><span onClick={() => this.showAddItemPanel('User')}>+</span>
-              <UserAdminSection {...this.props} addingUser={this.state.addingUser} />
-              <h2>Regions</h2><span onClick={() => this.showAddItemPanel('Region')}>+</span>
-              <RegionAdminSection {...this.props} addingRegion={this.state.addingRegion} />
-              <h2>Countries</h2><span onClick={() => this.showAddItemPanel('Country')}>+</span>
-              <CountryAdminSection {...this.props} addingCountry={this.state.addingCountry} />
-              <h2>Settings</h2>
-              <SettingAdminSection {...this.props} />
-            </div>
-          </div>
-        </div>
-      )
-    }
     return (
-      <h2>Not Allowed</h2>
+      <div className="admin-container">
+        <AdminSidebar />
+        {React.cloneElement(this.props.children, {...this.props})}
+      </div>
     )
   }
 }

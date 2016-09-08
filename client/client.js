@@ -1,12 +1,11 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { Router, Route, IndexRoute, browserHistory } from 'react-router'
+import { Router, Route, IndexRoute } from 'react-router'
 import { Provider } from 'react-redux'
-import { routerActions } from 'react-router-redux'
 import store, { history } from './store'
 
 import App from './components/App'
-import Admin from './components/Admin'
+import AdminContainer from './components/AdminContainer'
 import Countries from './components/Countries'
 import Events from './components/Events'
 import Login from './components/Login'
@@ -14,18 +13,27 @@ import RoundStatus from './components/RoundStatus'
 import CountryList from './components/CountryList'
 import Leaderboard from './components/Leaderboard'
 import Main from './components/Main'
+import UserAdminSection from './components/admin/users/UserAdminSection'
+import RegionAdminSection from './components/admin/regions/RegionAdminSection'
+import CountryAdminSection from './components/admin/countries/CountryAdminSection'
 
-import css from './css/index.sass'
+import './css/index.sass'
 
 const router = (
   <Provider store={store}>
     <Router history={history}>
       <Route path="/" component={App}>
         <IndexRoute component={Main}></IndexRoute>
-        <Route path="/draft" component={Countries}></Route>
-        <Route path="/draft/picks" component={CountryList}></Route>
-        <Route path="/draft/overall" component={RoundStatus}></Route>
-        <Route path="/admin" component={Admin}></Route>
+        <Route path="draft">
+          <IndexRoute component={Countries} />
+          <Route path="picks" component={CountryList} />
+          <Route path="overall" component={RoundStatus} />
+        </Route>
+        <Route path="admin" component={AdminContainer}>
+          <Route path="users" component={UserAdminSection} />
+          <Route path="regions" component={RegionAdminSection} />
+          <Route path="countries" component={CountryAdminSection} />
+        </Route>
         <Route path="/login" component={Login}></Route>
         <Route path='/events' component={Events}></Route>
         <Route path='/events/:filter' component={Events}></Route>

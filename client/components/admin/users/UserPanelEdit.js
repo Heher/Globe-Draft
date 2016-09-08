@@ -29,7 +29,7 @@ export default class UserPanelEdit extends React.Component {
     const { user } = this.props
 
     return (
-      <div className="user">
+      <div className="user editing">
         <div className="title">
           <input 
             type="text"
