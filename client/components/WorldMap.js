@@ -8,6 +8,14 @@ export default class WorldMap extends React.Component {
     this.datamap = null
   }
 
+  findCountry(country) {
+    return this.props.countries.find(propCountry => country === propCountry._id)
+  }
+
+  findDrafts() {
+    return this.props.countries.filter(country => country.userId !== '')
+  }
+
   renderCountries() {
     const data = {}
     if (this.props.settings.goodCountry) {
@@ -31,25 +39,13 @@ export default class WorldMap extends React.Component {
     return data
   }
 
-<<<<<<< HEAD
   renderMap(projection, rotation) {
-=======
-  findCountry(country) {
-    return this.props.countries.find(propCountry => country === propCountry._id)
-  }
-
-  findDrafts() {
-    return this.props.countries.filter(country => country.userId !== '')
-  }
-
-  renderMap() {
->>>>>>> e11e5d6b75d3395e8a57b317f4b1e871d1e62139
     this.renderCountries()
     return new Datamap({
       element: this.node,
       scope: 'world',
-      projection: projection,
-      rotation: rotation,
+      projection,
+      rotation,
       fills: {
         defaultFill: '#FFF',
         goodCountry: '#BBB',
@@ -81,8 +77,6 @@ export default class WorldMap extends React.Component {
       { width: `${initialScreenWidth}px`, height: `${(initialScreenWidth * 0.7)}px` } :
       { width: '960px', height: '650px' }
 
-    console.log(containerWidth)
-
     mapContainer.style(containerWidth)
     this.datamap = this.renderMap(this.props.projection, this.props.rotation)
     window.addEventListener('resize', () => {
@@ -94,14 +88,9 @@ export default class WorldMap extends React.Component {
           width: '960px',
           height: '650px'
         })
-<<<<<<< HEAD
         this.datamap = this.renderMap(this.props.projection, this.props.rotation)
       }
       else if (this.currentScreenWidth() <= 1000) {
-=======
-        this.datamap = this.renderMap()
-      } else if (this.currentScreenWidth() <= 1000) {
->>>>>>> e11e5d6b75d3395e8a57b317f4b1e871d1e62139
         d3.select('.datamap').remove()
         mapContainer.style({
           width: `${currentScreenWidth}px`,
