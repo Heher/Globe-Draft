@@ -1,7 +1,6 @@
 import React from 'react'
 import classNames from 'classnames'
 
-import CountryItem from './CountryItem'
 import Flag from './Flag'
 import UserCountryPoints from './UserCountryPoints'
 
@@ -17,51 +16,50 @@ export default class Leaderboard extends React.Component {
 
   sortByPoints(countries) {
     if (countries.length) {
-      return countries.sort(function(a, b) {
-        if(a.points < b.points) return 1
-        if(a.points > b.points) return -1
+      return countries.sort((a, b) => {
+        if (a.points < b.points) return 1
+        if (a.points > b.points) return -1
         return 0
       })
-    } else {
-      return null
     }
+    return null
   }
 
+  // Finds all countries owned by a supplied userId
   findUserCountries(userId) {
-    return this.props.countries.filter(country => {
-      return country.userId === userId
-    })
+    return this.props.countries.filter(country => country.userId === userId)
   }
 
+  // Takes in an array of medalTypes (gold, silver, or bronze) from an event
+  // and a specific country. Then outputs a sum of that country's points from
+  // that country and medalType.
+  sumCountryMedals(medalList, country) {
+    return medalList
+      .filter(eventMedal => eventMedal.id === country._id)
+      .reduce((medalSum, medal) => medalSum + medal.points, 0)
+  }
+
+  // Takes in a specific country and outputs that country's total points
+  // across all events.
   sumCountry(country) {
-    let sum = 0
-    this.props.events.map(event => {
-      event.gold.map(gold => {
-        if (gold.id === country._id) {
-          sum = sum + gold.points
-        }
-      })
-      event.silver.map(silver => {
-        if (silver.id === country._id) {
-          sum = sum + silver.points
-        }
-      })
-      event.bronze.map(bronze => {
-        if (bronze.id === country._id) {
-          sum = sum + bronze.points
-        }
-      })
-    })
-    country.points = sum
-    return country
+    const reducedSum = this.props.events.reduce((sum, event) => {
+      return sum + (
+        this.sumCountryMedals(event.gold, country) +
+        this.sumCountryMedals(event.silver, country) +
+        this.sumCountryMedals(event.bronze, country))
+    }, 0)
+
+    return {
+      ...country,
+      points: reducedSum
+    }
   }
 
   showUserInfo(info, alternateInfo) {
     if (!this.props.settings.draftStarted && this.props.draftComplete) {
       return info
-    } else {
-      return alternateInfo
     }
+    return alternateInfo
   }
 
   openLeaderboard(index) {
@@ -77,14 +75,14 @@ export default class Leaderboard extends React.Component {
   }
 
   findMedals(users) {
-    let medals = {
+    const medals = {
       gold: users[0].points,
       silver: 0,
       bronze: 0
     }
     let place = 1
     let previousPoints = medals.gold
-    users.map(user => {
+    users.forEach(user => {
       if (place <= 3) {
         if (user.points !== previousPoints) {
           previousPoints = user.points
@@ -102,15 +100,16 @@ export default class Leaderboard extends React.Component {
 
   render() {
     const { currentUser, settings, draftComplete } = this.props
-    const users = this.props.paidUsers.map((user, index) => {
+    const users = this.props.paidUsers.map(user => {
       const userCountries = this.findUserCountries(user._id)
+      const newUser = user
       let userCountrySum = 0
-      userCountries.map(country => {
+      userCountries.forEach(country => {
         const summedCountry = this.sumCountry(country)
-        userCountrySum = userCountrySum + country.points
+        userCountrySum = userCountrySum + summedCountry.points
       })
-      user.points = userCountrySum
-      return user
+      newUser.points = userCountrySum
+      return newUser
     })
 
     const sortedUsers = this.sortByPoints(users)
@@ -132,30 +131,39 @@ export default class Leaderboard extends React.Component {
       previousPoints = user.points
 
       const renderClasses = classNames({
-        'gold': place === 1,
-        'silver': place === 2,
-        'bronze': place === 3 
+        gold: place === 1,
+        silver: place === 2,
+        bronze: place === 3
       })
 
       const userClass = classNames({
-        'user': (!settings.draftStarted && draftComplete) && (user._id === currentUser._id),
-        'tie': !showRank
+        user: (!settings.draftStarted && draftComplete) && (user._id === currentUser._id),
+        tie: !showRank
       })
 
       return (
-        <li className={this.state.leaderboardOpen === index ? "open" : ""} key={index}>
-          <div className={`leaderboard-content ${userClass}`} onClick={this.openLeaderboard.bind(this, index)}>
+        <li className={this.state.leaderboardOpen === index ? 'open' : ''} key={index}>
+          <div className={`leaderboard-content ${userClass}`} onClick={() => this.openLeaderboard(index)}>
             <div className="name-rank">
               {showRank ? <span className={`rank ${renderClasses}`}>{place}</span> : null}
-              <span className="name">{this.showUserInfo(user.name, "No Data")}</span>
+              <span className="name">{this.showUserInfo(user.name, 'No Data')}</span>
             </div>
             <span className="points">{user.points}</span>
           </div>
           <div className="user-details">
             <div className="points-back">
-              <p><span className="gold"></span>{user.points - userMedals.gold > 0 ? "+" : ""}{user.points - userMedals.gold}</p>
-              <p><span className="silver"></span>{user.points - userMedals.silver > 0 ? "+" : ""}{user.points - userMedals.silver}</p>
-              <p><span className="bronze"></span>{user.points - userMedals.bronze > 0 ? "+" : ""}{user.points - userMedals.bronze}</p>
+              <p>
+                <span className="gold" />
+                {user.points - userMedals.gold > 0 ? '+' : ''}{user.points - userMedals.gold}
+              </p>
+              <p>
+                <span className="silver" />
+                {user.points - userMedals.silver > 0 ? '+' : ''}{user.points - userMedals.silver}
+              </p>
+              <p>
+                <span className="bronze" />
+                {user.points - userMedals.bronze > 0 ? '+' : ''}{user.points - userMedals.bronze}
+              </p>
             </div>
             {this.state.leaderboardOpen === index ? <UserCountryPoints {...this.props} userId={user._id} /> : null}
           </div>
@@ -164,14 +172,11 @@ export default class Leaderboard extends React.Component {
     })
 
     if (currentUser._id) {
-      const { currentUser } = this.props
       let renderCountries = []
 
       const userCountries = this.findUserCountries(currentUser._id)
       if (userCountries.length > 0) {
-        const summedCountries = userCountries.map((country, index) => {
-          return this.sumCountry(country)
-        })
+        const summedCountries = userCountries.map(country => this.sumCountry(country))
         const sortedCountries = this.sortByPoints(summedCountries)
         renderCountries = sortedCountries.map((country, index) => {
           return (
@@ -179,7 +184,7 @@ export default class Leaderboard extends React.Component {
               <div className="leaderboard-content">
                 <div className="name-rank">
                   <span className="rank">{index + 1}</span>
-                  <span className="name"><Flag country={country}/>{country.name}</span>
+                  <span className="name"><Flag country={country} />{country.name}</span>
                 </div>
                 <span className="points">{country.points}</span>
               </div>
@@ -212,17 +217,34 @@ export default class Leaderboard extends React.Component {
           </div>
         </div>
       )
-    } else {
-      return (
-        <div className="leaderboards-wrapper">
-          <div className="leaderboard">
-            <h2>Leaderboard</h2>
-            <ul>
-              {renderUsers}
-            </ul>
-          </div>
-        </div>
-      )
     }
+    return (
+      <div className="leaderboards-wrapper">
+        <div className="leaderboard">
+          <h2>Leaderboard</h2>
+          <ul>
+            {renderUsers}
+          </ul>
+        </div>
+      </div>
+    )
   }
+}
+
+Leaderboard.propTypes = {
+  countries: React.PropTypes.array.isRequired,
+  events: React.PropTypes.array.isRequired,
+  settings: React.PropTypes.object.isRequired,
+  draftComplete: React.PropTypes.bool.isRequired,
+  currentUser: React.PropTypes.object.isRequired,
+  paidUsers: React.PropTypes.array.isRequired
+}
+
+Leaderboard.defaultProps = {
+  countries: [],
+  events: [],
+  settings: {},
+  draftComplete: false,
+  currentUser: {},
+  paidUsers: []
 }

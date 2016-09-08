@@ -1,7 +1,7 @@
-import React from "react"
+import React from 'react'
 
-import CountryCard from "./CountryCard"
-import EventIcon from "./icons/EventIcon"
+import CountryCard from './CountryCard'
+import EventIcon from './icons/EventIcon'
 
 require('../css/region.sass')
 
@@ -14,14 +14,13 @@ export default class Region extends React.Component {
   }
   sortRegion(countries) {
     if (countries.length) {
-      return countries.sort(function(a, b) {
-        if(a.name < b.name) return -1
-        if(a.name > b.name) return 1
+      return countries.sort((a, b) => {
+        if (a.name < b.name) return -1
+        if (a.name > b.name) return 1
         return 0
       })
-    } else {
-      return null
     }
+    return null
   }
 
   toggleRegionShow() {
@@ -31,29 +30,29 @@ export default class Region extends React.Component {
   }
 
   render() {
+    const { countries, region, currentUser, countryList } = this.props
+
     let numSelected = 0
-    this.props.countries.forEach((country) => {
-      if (country.regionId === this.props.region._id) {
-        if ((country.userId === this.props.currentUser._id) && (country.selected || country.drafted)) {
+    countries.forEach((country) => {
+      if (country.regionId === region._id) {
+        if ((country.userId === currentUser._id) && (country.selected || country.drafted)) {
           numSelected = numSelected + 1
         }
       }
     })
 
-    const completed = (numSelected === this.props.region.maxCountriesSelected)
+    const completed = (numSelected === region.maxCountriesSelected)
 
-    const countries = this.props.countryList.filter(country => {
-      return country.regionId === this.props.region._id
-    })
+    const regionCountries = countryList.filter(country => country.regionId === region._id)
 
-    if (countries.length > 0) {
-      const countryValues = (countries.filter( Boolean ))
+    if (regionCountries.length > 0) {
+      const countryValues = (regionCountries.filter(Boolean))
 
       const sortedCountries = this.sortRegion(countryValues)
 
-      const countryList = sortedCountries.map((country, index) => {
+      const sortedCountryList = sortedCountries.map((country, index) => {
         return (
-          <CountryCard 
+          <CountryCard
             {...this.props}
             key={index}
             i={index}
@@ -64,17 +63,23 @@ export default class Region extends React.Component {
       })
 
       return (
-        <div className={`region ${!this.state.showRegion ? "hide" : ""}`}>
-          <h2 onClick={this.toggleRegionShow.bind(this)}>{this.props.region.name}</h2>
-          <EventIcon {...this.props} toggle={this.toggleRegionShow.bind(this)}/>
-          <span className="number-selected">{numSelected} selected of {this.props.region.maxCountriesSelected}</span>
+        <div className={`region ${!this.state.showRegion ? 'hide' : ''}`}>
+          <h2 onClick={() => this.toggleRegionShow()}>{region.name}</h2>
+          <EventIcon {...this.props} toggle={() => this.toggleRegionShow()} />
+          <span className="number-selected">{numSelected} selected of {region.maxCountriesSelected}</span>
           <div className="country-selections">
-            {countryList}
+            {sortedCountryList}
           </div>
         </div>
       )
-    } else {
-      return null
     }
+    return null
   }
+}
+
+Region.propTypes = {
+  countries: React.PropTypes.array.isRequired,
+  region: React.PropTypes.object.isRequired,
+  currentUser: React.PropTypes.object.isRequired,
+  countryList: React.PropTypes.array.isRequired
 }

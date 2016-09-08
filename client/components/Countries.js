@@ -1,31 +1,23 @@
 import React from 'react'
-import { Link } from 'react-router'
 
-import Header from './Header'
 import Region from './Region'
 import CountryList from './CountryList'
-import ChangeUser from './ChangeUser'
-import ChoiceList from './ChoiceList'
-import ChoiceSubmit from './ChoiceSubmit'
 import RoundStatus from './RoundStatus'
-import MobileDraftMenu from './MobileDraftMenu'
 
 export default class Countries extends React.Component {
-  
   constructor(props) {
     super(props)
-    const countryIds = this.props.countries.map(country => {
-      return country._id
-    })
+    const countryIds = this.props.countries.map(country => country._id)
     this.state = {
       countryList: countryIds
     }
+    this.countrySearch = this.countrySearch.bind(this)
   }
 
   countrySearch(event) {
-    let searchResult = []
+    const searchResult = []
     const query = event.target.value.toLowerCase()
-    this.props.countries.map(country => {
+    this.props.countries.forEach(country => {
       if (country.name.toLowerCase().indexOf(query) !== -1) {
         searchResult.push(country._id)
       }
@@ -37,24 +29,23 @@ export default class Countries extends React.Component {
 
   sortRegions(regions) {
     if (regions.length) {
-      return regions.sort(function(a, b) {
-        if(a.name < b.name) return -1
-        if(a.name > b.name) return 1
+      return regions.sort((a, b) => {
+        if (a.name < b.name) return -1
+        if (a.name > b.name) return 1
         return 0
       })
-    } else {
-      return null
     }
+    return null
   }
 
   render() {
-    const { dataStatus, currentUser } = this.props
+    const { dataStatus, currentUser, countries } = this.props
 
-    const fullCountryList = this.state.countryList.map(countryId => {
-      return this.props.countries.filter(propCountry => {
-        return countryId === propCountry._id
-      })[0]
-    })
+    // Takes the current list of countryIds and returns a
+    // list of the full country object for each of them.
+    const fullCountryList =
+      this.state.countryList
+        .map(countryId => countries.find(propCountry => countryId === propCountry._id))
 
     const sortedRegions = this.sortRegions(this.props.regions)
 
@@ -75,7 +66,7 @@ export default class Countries extends React.Component {
           <div className="draft-countries">
             <div className="regions">
               <div className="search-wrapper">
-                <input className="country-search" type="text" onChange={this.countrySearch.bind(this)} placeholder="SEARCH" />
+                <input className="country-search" type="text" onChange={this.countrySearch} placeholder="SEARCH" />
               </div>
               {regionList}
             </div>
@@ -85,25 +76,37 @@ export default class Countries extends React.Component {
             </div>
           </div>
         )
-      } else {
-        return (
-          <div className="draft-countries">
-            <div className="regions">
-              <div className="search-wrapper">
-                <input className="country-search" type="text" onChange={this.countrySearch.bind(this)} placeholder="SEARCH" />
-              </div>
-              {regionList}
-            </div>
-            <div className="sidebar">
-              <RoundStatus {...this.props} />
-            </div>
-          </div>
-        )
       }
-    } else {
       return (
-        <h1>Loading</h1>
+        <div className="draft-countries">
+          <div className="regions">
+            <div className="search-wrapper">
+              <input className="country-search" type="text" onChange={this.countrySearch} placeholder="SEARCH" />
+            </div>
+            {regionList}
+          </div>
+          <div className="sidebar">
+            <RoundStatus {...this.props} />
+          </div>
+        </div>
       )
     }
+    return (
+      <h1>Loading</h1>
+    )
   }
+}
+
+Countries.propTypes = {
+  countries: React.PropTypes.array.isRequired,
+  dataStatus: React.PropTypes.object.isRequired,
+  currentUser: React.PropTypes.object.isRequired,
+  regions: React.PropTypes.array.isRequired
+}
+
+Countries.defaultProps = {
+  countries: [],
+  dataStatus: {},
+  currentUser: {},
+  regions: []
 }

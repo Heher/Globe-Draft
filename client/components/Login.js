@@ -24,29 +24,35 @@ export default class Login extends React.Component {
               appId="1706414629623051"
               textButton=""
               fields="first_name, last_name, email"
-              callback={this.handleFacebookLogin.bind(this)}
+              callback={(event) => this.handleFacebookLogin(event)}
               cssClass="facebook-login"
               icon="fa-facebook"
             />
             <GoogleLogin
               clientId="813058411917-1su4rbp4op2fjenk5bgmra7jiafoc7fr.apps.googleusercontent.com"
               buttonText=""
-              callback={this.handleGoogleLogin.bind(this)}
+              callback={(event) => this.handleGoogleLogin(event)}
               cssClass="google-login"
             >
-              <i className="fa fa-google"></i>
+              <i className="fa fa-google" />
             </GoogleLogin>
           </div>
         </li>
       )
-    } else {
-      return (
-        <li>
-          <Link to="#" onClick={this.props.toggleLoginButtons.bind(this)}>
-            <span>Login</span>
-          </Link>
-        </li>
-      )
     }
+    return (
+      <li>
+        <Link to="#" onClick={(event) => this.props.toggleLoginButtons(event)}>
+          <span>Login</span>
+        </Link>
+      </li>
+    )
   }
+}
+
+Login.propTypes = {
+  findOrCreateFacebookUser: React.PropTypes.func.isRequired,
+  findOrCreateGoogleUser: React.PropTypes.func.isRequired,
+  loginButtonShow: React.PropTypes.bool.isRequired,
+  toggleLoginButtons: React.PropTypes.func.isRequired
 }

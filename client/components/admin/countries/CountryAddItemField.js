@@ -2,6 +2,8 @@ import React from 'react'
 
 import CountryRegionSelect from './CountryRegionSelect'
 
+import '../../../css/admin/add_item.sass'
+
 export default class CountryAddItemField extends React.Component {
   constructor(props) {
     super(props)
@@ -28,7 +30,7 @@ export default class CountryAddItemField extends React.Component {
 
   render() {
     return (
-      <form onSubmit={event => this.handleFormSubmit(event)}>
+      <form className="add-item" onSubmit={event => this.handleFormSubmit(event)}>
         <h4>Add Country:</h4>
         <input className="country-name" type="text" />
         <input className="country-short-name" type="text" />

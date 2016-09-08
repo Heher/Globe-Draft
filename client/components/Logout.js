@@ -11,9 +11,15 @@ export default class Logout extends React.Component {
   render() {
     const { currentUser } = this.props
     return (
-      <Link to="/" onClick={this.handleLogout.bind(this, currentUser._id)}>
+      <Link to="/" onClick={() => this.handleLogout(currentUser._id)}>
         <span>Log Out</span>
       </Link>
     )
   }
+}
+
+Logout.propTypes = {
+  logoutUser: React.PropTypes.func.isRequired,
+  toggleMobileMenu: React.PropTypes.func.isRequired,
+  currentUser: React.PropTypes.object.isRequired
 }

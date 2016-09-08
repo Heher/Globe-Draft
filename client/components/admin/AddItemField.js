@@ -2,6 +2,8 @@ import React from 'react'
 
 import RegionSelect from './RegionSelect'
 
+require('../../css/admin/events/add_event.sass')
+
 export default class AddItemField extends React.Component {
   constructor(props) {
     super(props)
@@ -40,7 +42,7 @@ export default class AddItemField extends React.Component {
   render() {
     const { type } = this.props
     return (
-      <form onSubmit={event => this.handleFormSubmit(event)}>
+      <form className="add-item" onSubmit={event => this.handleFormSubmit(event)}>
         <h4>Add {type}:</h4>
         <input type="text" />
         {type === "Country" ? <RegionSelect {...this.props} handleSelectChange={this.handleSelectChange.bind(this)} /> : null}

@@ -1,63 +1,61 @@
 import d3 from 'd3'
 import React from 'react'
-import ReactDOM from 'react-dom'
-import topojson from 'topojson'
 import Datamap from 'datamaps/dist/datamaps.world.hires.min'
 
 export default class WorldMap extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props)
     this.datamap = null
   }
 
-  findCountry(country) {
-    return this.props.countries.filter(propCountry => {
-      return country === propCountry._id
-    })[0]
-  }
-
-  findDrafts() {
-    return this.props.countries.filter(country => {
-      return country.userId !== ""
-    })
-  }
-
   renderCountries() {
-    let data = {}
+    const data = {}
     if (this.props.settings.goodCountry) {
       const foundCountry = this.findCountry(this.props.settings.goodCountry)
-      data[foundCountry.shortName] = { fillKey: "goodCountry" }
+      data[foundCountry.shortName] = { fillKey: 'goodCountry' }
     }
     if (this.props.settings.badCountry) {
       const foundCountry = this.findCountry(this.props.settings.badCountry)
-      data[foundCountry.shortName] = { fillKey: "badCountry" }
+      data[foundCountry.shortName] = { fillKey: 'badCountry' }
     }
     if (this.findDrafts().length > 0) {
       const drafts = this.findDrafts()
-      drafts.map(draft => {
+      drafts.forEach(draft => {
         if (this.props.currentUser._id && (this.props.currentUser._id === draft.userId)) {
-          data[draft.shortName] = { fillKey: "owned" }
+          data[draft.shortName] = { fillKey: 'owned' }
         } else {
-          data[draft.shortName] = { fillKey: "drafted" }
+          data[draft.shortName] = { fillKey: 'drafted' }
         }
       })
     }
     return data
   }
 
+<<<<<<< HEAD
   renderMap(projection, rotation) {
+=======
+  findCountry(country) {
+    return this.props.countries.find(propCountry => country === propCountry._id)
+  }
+
+  findDrafts() {
+    return this.props.countries.filter(country => country.userId !== '')
+  }
+
+  renderMap() {
+>>>>>>> e11e5d6b75d3395e8a57b317f4b1e871d1e62139
     this.renderCountries()
     return new Datamap({
-      element: ReactDOM.findDOMNode(this),
+      element: this.node,
       scope: 'world',
       projection: projection,
       rotation: rotation,
       fills: {
-        defaultFill: "#FFF",
-        goodCountry: "#BBB",
-        badCountry: "#BBB",
-        drafted: "#951774",
-        owned: "#39961B"
+        defaultFill: '#FFF',
+        goodCountry: '#BBB',
+        badCountry: '#BBB',
+        drafted: '#951774',
+        owned: '#39961B'
       },
       geographyConfig: {
         borderColor: '#BBB',
@@ -80,7 +78,7 @@ export default class WorldMap extends React.Component {
     const mapContainer = d3.select('#datamap-container')
     const initialScreenWidth = this.currentScreenWidth()
     const containerWidth = (initialScreenWidth < 1000) ?
-      { width: initialScreenWidth + 'px',  height: (initialScreenWidth * 0.7) + 'px' } :
+      { width: `${initialScreenWidth}px`, height: `${(initialScreenWidth * 0.7)}px` } :
       { width: '960px', height: '650px' }
 
     console.log(containerWidth)
@@ -96,13 +94,18 @@ export default class WorldMap extends React.Component {
           width: '960px',
           height: '650px'
         })
+<<<<<<< HEAD
         this.datamap = this.renderMap(this.props.projection, this.props.rotation)
       }
       else if (this.currentScreenWidth() <= 1000) {
+=======
+        this.datamap = this.renderMap()
+      } else if (this.currentScreenWidth() <= 1000) {
+>>>>>>> e11e5d6b75d3395e8a57b317f4b1e871d1e62139
         d3.select('.datamap').remove()
         mapContainer.style({
-          width: currentScreenWidth + 'px',
-          height: (currentScreenWidth * 0.7) + 'px'
+          width: `${currentScreenWidth}px`,
+          height: `${(currentScreenWidth * 0.7)}px`
         })
         this.datamap = this.renderMap(this.props.projection, this.props.rotation)
       }
@@ -111,7 +114,13 @@ export default class WorldMap extends React.Component {
 
   render() {
     return (
-      <div id="datamap-container"></div>
+      <div id="datamap-container" ref={node => (this.node = node)} />
     )
   }
+}
+
+WorldMap.propTypes = {
+  settings: React.PropTypes.object.isRequired,
+  currentUser: React.PropTypes.object.isRequired,
+  countries: React.PropTypes.array.isRequired
 }

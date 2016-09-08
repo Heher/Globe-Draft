@@ -19,7 +19,7 @@ export default class EventCountrySelect extends React.Component {
       this.state = {
         countryValue: '',
         suggestions: this.getSuggestions(''),
-        selectedCountry: ''
+        selectedCountry: {}
       }
     }
     this.onChange = this.onChange.bind(this)
@@ -27,36 +27,33 @@ export default class EventCountrySelect extends React.Component {
     this.onSuggestionSelected = this.onSuggestionSelected.bind(this)
   }
 
-  escapeRegexCharacters(str) {
-    return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-  }
-
   getSuggestions(value) {
     const escapedValue = this.escapeRegexCharacters(value.trim())
-    
     if (escapedValue === '') {
       return [];
     }
 
-    const regex = new RegExp('\\b' + escapedValue, 'i')
-    
+    const regex = new RegExp(`\\b${escapedValue}`, 'i')
     return this.props.countries.filter(country => regex.test(this.getSuggestionValue(country)))
   }
 
   sortCountryOptions(countries) {
     if (countries.length) {
-      return countries.sort(function(a, b) {
-        if(a.name < b.name) return -1
-        if(a.name > b.name) return 1
+      return countries.sort((a, b) => {
+        if (a.name < b.name) return -1
+        if (a.name > b.name) return 1
         return 0
       })
-    } else {
-      return null
     }
+    return null
   }
 
   getSuggestionValue(suggestion) {
     return suggestion.name
+  }
+
+  escapeRegexCharacters(str) {
+    return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
   }
 
   renderSuggestion(suggestion) {
@@ -77,7 +74,7 @@ export default class EventCountrySelect extends React.Component {
     })
   }
 
-  onSuggestionSelected(event, { suggestion, suggestionValue, sectionIndex, method }) {
+  onSuggestionSelected(event, { suggestion }) {
     this.setState({
       selectedCountry: suggestion
     })
@@ -86,19 +83,19 @@ export default class EventCountrySelect extends React.Component {
   renderMedal() {
     if (this.props.country) {
       return (
-        <span 
+        <span
           className="medal add-medal"
-          onClick={this.props.handleAddMedal.bind(this, this.props.type)}>
+          onClick={() => this.props.handleAddMedal(this.props.type)}
+        >
           +
         </span>
       )
-    } else {
-      return <span className="medal">&nbsp;</span>
     }
+    return <span className="medal">&nbsp;</span>
   }
 
   render() {
-    const { type, countries, country } = this.props
+    const { type, country, noCountries } = this.props
 
     const inputProps = {
       placeholder: 'Select Country',
@@ -107,7 +104,7 @@ export default class EventCountrySelect extends React.Component {
     }
 
     const newClass = classNames({
-      'new-winner': !this.props.country && !this.props.noCountries
+      'new-winner': !country && !noCountries
     })
 
     return (
@@ -125,4 +122,12 @@ export default class EventCountrySelect extends React.Component {
       </div>
     )
   }
+}
+
+EventCountrySelect.propTypes = {
+  type: React.PropTypes.string.isRequired,
+  countries: React.PropTypes.array.isRequired,
+  country: React.PropTypes.object,
+  noCountries: React.PropTypes.bool.isRequired,
+  handleAddMedal: React.PropTypes.func
 }

@@ -7,44 +7,42 @@ import { spacesToDashes } from '../utilities/format'
 
 export default class UserCountryPoints extends React.Component {
   findUserCountries(userId) {
-    return this.props.countries.filter(country => {
-      return country.userId === userId
-    })
+    return this.props.countries.filter(country => country.userId === userId)
   }
 
   sumCountry(country) {
     let sum = 0
-    this.props.events.map(event => {
-      event.gold.map(gold => {
+    const newCountry = country
+    this.props.events.forEach(event => {
+      event.gold.forEach(gold => {
         if (gold.id === country._id) {
           sum = sum + gold.points
         }
       })
-      event.silver.map(silver => {
+      event.silver.forEach(silver => {
         if (silver.id === country._id) {
           sum = sum + silver.points
         }
       })
-      event.bronze.map(bronze => {
+      event.bronze.forEach(bronze => {
         if (bronze.id === country._id) {
           sum = sum + bronze.points
         }
       })
     })
-    country.points = sum
-    return country
+    newCountry.points = sum
+    return newCountry
   }
 
   sortByPoints(countries) {
     if (countries.length) {
-      return countries.sort(function(a, b) {
-        if(a.points < b.points) return 1
-        if(a.points > b.points) return -1
+      return countries.sort((a, b) => {
+        if (a.points < b.points) return 1
+        if (a.points > b.points) return -1
         return 0
       })
-    } else {
-      return null
     }
+    return null
   }
 
   render() {
@@ -53,9 +51,7 @@ export default class UserCountryPoints extends React.Component {
 
     const userCountries = this.findUserCountries(userId)
     if (userCountries.length > 0) {
-      const summedCountries = userCountries.map((country, index) => {
-        return this.sumCountry(country)
-      })
+      const summedCountries = userCountries.map(country => this.sumCountry(country))
       const sortedCountries = this.sortByPoints(summedCountries)
       renderCountries = sortedCountries.map((country, index) => {
         return (
@@ -64,7 +60,7 @@ export default class UserCountryPoints extends React.Component {
               <Link to={`/events/${spacesToDashes(country.name)}`}>
                 <div className="name-rank">
                   <span className="rank">{index + 1}</span>
-                  <Flag country={country}/>
+                  <Flag country={country} />
                   <div className="country-name">
                     {country.name}
                     <span className="round">Round {country.round}</span>
@@ -81,19 +77,24 @@ export default class UserCountryPoints extends React.Component {
           {renderCountries}
         </ul>
       )
-    } else {
-      renderCountries.push(
-        <li key={0}>
-          <div className="user-country-content">
-            <span className="no-drafts">No Countries Drafted</span>
-          </div>
-        </li>
-      )
-      return (
-        <ul>
-          {renderCountries}
-        </ul>
-      )
     }
+    renderCountries.push(
+      <li key={0}>
+        <div className="user-country-content">
+          <span className="no-drafts">No Countries Drafted</span>
+        </div>
+      </li>
+    )
+    return (
+      <ul>
+        {renderCountries}
+      </ul>
+    )
   }
+}
+
+UserCountryPoints.propTypes = {
+  countries: React.PropTypes.array.isRequired,
+  events: React.PropTypes.array.isRequired,
+  userId: React.PropTypes.string.isRequired
 }

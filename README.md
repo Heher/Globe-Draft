@@ -1,1 +1,1 @@
-# Fantasy World Games
+# Globe Draft
