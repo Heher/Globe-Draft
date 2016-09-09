@@ -82,7 +82,7 @@
       padding: 40px 10%
 
 .rules, .scoring
-  margin: 0 auto
+  margin: 30px auto
   max-width: 1305px
   padding: 0 20%
   p
@@ -105,12 +105,18 @@
     p
       margin: 10px 0
 
+  @media only screen and (max-width: 600px)
+    padding: 20px
+    margin: 0 auto
+
   .region-list
     display: flex
     justify-content: space-between
     padding: 0
 
   .world-region
+    display: flex
+    flex-direction: column
     p
       padding: 0
       margin: 0
@@ -119,20 +125,47 @@
       &.region-name
         text-transform: uppercase
         font-size: 13px
+    @media only screen and (max-width: 1050px)
+      flex-direction: row
+      align-items: center
+      .region-info
+        margin-left: 10px
 
   svg
     width: 100px
     height: 100px
     fill: #0e65ab
 
+.round-examples
+  background: #FFF
+  padding: 20px
+  border-radius: 2px
+  h4
+    font-size: 14px
+    text-transform: uppercase
+    font-weight: 400
+    margin: 0 0 10px 0
+
 .round-group
   display: flex
   justify-content: space-between
+  margin-bottom: 20px
   svg
     height: 45px
+  @media only screen and (max-width: 1050px)
+    flex-direction: column
 
 .round-player
   padding: 15px 30px
-  background: #999
+  background: #0e65ab
+  box-shadow: 1px 1px 2px 0 #333
+  border-radius: 2px
   p
     margin: 0
+    color: #FFF
+    text-transform: uppercase
+
+.rules
+  @media only screen and (max-width: 1050px)
+    .region-list
+      flex-direction: column

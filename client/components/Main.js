@@ -38,8 +38,10 @@ export default class Main extends React.Component {
       return (
         <li key={index} className="world-region">
           {this.renderRegionMap(region.name)}
-          <p className="region-name">{region.name}</p>
-          <p>{region.maxCountriesSelected} {region.maxCountriesSelected > 1 ? 'Countries' : 'Country'}</p>
+          <div className="region-info">
+            <p className="region-name">{region.name}</p>
+            <p>{region.maxCountriesSelected} {region.maxCountriesSelected > 1 ? 'Countries' : 'Country'}</p>
+          </div>
         </li>
       )
     })
@@ -62,32 +64,35 @@ export default class Main extends React.Component {
             <p>Players can draft any country from any region on any turn unless that country has been previously
             drafted or they already have drafted all allowed countries from the chosen country's region.</p>
             <p>Draft order is set randomly and continues in serpentine order until all players' teams are complete.</p>
-            <h4>Round 1</h4>
-            <div className="round-group">
-              <div className="round-player">
-                <p>Player 1</p>
+            <p>For example:</p>
+            <div className="round-examples">
+              <h4>Round 1</h4>
+              <div className="round-group">
+                <div className="round-player">
+                  <p>Player 1</p>
+                </div>
+                <ArrowRight />
+                <div className="round-player">
+                  <p>Player 2</p>
+                </div>
+                <ArrowRight />
+                <div className="round-player">
+                  <p>Player 3</p>
+                </div>
               </div>
-              <ArrowRight />
-              <div className="round-player">
-                <p>Player 2</p>
-              </div>
-              <ArrowRight />
-              <div className="round-player">
-                <p>Player 3</p>
-              </div>
-            </div>
-            <h4>Round 2</h4>
-            <div className="round-group">
-              <div className="round-player">
-                <p>Player 3</p>
-              </div>
-              <ArrowRight />
-              <div className="round-player">
-                <p>Player 2</p>
-              </div>
-              <ArrowRight />
-              <div className="round-player">
-                <p>Player 1</p>
+              <h4>Round 2</h4>
+              <div className="round-group">
+                <div className="round-player">
+                  <p>Player 3</p>
+                </div>
+                <ArrowRight />
+                <div className="round-player">
+                  <p>Player 2</p>
+                </div>
+                <ArrowRight />
+                <div className="round-player">
+                  <p>Player 1</p>
+                </div>
               </div>
             </div>
           </div>
@@ -97,11 +102,6 @@ export default class Main extends React.Component {
             <p>All events are scored with gold medals earning 3 points, silver earning 2 points and bronze earning 1 point.</p>
             <h4>Team Events</h4>
             <p>Any event where two or more people are competeing with each other for a medal are deemed Team events and have all point totals doubled.</p>
-            <ul>
-              <li>Gold: 3 points</li>
-              <li>Silver: 2 points</li>
-              <li>Bronze: 1 point</li>
-            </ul>
             <h4>Multipliers</h4>
             <p>
               The United States and China are medal powerhouses and it would be unfair for any
