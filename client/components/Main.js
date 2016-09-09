@@ -7,6 +7,8 @@ import AfricaMap from './icons/AfricaMap'
 import AsiaMap from './icons/AsiaMap'
 import OceaniaMap from './icons/OceaniaMap'
 
+import ArrowRight from './icons/ArrowRight'
+
 require('../css/main.sass')
 
 export default class Main extends React.Component {
@@ -51,8 +53,8 @@ export default class Main extends React.Component {
           <WorldMap {...this.props} projection="mercator" />
         </div>
         <div className="rules-wrapper">
+          <h3>Rules</h3>
           <div className="rules">
-            <h3>Rules</h3>
             <p>Each player must draft the following number of countries from each of the world regions:</p>
             <ul className="region-list">
               {this.renderRegions()}
@@ -60,9 +62,37 @@ export default class Main extends React.Component {
             <p>Players can draft any country from any region on any turn unless that country has been previously
             drafted or they already have drafted all allowed countries from the chosen country's region.</p>
             <p>Draft order is set randomly and continues in serpentine order until all players' teams are complete.</p>
+            <h4>Round 1</h4>
+            <div className="round-group">
+              <div className="round-player">
+                <p>Player 1</p>
+              </div>
+              <ArrowRight />
+              <div className="round-player">
+                <p>Player 2</p>
+              </div>
+              <ArrowRight />
+              <div className="round-player">
+                <p>Player 3</p>
+              </div>
+            </div>
+            <h4>Round 2</h4>
+            <div className="round-group">
+              <div className="round-player">
+                <p>Player 3</p>
+              </div>
+              <ArrowRight />
+              <div className="round-player">
+                <p>Player 2</p>
+              </div>
+              <ArrowRight />
+              <div className="round-player">
+                <p>Player 1</p>
+              </div>
+            </div>
           </div>
+          <h3>Scoring</h3>
           <div className="scoring">
-            <h3>Scoring</h3>
             <h4>Regular Scoring</h4>
             <p>All events are scored with gold medals earning 3 points, silver earning 2 points and bronze earning 1 point.</p>
             <h4>Team Events</h4>
