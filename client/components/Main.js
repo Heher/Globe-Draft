@@ -7,13 +7,151 @@ import AfricaMap from './icons/AfricaMap'
 import AsiaMap from './icons/AsiaMap'
 import OceaniaMap from './icons/OceaniaMap'
 
-import ArrowRight from './icons/ArrowRight'
+import Event from './Event'
 
 require('../css/main.sass')
 
 export default class Main extends React.Component {
   constructor(props) {
     super(props)
+    this.regularScoringEvent = {
+      name: 'Event',
+      dateTime: '2016-08-06T12:30:00.000Z',
+      team: false,
+      gold: [
+        {
+          id: '578b1e1192ea42817afbbb0c',
+          points: 3
+        }
+      ],
+      silver: [
+        {
+          id: '578b2ec092ea42817afbbb8b',
+          points: 2
+        }
+      ],
+      bronze: [
+        {
+          id: '578b1a2d92ea42817afbbaee',
+          points: 1
+        }
+      ]
+    }
+    this.teamEvent = {
+      name: 'Team Event',
+      dateTime: '2016-08-06T12:30:00.000Z',
+      team: true,
+      gold: [
+        {
+          id: '578b1e1192ea42817afbbb0c',
+          points: 6
+        }
+      ],
+      silver: [
+        {
+          id: '578b2ec092ea42817afbbb8b',
+          points: 4
+        }
+      ],
+      bronze: [
+        {
+          id: '578b1a2d92ea42817afbbaee',
+          points: 2
+        }
+      ]
+    }
+    this.USWinEvent = {
+      name: 'Losing to US',
+      dateTime: '2016-08-06T12:30:00.000Z',
+      team: false,
+      gold: [
+        {
+          id: '578a4d1f69a068f978edf19c',
+          points: 3
+        }
+      ],
+      silver: [
+        {
+          id: '578b2ec092ea42817afbbb8b',
+          points: 4
+        }
+      ],
+      bronze: [
+        {
+          id: '578b1a2d92ea42817afbbaee',
+          points: 2
+        }
+      ]
+    }
+    this.USLossEvent = {
+      name: 'Beating the US',
+      dateTime: '2016-08-06T12:30:00.000Z',
+      team: false,
+      gold: [
+        {
+          id: '578b1e1192ea42817afbbb0c',
+          points: 1.5
+        }
+      ],
+      silver: [
+        {
+          id: '578b2ec092ea42817afbbb8b',
+          points: 1
+        }
+      ],
+      bronze: [
+        {
+          id: '578a4d1f69a068f978edf19c',
+          points: 1
+        }
+      ]
+    }
+    this.ChinaWinEvent = {
+      name: 'Losing to China',
+      dateTime: '2016-08-06T12:30:00.000Z',
+      team: false,
+      gold: [
+        {
+          id: '578a4d2669a068f978edf19d',
+          points: 3
+        }
+      ],
+      silver: [
+        {
+          id: '578b2ec092ea42817afbbb8b',
+          points: 1
+        }
+      ],
+      bronze: [
+        {
+          id: '578b1a2d92ea42817afbbaee',
+          points: 0.5
+        }
+      ]
+    }
+    this.ChinaLossEvent = {
+      name: 'Beating China',
+      dateTime: '2016-08-06T12:30:00.000Z',
+      team: false,
+      gold: [
+        {
+          id: '578b1e1192ea42817afbbb0c',
+          points: 6
+        }
+      ],
+      silver: [
+        {
+          id: '578b2ec092ea42817afbbb8b',
+          points: 4
+        }
+      ],
+      bronze: [
+        {
+          id: '578a4d2669a068f978edf19d',
+          points: 1
+        }
+      ]
+    }
   }
 
   renderRegionMap(region) {
@@ -55,7 +193,7 @@ export default class Main extends React.Component {
           <WorldMap {...this.props} projection="mercator" />
         </div>
         <div className="rules-wrapper">
-          <h3>Rules</h3>
+          <h3>The Draft</h3>
           <div className="rules">
             <p>Each player must draft the following number of countries from each of the world regions:</p>
             <ul className="region-list">
@@ -96,8 +234,10 @@ export default class Main extends React.Component {
           <div className="scoring">
             <h4>Regular Scoring</h4>
             <p>All events are scored with gold medals earning 3 points, silver earning 2 points and bronze earning 1 point.</p>
+            <Event {...this.props} event={this.regularScoringEvent} />
             <h4>Team Events</h4>
             <p>Any event where two or more people are competeing with each other for a medal are deemed Team events and have all point totals doubled.</p>
+            <Event {...this.props} event={this.teamEvent} />
             <h4>Multipliers</h4>
             <p>
               The United States and China are medal powerhouses and it would be unfair for any
@@ -110,14 +250,23 @@ export default class Main extends React.Component {
             </p>
             <p>
               If a competitor's country loses to the United States on the podium, their medal points are doubled.
+            </p>
+            <Event {...this.props} event={this.USWinEvent} />
+            <p>
               Likewise, if your country impedes the United States' chances at gold and outranks them on the podium, their medal points are halved.
             </p>
+            <Event {...this.props} event={this.USLossEvent} />
             <h4>China</h4>
             <p>
               China is set as the opposite of the United States as they are the most likely to stop
               the United States' medal wins. If a competitor's country beats China on the podium, they are
-              rewarded with double points. If they are beaten by China, their points are halved.
+              rewarded with double points.
             </p>
+            <Event {...this.props} event={this.ChinaLossEvent} />
+            <p>
+              If they are beaten by China, their points are halved.
+            </p>
+            <Event {...this.props} event={this.ChinaWinEvent} />
           </div>
         </div>
       </div>
