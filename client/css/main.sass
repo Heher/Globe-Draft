@@ -82,7 +82,7 @@
       padding: 40px 10%
 
 .rules, .scoring
-  margin: 30px auto
+  margin: 40px auto
   max-width: 1305px
   padding: 0 20%
   p
@@ -137,33 +137,47 @@
     fill: #0e65ab
 
 .round-examples
+  display: flex
+  justify-content: space-between
   background: #FFF
   padding: 20px
   border-radius: 2px
+  max-width: 430px
+
+.round-group
+  display: flex
+  flex-direction: column
   h4
     font-size: 14px
     text-transform: uppercase
     font-weight: 400
-    margin: 0 0 10px 0
+    margin: 0 0 5px 0
+  @media only screen and (max-width: 600px)
+    h4
+      font-size: 12px
 
-.round-group
+.round-draft
   display: flex
+  flex-direction: column
   justify-content: space-between
-  margin-bottom: 20px
-  svg
-    height: 45px
-  @media only screen and (max-width: 1050px)
-    flex-direction: column
+  align-items: center
+    
 
-.round-player
-  padding: 15px 30px
-  background: #0e65ab
-  box-shadow: 1px 1px 2px 0 #333
-  border-radius: 2px
-  p
+  .round-player
+    margin: 0
+    padding: 10px 20px
+    background: #0e65ab
+    box-shadow: 1px 1px 2px 0 #333
+    border-radius: 2px
     margin: 0
     color: #FFF
     text-transform: uppercase
+    margin-bottom: 10px
+    &:last-of-type
+      margin-bottom: 0
+    @media only screen and (max-width: 410px)
+      font-size: 10px
+      padding: 5px 10px
 
 .rules
   @media only screen and (max-width: 1050px)

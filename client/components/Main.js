@@ -66,32 +66,28 @@ export default class Main extends React.Component {
             <p>Draft order is set randomly and continues in serpentine order until all players' teams are complete.</p>
             <p>For example:</p>
             <div className="round-examples">
-              <h4>Round 1</h4>
               <div className="round-group">
-                <div className="round-player">
-                  <p>Player 1</p>
-                </div>
-                <ArrowRight />
-                <div className="round-player">
-                  <p>Player 2</p>
-                </div>
-                <ArrowRight />
-                <div className="round-player">
-                  <p>Player 3</p>
+                <h4>Round 1</h4>
+                <div className="round-draft">
+                  <p className="round-player">Player 1</p>
+                  <p className="round-player">Player 2</p>
+                  <p className="round-player">Player 3</p>
                 </div>
               </div>
-              <h4>Round 2</h4>
               <div className="round-group">
-                <div className="round-player">
-                  <p>Player 3</p>
+                <h4>Round 2</h4>
+                <div className="round-draft">
+                  <p className="round-player">Player 3</p>
+                  <p className="round-player">Player 2</p>
+                  <p className="round-player">Player 1</p>
                 </div>
-                <ArrowRight />
-                <div className="round-player">
-                  <p>Player 2</p>
-                </div>
-                <ArrowRight />
-                <div className="round-player">
-                  <p>Player 1</p>
+              </div>
+              <div className="round-group">
+                <h4>Round 3</h4>
+                <div className="round-draft">
+                  <p className="round-player">Player 1</p>
+                  <p className="round-player">Player 2</p>
+                  <p className="round-player">Player 3</p>
                 </div>
               </div>
             </div>
