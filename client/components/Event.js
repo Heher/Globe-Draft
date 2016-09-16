@@ -1,13 +1,11 @@
 import React from 'react'
 import DateTime from 'react-datetime'
 import moment from 'moment'
-import classNames from 'classnames'
 
-import Flag from './Flag'
-import avatar from './Avatar'
 import EventCountrySelect from './admin/events/EventCountrySelect'
 import DeleteItem from './admin/panel/buttons/DeleteItem'
 import SaveItem from './admin/panel/buttons/SaveItem'
+import MedalWinner from './event/MedalWinner'
 
 import { findByQuery } from '../utilities/query'
 
@@ -33,42 +31,6 @@ export default class Event extends React.Component {
     this.handleCheckboxChange = this.handleCheckboxChange.bind(this)
     this.handleItemSave = this.handleItemSave.bind(this)
     this.handleEditToggle = this.handleEditToggle.bind(this)
-  }
-
-  renderWinners(countries) {
-    if (countries.length > 0) {
-      return countries.map((country, index) => {
-        const settingsClasses = classNames({
-          good: country._id === this.props.settings.goodCountry,
-          bad: country._id === this.props.settings.badCountry,
-          taken: country.userId,
-          owned: country.userId === this.props.currentUser._id,
-          selected: country._id === this.props.country
-        })
-        return (
-          <div key={index} className={`winner ${settingsClasses}`}>
-            <div className="winner-name">
-              <span className="medal ">{country.points}</span>
-              <Flag country={country} />
-              <p>
-                {country.name}
-                {country.userId ? avatar(this.props.users, country.userId) : null}
-              </p>
-            </div>
-          </div>
-        )
-      })
-    }
-    return (
-      <div key={0} className="winner">
-        <div className="winner-name">
-          <span className="medal">&nbsp;</span>
-          <p>
-            No Winner
-          </p>
-        </div>
-      </div>
-    )// &nbsp needed for flexbox to correctly align
   }
 
   handleEditToggle() {
@@ -308,6 +270,25 @@ export default class Event extends React.Component {
       }
     )
     this.handleEditToggle()
+  }
+
+  renderWinners(countries) {
+    const winners = []
+    if (countries.length > 0) {
+      countries.forEach((country, index) => {
+        winners.push(
+          <MedalWinner
+            key={index}
+            {...this.props}
+            country={country}
+            selectedCountry={this.props.country ? this.props.country : null}
+          />
+        )
+      })
+    } else {
+      winners.push(<MedalWinner key={0} {...this.props} country={null} selectedCountry={null} />)
+    }
+    return winners
   }
 
   render() {
