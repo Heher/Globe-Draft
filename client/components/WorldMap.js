@@ -8,6 +8,14 @@ export default class WorldMap extends React.Component {
     this.datamap = null
   }
 
+  findCountry(country) {
+    return this.props.countries.find(propCountry => country === propCountry._id)
+  }
+
+  findDrafts() {
+    return this.props.countries.filter(country => country.userId !== '')
+  }
+
   renderCountries() {
     const data = {}
     if (this.props.settings.goodCountry) {
@@ -31,20 +39,13 @@ export default class WorldMap extends React.Component {
     return data
   }
 
-  findCountry(country) {
-    return this.props.countries.find(propCountry => country === propCountry._id)
-  }
-
-  findDrafts() {
-    return this.props.countries.filter(country => country.userId !== '')
-  }
-
-  renderMap() {
+  renderMap(projection, rotation) {
     this.renderCountries()
     return new Datamap({
       element: this.node,
       scope: 'world',
-      projection: 'mercator',
+      projection,
+      rotation,
       fills: {
         defaultFill: '#FFF',
         goodCountry: '#BBB',
@@ -77,7 +78,7 @@ export default class WorldMap extends React.Component {
       { width: '960px', height: '650px' }
 
     mapContainer.style(containerWidth)
-    this.datamap = this.renderMap()
+    this.datamap = this.renderMap(this.props.projection, this.props.rotation)
     window.addEventListener('resize', () => {
       const currentScreenWidth = this.currentScreenWidth()
       const mapContainerWidth = mapContainer.style('width')
@@ -87,14 +88,15 @@ export default class WorldMap extends React.Component {
           width: '960px',
           height: '650px'
         })
-        this.datamap = this.renderMap()
-      } else if (this.currentScreenWidth() <= 1000) {
+        this.datamap = this.renderMap(this.props.projection, this.props.rotation)
+      }
+      else if (this.currentScreenWidth() <= 1000) {
         d3.select('.datamap').remove()
         mapContainer.style({
           width: `${currentScreenWidth}px`,
           height: `${(currentScreenWidth * 0.7)}px`
         })
-        this.datamap = this.renderMap()
+        this.datamap = this.renderMap(this.props.projection, this.props.rotation)
       }
     })
   }
