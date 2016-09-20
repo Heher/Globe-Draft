@@ -308,9 +308,9 @@ export default class Event extends React.Component {
   render() {
     const { event, currentUser } = this.props
 
-    const goldCountries = event.gold.map(country => this.findCountry(country))
-    const silverCountries = event.silver.map(country => this.findCountry(country))
-    const bronzeCountries = event.bronze.map(country => this.findCountry(country))
+    const goldCountries = event.gold ? event.gold.map(country => this.findCountry(country)) : []
+    const silverCountries = event.silver ? event.silver.map(country => this.findCountry(country)) : []
+    const bronzeCountries = event.bronze ? event.bronze.map(country => this.findCountry(country)) : []
 
     if (this.state.editing) {
       return (

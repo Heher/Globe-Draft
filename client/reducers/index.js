@@ -8,15 +8,17 @@ import events from './events'
 import settings from './settings'
 import currentUser from './currentUser'
 import dataStatus from './dataStatus'
+import testEvents from './testEvents'
 
 const rootReducer = combineReducers({
-  regions, 
-  countries, 
-  users, 
-  events, 
+  regions,
+  countries,
+  users,
+  events,
   settings,
   currentUser,
   dataStatus,
+  testEvents,
   routing: routerReducer
 })
 

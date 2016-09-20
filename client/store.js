@@ -5,6 +5,7 @@ import thunk from 'redux-thunk'
 
 import rootReducer from './reducers/index'
 import dataStatus from './data/dataStatus'
+import testEvents from './data/testEvents'
 
 const defaultState = {
   regions: [],
@@ -13,7 +14,8 @@ const defaultState = {
   events: [],
   currentUser: {},
   settings: {},
-  dataStatus
+  dataStatus,
+  testEvents
 }
 
 const enhancers = compose(
