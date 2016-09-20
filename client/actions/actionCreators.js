@@ -250,6 +250,13 @@ export function editEvent(id, payload) {
   }
 }
 
+export function testEditEvent(id, payload) {
+  console.log(id, payload)
+  return {
+    type: 'TEST_EDIT_EVENT'
+  }
+}
+
 export function savedEventEdit(id, payload) {
   return {
     type: "SAVED_EVENT",

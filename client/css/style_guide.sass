@@ -1,8 +1,8 @@
 .style-guide
   display: flex
-  flex-wrap: wrap
+  width: 100%
   .sidebar
-    width: 300px
+    flex-grow: 1
     background: #0e65ab
     a
       display: block
@@ -14,3 +14,7 @@
       cursor: pointer
       &:hover
         color: #999
+
+  .event
+    flex-grow: 3
+    margin: 20px

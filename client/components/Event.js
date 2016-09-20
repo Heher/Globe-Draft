@@ -17,7 +17,7 @@ export default class Event extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      editing: false,
+      editing: this.props.event.editing || false,
       inputValue: this.props.event.name,
       dateValue: new Date(this.props.event.datetime),
       checkboxValue: this.props.event.team,
@@ -29,7 +29,7 @@ export default class Event extends React.Component {
     this.handleEditToggle = this.handleEditToggle.bind(this)
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleCheckboxChange = this.handleCheckboxChange.bind(this)
-    this.handleItemSave = this.handleItemSave.bind(this)
+    this.handleItemSave = this.props.event.handleItemSave || this.handleItemSave.bind(this)
     this.handleEditToggle = this.handleEditToggle.bind(this)
   }
 
@@ -230,7 +230,7 @@ export default class Event extends React.Component {
   findSelectValues(panel, type) {
     const selectDiv = panel.getElementsByClassName(type)[0]
     const selects = Array.from(selectDiv.getElementsByTagName('input'))
-    let values = selects.forEach(select => {
+    let values = selects.map(select => {
       if (select.value) {
         return this.findCountryId(select.value)
       }
@@ -258,18 +258,32 @@ export default class Event extends React.Component {
       bronze: bronzeValues
     })
 
-    this.props.editEvent(
-      this.props.event._id,
-      {
-        name: this.state.inputValue,
-        team: this.state.checkboxValue,
-        datetime,
-        gold: calculatedValues.gold,
-        silver: calculatedValues.silver,
-        bronze: calculatedValues.bronze
-      }
-    )
-    this.handleEditToggle()
+    if (this.props.event.testing) {
+      this.props.testEditEvent(
+        this.props.event._id,
+        {
+          name: this.state.inputValue,
+          team: this.state.checkboxValue,
+          datetime,
+          gold: calculatedValues.gold,
+          silver: calculatedValues.silver,
+          bronze: calculatedValues.bronze
+        }
+      )
+    } else {
+      this.props.editEvent(
+        this.props.event._id,
+        {
+          name: this.state.inputValue,
+          team: this.state.checkboxValue,
+          datetime,
+          gold: calculatedValues.gold,
+          silver: calculatedValues.silver,
+          bronze: calculatedValues.bronze
+        }
+      )
+      this.handleEditToggle()
+    }
   }
 
   renderWinners(countries) {
@@ -300,7 +314,7 @@ export default class Event extends React.Component {
 
     if (this.state.editing) {
       return (
-        <div className="event-section editing">
+        <div className="event-section editing" ref={node => (this.node = node)}>
           <div className="title">
             {currentUser.isAdmin ? <button className="edit-button" onClick={this.handleEditToggle}>Cancel</button> : null}
             <input
