@@ -1,20 +1,46 @@
 .style-guide
-  display: flex
   width: 100%
-  .sidebar
-    flex-grow: 1
-    background: #0e65ab
+
+  .menu
+    display: flex
+
     a
       display: block
-      color: #FFF
-      padding: 10px
-      text-decoration: none
-      font-size: 16px
-      text-transform: uppercase
+      position: relative
+      margin-right: 5px
+      background: #0e65ab
       cursor: pointer
+      padding: 8px 0
+      width: 60px
+      text-align: center
+      text-transform: uppercase
+      text-decoration: none
+      color: #FFF
+      font-size: 12px
+
       &:hover
-        color: #999
+        background: #094677
+
+        &::after
+          border-top: 10px solid #094677
+
+      &::after
+        position: absolute
+        bottom: -10px
+        left: 0
+        border-top: 10px solid #0e65ab
+        border-right: 30px solid transparent
+        border-left: 30px solid transparent
+        width: 0
+        height: 0
+        content: ''
+
+      &.active
+        background: #DBA012
+        color: #FFF
+
+        &:after
+          border-top: 10px solid #DBA012
 
   .event
-    flex-grow: 3
     margin: 20px

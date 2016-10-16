@@ -1,37 +1,50 @@
 .date-links
   display: flex
-  align-items: flex-start
+  margin: 0 auto 40px
   max-width: 1305px
-  margin: 0 auto 40px auto
+  align-items: flex-start
   @media only screen and (max-width: 859px)
     display: none
+
+
   .event-link
     display: block
     position: relative
+    margin-right: 2px
+    background: #0e65ab
     width: 42px
     height: 30px
-    background: #0e65ab
+    text-align: center
     text-decoration: none
+    line-height: 30px
     color: #FFF
     font-size: 12px
-    line-height: 30px
-    text-align: center
-    margin-right: 2px
-    &:after
-      content: ''
+
+    &::after
       position: absolute
       bottom: -10px
       left: 0
+      border-top: 10px solid #0e65ab
+      border-right: 21px solid transparent
+      border-left: 21px solid transparent
       width: 0
       height: 0
-      border-left: 21px solid transparent
-      border-right: 21px solid transparent
-      border-top: 10px solid #0e65ab
+      content: ''
+
+    &:hover
+      background: #094677
+
+      &::after
+        border-top: 10px solid #094677
+
     &.today
       background: #39961B
-      &:after
+
+      &::after
         border-top: 10px solid #39961B
+
     &.active
       background: #DBA012
-      &:after
-        border-top: 10px solid #DBA012
+
+      &::after
+        border-top: 10px solid #dba012

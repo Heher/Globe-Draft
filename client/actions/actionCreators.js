@@ -46,6 +46,13 @@ export function deleteUserFromState(id) {
   }
 }
 
+export function fetchError(error) {
+  return {
+    type: "FETCH_ERROR",
+    error
+  }
+}
+
 export function addUser(name, isAdmin) {
   return dispatch => {
     return fetch('/api/users', { 
@@ -65,6 +72,7 @@ export function addUser(name, isAdmin) {
     })
       .then(response => response.json())
       .then(json => dispatch(addUserToState([json])))
+      .catch(error => dispatch(fetchError(error)))
   }
 }
 
@@ -251,9 +259,27 @@ export function editEvent(id, payload) {
 }
 
 export function testEditEvent(id, payload) {
+  return dispatch => {
+    dispatch(testEditEventConfirm(id, payload))
+  }
+}
+
+export function testEditEventConfirm(id, payload) {
   console.log(id, payload)
   return {
     type: 'TEST_EDIT_EVENT'
+  }
+}
+
+export function testHandleItemSave() {
+  return {
+    type: 'TEST_ITEM_SAVED'
+  }
+}
+
+export function testHandleItemDelete() {
+  return {
+    type: 'TEST_ITEM_DELETED'
   }
 }
 

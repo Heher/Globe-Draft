@@ -6,21 +6,25 @@ export default class DeleteItem extends React.Component {
   }
 
   handleDeleteButton(item) {
-    switch(this.props.type) {
-      case "User" :
-        this.props.deleteUser(item._id)
-        break
-      case "Event" :
-        this.props.deleteEvent(item._id)
-        break
-      case "Region" :
-        this.props.deleteRegion(item._id)
-        break
-      case "Country" :
-        this.props.deleteCountry(item._id)
-        break
-      default :
-        return
+    if (this.props.testing) {
+      this.props.testHandleItemDelete()
+    } else {
+      switch(this.props.type) {
+        case "User" :
+          this.props.deleteUser(item._id)
+          break
+        case "Event" :
+          this.props.handleItemDelete(item._id)
+          break
+        case "Region" :
+          this.props.deleteRegion(item._id)
+          break
+        case "Country" :
+          this.props.deleteCountry(item._id)
+          break
+        default :
+          return
+      }
     }
   }
 

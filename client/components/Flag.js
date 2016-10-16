@@ -9,7 +9,7 @@ export default class Flag extends React.Component {
     if (this.props.country.name) {
       return require(`../img/flags/${this.spacesToDashes(this.props.country.name)}.png`)
     }
-    return null
+    return require(`../img/flags/Unknown.png`)
   }
 
   render() {

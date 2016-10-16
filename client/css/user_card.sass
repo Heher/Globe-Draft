@@ -2,18 +2,22 @@
   padding: 0
   list-style: none
   font-size: 12px
+
   &.selected
     background: #CEE0EE
+
   h5
     margin: 0
+    background: #951774
     padding: 10px
-    font-size: 10px
     text-transform: uppercase
     letter-spacing: 1px
-    background: #951774
     color: #FFF
+    font-size: 10px
+
   .rounds
     margin-left: 41px
+
     p
       margin: 0
 
@@ -21,40 +25,48 @@
     ul
       background: transparent
       padding: 10px 20px
+
       .user-country-item
-        list-style: none
         margin-bottom: 10px
+        list-style: none
+
         &:last-of-type
           margin-bottom: 0
+
         .round-wrapper
           display: flex
           align-items: center
+
           span
             &.round
               display: block
-              width: 20px
-              height: 20px
-              line-height: 20px
               margin: 0 10px 0 0
-              text-align: center
-              background: #0e65ab
-              color: #FFF
               border-radius: 20px
               box-shadow: 1px 1px 2px 1px #CCC
+              background: #0e65ab
+              width: 20px
+              height: 20px
+              text-align: center
+              line-height: 20px
+              color: #FFF
+
           img
+            margin-right: 5px
             width: 18px
             height: 18px
-            margin-right: 5px
+
           .country-wrapper
             display: flex
             align-items: baseline
+
             .country
-              font-size: 12px
               margin-right: 5px
               text-transform: uppercase
+              font-size: 12px
+
             .region
-              font-size: 10px
               text-transform: uppercase
+              font-size: 10px
 
     &.empty
       ul

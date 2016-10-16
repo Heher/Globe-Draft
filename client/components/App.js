@@ -24,6 +24,7 @@ function mapStateToProps(state) {
     events: state.events,
     currentUser: state.currentUser,
     settings: state.settings,
+    statuses: state.statuses,
     dataStatus: state.dataStatus,
     testEvents: state.testEvents
   }

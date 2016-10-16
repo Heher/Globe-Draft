@@ -1,7 +1,7 @@
 import React from 'react'
 import classNames from 'classnames'
 
-import avatar from './Avatar'
+import Avatar from './Avatar'
 import Flag from './Flag'
 import ChoiceSubmit from './ChoiceSubmit'
 
@@ -42,7 +42,7 @@ export default class CountryCard extends React.Component {
       taken: (currentUserId !== userId) && drafted,
       disabled: (currentUserId !== userId) && !selected && regionCompleted,
       selected: (currentUserId === userId) && selected,
-      waitingTurn: !canDraft
+      'waiting-turn': !canDraft
     })
 
     const canBeSelected = !userId && !regionCompleted
@@ -54,14 +54,14 @@ export default class CountryCard extends React.Component {
     return (
       <div>
         <div
-          className={`countryCard ${renderClasses}`}
+          className={`country-card ${renderClasses}`}
           onClick={() => this.handleClick(canDraft, canBeDeselected, canBeSelected)}
         >
           <div className="country-card-info">
             <Flag country={this.props.country} />
             <p>
               {selected ? shortName : name}
-              {needsAvatar ? avatar(this.props.users, userId) : null}
+              {needsAvatar ? <Avatar users={this.props.users} userId={userId} /> : null}
             </p>
           </div>
           <ChoiceSubmit {...this.props} selectedCountry={this.props.country} />

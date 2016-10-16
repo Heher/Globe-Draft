@@ -14,6 +14,7 @@ const defaultState = {
   events: [],
   currentUser: {},
   settings: {},
+  statuses: [],
   dataStatus,
   testEvents
 }

@@ -1,32 +1,18 @@
 header
-  // background: #333
-  // box-shadow: 0 0 2px 2px #000
-  display: flex
-  align-items: center
-  position: relative
-  z-index: 2
-  height: 80px
-  @media only screen and (max-width: 892px)
-    flex-direction: column
-    height: auto
   .header-content
     display: flex
     width: 100%
-    align-items: center
     max-width: 1305px
     margin: 0 auto
-    padding: 0 20px
-    @media only screen and (min-width: 481px) and (max-width: 892px)
-      padding: 10px 0 0 0
-      flex-direction: column
-      align-items: stretch
+    padding: 10px 0 0 0
+    flex-direction: column
+    align-items: stretch
     @media only screen and (max-width: 480px)
       padding: 20px 20px
     .title
       display: flex
       align-items: baseline
-      @media only screen and (max-width: 859px)
-        margin-left: 10px
+      margin-left: 10px
     .nav-links
       font-family: 'Amiko', sans-serif
       display: flex
@@ -116,15 +102,14 @@ header
   .leaderboard
     display: flex
     align-items: center
-    height: 80px
     width: auto
     box-shadow: none
     border-radius: 0
-    margin: 0 0 0 40px
+    margin: 10px 0 0 0
+    height: 50px
     background: #FFF
-    @media only screen and (max-width: 892px)
-      margin: 10px 0 0 0
-      height: 50px
+    border-bottom: 8px solid #DBA012
+      
     @media only screen and (max-width: 480px)
       display: none
     ul
@@ -132,17 +117,10 @@ header
       border-radius: 0
       background: transparent
       padding: 0
-      @media only screen and (max-width: 892px)
-        margin: 0 auto
-      li
-        // margin-right: 15px
-        // &:last-of-type
-          // margin-right: 0
+      margin: 0 auto
       .leaderboard-content
         padding: 0 20px
-        height: 80px
-        @media only screen and (max-width: 892px)
-          height: 50px
+        height: 50px
         .rank
           margin-right: 10px
         .name

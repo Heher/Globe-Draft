@@ -6,21 +6,25 @@ export default class SaveItem extends React.Component {
   }
 
   handleSaveButton(item) {
-    switch(this.props.type) {
-      case "User" :
-        this.props.handleItemSave()
-        break
-      case "Event" :
-        this.props.handleItemSave(item)
-        break
-      case "Region" :
-        this.props.handleItemSave()
-        // this.props.setEditingRegion(item._id)
-        break
-      case "Country" :
-        this.props.handleItemSave()
-      default :
-        return
+    if (this.props.testing) {
+      this.props.testHandleItemSave()
+    } else {
+      switch(this.props.type) {
+        case "User" :
+          this.props.handleItemSave()
+          break
+        case "Event" :
+          this.props.handleItemSave(item)
+          break
+        case "Region" :
+          this.props.handleItemSave()
+          // this.props.setEditingRegion(item._id)
+          break
+        case "Country" :
+          this.props.handleItemSave()
+        default :
+          return
+      }
     }
   }
 

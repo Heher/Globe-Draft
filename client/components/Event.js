@@ -23,13 +23,15 @@ export default class Event extends React.Component {
       checkboxValue: this.props.event.team,
       goldAdd: false,
       silverAdd: false,
-      bronzeAdd: false
+      bronzeAdd: false,
+      testing: this.props.event.testing || false
     }
     this.handleAddMedal = this.handleAddMedal.bind(this)
     this.handleEditToggle = this.handleEditToggle.bind(this)
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleCheckboxChange = this.handleCheckboxChange.bind(this)
-    this.handleItemSave = this.props.event.handleItemSave || this.handleItemSave.bind(this)
+    this.handleItemSave = this.props.handleItemSave || this.handleItemSave.bind(this)
+    this.handleItemDelete = this.props.event.handleItemDelete
     this.handleEditToggle = this.handleEditToggle.bind(this)
   }
 
@@ -344,8 +346,8 @@ export default class Event extends React.Component {
             </div>
           </div>
           <div className="action-buttons">
-            <SaveItem {...this.props} item={event} type="Event" handleItemSave={this.handleItemSave} />
-            <DeleteItem {...this.props} item={event} type="Event" />
+            <SaveItem {...this.props} item={event} type="Event" testing={this.state.testing} handleItemSave={this.handleItemSave} />
+            <DeleteItem {...this.props} item={event} type="Event" testing={this.state.testing} handleItemDelete={this.handleItemDelete} />
           </div>
         </div>
       )

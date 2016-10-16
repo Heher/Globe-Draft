@@ -3,7 +3,6 @@ import React from 'react'
 export default function Text() {
   return (
     <div className="headings">
-      <h1>Text</h1>
       <h1>H1 Heading</h1>
       <h2>H2 Heading</h2>
       <h3>H3 Heading</h3>
