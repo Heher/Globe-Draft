@@ -1,8 +1,8 @@
-function users(state = [], action) {
-  const { id, draftNum, payload } = action
+export default function users(state = [], action) {
+  const { id, payload } = action
 
-  switch(action.type) {
-    case 'CHANGE_USER' :
+  switch (action.type) {
+    case 'CHANGE_USER' : {
       return state.map(user => {
         if (user._id !== id) {
           return {
@@ -15,26 +15,30 @@ function users(state = [], action) {
           selected: true
         }
       })
+    }
 
-    case 'RECEIVE_USERS' :
+    case 'RECEIVE_USERS' : {
       return Object.assign([], state, action.users)
+    }
 
-    case 'ADD_USER' :
+    case 'ADD_USER' : {
       return [
         ...state,
         ...action.json
       ]
+    }
 
-    case 'DELETE_USER' :
+    case 'DELETE_USER' : {
       const newState = []
-      state.map(user => {
+      state.forEach(user => {
         if (user._id !== action.id) {
           newState.push(user)
         }
       })
       return newState
+    }
 
-    case 'SAVED_USER_DRAFT' :
+    case 'SAVED_USER_DRAFT' : {
       return state.map(user => {
         if (user._id !== id) {
           return {
@@ -47,8 +51,9 @@ function users(state = [], action) {
           editing: !user.editing
         }
       })
+    }
 
-    case 'SAVED_USER' :
+    case 'SAVED_USER' : {
       return state.map(user => {
         if (user._id !== id) {
           return {
@@ -61,10 +66,11 @@ function users(state = [], action) {
           editing: !user.editing
         }
       })
+    }
 
-    case 'SET_EDITING_USER' :
+    case 'SET_EDITING_USER' : {
       return state.map(user => {
-        if(user._id !== id) {
+        if (user._id !== id) {
           return user
         }
         return {
@@ -72,16 +78,18 @@ function users(state = [], action) {
           editing: !user.editing
         }
       })
+    }
 
-    case 'USER_LOGGED_IN' :
+    case 'USER_LOGGED_IN' : {
       return payload
+    }
 
-    case 'USER_LOGGED_OUT' :
+    case 'USER_LOGGED_OUT' : {
       return {}
-      
-    default:
+    }
+
+    default: {
       return state
+    }
   }
 }
-
-export default users

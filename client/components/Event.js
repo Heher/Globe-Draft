@@ -4,7 +4,7 @@ import moment from 'moment'
 import classNames from 'classnames'
 
 import Flag from './Flag'
-import avatar from './Avatar'
+import Avatar from './Avatar'
 import EventCountrySelect from './admin/events/EventCountrySelect'
 import DeleteItem from './admin/panel/buttons/DeleteItem'
 import SaveItem from './admin/panel/buttons/SaveItem'
@@ -52,7 +52,7 @@ export default class Event extends React.Component {
               <Flag country={country} />
               <p>
                 {country.name}
-                {country.userId ? avatar(this.props.users, country.userId) : null}
+                {country.userId ? <Avatar users={this.props.users} userId={country.userId} /> : null}
               </p>
             </div>
           </div>
@@ -349,7 +349,12 @@ export default class Event extends React.Component {
             </div>
           </div>
           <div className="action-buttons">
-            <SaveItem {...this.props} item={event} type="Event" handleItemSave={this.handleItemSave} />
+            <SaveItem
+              {...this.props}
+              item={event}
+              type="Event"
+              handleItemSave={this.handleItemSave}
+            />
             <DeleteItem {...this.props} item={event} type="Event" />
           </div>
         </div>

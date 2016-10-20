@@ -1,17 +1,18 @@
-function countries(state = [], action) {
-  const { id, userId, round, draftNum, payload } = action
+export default function countries(state = [], action) {
+  const { id, userId, payload } = action
 
-  switch(action.type) {
-    case 'RECEIVE_COUNTRIES' :
+  switch (action.type) {
+    case 'RECEIVE_COUNTRIES' : {
       return Object.assign([], state, action.countries)
+    }
 
-    case 'SELECT_COUNTRY' :
+    case 'SELECT_COUNTRY' : {
       return state.map(country => {
         if ((country.userId === userId) && country.selected) {
           return {
             ...country,
             selected: false,
-            userId: ""
+            userId: ''
           }
         }
         if (country._id === id) {
@@ -25,54 +26,57 @@ function countries(state = [], action) {
           ...country
         }
       })
+    }
 
-    case 'DESELECT_COUNTRY' :
+    case 'DESELECT_COUNTRY' : {
       return state.map(country => {
         if (country._id !== id) {
           return country
-        } else {
-          return {
-            ...country,
-            selected: false,
-            userId: ""
-          }
+        }
+        return {
+          ...country,
+          selected: false,
+          userId: ''
         }
       })
+    }
 
-    case 'COUNTRY_DRAFTED' :
+    case 'COUNTRY_DRAFTED' : {
       return state.map(country => {
         if (country._id !== id) {
           return country
-        } else {
-          return {
-            ...country,
-            selected: false,
-            drafted: true,
-            round: payload.round,
-            draftNum: payload.draftNum,
-            userId: payload.userId
-          }
+        }
+        return {
+          ...country,
+          selected: false,
+          drafted: true,
+          round: payload.round,
+          draftNum: payload.draftNum,
+          userId: payload.userId
         }
       })
+    }
 
-    case 'ADD_COUNTRY' :
+    case 'ADD_COUNTRY' : {
       return [
         ...state,
         ...action.json
       ]
+    }
 
-    case 'DELETE_COUNTRY' :
+    case 'DELETE_COUNTRY' : {
       const newState = []
-      state.map(country => {
+      state.forEach(country => {
         if (country._id !== action.id) {
           newState.push(country)
         }
       })
       return newState
+    }
 
-    case 'SET_EDITING_COUNTRY' :
+    case 'SET_EDITING_COUNTRY' : {
       return state.map(country => {
-        if(country._id !== id) {
+        if (country._id !== id) {
           return country
         }
         return {
@@ -80,8 +84,9 @@ function countries(state = [], action) {
           editing: !country.editing
         }
       })
+    }
 
-    case 'SAVED_COUNTRY' :
+    case 'SAVED_COUNTRY' : {
       return state.map(country => {
         if (country._id !== id) {
           return country
@@ -92,39 +97,10 @@ function countries(state = [], action) {
           editing: !country.editing
         }
       })
+    }
 
-    case 'SET_COUNTRY_SETTING' :
-      if (setting === "Good") {
-        return state.map(country => {
-          if (country._id !== id) {
-            return {
-              ...country,
-              goodCountry: false
-            }
-          }
-          return {
-            ...country,
-            goodCountry: true
-          }
-        })
-      } else {
-        return state.map(country => {
-          if (country._id !== id) {
-            return {
-              ...country,
-              badCountry: false
-            }
-          }
-          return {
-            ...country,
-            badCountry: true
-          }
-        })
-      }
-
-    default:
+    default: {
       return state
+    }
   }
 }
-
-export default countries

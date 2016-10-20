@@ -50,17 +50,15 @@ export default class Region extends React.Component {
 
       const sortedCountries = this.sortRegion(countryValues)
 
-      const sortedCountryList = sortedCountries.map((country, index) => {
-        return (
-          <CountryCard
-            {...this.props}
-            key={index}
-            i={index}
-            country={country}
-            regionCompleted={completed}
-          />
-        )
-      })
+      const sortedCountryList = sortedCountries.map((country, index) => (
+        <CountryCard
+          {...this.props}
+          key={index}
+          i={index}
+          country={country}
+          regionCompleted={completed}
+        />
+      ))
 
       return (
         <div className={`region ${!this.state.showRegion ? 'hide' : ''}`}>

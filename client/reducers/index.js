@@ -10,10 +10,10 @@ import currentUser from './currentUser'
 import dataStatus from './dataStatus'
 
 const rootReducer = combineReducers({
-  regions, 
-  countries, 
-  users, 
-  events, 
+  regions,
+  countries,
+  users,
+  events,
   settings,
   currentUser,
   dataStatus,

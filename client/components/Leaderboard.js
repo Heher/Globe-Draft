@@ -42,12 +42,12 @@ export default class Leaderboard extends React.Component {
   // Takes in a specific country and outputs that country's total points
   // across all events.
   sumCountry(country) {
-    const reducedSum = this.props.events.reduce((sum, event) => {
-      return sum + (
+    const reducedSum = this.props.events.reduce((sum, event) => (
+      sum + (
         this.sumCountryMedals(event.gold, country) +
         this.sumCountryMedals(event.silver, country) +
         this.sumCountryMedals(event.bronze, country))
-    }, 0)
+    ), 0)
 
     return {
       ...country,
@@ -143,7 +143,10 @@ export default class Leaderboard extends React.Component {
 
       return (
         <li className={this.state.leaderboardOpen === index ? 'open' : ''} key={index}>
-          <div className={`leaderboard-content ${userClass}`} onClick={() => this.openLeaderboard(index)}>
+          <div
+            className={`leaderboard-content ${userClass}`}
+            onClick={() => this.openLeaderboard(index)}
+          >
             <div className="name-rank">
               {showRank ? <span className={`rank ${renderClasses}`}>{place}</span> : null}
               <span className="name">{this.showUserInfo(user.name, 'No Data')}</span>
@@ -178,19 +181,17 @@ export default class Leaderboard extends React.Component {
       if (userCountries.length > 0) {
         const summedCountries = userCountries.map(country => this.sumCountry(country))
         const sortedCountries = this.sortByPoints(summedCountries)
-        renderCountries = sortedCountries.map((country, index) => {
-          return (
-            <li key={index}>
-              <div className="leaderboard-content">
-                <div className="name-rank">
-                  <span className="rank">{index + 1}</span>
-                  <span className="name"><Flag country={country} />{country.name}</span>
-                </div>
-                <span className="points">{country.points}</span>
+        renderCountries = sortedCountries.map((country, index) => (
+          <li key={index}>
+            <div className="leaderboard-content">
+              <div className="name-rank">
+                <span className="rank">{index + 1}</span>
+                <span className="name"><Flag country={country} />{country.name}</span>
               </div>
-            </li>
-          )
-        })
+              <span className="points">{country.points}</span>
+            </div>
+          </li>
+        ))
       } else {
         renderCountries.push(
           <li key={0}>

@@ -18,11 +18,9 @@ export function fetchCountries() {
   return dispatch => {
     dispatch(requestCountries())
     return fetch('/api/countries')
-      .then(response =>
-        response.json().then(countries => ({ countries, response }))
-      ).then(({ countries }) => {
-        dispatch(receiveCountries(countries))
-      }).catch(error => dispatch(fetchError(error)))
+      .then(response => response.json().then(countries => ({ countries, response })))
+      .then(({ countries }) => dispatch(receiveCountries(countries)))
+      .catch(error => dispatch(fetchError(error)))
   }
 }
 
@@ -34,8 +32,8 @@ export function addCountryToState(json) {
 }
 
 export function addCountry(name, shortName, regionId) {
-  return dispatch => {
-    return fetch('/api/countries', {
+  return dispatch => (
+    fetch('/api/countries', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -57,7 +55,8 @@ export function addCountry(name, shortName, regionId) {
     })
       .then(response => response.json())
       .then(json => dispatch(addCountryToState([json])))
-  }
+      .catch(error => dispatch(fetchError(error)))
+  )
 }
 
 export function draftsReset(settings) {
@@ -68,8 +67,8 @@ export function draftsReset(settings) {
 }
 
 export function resetDrafts() {
-  return dispatch => {
-    return fetch('/api/countries/resetDrafts', {
+  return dispatch => (
+    fetch('/api/countries/resetDrafts', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -82,10 +81,8 @@ export function resetDrafts() {
         draftNum: 0
       })
     })
-      .then(response =>
-        response.json().then(settings => ({ settings, response }))
-      ).then(({ settings }) => {
-        dispatch(draftsReset(settings))
-      }).catch(error => dispatch(fetchError(error)))
-  }
+      .then(response => response.json().then(settings => ({ settings, response })))
+      .then(({ settings }) => dispatch(draftsReset(settings)))
+      .catch(error => dispatch(fetchError(error)))
+  )
 }

@@ -1,19 +1,21 @@
-function events(state = [], action) {
+export default function events(state = [], action) {
   const { id, payload } = action
 
-  switch(action.type) {
-    case 'RECEIVE_EVENTS' :
+  switch (action.type) {
+    case 'RECEIVE_EVENTS' : {
       return Object.assign([], state, action.events)
+    }
 
-    case 'ADD_EVENT' :
+    case 'ADD_EVENT' : {
       return [
         ...state,
         ...action.json
       ]
+    }
 
-    case 'SET_EDITING_EVENT' :
+    case 'SET_EDITING_EVENT' : {
       return state.map(event => {
-        if(event._id !== id) {
+        if (event._id !== id) {
           return event
         }
         return {
@@ -21,17 +23,19 @@ function events(state = [], action) {
           editing: !event.editing
         }
       })
+    }
 
-    case 'DELETE_EVENT' :
+    case 'DELETE_EVENT' : {
       const newState = []
-      state.map(event => {
+      state.forEach(event => {
         if (event._id !== action.id) {
           newState.push(event)
         }
       })
       return newState
+    }
 
-    case 'SAVED_EVENT' :
+    case 'SAVED_EVENT' : {
       return state.map(event => {
         if (event._id !== id) {
           return {
@@ -44,10 +48,10 @@ function events(state = [], action) {
           editing: !event.editing
         }
       })
+    }
 
-    default:
+    default: {
       return state
+    }
   }
 }
-
-export default events
