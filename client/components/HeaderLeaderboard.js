@@ -29,12 +29,12 @@ export default class HeaderLeaderboard extends React.Component {
   // Takes in a specific country and outputs that country's total points
   // across all events.
   sumCountry(country) {
-    const reducedSum = this.props.events.reduce((sum, event) => {
-      return sum + (
+    const reducedSum = this.props.events.reduce((sum, event) => (
+      sum + (
         this.sumCountryMedals(event.gold, country) +
         this.sumCountryMedals(event.silver, country) +
         this.sumCountryMedals(event.bronze, country))
-    }, 0)
+    ), 0)
 
     return {
       ...country,

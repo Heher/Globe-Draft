@@ -1,7 +1,7 @@
-function currentUser(state = [], action) {
+export default function currentUser(state = [], action) {
   const { payload } = action
 
-  switch(action.type) {
+  switch (action.type) {
     case 'SET_CURRENT_USER' :
       return payload
 
@@ -18,5 +18,3 @@ function currentUser(state = [], action) {
       return state
   }
 }
-
-export default currentUser

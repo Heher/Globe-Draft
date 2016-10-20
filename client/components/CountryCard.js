@@ -1,7 +1,7 @@
 import React from 'react'
 import classNames from 'classnames'
 
-import avatar from './Avatar'
+import Avatar from './Avatar'
 import Flag from './Flag'
 import ChoiceSubmit from './ChoiceSubmit'
 
@@ -61,7 +61,7 @@ export default class CountryCard extends React.Component {
             <Flag country={this.props.country} />
             <p>
               {selected ? shortName : name}
-              {needsAvatar ? avatar(this.props.users, userId) : null}
+              {needsAvatar ? <Avatar users={this.props.users} userId={userId} /> : null}
             </p>
           </div>
           <ChoiceSubmit {...this.props} selectedCountry={this.props.country} />

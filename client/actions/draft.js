@@ -35,8 +35,8 @@ export function advanceSettings(countryPayload, payload) {
       numberDrafted: payload.numberDrafted + 1
     }
   }
-  return dispatch => {
-    return fetch('/api/settings', {
+  return dispatch => (
+    fetch('/api/settings', {
       method: 'PUT',
       headers: {
         Accept: 'application/json',
@@ -46,9 +46,7 @@ export function advanceSettings(countryPayload, payload) {
         payload: settingsPayload
       })
     })
-      .then(response =>
-        response.json().then(setting => ({ setting, response }))
-      ).then(({ setting, response }) => {
+      .then(() => {
         const newSettings = {
           id: countryPayload._id,
           userId: payload.userId,
@@ -59,13 +57,14 @@ export function advanceSettings(countryPayload, payload) {
           userTurn: settingsPayload.userTurn || payload.userTurn
         }
         dispatch(settingsAdvanced(newSettings))
-      }).catch(error => dispatch(fetchError(error)))
-  }
+      })
+      .catch(error => dispatch(fetchError(error)))
+  )
 }
 
 export function draftCountry(countryPayload, payload) {
-  return dispatch => {
-    return fetch('/api/countries', {
+  return dispatch => (
+    fetch('/api/countries', {
       method: 'PUT',
       headers: {
         Accept: 'application/json',
@@ -81,11 +80,10 @@ export function draftCountry(countryPayload, payload) {
         }
       })
     })
-      .then(response =>
-        response.json().then(country => ({ country, response }))
-      ).then(({ country, response }) => {
+      .then(() => {
         dispatch(countryDrafted(countryPayload, payload))
         dispatch(advanceSettings(countryPayload, payload))
-      }).catch(error => dispatch(fetchError(error)))
-  }
+      })
+      .catch(error => dispatch(fetchError(error)))
+  )
 }

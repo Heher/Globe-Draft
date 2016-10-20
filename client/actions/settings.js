@@ -18,24 +18,15 @@ export function fetchSettings() {
   return dispatch => {
     dispatch(requestSettings())
     return fetch('/api/settings')
-      .then(response =>
-        response.json().then(settings => ({ settings, response }))
-      ).then(({ settings }) => {
-        dispatch(receiveSettings(settings))
-      }).catch(error => dispatch(fetchError(error)))
-  }
-}
-
-export function setMultiplierCountryToState(setting) {
-  return {
-    type: 'TEST_SET_COUNTRY_SETTING',
-    setting
+      .then(response => response.json().then(settings => ({ settings, response })))
+      .then(({ settings }) => dispatch(receiveSettings(settings)))
+      .catch(error => dispatch(fetchError(error)))
   }
 }
 
 export function setGoodCountry(id) {
-  return dispatch => {
-    return fetch('/api/settings', {
+  return dispatch => (
+    fetch('/api/settings', {
       method: 'PUT',
       headers: {
         Accept: 'application/json',
@@ -47,17 +38,15 @@ export function setGoodCountry(id) {
         }
       })
     })
-      .then(response =>
-        response.json().then(setting => ({ setting, response }))
-      ).then(({ setting }) => {
-        dispatch(setMultiplierCountryToState(setting))
-      }).catch(error => dispatch(fetchError(error)))
-  }
+      .then(response => response.json().then(setting => ({ setting, response })))
+      .then(({ setting }) => dispatch(setMultiplierCountryToState(setting)))
+      .catch(error => dispatch(fetchError(error)))
+  )
 }
 
 export function setBadCountry(id) {
-  return dispatch => {
-    return fetch('/api/settings', {
+  return dispatch => (
+    fetch('/api/settings', {
       method: 'PUT',
       headers: {
         Accept: 'application/json',
@@ -69,17 +58,15 @@ export function setBadCountry(id) {
         }
       })
     })
-      .then(response =>
-        response.json().then(setting => ({ setting, response }))
-      ).then(({ setting }) => {
-        dispatch(setMultiplierCountryToState(setting))
-      }).catch(error => dispatch(fetchError(error)))
-  }
+      .then(response => response.json().then(setting => ({ setting, response })))
+      .then(({ setting }) => dispatch(setMultiplierCountryToState(setting)))
+      .catch(error => dispatch(fetchError(error)))
+  )
 }
 
 export function resetSettings() {
-  return dispatch => {
-    return fetch('/api/settings/reset', {
+  return dispatch => (
+    fetch('/api/settings/reset', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -94,17 +81,15 @@ export function resetSettings() {
         badCountry: ''
       })
     })
-      .then(response =>
-        response.json().then(settings => ({ settings, response }))
-      ).then(({ settings }) => {
-        dispatch(receiveSettings(settings))
-      }).catch(error => dispatch(fetchError(error)))
-  }
+      .then(response => response.json().then(settings => ({ settings, response })))
+      .then(({ settings }) => dispatch(receiveSettings(settings)))
+      .catch(error => dispatch(fetchError(error)))
+  )
 }
 
 export function toggleDraft(setting) {
-  return dispatch => {
-    return fetch('/api/settings', {
+  return dispatch => (
+    fetch('/api/settings', {
       method: 'PUT',
       headers: {
         Accept: 'application/json',
@@ -116,12 +101,10 @@ export function toggleDraft(setting) {
         }
       })
     })
-      .then(response =>
-        response.json().then(settings => ({ settings, response }))
-      ).then(({ settings }) => {
-        dispatch(receiveSettings(settings))
-      }).catch(error => dispatch(fetchError(error)))
-  }
+      .then(response => response.json().then(settings => ({ settings, response })))
+      .then(({ settings }) => dispatch(receiveSettings(settings)))
+      .catch(error => dispatch(fetchError(error)))
+  )
 }
 
 export function toggleMobileMenu(setting) {

@@ -54,8 +54,8 @@ export function fetchError(error) {
 }
 
 export function addUser(name, isAdmin) {
-  return dispatch => {
-    return fetch('/api/users', {
+  return dispatch => (
+    fetch('/api/users', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -72,12 +72,13 @@ export function addUser(name, isAdmin) {
     })
       .then(response => response.json())
       .then(json => dispatch(addUserToState([json])))
-  }
+      .catch(error => dispatch(fetchError(error)))
+  )
 }
 
 export function deleteUser(id) {
-  return dispatch => {
-    return fetch('/api/users', {
+  return dispatch => (
+    fetch('/api/users', {
       method: 'DELETE',
       headers: {
         Accept: 'application/json',
@@ -87,9 +88,9 @@ export function deleteUser(id) {
         _id: id
       })
     })
-      .then(response => response.json())
-      .then(json => dispatch(deleteUserFromState(id)))
-  }
+      .then(dispatch(deleteUserFromState(id)))
+      .catch(error => dispatch(fetchError(error)))
+  )
 }
 
 export function savedUserDraft(id, payload) {
@@ -101,8 +102,8 @@ export function savedUserDraft(id, payload) {
 }
 
 export function setDraft(id, payload) {
-  return dispatch => {
-    return fetch('/api/users', {
+  return dispatch => (
+    fetch('/api/users', {
       method: 'PUT',
       headers: {
         Accept: 'application/json',
@@ -113,9 +114,9 @@ export function setDraft(id, payload) {
         payload
       })
     })
-      .then(response => response.json())
-      .then(json => dispatch(savedUserDraft(id, payload)))
-  }
+      .then(dispatch(savedUserDraft(id, payload)))
+      .catch(error => dispatch(fetchError(error)))
+  )
 }
 
 export function requestEvents() {
@@ -135,13 +136,9 @@ export function fetchEvents() {
   return dispatch => {
     dispatch(requestEvents())
     return fetch('/api/events')
-      .then(response =>
-        response.json().then(events => ({ events, response }))
-      ).then(({ events }) => {
-        dispatch(receiveEvents(events))
-      }).catch(error => {
-        dispatch(fetchError(error))
-      })
+      .then(response => response.json().then(events => ({ events, response })))
+      .then(({ events }) => dispatch(receiveEvents(events)))
+      .catch(error => dispatch(fetchError(error)))
   }
 }
 
@@ -153,8 +150,8 @@ export function addEventToState(json) {
 }
 
 export function addEvent(name, date) {
-  return dispatch => {
-    return fetch('/api/events', {
+  return dispatch => (
+    fetch('/api/events', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -169,7 +166,8 @@ export function addEvent(name, date) {
     })
       .then(response => response.json())
       .then(json => dispatch(addEventToState([json])))
-  }
+      .catch(error => dispatch(fetchError(error)))
+  )
 }
 
 export function deleteEventFromState(id) {
@@ -180,8 +178,8 @@ export function deleteEventFromState(id) {
 }
 
 export function deleteEvent(id) {
-  return dispatch => {
-    return fetch('/api/events', {
+  return dispatch => (
+    fetch('/api/events', {
       method: 'DELETE',
       headers: {
         Accept: 'application/json',
@@ -191,9 +189,9 @@ export function deleteEvent(id) {
         _id: id
       })
     })
-      .then(response => response.json())
-      .then(json => dispatch(deleteEventFromState(id)))
-  }
+      .then(dispatch(deleteEventFromState(id)))
+      .catch(error => dispatch(fetchError(error)))
+  )
 }
 
 export function setEditingEvent(id) {
@@ -212,8 +210,8 @@ export function savedEventEdit(id, payload) {
 }
 
 export function editEvent(id, payload) {
-  return dispatch => {
-    return fetch('/api/events', {
+  return dispatch => (
+    fetch('/api/events', {
       method: 'PUT',
       headers: {
         Accept: 'application/json',
@@ -224,9 +222,9 @@ export function editEvent(id, payload) {
         payload
       })
     })
-      .then(response => response.json())
-      .then(json => dispatch(savedEventEdit(id, payload)))
-  }
+      .then(dispatch(savedEventEdit(id, payload)))
+      .catch(error => dispatch(fetchError(error)))
+  )
 }
 
 export function requestRegions() {
@@ -246,13 +244,9 @@ export function fetchRegions() {
   return dispatch => {
     dispatch(requestRegions())
     return fetch('/api/regions')
-      .then(response =>
-        response.json().then(regions => ({ regions, response }))
-      ).then(({ regions }) => {
-        dispatch(receiveRegions(regions))
-      }).catch(error => {
-        dispatch(fetchError(error))
-      })
+      .then(response => response.json().then(regions => ({ regions, response })))
+      .then(({ regions }) => dispatch(receiveRegions(regions)))
+      .catch(error => dispatch(fetchError(error)))
   }
 }
 
@@ -264,8 +258,8 @@ export function addRegionToState(json) {
 }
 
 export function addRegion(name) {
-  return dispatch => {
-    return fetch('/api/regions', {
+  return dispatch => (
+    fetch('/api/regions', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -279,7 +273,8 @@ export function addRegion(name) {
     })
       .then(response => response.json())
       .then(json => dispatch(addRegionToState([json])))
-  }
+      .catch(error => dispatch(fetchError(error)))
+  )
 }
 
 export function setEditingRegion(id) {
@@ -298,8 +293,8 @@ export function savedRegionEdit(id, payload) {
 }
 
 export function editRegion(id, payload) {
-  return dispatch => {
-    return fetch('/api/regions', {
+  return dispatch => (
+    fetch('/api/regions', {
       method: 'PUT',
       headers: {
         Accept: 'application/json',
@@ -310,14 +305,9 @@ export function editRegion(id, payload) {
         payload
       })
     })
-      .then(response =>
-        response.json().then(regions => ({ regions, response }))
-      ).then(({ regions, response }) => {
-        dispatch(savedRegionEdit(id, payload))
-      }).catch(error => {
-        dispatch(fetchError(error))
-      })
-  }
+      .then(dispatch(savedRegionEdit(id, payload)))
+      .catch(error => dispatch(fetchError(error)))
+  )
 }
 
 export function deleteRegionFromState(id) {
@@ -328,8 +318,8 @@ export function deleteRegionFromState(id) {
 }
 
 export function deleteRegion(id) {
-  return dispatch => {
-    return fetch('/api/regions', {
+  return dispatch => (
+    fetch('/api/regions', {
       method: 'DELETE',
       headers: {
         Acceptq: 'application/json',
@@ -339,9 +329,9 @@ export function deleteRegion(id) {
         _id: id
       })
     })
-      .then(response => response.json())
-      .then(json => dispatch(deleteRegionFromState(id)))
-  }
+      .then(dispatch(deleteRegionFromState(id)))
+      .catch(error => dispatch(fetchError(error)))
+  )
 }
 
 export function deleteCountryFromState(id) {
@@ -352,8 +342,8 @@ export function deleteCountryFromState(id) {
 }
 
 export function deleteCountry(id) {
-  return dispatch => {
-    return fetch('/api/countries', {
+  return dispatch => (
+    fetch('/api/countries', {
       method: 'DELETE',
       headers: {
         Accept: 'application/json',
@@ -363,9 +353,9 @@ export function deleteCountry(id) {
         _id: id
       })
     })
-      .then(response => response.json())
-      .then(json => dispatch(deleteCountryFromState(id)))
-  }
+      .then(dispatch(deleteCountryFromState(id)))
+      .catch(error => dispatch(fetchError(error)))
+  )
 }
 
 export function setEditingCountry(id) {
@@ -384,8 +374,8 @@ export function savedCountryEdit(id, payload) {
 }
 
 export function editCountry(id, payload) {
-  return dispatch => {
-    return fetch('/api/countries', {
+  return dispatch => (
+    fetch('/api/countries', {
       method: 'PUT',
       headers: {
         Accept: 'application/json',
@@ -396,9 +386,9 @@ export function editCountry(id, payload) {
         payload
       })
     })
-      .then(response => response.json())
-      .then(json => dispatch(savedCountryEdit(id, payload)))
-  }
+      .then(dispatch(savedCountryEdit(id, payload)))
+      .catch(error => dispatch(fetchError(error)))
+  )
 }
 
 export function chargeSuccess() {
