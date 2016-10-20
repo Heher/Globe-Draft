@@ -4,40 +4,37 @@ import Flag from './Flag'
 
 require('../css/country_item.sass')
 
-export default class CountryItem extends React.Component {
+export default function CountryItem(props) {
+  const { round, countries, currentUser } = props
 
-  render() {
-    const { round, countries, currentUser } = this.props
+  const foundCountry = countries.find(country => (
+    (country.userId === currentUser._id) && (country.round === round) && country.drafted
+  ))
 
-    const foundCountry = countries.find(country => {
-      return ((country.userId === currentUser._id) && (country.round === round) && country.drafted)
-    })
-
-    if (foundCountry) {
-      const countryRegion = this.props.regions.find(region => region._id === foundCountry.regionId)
-
-      return (
-        <li className="country-item">
-          <div className="round-wrapper">
-            <span className="round">{round}</span>
-            <Flag country={foundCountry} />
-            <div className="country-wrapper">
-              <span className="country">{foundCountry.name}</span>
-              <span className="region">{countryRegion.name}</span>
-            </div>
-          </div>
-        </li>
-      )
-    }
+  if (foundCountry) {
+    const countryRegion = this.props.regions.find(region => region._id === foundCountry.regionId)
 
     return (
       <li className="country-item">
         <div className="round-wrapper">
           <span className="round">{round}</span>
+          <Flag country={foundCountry} />
+          <div className="country-wrapper">
+            <span className="country">{foundCountry.name}</span>
+            <span className="region">{countryRegion.name}</span>
+          </div>
         </div>
       </li>
     )
   }
+
+  return (
+    <li className="country-item">
+      <div className="round-wrapper">
+        <span className="round">{round}</span>
+      </div>
+    </li>
+  )
 }
 
 CountryItem.propTypes = {

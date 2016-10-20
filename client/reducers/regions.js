@@ -1,19 +1,21 @@
-function regions(state = [], action) {
+export default function regions(state = [], action) {
   const { id, payload } = action
 
-  switch(action.type) {
-    case "RECEIVE_REGIONS" :
+  switch (action.type) {
+    case 'RECEIVE_REGIONS' : {
       return Object.assign([], state, action.regions)
+    }
 
-    case 'ADD_REGION' :
+    case 'ADD_REGION' : {
       return [
         ...state,
         ...action.json
       ]
+    }
 
-    case 'SET_EDITING_REGION' :
+    case 'SET_EDITING_REGION' : {
       return state.map(region => {
-        if(region._id !== id) {
+        if (region._id !== id) {
           return region
         }
         return {
@@ -21,8 +23,9 @@ function regions(state = [], action) {
           editing: !region.editing
         }
       })
+    }
 
-    case 'SAVED_REGION' :
+    case 'SAVED_REGION' : {
       return state.map(region => {
         if (region._id !== id) {
           return region
@@ -33,19 +36,20 @@ function regions(state = [], action) {
           editing: !region.editing
         }
       })
+    }
 
-    case 'DELETE_REGION' :
+    case 'DELETE_REGION' : {
       const newState = []
-      state.map(region => {
+      state.forEach(region => {
         if (region._id !== action.id) {
           newState.push(region)
         }
       })
       return newState
+    }
 
-    default:
+    default: {
       return state
+    }
   }
 }
-
-export default regions

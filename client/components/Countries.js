@@ -7,8 +7,9 @@ import RoundStatus from './RoundStatus'
 export default class Countries extends React.Component {
   constructor(props) {
     super(props)
+    const countryIds = this.props.countries.map(country => country._id)
     this.state = {
-      countryList: this.props.countries.map(country => country._id)
+      countryList: countryIds
     }
     this.countrySearch = this.countrySearch.bind(this)
   }
@@ -48,17 +49,14 @@ export default class Countries extends React.Component {
 
     const sortedRegions = this.sortRegions(this.props.regions)
 
-    const regionList =
-      sortedRegions.map((region, index) => {
-        return (
-          <Region
-            {...this.props}
-            key={index}
-            region={region}
-            countryList={fullCountryList}
-          />
-        )
-      })
+    const regionList = sortedRegions.map((region, index) => (
+      <Region
+        {...this.props}
+        key={index}
+        region={region}
+        countryList={fullCountryList}
+      />
+    ))
 
     if (dataStatus.usersReceived && dataStatus.eventsReceived && dataStatus.countriesReceived && dataStatus.regionsReceived && dataStatus.settingsReceived) {
       if (currentUser._id && currentUser.hasPaid) {
@@ -66,12 +64,17 @@ export default class Countries extends React.Component {
           <div className="draft-countries">
             <div className="regions">
               <div className="search-wrapper">
-                <input className="country-search" type="text" onChange={this.countrySearch} placeholder="SEARCH" />
+                <input
+                  className="country-search"
+                  type="text"
+                  onChange={this.countrySearch}
+                  placeholder="SEARCH"
+                />
               </div>
               {regionList}
             </div>
             <div className="sidebar">
-              <CountryList totalDraftRounds={this.props.totalDraftRounds} />
+              <CountryList {...this.props} />
               <RoundStatus {...this.props} />
             </div>
           </div>
@@ -81,7 +84,12 @@ export default class Countries extends React.Component {
         <div className="draft-countries">
           <div className="regions">
             <div className="search-wrapper">
-              <input className="country-search" type="text" onChange={this.countrySearch} placeholder="SEARCH" />
+              <input
+                className="country-search"
+                type="text"
+                onChange={this.countrySearch}
+                placeholder="SEARCH"
+              />
             </div>
             {regionList}
           </div>
@@ -101,8 +109,7 @@ Countries.propTypes = {
   countries: React.PropTypes.array.isRequired,
   dataStatus: React.PropTypes.object.isRequired,
   currentUser: React.PropTypes.object.isRequired,
-  regions: React.PropTypes.array.isRequired,
-  totalDraftRounds: React.PropTypes.number
+  regions: React.PropTypes.array.isRequired
 }
 
 Countries.defaultProps = {

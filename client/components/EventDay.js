@@ -118,13 +118,11 @@ export default class EventDay extends React.Component {
       }
     })
     if (topPoints > 0) {
-      const players = topPlayer.map((player, index) => {
-        return (
-          <p key={index} className="player">
-            {player} <span className="points">{topPoints}</span>
-          </p>
-        )
-      })
+      const players = topPlayer.map((player, index) => (
+        <p key={index} className="player">
+          {player} <span className="points">{topPoints}</span>
+        </p>
+      ))
       if (topPlayer.length > 1) {
         return (
           <div className="player-of-day">
@@ -158,20 +156,18 @@ export default class EventDay extends React.Component {
       })
 
       if (topPoints > 0) {
-        const countries = topCountry.map((country, index) => {
-          return (
-            <div key={index} className="country">
-              <div className="country-name">
-                <Flag country={country} />
-                <div className="country-info">
-                  <span>{country.name}</span>
-                  <span className="user">{country.userId ? findByQuery(this.props.paidUsers, country.userId, '_id').name : null}</span>
-                </div>
-                <span className="points">{topPoints}</span>
+        const countries = topCountry.map((country, index) => (
+          <div key={index} className="country">
+            <div className="country-name">
+              <Flag country={country} />
+              <div className="country-info">
+                <span>{country.name}</span>
+                <span className="user">{country.userId ? findByQuery(this.props.paidUsers, country.userId, '_id').name : null}</span>
               </div>
+              <span className="points">{topPoints}</span>
             </div>
-          )
-        })
+          </div>
+        ))
         if (topCountry.length > 1) {
           return (
             <div className="country-of-day">
@@ -213,23 +209,23 @@ export default class EventDay extends React.Component {
     })
     return (
       <div className="player-of-day">
-        <p className="player"><Flag country={country} />{country.name} <span className="points">{sum}</span></p>
+        <p className="player">
+          <Flag country={country} />{country.name} <span className="points">{sum}</span>
+        </p>
       </div>
     )
   }
 
   render() {
     const sortedEvents = this.sortEvents(this.props.eventGroup)
-    const events = sortedEvents.map((event, index) => {
-      return (
-        <Event
-          {...this.props}
-          key={index}
-          event={event}
-          country={this.props.country ? this.props.country._id : null}
-        />
-      )
-    })
+    const events = sortedEvents.map((event, index) => (
+      <Event
+        {...this.props}
+        key={index}
+        event={event}
+        country={this.props.country ? this.props.country._id : null}
+      />
+    ))
 
     return (
       <div className={`event-day ${this.state.showEvents ? 'show' : 'hide'}`}>

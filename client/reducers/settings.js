@@ -1,7 +1,7 @@
-function settings(state = [], action) {
-  const { lastOfRound, round, payload, error } = action
+export default function settings(state = [], action) {
+  const { payload, error } = action
 
-  switch(action.type) {
+  switch (action.type) {
     case 'RECEIVE_SETTINGS' :
       return Object.assign({}, state, action.settings[0])
 
@@ -60,5 +60,3 @@ function settings(state = [], action) {
       return state
   }
 }
-
-export default settings

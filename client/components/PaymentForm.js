@@ -39,8 +39,7 @@ const PaymentForm = React.createClass({
     Stripe.createToken(event.target, function(status, response) {
       if (response.error) {
         self.setState({ paymentError: response.error.message, submitDisabled: false })
-      }
-      else {
+      } else {
         self.setState({ paymentComplete: true, submitDisabled: false, token: response.id })
         // make request to your server here!
         self.props.chargeCard(self.props.currentUser._id, self.state.token)
@@ -61,35 +60,33 @@ const PaymentForm = React.createClass({
           <p>Loading</p>
         </div>
       )
-    }
-    else if (this.state.stripeLoadingError) {
+    } else if (this.state.stripeLoadingError) {
       return (
         <div className="registration">
           <p>Error loading payment form. Please try again.</p>
         </div>
       )
-    } else {
-      return (
-        <div className="registration">
-          <p>Pay $20 buy-in to complete registration:</p>
-          <form onSubmit={this.onSubmit} >
-            <input type='text' data-stripe='number' placeholder='Card Number' />
-            <div className="card-details">
-              <input type='text' data-stripe='exp-month' placeholder='MM' />
-              <input type='text' data-stripe='exp-year' placeholder='YYYY' />
-              <input type='text' data-stripe='cvc' placeholder='CVC' />
-            </div>
-            <input 
-              className={this.state.submitDisabled ? "disabled" : ""}
-              disabled={this.state.submitDisabled} 
-              type='submit' 
-              value='PAY'
-            />
-          </form>
-          <span>{ this.state.paymentError }</span>
-        </div>
-      )
     }
+    return (
+      <div className="registration">
+        <p>Pay $20 buy-in to complete registration:</p>
+        <form onSubmit={this.onSubmit} >
+          <input type='text' data-stripe='number' placeholder='Card Number' />
+          <div className="card-details">
+            <input type='text' data-stripe='exp-month' placeholder='MM' />
+            <input type='text' data-stripe='exp-year' placeholder='YYYY' />
+            <input type='text' data-stripe='cvc' placeholder='CVC' />
+          </div>
+          <input 
+            className={this.state.submitDisabled ? "disabled" : ""}
+            disabled={this.state.submitDisabled} 
+            type='submit' 
+            value='PAY'
+          />
+        </form>
+        <span>{ this.state.paymentError }</span>
+      </div>
+    )
   }
 })
 
