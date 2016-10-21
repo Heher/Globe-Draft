@@ -9,8 +9,13 @@ module.exports = {
   ],
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: "bundle.js",
+    filename: 'bundle.js',
     publicPath: '/static'
+  },
+  externals: {
+    'react/addons': true,
+    'react/lib/ExecutionEnvironment': true,
+    'react/lib/ReactContext': true
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
@@ -27,15 +32,21 @@ module.exports = {
       {
         test: /\.sass$/,
         include: path.join(__dirname, 'client'),
-        loaders: ["style", "css", "sass"]
+        loaders: ['style', 'css', 'sass']
       },
-      { 
+      {
         test: /\.(png|jpg)$/,
         include: path.join(__dirname, 'client'),
-        loader: 'url-loader?limit=8192&name=./img/[hash].[ext]' 
+        loader: 'url-loader?limit=8192&name=./img/[hash].[ext]'
       },
-      { test: /\.json$/, loader: "json-loader"},
-      {test: /\.svg/, loader: 'svg-url-loader'}
+      {
+        test: /\.json$/,
+        loader: 'json-loader'
+      },
+      {
+        test: /\.svg/,
+        loader: 'svg-url-loader'
+      }
     ]
   }
 };
