@@ -21,6 +21,9 @@
     "arrow-body-style": 1,
     "operator-assignment": 0,
     "react/jsx-filename-extension": 0,
-    "react/jsx-boolean-value": 0
+    "react/jsx-boolean-value": 0,
+    "import/no-extraneous-dependencies": 0,
+    "no-undef": 0,
+    "no-unused-expressions": 0
   }
 }

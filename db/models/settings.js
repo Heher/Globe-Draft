@@ -4,7 +4,7 @@ var findOrCreate = require('mongoose-findorcreate');
 var Schema = mongoose.Schema;
 
 var settingSchema = new Schema({
-  round:  Number,
+  round: Number,
   userTurn: Number,
   numberDrafted: Number,
   editDraftOrder: Boolean,

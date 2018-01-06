@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var regionSchema = new Schema({
-  name:  String,
+  name: String,
   maxCountriesSelected: Number,
   editing: Boolean
 });

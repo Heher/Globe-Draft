@@ -14,18 +14,18 @@ export default class CountryAddItemField extends React.Component {
   }
 
   handleSelectChange(event) {
-    this.setState({regionValue: event.target.value})
+    this.setState({ regionValue: event.target.value })
   }
 
   handleFormSubmit(event) {
     event.preventDefault()
     const countryName = event.target.getElementsByClassName('country-name')[0]
     const countryShortName = event.target.getElementsByClassName('country-short-name')[0]
-    let countryNameValue = countryName.value
-    let countryShortNameValue = countryShortName.value
+    const countryNameValue = countryName.value
+    const countryShortNameValue = countryShortName.value
     this.props.addCountry(countryNameValue, countryShortNameValue, this.state.regionValue)
-    countryName.value = ""
-    countryShortName.value = ""
+    countryName.value = ''
+    countryShortName.value = ''
   }
 
   render() {
@@ -34,7 +34,7 @@ export default class CountryAddItemField extends React.Component {
         <h4>Add Country:</h4>
         <input className="country-name" type="text" />
         <input className="country-short-name" type="text" />
-        <CountryRegionSelect 
+        <CountryRegionSelect
           {...this.props}
           handleSelectChange={this.handleSelectChange}
           regionValue={this.state.regionValue}
@@ -43,4 +43,8 @@ export default class CountryAddItemField extends React.Component {
       </form>
     )
   }
+}
+
+CountryAddItemField.propTypes = {
+  addCountry: React.PropTypes.func.isRequired
 }

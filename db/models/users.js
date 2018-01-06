@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 
 var userSchema = new Schema({
   id_token: String,
-  name:  String,
+  name: String,
   email: String,
   selected: Boolean,
   draftNum: Number,

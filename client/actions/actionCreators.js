@@ -225,9 +225,9 @@ export function editEvent(id, payload) {
       .then(dispatch(savedEventEdit(id, payload)))
       .catch(error => dispatch(fetchError(error)))
   )
-export function requestRegions() {
 }
 
+export function requestRegions() {
   return {
     type: 'REQUEST_REGIONS'
   }

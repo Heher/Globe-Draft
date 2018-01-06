@@ -1,29 +1,39 @@
 .country-section
   display: flex
   flex-wrap: wrap
+
   .country
-    padding: 10px
     margin: 0 10px 10px 0
     background: #DADADA
+    padding: 10px
     width: 200px
+
     .title
       display: flex
+
       h5
         margin: 0 10px 0 0
+
       svg
         visibility: hidden
+        cursor: pointer
         width: 20px
         height: 20px
-        cursor: pointer
-    &:hover .title svg
-      visibility: visible
+
+    &:hover
+      .title
+        svg
+          visibility: visible
+
     p
-      margin: 10px 0 0 0
+      margin: 10px 0 0
       font-size: 12px
+
     .action-buttons
       margin-top: 15px
 
     &.good
       background: #A3BCA3
+
     &.bad
       background: #EABCBC
