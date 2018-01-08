@@ -32,7 +32,7 @@ module.exports = {
       {
         test: /\.sass$/,
         include: path.join(__dirname, 'client'),
-        loaders: ['style', 'css', 'sass']
+        loaders: ['style-loader', 'css-loader', 'sass-loader']
       },
       {
         test: /\.(png|jpg)$/,

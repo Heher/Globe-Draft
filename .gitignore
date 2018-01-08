@@ -4,3 +4,4 @@
 db.js
 /dist/
 /db/routes/stripe.js
+variables.env
