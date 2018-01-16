@@ -18,6 +18,11 @@ export default class WorldMap extends React.Component {
 
   renderCountries() {
     const data = {}
+    if (this.props.countries.length > 0) {
+      this.props.countries.forEach(country => {
+        data[country.shortName] = { fillKey: 'participatingCountry' }
+      })
+    }
     if (this.props.settings.goodCountry) {
       const foundCountry = this.findCountry(this.props.settings.goodCountry)
       data[foundCountry.shortName] = { fillKey: 'goodCountry' }
@@ -48,6 +53,7 @@ export default class WorldMap extends React.Component {
       rotation,
       fills: {
         defaultFill: '#FFF',
+        participatingCountry: '#951774',
         goodCountry: '#BBB',
         badCountry: '#BBB',
         drafted: '#951774',

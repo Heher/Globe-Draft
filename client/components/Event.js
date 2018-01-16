@@ -165,6 +165,10 @@ export default class Event extends React.Component {
   // Runs through all medal winners to determine if there is
   // a good or bad country and at what position
   findSpecialCountry(countryType, scores) {
+    if (!scores) {
+      return null
+    }
+
     let foundCountry
     if (countryType === 'good') {
       foundCountry = scores.filter(score => score === this.props.settings.goodCountry)
@@ -175,6 +179,7 @@ export default class Event extends React.Component {
   }
 
   setMultiplier(type, eventSettings) {
+    console.log(type, eventSettings)
     let multiplier = 1
     switch (type) {
       case 'gold' :
@@ -237,29 +242,38 @@ export default class Event extends React.Component {
       silver: this.setMultiplier('silver', eventSettings),
       bronze: this.setMultiplier('bronze', eventSettings)
     }
-    const goldValues = scores.gold.map(gold => {
-      const points = 3 * teamMultiplier * eventMultiplier.gold
-      return {
-        id: gold,
-        points
-      }
-    })
 
-    const silverValues = scores.silver.map(silver => {
-      const points = 2 * teamMultiplier * eventMultiplier.silver
-      return {
-        id: silver,
-        points
-      }
-    })
+    let goldValues, silverValues, bronzeValues
 
-    const bronzeValues = scores.bronze.map(bronze => {
-      const points = 1 * teamMultiplier * eventMultiplier.bronze
-      return {
-        id: bronze,
-        points
-      }
-    })
+    if (scores.gold) {
+      goldValues = scores.gold.map(gold => {
+        const points = 3 * teamMultiplier * eventMultiplier.gold
+        return {
+          id: gold,
+          points
+        }
+      })
+    }
+
+    if (scores.silver) {
+      silverValues = scores.silver.map(silver => {
+        const points = 2 * teamMultiplier * eventMultiplier.silver
+        return {
+          id: silver,
+          points
+        }
+      })
+    }
+
+    if (scores.bronze) {
+      bronzeValues = scores.bronze.map(bronze => {
+        const points = 1 * teamMultiplier * eventMultiplier.bronze
+        return {
+          id: bronze,
+          points
+        }
+      })
+    }
 
     return { gold: goldValues, silver: silverValues, bronze: bronzeValues }
   }
@@ -272,22 +286,23 @@ export default class Event extends React.Component {
       if (select.value) {
         return this.findCountryId(select.value)
       }
-      return null
+      return ''
     })
-    values = (values.filter(Boolean)) // Used to remove undefined elements
+    if (values) {
+      values = (values.filter(Boolean)) // Used to remove undefined elements
+    }
     return values
   }
 
   // When the save button is clicked
   handleItemSave() {
-    const panel = this.node
     // Date/Time value
-    const dateValue = panel.getElementsByClassName('form-control')[0].value
+    const dateValue = this.panel.getElementsByClassName('form-control')[0].value
     const datetime = new Date(dateValue).toISOString()
     // Medal Values
-    const goldValues = this.findSelectValues(panel, 'golds')
-    const silverValues = this.findSelectValues(panel, 'silvers')
-    const bronzeValues = this.findSelectValues(panel, 'bronzes')
+    const goldValues = this.findSelectValues(this.panel, 'golds')
+    const silverValues = this.findSelectValues(this.panel, 'silvers')
+    const bronzeValues = this.findSelectValues(this.panel, 'bronzes')
 
     const calculatedValues = this.scoreEvent({
       team: this.state.checkboxValue,
@@ -313,13 +328,13 @@ export default class Event extends React.Component {
   render() {
     const { event, currentUser } = this.props
 
-    const goldCountries = event.gold.map(country => this.findCountry(country))
-    const silverCountries = event.silver.map(country => this.findCountry(country))
-    const bronzeCountries = event.bronze.map(country => this.findCountry(country))
+    const goldCountries = event.gold ? event.gold.map(country => this.findCountry(country)) : []
+    const silverCountries = event.silver ? event.silver.map(country => this.findCountry(country)) : []
+    const bronzeCountries = event.bronze ? event.bronze.map(country => this.findCountry(country)) : []
 
     if (this.state.editing) {
       return (
-        <div className="event-section editing">
+        <div className="event-section editing" ref={(node) => this.panel = node}>
           <div className="title">
             {currentUser.isAdmin ? <button className="edit-button" onClick={this.handleEditToggle}>Cancel</button> : null}
             <input

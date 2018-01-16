@@ -234,8 +234,8 @@ export default class EventDay extends React.Component {
             <h2 onClick={this.toggleEvents}>{this.convertDate(this.props.title)}</h2>
             {this.showToggle()}
           </div>
-          {this.props.filterType === 'country' ? this.renderCountryTotal(sortedEvents, this.props.country) : this.renderPlayerOfDay(this.props.eventGroup)}
-          {this.props.filterType === 'country' ? null : this.renderCountryOfDay()}
+          {/* {this.props.filterType === 'country' ? this.renderCountryTotal(sortedEvents, this.props.country) : this.renderPlayerOfDay(this.props.eventGroup)}
+          {this.props.filterType === 'country' ? null : this.renderCountryOfDay()} */}
         </div>
         {events}
       </div>
