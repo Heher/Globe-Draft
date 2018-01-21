@@ -53,10 +53,10 @@ export default class WorldMap extends React.Component {
       rotation,
       fills: {
         defaultFill: '#FFF',
-        participatingCountry: '#951774',
-        goodCountry: '#20550f',
-        badCountry: '#800000',
-        drafted: '#951774',
+        participatingCountry: '#5b74b5',
+        goodCountry: '#8FAA87',
+        badCountry: '#B26666',
+        drafted: '#756ADB',
         owned: '#39961B'
       },
       geographyConfig: {
