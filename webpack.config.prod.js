@@ -13,7 +13,6 @@ module.exports = {
     publicPath: '/static/'
   },
   plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': "'production'"
@@ -36,7 +35,7 @@ module.exports = {
     {
       test: /\.sass$/,
       include: path.join(__dirname, 'client'),
-      loaders: ["style", "css", "sass"]
+      loaders: ["style-loader", "css-loader", "sass-loader"]
     },
     { 
       test: /\.(png|jpg)$/,

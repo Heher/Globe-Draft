@@ -54,8 +54,8 @@ export default class WorldMap extends React.Component {
       fills: {
         defaultFill: '#FFF',
         participatingCountry: '#951774',
-        goodCountry: '#BBB',
-        badCountry: '#BBB',
+        goodCountry: '#20550f',
+        badCountry: '#800000',
         drafted: '#951774',
         owned: '#39961B'
       },
