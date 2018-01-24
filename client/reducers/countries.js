@@ -49,10 +49,9 @@ export default function countries(state = [], action) {
         return {
           ...country,
           selected: false,
-          drafted: true,
           round: payload.round,
           draftNum: payload.draftNum,
-          userId: payload.userId
+          drafts: payload.drafts
         }
       })
     }

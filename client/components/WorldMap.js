@@ -61,7 +61,7 @@ export default class WorldMap extends React.Component {
       },
       geographyConfig: {
         borderColor: '#BBB',
-        borderOpacity: 0.4,
+        borderOpacity: 1,
         highlightFillColor: '#9EC1DD',
         highlightBorderColor: 'rgba(14, 101, 171, 0.1)',
         popupOnHover: false

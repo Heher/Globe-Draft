@@ -73,14 +73,13 @@ export function draftCountry(countryPayload, payload) {
       body: JSON.stringify({
         country: countryPayload,
         payload: {
-          userId: payload.userId,
-          drafted: true,
           round: payload.round,
-          draftNum: payload.draftNum
+          draftNum: payload.draftNum,
+          drafts: payload.drafts
         }
       })
     })
-      .then(() => {
+      .then((json) => {
         dispatch(countryDrafted(countryPayload, payload))
         dispatch(advanceSettings(countryPayload, payload))
       })

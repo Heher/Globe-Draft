@@ -78,7 +78,7 @@ export default class Header extends React.Component {
                 </li>
               </ul>
             </div>
-            <HeaderLeaderboard {...this.props} />
+            {/* <HeaderLeaderboard {...this.props} /> */}
           </div>
           <MobileMenu
             {...this.props}
@@ -116,7 +116,7 @@ export default class Header extends React.Component {
               />
             </ul>
           </div>
-          <HeaderLeaderboard {...this.props} />
+          {/* <HeaderLeaderboard {...this.props} /> */}
         </div>
         <MobileMenu
           {...this.props}

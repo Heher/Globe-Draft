@@ -13,7 +13,7 @@ module.exports = function(app) {
   });
 
   app.put('/api/countries', function (request, response) {
-    Country.findByIdAndUpdate(request.body.country, { $set: request.body.payload}, {new: true}, function(err, country) {
+    Country.findByIdAndUpdate(request.body.country, { $set: request.body.payload }, { new: true }, function(err, country) {
       response.json(country);
     });
   });

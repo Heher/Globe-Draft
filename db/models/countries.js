@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var countrySchema = new Schema({
-  name:  String,
+  name: String,
   shortName: String,
   selected: Boolean,
   draftNum: Number,
@@ -13,7 +13,8 @@ var countrySchema = new Schema({
   userId: String,
   editing: Boolean,
   goodCountry: Boolean,
-  badCountry: Boolean
+  badCountry: Boolean,
+  drafts: Array
 });
 
 module.exports = mongoose.model('Country', countrySchema);

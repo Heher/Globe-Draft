@@ -33,19 +33,28 @@ export default class CountryCard extends React.Component {
   }
 
   render() {
-    const { name, shortName, userId, selected, drafted } = this.props.country
+    const { name, shortName, userId, selected, drafted, drafts } = this.props.country
     const { canDraft, regionCompleted } = this.props
     const currentUserId = this.props.currentUser._id
 
+    let userHasDrafted = false
+
+    if (drafts) {
+      const userDrafts = drafts.filter(draft => draft.userId === currentUserId)
+      if (userDrafts.length > 0) {
+        userHasDrafted = true
+      }
+    }
+
     const renderClasses = classNames({
-      owned: (currentUserId === userId) && drafted,
+      owned: drafts ? userHasDrafted : (currentUserId === userId) && drafted,
       taken: (currentUserId !== userId) && drafted,
       disabled: (currentUserId !== userId) && !selected && regionCompleted,
       selected: (currentUserId === userId) && selected,
       waitingTurn: !canDraft
     })
 
-    const canBeSelected = !userId && !regionCompleted
+    const canBeSelected = !userId && !regionCompleted && !userHasDrafted
     const canBeDeselected = (currentUserId === userId) && selected
 
     const needsAvatar = (currentUserId !== userId) && drafted

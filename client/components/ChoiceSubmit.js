@@ -6,21 +6,25 @@ require('../css/submit_button.sass')
 export default class ChoiceSubmit extends React.Component {
   render() {
     const { selectedCountry, settings, users } = this.props
+    const { drafts } = this.props.country
     const lastOfRound = (settings.numberDrafted === (users.length - 1))
     const buttonClasses = classNames({
       show: selectedCountry
     })
 
+    const newDrafts = drafts ? [...drafts] : []
+    newDrafts.push({ userId: this.props.currentUser._id })
+
     return (
       <button
         className={`choice-submit ${buttonClasses}`}
-        onClick={() => this.draftCountry(selectedCountry, {
-          userId: this.props.currentUser._id,
+        onClick={() => this.props.draftCountry(selectedCountry, {
           round: this.props.settings.round,
           draftNum: this.props.currentUser.draftNum,
           lastOfRound,
           userTurn: this.props.settings.userTurn,
-          numberDrafted: this.props.settings.numberDrafted
+          numberDrafted: this.props.settings.numberDrafted,
+          drafts: newDrafts
         })}
       >Confirm</button>
     )
