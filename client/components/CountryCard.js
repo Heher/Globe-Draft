@@ -1,64 +1,58 @@
-import React from 'react'
-import classNames from 'classnames'
+import React from 'react';
+import classNames from 'classnames';
 
-import Avatar from './Avatar'
-import Flag from './Flag'
-import ChoiceSubmit from './ChoiceSubmit'
+import Avatar from './Avatar';
+import Flag from './Flag';
+import ChoiceSubmit from './ChoiceSubmit';
 
-require('../css/country.sass')
+require('../css/country.sass');
 
 export default class CountryCard extends React.Component {
-  userOwnsCountry(countryUserId, currentUserId) {
-    return countryUserId === currentUserId
-  }
-
   handleClick(canDraft, canBeDeselected, canBeSelected) {
     if (!canDraft) {
-      return null
+      return null;
     }
     if (canBeDeselected) {
-      this.deselect(this.props.region._id, this.props.country._id, this.props.currentUser._id)
+      this.deselect(this.props.region._id, this.props.country._id, this.props.currentUser._id);
     } else if (canBeSelected) {
-      this.select(this.props.region._id, this.props.country._id, this.props.currentUser._id)
+      this.select(this.props.region._id, this.props.country._id, this.props.currentUser._id);
     }
-    return null
+    return null;
   }
 
   select(region, country, user) {
-    this.props.selectCountry(region, country, user)
+    this.props.selectCountry(region, country, user);
   }
 
   deselect(region, country, user) {
-    this.props.deselectCountry(region, country, user)
+    this.props.deselectCountry(region, country, user);
   }
 
   render() {
-    const { name, shortName, userId, selected, drafted, drafts } = this.props.country
-    const { canDraft, regionCompleted } = this.props
-    const currentUserId = this.props.currentUser._id
+    const { _id, name, shortName, userId, selected } = this.props.country;
+    const { canDraft, regionCompleted, drafts, userCountries } = this.props;
 
-    let userHasDrafted = false
+    const userHasDrafted = userCountries.find(country => country.countryId === _id);
+    const countryDrafts = drafts.filter(country => country.countryId === _id);
 
-    if (drafts) {
-      const userDrafts = drafts.filter(draft => draft.userId === currentUserId)
-      if (userDrafts.length > 0) {
-        userHasDrafted = true
-      }
-    }
+    const hasBeenDrafted = countryDrafts.length > 0;
+
+    const isFullyDrafted = this.props.country.draftsAllowed
+      ? countryDrafts.length === this.props.country.draftsAllowed
+      : hasBeenDrafted;
 
     const renderClasses = classNames({
-      owned: drafts ? userHasDrafted : (currentUserId === userId) && drafted,
-      taken: (currentUserId !== userId) && drafted,
-      disabled: (currentUserId !== userId) && !selected && regionCompleted,
-      selected: (currentUserId === userId) && selected,
+      owned: userHasDrafted,
+      taken: !userHasDrafted && isFullyDrafted,
+      disabled: !userHasDrafted && !selected && regionCompleted,
+      selected: userHasDrafted && selected,
       waitingTurn: !canDraft
-    })
+    });
 
-    const canBeSelected = !userId && !regionCompleted && !userHasDrafted
-    const canBeDeselected = (currentUserId === userId) && selected
+    const canBeSelected = !userHasDrafted && !regionCompleted && !isFullyDrafted;
+    const canBeDeselected = userHasDrafted && selected;
 
-    const needsAvatar = (currentUserId !== userId) && drafted
-
+    const needsAvatar = !userHasDrafted && hasBeenDrafted;
 
     return (
       <div>
@@ -76,7 +70,7 @@ export default class CountryCard extends React.Component {
           <ChoiceSubmit {...this.props} selectedCountry={this.props.country} />
         </div>
       </div>
-    )
+    );
   }
 }
 
@@ -89,4 +83,4 @@ CountryCard.propTypes = {
   regionCompleted: React.PropTypes.bool.isRequired,
   selectCountry: React.PropTypes.func.isRequired,
   deselectCountry: React.PropTypes.func.isRequired
-}
+};

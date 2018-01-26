@@ -58,7 +58,7 @@ export default class Countries extends React.Component {
       />
     ))
 
-    if (dataStatus.usersReceived && dataStatus.eventsReceived && dataStatus.countriesReceived && dataStatus.regionsReceived && dataStatus.settingsReceived) {
+    if (dataStatus.usersReceived && dataStatus.eventsReceived && dataStatus.countriesReceived && dataStatus.regionsReceived && dataStatus.settingsReceived && dataStatus.draftsReceived) {
       if (currentUser._id && currentUser.hasPaid) {
         return (
           <div className="draft-countries">

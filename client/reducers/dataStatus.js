@@ -64,6 +64,19 @@ export default function dataStatus(state = [], action) {
         settingsFetching: false,
         settingsReceived: true
       }
+
+    case 'REQUEST_DRAFTS' :
+      return {
+        ...state,
+        draftsFetching: true
+      }
+
+    case 'RECEIVE_DRAFTS' :
+      return {
+        ...state,
+        draftsFetching: false,
+        draftsReceived: true
+      }
     default:
       return state
   }

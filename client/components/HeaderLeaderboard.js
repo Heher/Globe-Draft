@@ -81,7 +81,7 @@ export default class HeaderLeaderboard extends React.Component {
 
   render() {
     const { currentUser, dataStatus, settings, draftComplete } = this.props
-    if (dataStatus.usersReceived && dataStatus.eventsReceived && dataStatus.countriesReceived && dataStatus.regionsReceived && dataStatus.settingsReceived && (!settings.draftStarted && draftComplete)) {
+    if (dataStatus.usersReceived && dataStatus.eventsReceived && dataStatus.countriesReceived && dataStatus.regionsReceived && dataStatus.settingsReceived && dataStatus.draftsReceived && (!settings.draftStarted && draftComplete)) {
       const users = this.props.paidUsers.map(user => {
         const userCountries = this.findUserCountries(user._id)
         const newUser = user

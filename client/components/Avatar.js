@@ -5,9 +5,12 @@ require('../css/avatar.sass')
 export default function Avatar(props) {
   const foundUser = props.users.find(user => user._id === props.userId)
 
-  return (
-    <span className="avatar">{foundUser.name}</span>
-  )
+  if (foundUser) {
+    return (
+      <span className="avatar">{foundUser.name}</span>
+    )
+  }
+  return null
 }
 
 Avatar.propTypes = {

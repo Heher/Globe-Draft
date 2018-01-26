@@ -76,7 +76,7 @@ export default class Events extends React.Component {
   render() {
     const { currentUser, dataStatus, params } = this.props
 
-    if (dataStatus.usersReceived && dataStatus.eventsReceived && dataStatus.countriesReceived && dataStatus.regionsReceived && dataStatus.settingsReceived) {
+    if (dataStatus.usersReceived && dataStatus.eventsReceived && dataStatus.countriesReceived && dataStatus.regionsReceived && dataStatus.settingsReceived && dataStatus.draftsReceived) {
       let filterType = ''
       let startingEvents = []
       let country = {}

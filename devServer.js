@@ -42,6 +42,7 @@ require('./db/routes/events')(app);
 require('./db/routes/countries')(app);
 require('./db/routes/regions')(app);
 require('./db/routes/settings')(app);
+require('./db/routes/drafts')(app);
 require('./db/routes/auth')(app);
 require('./db/routes/stripe')(app);
 

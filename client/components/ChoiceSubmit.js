@@ -13,7 +13,10 @@ export default class ChoiceSubmit extends React.Component {
     })
 
     const newDrafts = drafts ? [...drafts] : []
-    newDrafts.push({ userId: this.props.currentUser._id })
+    newDrafts.push({
+      userId: this.props.currentUser._id,
+      round: this.props.settings.round
+    })
 
     return (
       <button

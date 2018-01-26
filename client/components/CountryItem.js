@@ -5,14 +5,12 @@ import Flag from './Flag'
 require('../css/country_item.sass')
 
 export default function CountryItem(props) {
-  const { round, countries, currentUser } = props
+  const { round, userCountries } = props
 
-  const foundCountry = countries.find(country => (
-    (country.userId === currentUser._id) && (country.round === round) && country.drafted
-  ))
+  const foundCountry = userCountries.find(country => country.round === round)
 
   if (foundCountry) {
-    const countryRegion = this.props.regions.find(region => region._id === foundCountry.regionId)
+    const countryRegion = props.regions.find(region => region._id === foundCountry.regionId)
 
     return (
       <li className="country-item">
@@ -39,7 +37,6 @@ export default function CountryItem(props) {
 
 CountryItem.propTypes = {
   round: React.PropTypes.number.isRequired,
-  countries: React.PropTypes.array.isRequired,
-  currentUser: React.PropTypes.object.isRequired,
-  regions: React.PropTypes.array.isRequired
+  regions: React.PropTypes.array.isRequired,
+  userCountries: React.PropTypes.array
 }

@@ -13,6 +13,7 @@ const defaultState = {
   events: [],
   currentUser: {},
   settings: {},
+  drafts: [],
   dataStatus
 }
 

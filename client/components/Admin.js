@@ -42,6 +42,7 @@ export default class Admin extends React.Component {
       dataStatus.countriesReceived &&
       dataStatus.regionsReceived &&
       dataStatus.settingsReceived &&
+      dataStatus.draftsReceived &&
       currentUser.isAdmin
     ) {
       return (

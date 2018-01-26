@@ -4,6 +4,7 @@ import * as userActions from '../actions/users'
 import * as countryActions from '../actions/countries'
 import * as settingActions from '../actions/settings'
 import * as draftActions from '../actions/draft'
+import * as draftsActions from '../actions/drafts'
 import * as actionCreators from '../actions/actionCreators'
 import Layout from './Layout'
 
@@ -13,7 +14,8 @@ const combinedActions = Object.assign(
   userActions,
   countryActions,
   settingActions,
-  draftActions
+  draftActions,
+  draftsActions
 )
 
 function mapStateToProps(state) {
@@ -24,6 +26,7 @@ function mapStateToProps(state) {
     events: state.events,
     currentUser: state.currentUser,
     settings: state.settings,
+    drafts: state.drafts,
     dataStatus: state.dataStatus
   }
 }
