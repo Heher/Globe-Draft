@@ -38,7 +38,7 @@ export default class Layout extends React.Component {
       }
       
       const paidUsers = users.filter(user => user.hasPaid)
-      const userCountries = drafts.filter(country => country.userId === currentUser._id)
+      const userCountries = drafts.filter(draft => draft.userId === currentUser._id)
 
       const createProps = {
         userDrafting,

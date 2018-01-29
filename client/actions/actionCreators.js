@@ -1,23 +1,5 @@
 import fetch from 'isomorphic-fetch'
 
-export function selectCountry(regionId, id, userId) {
-  return {
-    type: 'SELECT_COUNTRY',
-    regionId,
-    id,
-    userId
-  }
-}
-
-export function deselectCountry(regionId, id, userId) {
-  return {
-    type: 'DESELECT_COUNTRY',
-    regionId,
-    id,
-    userId
-  }
-}
-
 export function changeUser(id) {
   return {
     type: 'CHANGE_USER',

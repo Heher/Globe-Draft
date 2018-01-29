@@ -12,6 +12,7 @@ export default class Region extends React.Component {
       showRegion: true
     }
   }
+
   sortRegion(countries) {
     if (countries.length) {
       return countries.sort((a, b) => {
@@ -30,16 +31,18 @@ export default class Region extends React.Component {
   }
 
   render() {
-    const { countries, region, currentUser, countryList } = this.props
+    const { drafts, countries, region, currentUser, countryList } = this.props
 
     let numSelected = 0
-    countries.forEach((country) => {
-      if (country.regionId === region._id) {
-        if ((country.userId === currentUser._id) && (country.selected || country.drafted)) {
-          numSelected = numSelected + 1
-        }
+    drafts.forEach((draft) => {
+      if ((draft.country.regionId === region._id) && (draft.userId === currentUser._id)) {
+        numSelected = numSelected + 1
       }
     })
+
+    if (this.props.selectedCountry && (this.props.selectedCountry.regionId === region._id)) {
+      numSelected = numSelected + 1
+    }
 
     const completed = (numSelected === region.maxCountriesSelected)
 

@@ -6,40 +6,41 @@ export default function countries(state = [], action) {
       return Object.assign([], state, action.countries)
     }
 
-    case 'SELECT_COUNTRY' : {
-      return state.map(country => {
-        if ((country.userId === userId) && country.selected) {
-          return {
-            ...country,
-            selected: false,
-            userId: ''
-          }
-        }
-        if (country._id === id) {
-          return {
-            ...country,
-            selected: true,
-            userId
-          }
-        }
-        return {
-          ...country
-        }
-      })
-    }
+    // case 'SELECT_COUNTRY' : {
+    //   console.log("select");
+    //   return state.map(country => {
+    //     if ((country.userId === userId) && country.selected) {
+    //       return {
+    //         ...country,
+    //         selected: false,
+    //         userId: ''
+    //       }
+    //     }
+    //     if (country._id === id) {
+    //       return {
+    //         ...country,
+    //         selected: true,
+    //         userId
+    //       }
+    //     }
+    //     return {
+    //       ...country
+    //     }
+    //   })
+    // }
 
-    case 'DESELECT_COUNTRY' : {
-      return state.map(country => {
-        if (country._id !== id) {
-          return country
-        }
-        return {
-          ...country,
-          selected: false,
-          userId: ''
-        }
-      })
-    }
+    // case 'DESELECT_COUNTRY' : {
+    //   return state.map(country => {
+    //     if (country._id !== id) {
+    //       return country
+    //     }
+    //     return {
+    //       ...country,
+    //       selected: false,
+    //       userId: ''
+    //     }
+    //   })
+    // }
 
     case 'COUNTRY_DRAFTED' : {
       return state.map(country => {

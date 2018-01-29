@@ -9,9 +9,11 @@ export default class Countries extends React.Component {
     super(props)
     const countryIds = this.props.countries.map(country => country._id)
     this.state = {
-      countryList: countryIds
+      countryList: countryIds,
+      selectedCountry: {}
     }
     this.countrySearch = this.countrySearch.bind(this)
+    this.selectCountry = this.selectCountry.bind(this)
   }
 
   countrySearch(event) {
@@ -25,6 +27,18 @@ export default class Countries extends React.Component {
     this.setState({
       countryList: searchResult
     })
+  }
+
+  selectCountry(country) {
+    if (country === this.state.selectedCountry) {
+      this.setState({
+        selectedCountry: {}
+      })
+    } else {
+      this.setState({
+        selectedCountry: country
+      })
+    }
   }
 
   sortRegions(regions) {
@@ -55,6 +69,8 @@ export default class Countries extends React.Component {
         key={index}
         region={region}
         countryList={fullCountryList}
+        selectedCountry={this.state.selectedCountry}
+        selectCountry={this.selectCountry}
       />
     ))
 

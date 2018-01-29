@@ -62,27 +62,26 @@ export function advanceSettings(countryPayload, payload) {
   )
 }
 
-export function draftCountry(countryPayload, payload) {
+export function draftCountry(payload) {
+  // console.log(payload)
   return dispatch => (
-    fetch('/api/countries', {
-      method: 'PUT',
+    fetch('/api/drafts', {
+      method: 'POST',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        country: countryPayload,
-        payload: {
-          drafted: true,
-          round: payload.round,
-          draftNum: payload.draftNum,
-          drafts: payload.drafts
-        }
+        country: payload.country,
+        userId: payload.userId,
+        round: payload.round,
+        draftNum: payload.draftNum
       })
     })
       .then(() => {
-        dispatch(countryDrafted(countryPayload, payload))
-        dispatch(advanceSettings(countryPayload, payload))
+        console.log("success");
+        // dispatch(countryDrafted(countryPayload, payload))
+        // dispatch(advanceSettings(countryPayload, payload))
       })
       .catch(error => dispatch(fetchError(error)))
   )

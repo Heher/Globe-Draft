@@ -273,7 +273,3 @@ export default class Main extends React.Component {
     )
   }
 }
-
-Main.propTypes = {
-  regions: React.PropTypes.array.isRequired
-}

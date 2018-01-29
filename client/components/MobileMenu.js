@@ -76,8 +76,6 @@ export default function MobileMenu(props) {
         </li>
         <Login
           {...props}
-          loginButtonShow={props.loginButtonShow}
-          toggleLoginButtons={() => props.toggleLoginButtons()}
         />
       </ul>
     </div>
