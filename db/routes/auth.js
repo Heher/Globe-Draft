@@ -23,18 +23,32 @@ module.exports = function(app) {
   });
 
   app.post('/auth/google', function(request, response) {
-    User.findOne({'email': request.body.payload.hg}, function(err, user) {
+    User.findOne({ 'email': request.body.payload.profileObj.email }, function(err, user) {
       if (err) {
-        response.json({errorType: "Email", error: err});
+        response.json({ errorType: "Email", error: err });
       }
       if (!user) {
-        response.json({errorType: "Email", error: err});
-      } else if (user.id_token === '') {
-        User.findByIdAndUpdate(user._id, { $set: {id_token: request.body.payload.Ka} }, {new: true}, function(err, user) {
+        User.create({
+          id_token: request.body.payload.accessToken,
+          name:  request.body.payload.profileObj.givenName,
+          email: request.body.payload.profileObj.email,
+          selected: false,
+          draftNum: 0,
+          editing: false,
+          isAdmin: false
+        }, function(err, user) {
           if (err) {
             response.json({errorType: "Email", error: err});
           } else {
             response.json(user);
+          }
+        });
+      } else if (user.id_token === '') {
+        User.findByIdAndUpdate(user._id, { $set: { id_token: request.body.payload.accessToken } }, { new: true }, function(err, foundUser) {
+          if (err) {
+            response.json({errorType: "Email", error: err});
+          } else {
+            response.json(foundUser);
           }
         });
       } else {

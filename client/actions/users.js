@@ -124,7 +124,7 @@ export function findOrCreateGoogleUser(payload) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        payload: payload.wc
+        payload: payload
       })
     })
       .then(response =>

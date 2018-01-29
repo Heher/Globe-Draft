@@ -36,7 +36,7 @@
     "react-datetime": "^2.3.2",
     "react-dom": "^15.3",
     "react-facebook-login": "^3.0.0",
-    "react-google-login": "^2.0.2",
+    "react-google-login": "^2.11.3",
     "react-redux": "^4.4.5",
     "react-router": "^2.4.0",
     "react-router-redux": "^4.0.4",
