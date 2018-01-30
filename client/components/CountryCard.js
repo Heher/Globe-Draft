@@ -26,7 +26,7 @@ export default class CountryCard extends React.Component {
     const { canDraft, regionCompleted, drafts, userCountries } = this.props;
 
     const userHasDrafted = userCountries.find(draft => draft.country._id === _id);
-    const countryDrafts = drafts.filter(country => country.countryId === _id);
+    const countryDrafts = drafts.filter(draft => draft.country._id === _id);
 
     const hasBeenDrafted = countryDrafts.length > 0;
     const selected = this.props.country._id === this.props.selectedCountry._id
@@ -57,7 +57,7 @@ export default class CountryCard extends React.Component {
             <Flag country={this.props.country} />
             <p>
               {selected ? shortName : name}
-              {needsAvatar ? <Avatar users={this.props.users} userId={userId} /> : null}
+              {needsAvatar ? <Avatar users={this.props.users} countryDrafts={countryDrafts} /> : null}
             </p>
           </div>
           <ChoiceSubmit {...this.props} />

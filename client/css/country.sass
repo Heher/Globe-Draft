@@ -12,48 +12,65 @@
   border-radius: 4px
   box-shadow: 1px 1px 4px 1px #CCC
   cursor: pointer
+
   @media only screen and (max-width: 529px)
     width: 100%
+
   &:hover
     background: #0e65ab
     color: #FFF
+
   .country-card-info
     display: flex
     align-items: center
     padding: 0 15px
+
   img
     margin-right: 10px
     width: 26px
     min-width: 26px
     height: 26px
+
   p
     display: flex
     flex-direction: column
     margin: 0
     font-size: 12px
     text-transform: uppercase
-  &.owned, &.disabled
+
+  &.owned,
+  &.disabled
     cursor: default
+
   &.waitingTurn
     background: #0e65ab
     color: #FFF
     cursor: default
+
   &.disabled
     background: rgba(149, 23, 116, 0.3)
     color: #666
     box-shadow: none
+
   &.owned
     background: #39961B
     color: #FFF
+
   &.taken
     background: #951774
     color: #FFF
+
+    .avatar
+      color: #FFF
+
   &.selected
     background: #0e65ab
     color: #FFF
     cursor: default
+
     .country-card-info
       width: 50%
+
     .choice-submit
       visibility: visible
       opacity: 1
@@ -63,7 +80,7 @@
       outline: 0
       padding: 2px 0
       margin: 0
+
   .avatar
-    color: #FFF
     font-weight: 400
     font-size: 10px

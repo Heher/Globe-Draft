@@ -24,8 +24,8 @@ module.exports = function(app) {
     });
   });
 
-  app.post('/api/drafts/resetDrafts', function(request, response) {
-    Draft.update({}, request.body, {multi: true}, function(err, drafts) {
+  app.post('/api/drafts/reset', function(request, response) {
+    Draft.remove({}, function(err, drafts) {
       response.json(drafts);
     });
   });

@@ -68,7 +68,7 @@ export function draftsReset(settings) {
 
 export function resetDrafts() {
   return dispatch => (
-    fetch('/api/countries/resetDrafts', {
+    fetch('/api/drafts/reset', {
       method: 'POST',
       headers: {
         Accept: 'application/json',

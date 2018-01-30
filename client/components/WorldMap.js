@@ -31,13 +31,12 @@ export default class WorldMap extends React.Component {
       const foundCountry = this.findCountry(this.props.settings.badCountry)
       data[foundCountry.shortName] = { fillKey: 'badCountry' }
     }
-    if (this.findDrafts().length > 0) {
-      const drafts = this.findDrafts()
-      drafts.forEach(draft => {
+    if (this.props.drafts.length > 0) {
+      this.props.drafts.forEach(draft => {
         if (this.props.currentUser._id && (this.props.currentUser._id === draft.userId)) {
-          data[draft.shortName] = { fillKey: 'owned' }
+          data[draft.country.shortName] = { fillKey: 'owned' }
         } else {
-          data[draft.shortName] = { fillKey: 'drafted' }
+          data[draft.country.shortName] = { fillKey: 'drafted' }
         }
       })
     }
@@ -52,16 +51,16 @@ export default class WorldMap extends React.Component {
       projection,
       rotation,
       fills: {
-        defaultFill: '#FFF',
-        participatingCountry: '#5b74b5',
+        defaultFill: '#CCC',
+        participatingCountry: '#849AD1',
         goodCountry: '#8FAA87',
         badCountry: '#B26666',
-        drafted: '#756ADB',
-        owned: '#39961B'
+        drafted: '#5940A2',
+        owned: '#2E8A8E'
       },
       geographyConfig: {
-        borderColor: '#BBB',
-        borderOpacity: 1,
+        borderColor: '#f5f5f5',
+        borderOpacity: 0.7,
         highlightFillColor: '#9EC1DD',
         highlightBorderColor: 'rgba(14, 101, 171, 0.1)',
         popupOnHover: false

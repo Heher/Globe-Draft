@@ -1,10 +1,9 @@
 import fetch from 'isomorphic-fetch'
 import { fetchError } from './actionCreators'
 
-export function countryDrafted(countryPayload, payload) {
+export function countryDrafted(payload) {
   return {
     type: 'COUNTRY_DRAFTED',
-    id: countryPayload._id,
     payload
   }
 }
@@ -16,25 +15,26 @@ export function settingsAdvanced(payload) {
   }
 }
 
-export function advanceSettings(countryPayload, payload) {
-  let settingsPayload = {}
+export function advanceSettings(countryPayload, settingsPayload) {
+  let newSettingsPayload = {}
 
-  if (payload.lastOfRound) {
-    settingsPayload = {
-      round: payload.round + 1,
+  if (settingsPayload.lastOfRound) {
+    newSettingsPayload = {
+      round: countryPayload.round + 1,
       numberDrafted: 0
     }
-  } else if (payload.round % 2 === 0) {
-    settingsPayload = {
-      userTurn: payload.userTurn - 1,
-      numberDrafted: payload.numberDrafted + 1
+  } else if (countryPayload.round % 2 === 0) {
+    newSettingsPayload = {
+      userTurn: settingsPayload.userTurn - 1,
+      numberDrafted: settingsPayload.numberDrafted + 1
     }
   } else {
-    settingsPayload = {
-      userTurn: payload.userTurn + 1,
-      numberDrafted: payload.numberDrafted + 1
+    newSettingsPayload = {
+      userTurn: settingsPayload.userTurn + 1,
+      numberDrafted: settingsPayload.numberDrafted + 1
     }
   }
+
   return dispatch => (
     fetch('/api/settings', {
       method: 'PUT',
@@ -43,18 +43,14 @@ export function advanceSettings(countryPayload, payload) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        payload: settingsPayload
+        payload: newSettingsPayload
       })
     })
       .then(() => {
         const newSettings = {
-          id: countryPayload._id,
-          userId: payload.userId,
-          round: settingsPayload.round || payload.round,
-          numberDrafted: settingsPayload.numberDrafted,
-          draftNum: payload.draftNum,
-          lastOfRound: payload.lastOfRound,
-          userTurn: settingsPayload.userTurn || payload.userTurn
+          round: newSettingsPayload.round || countryPayload.round,
+          numberDrafted: newSettingsPayload.numberDrafted,
+          userTurn: newSettingsPayload.userTurn
         }
         dispatch(settingsAdvanced(newSettings))
       })
@@ -62,8 +58,7 @@ export function advanceSettings(countryPayload, payload) {
   )
 }
 
-export function draftCountry(payload) {
-  // console.log(payload)
+export function draftCountry(countryPayload, settingsPayload) {
   return dispatch => (
     fetch('/api/drafts', {
       method: 'POST',
@@ -72,16 +67,16 @@ export function draftCountry(payload) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        country: payload.country,
-        userId: payload.userId,
-        round: payload.round,
-        draftNum: payload.draftNum
+        country: countryPayload.country,
+        userId: countryPayload.userId,
+        round: countryPayload.round,
+        draftNum: countryPayload.draftNum
       })
     })
       .then(() => {
         console.log("success");
-        // dispatch(countryDrafted(countryPayload, payload))
-        // dispatch(advanceSettings(countryPayload, payload))
+        dispatch(countryDrafted([countryPayload]))
+        dispatch(advanceSettings(countryPayload, settingsPayload))
       })
       .catch(error => dispatch(fetchError(error)))
   )
