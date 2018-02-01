@@ -201,6 +201,7 @@ export default class Main extends React.Component {
             </ul>
             <p>Players can draft any country from any region on any turn unless that country has been previously
             drafted or they already have drafted all allowed countries from the chosen country's region.</p>
+            <p>(For the Winter Games, Tier 1 countries will be allowed to be drafted twice, since, let's face it, they're going to win all the medals anyway.)</p>
             <p>Draft order is set randomly and continues in serpentine order until all players' teams are complete.</p>
             <p>For example:</p>
             <div className="round-examples">
