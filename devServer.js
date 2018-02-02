@@ -34,7 +34,7 @@ app.use(webpackHotMiddleware(compiler, {
 
 app.use(bodyParser.json());       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
-    extended: false
+  extended: false
 }));
 
 require('./db/routes/users')(app);

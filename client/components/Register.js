@@ -35,7 +35,7 @@ export default class Register extends React.Component {
           <GoogleLogin
             clientId="813058411917-1su4rbp4op2fjenk5bgmra7jiafoc7fr.apps.googleusercontent.com"
             buttonText=""
-            callback={() => this.handleGoogleLogin()}
+            onSuccess={(event) => this.handleGoogleLogin(event)}
             cssClass="google-login"
           >
             <i className="fa fa-google" />

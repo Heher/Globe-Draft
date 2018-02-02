@@ -8,6 +8,7 @@ import AsiaMap from './icons/AsiaMap'
 import OceaniaMap from './icons/OceaniaMap'
 
 import Event from './Event'
+import Register from './Register'
 
 require('../css/main.sass')
 
@@ -191,6 +192,7 @@ export default class Main extends React.Component {
         <div className="hero">
           <h2>Build a team to win the most medals</h2>
           <WorldMap {...this.props} projection="mercator" />
+          <Register {...this.props} />
         </div>
         <div className="rules-wrapper">
           <h3>The Draft</h3>
