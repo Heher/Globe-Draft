@@ -58,7 +58,10 @@ export function advanceSettings(countryPayload, settingsPayload) {
   )
 }
 
-export function draftCountry(countryPayload, settingsPayload) {
+export function draftCountry(userId, countryPayload, settingsPayload) {
+  if (userId !== countryPayload.userId) {
+    return null;
+  }
   return dispatch => (
     fetch('/api/drafts', {
       method: 'POST',

@@ -1,4 +1,4 @@
-export function findByQuery(list, query, property) {
+export default function findByQuery(list, query, property) {
   return list.find(listProp => {
     return listProp[property] === query
   })

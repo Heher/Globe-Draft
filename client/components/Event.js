@@ -9,7 +9,7 @@ import EventCountrySelect from './admin/events/EventCountrySelect'
 import DeleteItem from './admin/panel/buttons/DeleteItem'
 import SaveItem from './admin/panel/buttons/SaveItem'
 
-import { findByQuery } from '../utilities/query'
+import findByQuery from '../utilities/query'
 
 require('../css/event.sass')
 require('../css/inputs/country_select.sass')
@@ -179,7 +179,6 @@ export default class Event extends React.Component {
   }
 
   setMultiplier(type, eventSettings) {
-    console.log(type, eventSettings)
     let multiplier = 1
     switch (type) {
       case 'gold' :
@@ -282,7 +281,7 @@ export default class Event extends React.Component {
   findSelectValues(panel, type) {
     const selectDiv = panel.getElementsByClassName(type)[0]
     const selects = Array.from(selectDiv.getElementsByTagName('input'))
-    let values = selects.forEach(select => {
+    let values = selects.map(select => {
       if (select.value) {
         return this.findCountryId(select.value)
       }

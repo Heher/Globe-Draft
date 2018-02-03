@@ -22,7 +22,7 @@ const PaymentForm = React.createClass({
 
   onScriptLoaded() {
     if (!PaymentForm.getStripeToken) {
-      Stripe.setPublishableKey('pk_live_4Fqx6shhRXkvx3IINsb1l9Cg')
+      Stripe.setPublishableKey('pk_test_HMkCJyde6gvUEeFEGlsvdeI9')
       this.setState({ stripeLoading: false, stripeLoadingError: false })
     }
   },

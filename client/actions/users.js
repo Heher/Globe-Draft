@@ -115,7 +115,6 @@ export function findOrCreateFacebookUser(payload) {
 }
 
 export function findOrCreateGoogleUser(payload) {
-  console.log(payload)
   return dispatch => {
     return fetch('/auth/google', {
       method: 'POST',
