@@ -7,7 +7,22 @@ module.exports = function(app) {
         response.json({error: "Email"});
       }
       if (!user) {
-        response.json({error: "Email"});
+        User.create({
+          id_token: request.body.payload.accessToken,
+          name: request.body.payload.first_name,
+          email: request.body.payload.email,
+          selected: false,
+          draftNum: 0,
+          editing: false,
+          isAdmin: false,
+          hasPaid: false
+        }, function(err, user) {
+          if (err) {
+            response.json({error: "Email"});
+          } else {
+            response.json(user);
+          }
+        });
       } else if (user.id_token === '' || user.id_token !== request.body.payload.id) {
         User.findByIdAndUpdate(user._id, { $set: {id_token: request.body.payload.id} }, {new: true}, function(err, user) {
           if (err) {
@@ -30,7 +45,7 @@ module.exports = function(app) {
       if (!user) {
         User.create({
           id_token: request.body.payload.accessToken,
-          name:  request.body.payload.profileObj.givenName,
+          name: request.body.payload.profileObj.givenName,
           email: request.body.payload.profileObj.email,
           selected: false,
           draftNum: 0,
