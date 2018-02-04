@@ -28,7 +28,7 @@ export default class Register extends React.Component {
             appId="1706414629623051"
             textButton=""
             fields="first_name, last_name, email"
-            callback={() => this.handleFacebookLogin()}
+            callback={(event) => this.handleFacebookLogin(event)}
             cssClass="facebook-login"
             icon="fa-facebook"
           />
