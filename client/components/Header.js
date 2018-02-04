@@ -28,6 +28,7 @@ export default class Header extends React.Component {
   }
 
   toggleLoginButtons(event) {
+    event.preventDefault()
     this.setState({
       loginButtonShow: !this.state.loginButtonShow
     })

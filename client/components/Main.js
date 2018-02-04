@@ -190,7 +190,6 @@ export default class Main extends React.Component {
     return (
       <div className="main-page">
         <div className="hero">
-          <h2>Build a team to win the most medals</h2>
           <WorldMap {...this.props} projection="mercator" />
           <Register {...this.props} />
         </div>
