@@ -7,22 +7,7 @@ module.exports = function(app) {
         response.json({error: "Email"});
       }
       if (!user) {
-        User.create({
-          id_token: request.body.payload.accessToken,
-          name: request.body.payload.first_name,
-          email: request.body.payload.email,
-          selected: false,
-          draftNum: 0,
-          editing: false,
-          isAdmin: false,
-          hasPaid: false
-        }, function(err, user) {
-          if (err) {
-            response.json({error: "Email"});
-          } else {
-            response.json(user);
-          }
-        });
+        response.json({error: "No user found"});
       } else if (user.id_token === '' || user.id_token !== request.body.payload.id) {
         User.findByIdAndUpdate(user._id, { $set: {id_token: request.body.payload.id} }, {new: true}, function(err, user) {
           if (err) {
@@ -43,21 +28,7 @@ module.exports = function(app) {
         response.json({ errorType: "Email", error: err });
       }
       if (!user) {
-        User.create({
-          id_token: request.body.payload.accessToken,
-          name: request.body.payload.profileObj.givenName,
-          email: request.body.payload.profileObj.email,
-          selected: false,
-          draftNum: 0,
-          editing: false,
-          isAdmin: false
-        }, function(err, user) {
-          if (err) {
-            response.json({errorType: "Email", error: err});
-          } else {
-            response.json(user);
-          }
-        });
+        response.json({error: "No user found"});
       } else if (user.id_token === '') {
         User.findByIdAndUpdate(user._id, { $set: { id_token: request.body.payload.accessToken } }, { new: true }, function(err, foundUser) {
           if (err) {
