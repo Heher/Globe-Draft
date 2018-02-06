@@ -38,11 +38,17 @@ export default class Event extends React.Component {
   renderWinners(countries) {
     if (countries.length > 0) {
       return countries.map((country, index) => {
+        const countryDrafts = this.props.drafts.filter(draft => draft.country._id === country._id)
+        const hasBeenDrafted = countryDrafts.length > 0
+
+        const userOwns = this.props.userCountries.find(draft => draft.country._id === country._id)
+        const otherOwns = !userOwns && hasBeenDrafted
+
         const settingsClasses = classNames({
           good: country._id === this.props.settings.goodCountry,
           bad: country._id === this.props.settings.badCountry,
-          taken: country.userId,
-          owned: country.userId === this.props.currentUser._id,
+          taken: otherOwns,
+          owned: userOwns,
           selected: country._id === this.props.country
         })
         return (
@@ -52,7 +58,7 @@ export default class Event extends React.Component {
               <Flag country={country} />
               <p>
                 {country.name}
-                {country.userId ? <Avatar users={this.props.users} userId={country.userId} /> : null}
+                {hasBeenDrafted ? <Avatar users={this.props.users} countryDrafts={countryDrafts} /> : null}
               </p>
             </div>
           </div>

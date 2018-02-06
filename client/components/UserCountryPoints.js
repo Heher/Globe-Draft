@@ -6,31 +6,32 @@ import Flag from './Flag'
 import { spacesToDashes } from '../utilities/format'
 
 export default class UserCountryPoints extends React.Component {
-  findUserCountries(userId) {
-    return this.props.countries.filter(country => country.userId === userId)
+  findUserDrafts(userId) {
+    return this.props.drafts.filter(draft => draft.userId === userId)
   }
 
-  sumCountry(country) {
+  sumCountry(draft) {
     let sum = 0
-    const newCountry = country
+    const newCountry = draft.country
     this.props.events.forEach(event => {
       event.gold.forEach(gold => {
-        if (gold.id === country._id) {
+        if (gold.id === draft.country._id) {
           sum = sum + gold.points
         }
       })
       event.silver.forEach(silver => {
-        if (silver.id === country._id) {
+        if (silver.id === draft.country._id) {
           sum = sum + silver.points
         }
       })
       event.bronze.forEach(bronze => {
-        if (bronze.id === country._id) {
+        if (bronze.id === draft.country._id) {
           sum = sum + bronze.points
         }
       })
     })
     newCountry.points = sum
+    newCountry.round = draft.round
     return newCountry
   }
 
@@ -49,9 +50,9 @@ export default class UserCountryPoints extends React.Component {
     const { userId } = this.props
     let renderCountries = []
 
-    const userCountries = this.findUserCountries(userId)
-    if (userCountries.length > 0) {
-      const summedCountries = userCountries.map(country => this.sumCountry(country))
+    const userDrafts = this.findUserDrafts(userId)
+    if (userDrafts.length > 0) {
+      const summedCountries = userDrafts.map(draft => this.sumCountry(draft))
       const sortedCountries = this.sortByPoints(summedCountries)
       renderCountries = sortedCountries.map((country, index) => {
         return (

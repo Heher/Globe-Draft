@@ -23,6 +23,7 @@ export default class ChoiceSubmit extends React.Component {
         className={`choice-submit ${buttonClasses}`}
         onClick={() => {
           this.props.draftCountry(
+            this.props.currentUser._id,
             {
               country: selectedCountry,
               userId: this.props.currentUser._id,
@@ -35,6 +36,7 @@ export default class ChoiceSubmit extends React.Component {
               numberDrafted: settings.numberDrafted
             }
           )
+          this.props.deselectAll()
         }}
       >Confirm</button>
     )

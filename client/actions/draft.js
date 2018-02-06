@@ -9,6 +9,7 @@ export function countryDrafted(payload) {
 }
 
 export function settingsAdvanced(payload) {
+  console.log(payload)
   return {
     type: 'ADVANCE_SETTINGS',
     payload
@@ -50,7 +51,7 @@ export function advanceSettings(countryPayload, settingsPayload) {
         const newSettings = {
           round: newSettingsPayload.round || countryPayload.round,
           numberDrafted: newSettingsPayload.numberDrafted,
-          userTurn: newSettingsPayload.userTurn
+          userTurn: newSettingsPayload.userTurn || settingsPayload.userTurn
         }
         dispatch(settingsAdvanced(newSettings))
       })
@@ -77,7 +78,6 @@ export function draftCountry(userId, countryPayload, settingsPayload) {
       })
     })
       .then(() => {
-        console.log("success");
         dispatch(countryDrafted([countryPayload]))
         dispatch(advanceSettings(countryPayload, settingsPayload))
       })

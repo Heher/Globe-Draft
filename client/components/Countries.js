@@ -14,6 +14,7 @@ export default class Countries extends React.Component {
     }
     this.countrySearch = this.countrySearch.bind(this)
     this.selectCountry = this.selectCountry.bind(this)
+    this.deselectAll = this.deselectAll.bind(this)
   }
 
   countrySearch(event) {
@@ -39,6 +40,12 @@ export default class Countries extends React.Component {
         selectedCountry: country
       })
     }
+  }
+
+  deselectAll() {
+    this.setState({
+      selectedCountry: {}
+    })
   }
 
   sortRegions(regions) {
@@ -71,6 +78,7 @@ export default class Countries extends React.Component {
         countryList={fullCountryList}
         selectedCountry={this.state.selectedCountry}
         selectCountry={this.selectCountry}
+        deselectAll={this.deselectAll}
       />
     ))
 

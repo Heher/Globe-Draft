@@ -7,7 +7,7 @@ import EventLink from './EventLink'
 import Leaderboard from './Leaderboard'
 import EventAddItemField from './admin/events/EventAddItemField'
 
-import { findByQuery } from '../utilities/query'
+import findByQuery from '../utilities/query'
 import { dashesToSpaces } from '../utilities/format'
 
 require('../css/events.sass')

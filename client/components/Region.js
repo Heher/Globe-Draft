@@ -64,7 +64,7 @@ export default class Region extends React.Component {
       ))
 
       return (
-        <div className={`region ${!this.state.showRegion ? 'hide' : ''}`}>
+        <div className={`region ${region.name.replace(/\s+/g, '-').toLowerCase()} ${!this.state.showRegion ? 'hide' : ''}`}>
           <h2 onClick={() => this.toggleRegionShow()}>{region.name}</h2>
           <EventIcon {...this.props} toggle={() => this.toggleRegionShow()} />
           <span className="number-selected">{numSelected} selected of {region.maxCountriesSelected}</span>

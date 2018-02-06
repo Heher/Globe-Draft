@@ -12,6 +12,7 @@ export default class Leaderboard extends React.Component {
     this.state = {
       leaderboardOpen: null
     }
+    this.findUserCountries = this.findUserCountries.bind(this)
   }
 
   sortByPoints(countries) {
@@ -27,7 +28,11 @@ export default class Leaderboard extends React.Component {
 
   // Finds all countries owned by a supplied userId
   findUserCountries(userId) {
-    return this.props.countries.filter(country => country.userId === userId)
+    return (
+      this.props.drafts.filter(draft => draft.userId === userId).map((draft) => {
+        return draft.country
+      })
+    )
   }
 
   // Takes in an array of medalTypes (gold, silver, or bronze) from an event
@@ -168,7 +173,7 @@ export default class Leaderboard extends React.Component {
                 {user.points - userMedals.bronze > 0 ? '+' : ''}{user.points - userMedals.bronze}
               </p>
             </div>
-            {this.state.leaderboardOpen === index ? <UserCountryPoints {...this.props} userId={user._id} /> : null}
+            {this.state.leaderboardOpen === index ? <UserCountryPoints {...this.props} userId={user._id} findUserCountries={this.findUserCountries}/> : null}
           </div>
         </li>
       )
