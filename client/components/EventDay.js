@@ -105,7 +105,6 @@ export default class EventDay extends React.Component {
   }
 
   renderPlayerOfDay(events) {
-    // console.log(events)
     const dayMedals = this.medalsOfTheDay(events);
 
     const users = this.props.paidUsers.map(user => {
@@ -170,21 +169,23 @@ export default class EventDay extends React.Component {
     const groupedMedals = groupBy(dayMedals, medal => {
       return medal.countryId;
     });
-    const groupedCountriesArray = []
+    const groupedCountriesArray = [];
     Object.keys(groupedMedals).forEach(medalGroup => {
       const reducedCountry = groupedMedals[medalGroup].reduce((sum, medal) => {
-        return sum + medal.points
-      }, 0)
+        return sum + medal.points;
+      }, 0);
 
       groupedCountriesArray.push({
         countryId: medalGroup,
         points: reducedCountry
-      })
-    })
-    // Sort reduced medal list by top points
-    const sortedCountries = this.sortByPoints(groupedCountriesArray)
+      });
+    });
 
-    if (sortedCountries.length > 0) {
+    // Sort reduced medal list by top points
+    const sortedCountries = this.sortByPoints(groupedCountriesArray);
+    console.log(sortedCountries);
+
+    if (sortedCountries && sortedCountries.length > 0) {
       const topCountry = [];
       const topPoints = sortedCountries[0].points;
 
