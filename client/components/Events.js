@@ -1,6 +1,6 @@
 import React from 'react'
 import moment from 'moment'
-import _ from 'underscore'
+import { groupBy } from 'underscore'
 
 import EventDay from './EventDay'
 import EventLink from './EventLink'
@@ -14,7 +14,7 @@ require('../css/events.sass')
 
 export default class Events extends React.Component {
   groupEventsByDay(events) {
-    return _.groupBy(events, (event) => {
+    return groupBy(events, (event) => {
       const convertedDateTime = moment(event.datetime, 'YYYY-MM-DDTHH:mm:ss.sssZ').format('YYYY-MM-DD')
       return convertedDateTime
     })

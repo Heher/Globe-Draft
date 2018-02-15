@@ -1,7 +1,8 @@
 import React from 'react';
 import moment from 'moment';
+import { groupBy } from 'underscore';
 
-import { findByQuery } from '../utilities/query';
+import findByQuery from '../utilities/query';
 
 import Event from './Event';
 import EventIcon from './icons/EventIcon';
@@ -53,7 +54,7 @@ export default class EventDay extends React.Component {
 
   findUserCountries(userId) {
     const userDrafts = this.props.drafts.filter(draft => draft.userId === userId);
-    return userDrafts.map(draft => draft.country)
+    return userDrafts.map(draft => draft.country);
   }
 
   sumCountry(country, dayMedals) {
@@ -91,36 +92,44 @@ export default class EventDay extends React.Component {
     return null;
   }
 
+  medalsOfTheDay(events) {
+    return this.props.medals.filter(medal => {
+      const foundEvents = events
+        .map(event => {
+          return event._id === medal.eventId;
+        })
+        .filter(Boolean);
+
+      return foundEvents.length > 0;
+    });
+  }
+
   renderPlayerOfDay(events) {
     // console.log(events)
-    const dayMedals = this.props.medals.filter(medal => {
-      const foundEvents = events.map(event => {
-        return event._id === medal.eventId
-      }).filter(Boolean)
-
-      return foundEvents.length > 0
-    })
+    const dayMedals = this.medalsOfTheDay(events);
 
     const users = this.props.paidUsers.map(user => {
       const newUser = user;
       const userCountries = this.findUserCountries(newUser._id);
 
       const userMedals = dayMedals.filter(medal => {
-        const foundCountries = userCountries.map(country => {
-          return country._id === medal.countryId
-        }).filter(Boolean)
+        const foundCountries = userCountries
+          .map(country => {
+            return country._id === medal.countryId;
+          })
+          .filter(Boolean);
 
-        return foundCountries.length > 0
-      })
+        return foundCountries.length > 0;
+      });
 
       let userCountrySum = 0;
       userMedals.forEach(medal => {
-        userCountrySum = userCountrySum + medal.points
-      })
+        userCountrySum = userCountrySum + medal.points;
+      });
 
-      newUser.points = userCountrySum
-      return newUser
-    })
+      newUser.points = userCountrySum;
+      return newUser;
+    });
     const sortedUsers = this.sortByPoints(users);
 
     const topPlayer = [];
@@ -155,11 +164,25 @@ export default class EventDay extends React.Component {
     return null;
   }
 
-  renderCountryOfDay() {
-    const countryList = this.props.countries.filter(
-      country => country.points > 0 && country.name !== 'United States' && country.name !== 'China'
-    );
-    const sortedCountries = this.sortByPoints(countryList).filter(Boolean);
+  renderCountryOfDay(events) {
+    // Take all medals and reduce them by countryId
+    const dayMedals = this.medalsOfTheDay(events);
+    const groupedMedals = groupBy(dayMedals, medal => {
+      return medal.countryId;
+    });
+    const groupedCountriesArray = []
+    Object.keys(groupedMedals).forEach(medalGroup => {
+      const reducedCountry = groupedMedals[medalGroup].reduce((sum, medal) => {
+        return sum + medal.points
+      }, 0)
+
+      groupedCountriesArray.push({
+        countryId: medalGroup,
+        points: reducedCountry
+      })
+    })
+    // Sort reduced medal list by top points
+    const sortedCountries = this.sortByPoints(groupedCountriesArray)
 
     if (sortedCountries.length > 0) {
       const topCountry = [];
@@ -172,22 +195,22 @@ export default class EventDay extends React.Component {
       });
 
       if (topPoints > 0) {
-        const countries = topCountry.map((country, index) => (
-          <div key={index} className="country">
-            <div className="country-name">
-              <Flag country={country} />
-              <div className="country-info">
-                <span>{country.name}</span>
-                <span className="user">
-                  {country.userId
-                    ? findByQuery(this.props.paidUsers, country.userId, '_id').name
-                    : null}
-                </span>
+        const countries = topCountry.map((country, index) => {
+          const countryInfo = findByQuery(this.props.countries, country.countryId, '_id');
+
+          return (
+            <div key={index} className="country">
+              <div className="country-name">
+                <Flag country={countryInfo} />
+                <div className="country-info">
+                  <span>{countryInfo.name}</span>
+                </div>
+                <span className="points">{topPoints}</span>
               </div>
-              <span className="points">{topPoints}</span>
             </div>
-          </div>
-        ));
+          );
+        });
+
         if (topCountry.length > 1) {
           return (
             <div className="country-of-day">
@@ -255,8 +278,12 @@ export default class EventDay extends React.Component {
             <h2 onClick={this.toggleEvents}>{this.convertDate(this.props.title)}</h2>
             {this.showToggle()}
           </div>
-          {this.props.filterType === 'country' ? this.renderCountryTotal(sortedEvents, this.props.country) : this.renderPlayerOfDay(this.props.eventGroup)}
-          {/* {this.props.filterType === 'country' ? null : this.renderCountryOfDay()} */}
+          {this.props.filterType === 'country'
+            ? this.renderCountryTotal(sortedEvents, this.props.country)
+            : this.renderPlayerOfDay(this.props.eventGroup)}
+          {this.props.filterType === 'country'
+            ? null
+            : this.renderCountryOfDay(this.props.eventGroup)}
         </div>
         {events}
       </div>
