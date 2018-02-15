@@ -77,6 +77,32 @@ export default function dataStatus(state = [], action) {
         draftsFetching: false,
         draftsReceived: true
       }
+
+    case 'REQUEST_SPORTS' :
+      return {
+        ...state,
+        sportsFetching: true
+      }
+
+    case 'RECEIVE_SPORTS' :
+      return {
+        ...state,
+        sportsFetching: false,
+        sportsReceived: true
+      }
+
+    case 'REQUEST_MEDALS' :
+      return {
+        ...state,
+        medalsFetching: true
+      }
+
+    case 'RECEIVE_MEDALS' :
+      return {
+        ...state,
+        medalsFetching: false,
+        medalsReceived: true
+      }
     default:
       return state
   }

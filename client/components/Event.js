@@ -1,235 +1,255 @@
-import React from 'react'
-import DateTime from 'react-datetime'
-import moment from 'moment'
-import classNames from 'classnames'
+import React from 'react';
+import DateTime from 'react-datetime';
+import moment from 'moment';
+import classNames from 'classnames';
 
-import Flag from './Flag'
-import Avatar from './Avatar'
-import EventCountrySelect from './admin/events/EventCountrySelect'
-import DeleteItem from './admin/panel/buttons/DeleteItem'
-import SaveItem from './admin/panel/buttons/SaveItem'
+import Flag from './Flag';
+import Avatar from './Avatar';
+import EventCountrySelect from './admin/events/EventCountrySelect';
+import DeleteItem from './admin/panel/buttons/DeleteItem';
+import SaveItem from './admin/panel/buttons/SaveItem';
 
-import findByQuery from '../utilities/query'
+import findByQuery from '../utilities/query';
 
-require('../css/event.sass')
-require('../css/inputs/country_select.sass')
-require('../css/inputs/date_picker.sass')
+require('../css/event.sass');
+require('../css/inputs/country_select.sass');
+require('../css/inputs/date_picker.sass');
 
 export default class Event extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       editing: false,
+      sportValue: this.props.event.sportId || '',
       inputValue: this.props.event.name,
       dateValue: new Date(this.props.event.datetime),
       checkboxValue: this.props.event.team,
       goldAdd: false,
       silverAdd: false,
       bronzeAdd: false
-    }
-    this.handleAddMedal = this.handleAddMedal.bind(this)
-    this.handleEditToggle = this.handleEditToggle.bind(this)
-    this.handleInputChange = this.handleInputChange.bind(this)
-    this.handleCheckboxChange = this.handleCheckboxChange.bind(this)
-    this.handleItemSave = this.handleItemSave.bind(this)
-    this.handleEditToggle = this.handleEditToggle.bind(this)
+    };
+    this.handleAddMedal = this.handleAddMedal.bind(this);
+    this.handleEditToggle = this.handleEditToggle.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleSportChange = this.handleSportChange.bind(this);
+    this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
+    this.handleItemSave = this.handleItemSave.bind(this);
+    this.handleEditToggle = this.handleEditToggle.bind(this);
   }
 
-  renderWinners(countries) {
-    if (countries.length > 0) {
-      return countries.map((country, index) => {
-        const countryDrafts = this.props.drafts.filter(draft => draft.country._id === country._id)
-        const hasBeenDrafted = countryDrafts.length > 0
+  renderWinners(medals) {
+    if (medals.length > 0) {
+      return medals.map((medal, index) => {
+        const medalCountry = this.props.countries.find(country => country._id === medal.countryId);
+        const countryDrafts = this.props.drafts.filter(
+          draft => draft.country._id === medalCountry._id
+        );
+        const hasBeenDrafted = countryDrafts.length > 0;
 
-        const userOwns = this.props.userCountries.find(draft => draft.country._id === country._id)
-        const otherOwns = !userOwns && hasBeenDrafted
+        const userOwns = this.props.userCountries.find(
+          draft => draft.country._id === medalCountry._id
+        );
+        const otherOwns = !userOwns && hasBeenDrafted;
 
         const settingsClasses = classNames({
-          good: country._id === this.props.settings.goodCountry,
-          bad: country._id === this.props.settings.badCountry,
+          good: medalCountry._id === this.props.settings.goodCountry,
+          bad: medalCountry._id === this.props.settings.badCountry,
           taken: otherOwns,
           owned: userOwns,
-          selected: country._id === this.props.country
-        })
+          selected: medalCountry._id === this.props.country
+        });
         return (
           <div key={index} className={`winner ${settingsClasses}`}>
             <div className="winner-name">
-              <span className="medal ">{country.points}</span>
-              <Flag country={country} />
+              <span className="medal ">{medal.points}</span>
+              <Flag country={medalCountry} />
               <p>
-                {country.name}
-                {hasBeenDrafted ? <Avatar users={this.props.users} countryDrafts={countryDrafts} /> : null}
+                {medalCountry.name}
+                {hasBeenDrafted ? (
+                  <Avatar users={this.props.users} countryDrafts={countryDrafts} />
+                ) : null}
               </p>
             </div>
           </div>
-        )
-      })
+        );
+      });
     }
     return (
       <div key={0} className="winner">
         <div className="winner-name">
           <span className="medal">&nbsp;</span>
-          <p>
-            No Winner
-          </p>
+          <p>No Winner</p>
         </div>
       </div>
-    )// &nbsp needed for flexbox to correctly align
+    ); // &nbsp needed for flexbox to correctly align
   }
 
   handleEditToggle() {
     this.setState({
       editing: !this.state.editing
-    })
+    });
   }
 
   handleInputChange(event) {
-    this.setState({ inputValue: event.target.value })
+    this.setState({ inputValue: event.target.value });
+  }
+
+  handleSportChange(event) {
+    this.setState({
+      sportValue: event.target.value
+    });
   }
 
   handleCheckboxChange(event) {
-    this.setState({ checkboxValue: event.target.checked })
+    this.setState({ checkboxValue: event.target.checked });
   }
 
   sortCountryOptions(countries) {
     if (countries.length) {
       return countries.sort((a, b) => {
-        if (a.name < b.name) return -1
-        if (a.name > b.name) return 1
-        return 0
-      })
+        if (a.name < b.name) return -1;
+        if (a.name > b.name) return 1;
+        return 0;
+      });
     }
-    return null
+    return null;
   }
 
   convertDate(datetime) {
-    return moment(datetime, moment.ISO_8601).format('ddd, M/D, h:mm A')
+    return moment(datetime, moment.ISO_8601).format('ddd, M/D, h:mm A');
   }
 
   findCountry(country) {
-    const foundCountry = findByQuery(this.props.countries, country.id, '_id')
+    const foundCountry = findByQuery(this.props.countries, country.id, '_id');
     const newCountry = {
       ...foundCountry,
       points: country.points
-    }
-    return newCountry
+    };
+    return newCountry;
   }
 
-  renderSelects(countries, type) {
-    const selects = []
+  renderSelects(medals, type) {
+    const selects = [];
 
-    if (countries.length > 0) {
-      countries.forEach((country, index) => {
+    if (medals.length > 0) {
+      medals.forEach((medal, index) => {
+        const medalCountry = this.props.countries.find(country => country._id === medal.countryId);
+
         selects.push(
           <EventCountrySelect
             {...this.props}
             key={index + 1}
-            country={country}
+            medalId={medal._id}
+            country={medalCountry}
             type={type}
             handleAddMedal={this.handleAddMedal}
             noCountries={false}
           />
-        )
-      })
-      selects.push(<EventCountrySelect {...this.props} key={0} type={type} noCountries={false} />)
+        );
+      });
+      selects.push(<EventCountrySelect {...this.props} key={0} type={type} noCountries={false} />);
     } else {
-      selects.push(<EventCountrySelect {...this.props} key={0} type={type} noCountries={true} />)
+      selects.push(<EventCountrySelect {...this.props} key={0} type={type} noCountries={true} />);
     }
-    return selects
+    return selects;
   }
 
   handleAddMedal(type) {
     switch (type) {
-      case 'gold' :
+      case 'gold':
         this.setState({
           goldAdd: !this.state.goldAdd
-        })
-        break
+        });
+        break;
 
-      case 'silver' :
+      case 'silver':
         this.setState({
           silverAdd: !this.state.silverAdd
-        })
-        break
+        });
+        break;
 
-      case 'bronze' :
+      case 'bronze':
         this.setState({
           bronzeAdd: !this.state.bronzeAdd
-        })
-        break
+        });
+        break;
 
       default:
-        return
+        return;
     }
   }
 
   findCountryId(country) {
-    const foundCountry = findByQuery(this.props.countries, country, 'name')
-    return foundCountry._id
+    if (!country) {
+      return null;
+    }
+
+    const foundCountry = findByQuery(this.props.countries, country, 'name');
+    return foundCountry._id;
   }
 
   // Runs through all medal winners to determine if there is
   // a good or bad country and at what position
   findSpecialCountry(countryType, scores) {
     if (!scores) {
-      return null
+      return null;
     }
 
-    let foundCountry
+    let foundCountry;
     if (countryType === 'good') {
-      foundCountry = scores.filter(score => score === this.props.settings.goodCountry)
+      foundCountry = scores.filter(score => score.country === this.props.settings.goodCountry);
     } else {
-      foundCountry = scores.filter(score => score === this.props.settings.badCountry)
+      foundCountry = scores.filter(score => score.country === this.props.settings.badCountry);
     }
-    return foundCountry.length > 0
+    return foundCountry.length > 0;
   }
 
   setMultiplier(type, eventSettings) {
-    let multiplier = 1
+    let multiplier = 1;
     switch (type) {
-      case 'gold' :
+      case 'gold':
         if (eventSettings.goodCountry.silver || eventSettings.goodCountry.bronze) {
-          multiplier = multiplier * 0.5
+          multiplier = multiplier * 0.5;
         }
         if (eventSettings.badCountry.silver || eventSettings.badCountry.bronze) {
-          multiplier = multiplier * 2
+          multiplier = multiplier * 2;
         }
-        break
+        break;
 
-      case 'silver' :
+      case 'silver':
         if (eventSettings.goodCountry.bronze) {
-          multiplier = multiplier * 0.5
+          multiplier = multiplier * 0.5;
         }
         if (eventSettings.badCountry.gold) {
-          multiplier = multiplier * 0.5
+          multiplier = multiplier * 0.5;
         }
         if (eventSettings.goodCountry.gold) {
-          multiplier = multiplier * 2
+          multiplier = multiplier * 2;
         }
         if (eventSettings.badCountry.bronze) {
-          multiplier = multiplier * 2
+          multiplier = multiplier * 2;
         }
-        break
+        break;
 
-      case 'bronze' :
+      case 'bronze':
         if (eventSettings.goodCountry.gold || eventSettings.goodCountry.silver) {
-          multiplier = multiplier * 2
+          multiplier = multiplier * 2;
         }
         if (eventSettings.badCountry.gold || eventSettings.badCountry.silver) {
-          multiplier = multiplier * 0.5
+          multiplier = multiplier * 0.5;
         }
-        break
+        break;
 
-      default :
-        break
+      default:
+        break;
     }
-    return multiplier
+    return multiplier;
   }
 
   // Using the information provided from the select
   // edit panel, scores all countries/users
   scoreEvent(scores) {
-    const teamMultiplier = scores.team ? 2 : 1
+    const teamMultiplier = scores.team ? 2 : 1;
     const eventSettings = {
       goodCountry: {
         gold: this.findSpecialCountry('good', scores.gold),
@@ -241,112 +261,164 @@ export default class Event extends React.Component {
         silver: this.findSpecialCountry('bad', scores.silver),
         bronze: this.findSpecialCountry('bad', scores.bronze)
       }
-    }
+    };
+
     const eventMultiplier = {
       gold: this.setMultiplier('gold', eventSettings),
       silver: this.setMultiplier('silver', eventSettings),
       bronze: this.setMultiplier('bronze', eventSettings)
-    }
+    };
 
-    let goldValues, silverValues, bronzeValues
+    const medals = [];
 
     if (scores.gold) {
-      goldValues = scores.gold.map(gold => {
-        const points = 3 * teamMultiplier * eventMultiplier.gold
-        return {
-          id: gold,
-          points
+      scores.gold.forEach(gold => {
+        if (!gold.country) {
+          medals.push({
+            medalId: gold.medalId,
+            countryId: null
+          });
+        } else {
+          const points = 3 * teamMultiplier * eventMultiplier.gold;
+          medals.push({
+            eventId: this.props.event._id,
+            countryId: gold.country,
+            type: 'gold',
+            points,
+            medalId: gold.medalId
+          });
         }
-      })
+      });
     }
 
     if (scores.silver) {
-      silverValues = scores.silver.map(silver => {
-        const points = 2 * teamMultiplier * eventMultiplier.silver
-        return {
-          id: silver,
-          points
-        }
-      })
+      scores.silver.forEach(silver => {
+        const points = 2 * teamMultiplier * eventMultiplier.silver;
+        medals.push({
+          eventId: this.props.event._id,
+          countryId: silver.country,
+          type: 'silver',
+          points,
+          medalId: silver.medalId
+        });
+      });
     }
 
     if (scores.bronze) {
-      bronzeValues = scores.bronze.map(bronze => {
-        const points = 1 * teamMultiplier * eventMultiplier.bronze
-        return {
-          id: bronze,
-          points
-        }
-      })
+      scores.bronze.forEach(bronze => {
+        const points = 1 * teamMultiplier * eventMultiplier.bronze;
+        medals.push({
+          eventId: this.props.event._id,
+          countryId: bronze.country,
+          type: 'bronze',
+          points,
+          medalId: bronze.medalId
+        });
+      });
     }
 
-    return { gold: goldValues, silver: silverValues, bronze: bronzeValues }
+    return medals;
   }
 
   // Finds all country values of a medal type and returns them
   findSelectValues(panel, type) {
-    const selectDiv = panel.getElementsByClassName(type)[0]
-    const selects = Array.from(selectDiv.getElementsByTagName('input'))
+    const selectDiv = panel.getElementsByClassName(type)[0];
+    const selects = Array.from(selectDiv.querySelectorAll('.event-select'));
+
     let values = selects.map(select => {
-      if (select.value) {
-        return this.findCountryId(select.value)
-      }
-      return ''
-    })
+      const selectValue = {};
+      const medalId = select.querySelector('input[type=hidden]');
+      const selectCountry = select.querySelector('input[type=text');
+
+      selectValue.medalId = medalId.value;
+      selectValue.country = this.findCountryId(selectCountry.value);
+
+      return selectValue;
+    });
+
     if (values) {
-      values = (values.filter(Boolean)) // Used to remove undefined elements
+      values = values.filter(value => value.country || value.medalId); // Used to remove undefined elements
     }
-    return values
+    return values;
   }
 
   // When the save button is clicked
   handleItemSave() {
     // Date/Time value
-    const dateValue = this.panel.getElementsByClassName('form-control')[0].value
-    const datetime = new Date(dateValue).toISOString()
+    const dateValue = this.panel.getElementsByClassName('form-control')[0].value;
+    const datetime = new Date(dateValue).toISOString();
     // Medal Values
-    const goldValues = this.findSelectValues(this.panel, 'golds')
-    const silverValues = this.findSelectValues(this.panel, 'silvers')
-    const bronzeValues = this.findSelectValues(this.panel, 'bronzes')
+    const goldValues = this.findSelectValues(this.panel, 'golds');
+    const silverValues = this.findSelectValues(this.panel, 'silvers');
+    const bronzeValues = this.findSelectValues(this.panel, 'bronzes');
 
     const calculatedValues = this.scoreEvent({
       team: this.state.checkboxValue,
       gold: goldValues,
       silver: silverValues,
       bronze: bronzeValues
-    })
+    });
 
-    this.props.editEvent(
-      this.props.event._id,
-      {
-        name: this.state.inputValue,
-        team: this.state.checkboxValue,
-        datetime,
-        gold: calculatedValues.gold,
-        silver: calculatedValues.silver,
-        bronze: calculatedValues.bronze
+    calculatedValues.forEach(value => {
+      if (value.medalId && !value.countryId) {
+        this.props.deleteMedal(value.medalId);
+      } else if (!value.medalId) {
+        this.props.addMedal({
+          eventId: value.eventId,
+          countryId: value.countryId,
+          type: value.type,
+          points: value.points
+        });
+      } else {
+        this.props.editMedal(value.medalId, {
+          eventId: value.eventId,
+          countryId: value.countryId,
+          type: value.type,
+          points: value.points
+        });
       }
-    )
-    this.handleEditToggle()
+    });
+    this.handleEditToggle();
+  }
+
+  findSportName(id) {
+    const foundSport = this.props.sports.find(sport => sport._id === id);
+    if (foundSport) {
+      return foundSport.name;
+    }
+    return null;
   }
 
   render() {
-    const { event, currentUser } = this.props
+    const { event, currentUser } = this.props;
 
-    const goldCountries = event.gold ? event.gold.map(country => this.findCountry(country)) : []
-    const silverCountries = event.silver ? event.silver.map(country => this.findCountry(country)) : []
-    const bronzeCountries = event.bronze ? event.bronze.map(country => this.findCountry(country)) : []
+    const medals = this.props.medals.filter(medal => medal.eventId === event._id);
+
+    const goldMedals = medals.filter(medal => medal.type === 'gold');
+    const silverMedals = medals.filter(medal => medal.type === 'silver');
+    const bronzeMedals = medals.filter(medal => medal.type === 'bronze');
 
     if (this.state.editing) {
+      const sportOptions = this.props.sports.map((sport, index) => {
+        return (
+          <option key={index} value={sport._id}>
+            {sport.name}
+          </option>
+        );
+      });
+
       return (
-        <div className="event-section editing" ref={(node) => this.panel = node}>
+        <div className="event-section editing" ref={node => (this.panel = node)}>
           <div className="title">
-            {currentUser.isAdmin ? <button className="edit-button" onClick={this.handleEditToggle}>Cancel</button> : null}
-            <input
-              type="text"
-              onChange={this.handleInputChange}
-              value={this.state.inputValue}
-            />
+            {currentUser.isAdmin ? (
+              <button className="edit-button" onClick={this.handleEditToggle}>
+                Cancel
+              </button>
+            ) : null}
+            <select onChange={this.handleSportChange} value={this.state.sportValue}>
+              {sportOptions}
+            </select>
+            <input type="text" onChange={this.handleInputChange} value={this.state.inputValue} />
             <DateTime defaultValue={this.state.dateValue} timeFormat="HH:mm" />
             <div className="admin-checkbox">
               <input
@@ -359,13 +431,13 @@ export default class Event extends React.Component {
           </div>
           <div className="medal-winners">
             <div className={`golds ${this.state.goldAdd ? 'adding' : ''}`}>
-              {this.renderSelects(goldCountries, 'gold')}
+              {this.renderSelects(goldMedals, 'gold')}
             </div>
             <div className={`silvers ${this.state.silverAdd ? 'adding' : ''}`}>
-              {this.renderSelects(silverCountries, 'silver')}
+              {this.renderSelects(silverMedals, 'silver')}
             </div>
             <div className={`bronzes ${this.state.bronzeAdd ? 'adding' : ''}`}>
-              {this.renderSelects(bronzeCountries, 'bronze')}
+              {this.renderSelects(bronzeMedals, 'bronze')}
             </div>
           </div>
           <div className="action-buttons">
@@ -378,29 +450,29 @@ export default class Event extends React.Component {
             <DeleteItem {...this.props} item={event} type="Event" />
           </div>
         </div>
-      )
+      );
     }
     return (
       <div className="event-section">
         <div className="title">
-          {currentUser.isAdmin ? <button className="edit-button" onClick={this.handleEditToggle}>Edit</button> : null}
-          <h4>{event.name}</h4>
+          {currentUser.isAdmin ? (
+            <button className="edit-button" onClick={this.handleEditToggle}>
+              Edit
+            </button>
+          ) : null}
+          <h4>
+            {this.findSportName(event.sportId)} - {event.name}
+          </h4>
           {event.datetime ? <p>{this.convertDate(event.datetime)}</p> : null}
           {event.team ? <span className="team-badge">Team</span> : null}
         </div>
         <div className="medal-winners">
-          <div className="golds">
-            {this.renderWinners(goldCountries)}
-          </div>
-          <div className="silvers">
-            {this.renderWinners(silverCountries)}
-          </div>
-          <div className="bronzes">
-            {this.renderWinners(bronzeCountries)}
-          </div>
+          <div className="golds">{this.renderWinners(goldMedals)}</div>
+          <div className="silvers">{this.renderWinners(silverMedals)}</div>
+          <div className="bronzes">{this.renderWinners(bronzeMedals)}</div>
         </div>
       </div>
-    )
+    );
   }
 }
 
@@ -412,4 +484,4 @@ Event.propTypes = {
   countries: React.PropTypes.array.isRequired,
   editEvent: React.PropTypes.func.isRequired,
   country: React.PropTypes.string
-}
+};

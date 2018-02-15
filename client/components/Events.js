@@ -8,7 +8,7 @@ import Leaderboard from './Leaderboard'
 import EventAddItemField from './admin/events/EventAddItemField'
 
 import findByQuery from '../utilities/query'
-import { dashesToSpaces } from '../utilities/format'
+import { spacesToDashes, dashesToSpaces } from '../utilities/format'
 
 require('../css/events.sass')
 
@@ -99,6 +99,7 @@ export default class Events extends React.Component {
 
       const eventDays = []
       const dateLinks = []
+      const sportLinks = []
 
       const { sortedEvents } = this.formatEvents(startingEvents)
       const { groupedEvents } = this.formatEvents(this.props.events)
@@ -145,6 +146,9 @@ export default class Events extends React.Component {
         }
       } else {
         dateLinks.push(<EventLink key={0} {...this.props} mainLink="events" />)
+        this.props.sports.forEach((sport, index) => {
+          sportLinks.push(<a key={index} className="sport-link" href={`/sports/${spacesToDashes(sport.name.toLowerCase())}`}>{sport.name}</a>)
+        })
         sortedEvents.forEach((day, index) => {
           eventDays.push(<EventDay key={index + 1} {...this.props} title={day.day} eventGroup={day.events} />)
           dateLinks.push(<EventLink key={index + 1} {...this.props} day={day.day} mainLink="events" />)
@@ -155,6 +159,11 @@ export default class Events extends React.Component {
         <div className="events-wrapper">
           <div className="date-links">
             {dateLinks}
+          </div>
+          <div className="sport-links-container">
+            <div className="sport-links">
+              {sportLinks}
+            </div>
           </div>
           {currentUser.isAdmin ? <EventAddItemField {...this.props} /> : null}
           <div className="events-content">

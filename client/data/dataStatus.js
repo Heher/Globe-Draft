@@ -7,6 +7,12 @@ const dataStatus = {
   regionsReceived: false,
   countriesFetching: false,
   countriesReceived: false,
+  draftsFetching: false,
+  draftsReceived: false,
+  sportsFetching: false,
+  sportsReceived: false,
+  medalsFetching: false,
+  medalsReceived: false,
   settingsFetching: false,
   settingsReceived: false
 }

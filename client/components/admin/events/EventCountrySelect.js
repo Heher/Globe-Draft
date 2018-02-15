@@ -95,7 +95,7 @@ export default class EventCountrySelect extends React.Component {
   }
 
   render() {
-    const { type, country, noCountries } = this.props
+    const { type, country, noCountries, medalId } = this.props
 
     const inputProps = {
       placeholder: 'Select Country',
@@ -109,6 +109,7 @@ export default class EventCountrySelect extends React.Component {
 
     return (
       <div className={`event-select ${type} ${newClass}`}>
+        <input type="hidden" name="medalId" value={medalId} />
         {this.renderMedal()}
         <Flag country={this.state.selectedCountry} />
         <Autosuggest

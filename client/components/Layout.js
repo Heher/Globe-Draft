@@ -11,12 +11,14 @@ export default class Layout extends React.Component {
     this.props.fetchRegions()
     this.props.fetchSettings()
     this.props.fetchDrafts()
+    this.props.fetchSports()
+    this.props.fetchMedals()
   }
 
   render() {
     const { users, currentUser, dataStatus, settings, regions, drafts } = this.props
 
-    if (dataStatus.usersReceived && dataStatus.eventsReceived && dataStatus.countriesReceived && dataStatus.regionsReceived && dataStatus.settingsReceived && dataStatus.draftsReceived) {
+    if (dataStatus.usersReceived && dataStatus.eventsReceived && dataStatus.countriesReceived && dataStatus.regionsReceived && dataStatus.settingsReceived && dataStatus.draftsReceived && dataStatus.medalsReceived) {
       const userDrafting = users.find(user => user.draftNum === settings.userTurn)
 
       let canDraft = false

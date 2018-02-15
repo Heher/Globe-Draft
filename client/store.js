@@ -14,6 +14,8 @@ const defaultState = {
   currentUser: {},
   settings: {},
   drafts: [],
+  sports: [],
+  medals: [],
   dataStatus
 }
 

@@ -4,6 +4,7 @@ import { Link } from 'react-router'
 import classNames from 'classnames'
 
 require('../css/date_links.sass')
+require('../css/sport_links.sass')
 
 export default class EventButton extends React.Component {
   convertDate(datetime) {
