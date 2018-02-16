@@ -8,7 +8,9 @@ import Avatar from './Avatar';
 import EventCountrySelect from './admin/events/EventCountrySelect';
 import DeleteItem from './admin/panel/buttons/DeleteItem';
 import SaveItem from './admin/panel/buttons/SaveItem';
+import SportsIcon from './icons/SportsIcon'
 
+import { spacesToDashes } from '../utilities/format';
 import findByQuery from '../utilities/query';
 
 require('../css/event.sass');
@@ -381,10 +383,10 @@ export default class Event extends React.Component {
     this.handleEditToggle();
   }
 
-  findSportName(id) {
-    const foundSport = this.props.sports.find(sport => sport._id === id);
+  findSportName(id, formatted = false) {
+    const foundSport = findByQuery(this.props.sports, id, '_id');
     if (foundSport) {
-      return foundSport.name;
+      return formatted ? spacesToDashes(foundSport.name.toLowerCase()) : foundSport.name;
     }
     return null;
   }
@@ -461,10 +463,18 @@ export default class Event extends React.Component {
             </button>
           ) : null}
           <h4>
-            {this.findSportName(event.sportId)} - {event.name}
+            <div className="event-sports-icon">
+              <SportsIcon icon={this.findSportName(event.sportId, true)} />
+              <span>{this.findSportName(event.sportId)}</span>
+            </div>
+            <div className="event-info">
+              <div className="event-info-title">
+                <p>{event.name}</p>
+                {event.team ? <span className="team-badge">Team</span> : null}
+              </div>
+              {event.datetime ? <p className="event-info-date">{this.convertDate(event.datetime)}</p> : null}
+            </div>
           </h4>
-          {event.datetime ? <p>{this.convertDate(event.datetime)}</p> : null}
-          {event.team ? <span className="team-badge">Team</span> : null}
         </div>
         <div className="medal-winners">
           <div className="golds">{this.renderWinners(goldMedals)}</div>

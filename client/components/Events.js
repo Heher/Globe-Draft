@@ -62,7 +62,9 @@ export default class Events extends React.Component {
   }
 
   formatEvents(events) {
+    // console.log(events)
     const groupedEvents = this.groupEventsByDay(events)
+    // console.log(groupedEvents)
     const groupedEventsArray = []
     Object.keys(groupedEvents).forEach(day => {
       groupedEventsArray.push({
@@ -85,12 +87,18 @@ export default class Events extends React.Component {
       if (params.filter) {
         if (/[0-9]+-[0-9]+-[0-9]+/.test(params.filter)) {
           filterType = 'day'
+        } else if (findByQuery(this.props.sports, params.filter, 'slug')) {
+          filterType = 'sport'
         } else {
           filterType = 'country'
         }
       }
 
-      if (filterType === 'country') {
+      if (filterType === 'sport') {
+        const sport = findByQuery(this.props.sports, params.filter, 'slug')
+        // console.log(findByQuery(this.props.events, sport._id, 'sportId'))
+        startingEvents = this.props.events.filter(event => event.sportId === sport._id)
+      } else if (filterType === 'country') {
         const countryName = dashesToSpaces(params.filter)
         country = findByQuery(this.props.countries, countryName, 'name')
         startingEvents = this.findCountryEvents(country._id)
@@ -116,6 +124,11 @@ export default class Events extends React.Component {
           })
         } else if (filterType === 'country') {
           dateLinks.push(<EventLink key={0} {...this.props} mainLink="events" />)
+          this.props.sports.forEach((sport, index) => {
+            sportLinks.push(
+              <SportLink key={index} name={sport.name} />
+            )
+          })
           if (sortedEvents.length > 0) {
             sortedEvents.forEach((day, index) => {
               eventDays.push(
@@ -132,6 +145,41 @@ export default class Events extends React.Component {
           } else {
             eventDays.push(
               <h2 key={0}>No medals</h2>
+            )
+          }
+          allEvents.forEach((day, index) => {
+            dateLinks.push(
+              <EventLink
+                key={index + 1}
+                {...this.props}
+                day={day.day}
+                mainLink="events"
+              />
+            )
+          })
+        } else if (filterType === 'sport') {
+          dateLinks.push(<EventLink key={0} {...this.props} mainLink="events" />)
+          this.props.sports.forEach((sport, index) => {
+            sportLinks.push(
+              <SportLink key={index} name={sport.name} />
+            )
+          })
+          if (sortedEvents.length > 0) {
+            sortedEvents.forEach((day, index) => {
+              eventDays.push(
+                <EventDay
+                  key={index + 1}
+                  {...this.props}
+                  title={day.day}
+                  eventGroup={day.events}
+                  filterType={filterType}
+                  country={country}
+                />
+              )
+            })
+          } else {
+            eventDays.push(
+              <h2 key={0}>No events</h2>
             )
           }
           allEvents.forEach((day, index) => {

@@ -8,10 +8,8 @@ class SportLink extends Component {
   render() {
     const { name } = this.props;
 
-    console.log(name)
-
     return (
-      <a className="sport-link" href={`/sports/${spacesToDashes(name.toLowerCase())}`}>
+      <a className="sport-link" href={`/events/${spacesToDashes(name.toLowerCase())}`}>
         <SportsIcon icon={spacesToDashes(name.toLowerCase())} />
         <span>{name}</span>
       </a>

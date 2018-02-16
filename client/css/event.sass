@@ -9,32 +9,68 @@
 
   .title
     display: flex
-    flex-direction: column
-    align-items: baseline
+    // flex-direction: column
+    align-items: center
     background: #0e65ab
     color: #FFF
-    padding: 20px 15px
+    padding: 0 15px
     border-radius: 4px 4px 0 0
+    height: 130px
 
     h4
+      display: flex
+      align-items: center
       font-family: 'Amiko', sans-serif
       font-size: 12px
       font-weight: 400
       margin: 0
       text-transform: uppercase
       letter-spacing: 1px
+
+      .event-sports-icon
+        display: flex
+        flex-direction: column
+        align-items: center
+        margin-right: 20px
+        max-width: 80px
+        text-align: center
+
+        span
+          font-size: 10px
+          margin-top: 5px
+
+        svg
+          width: 40px
+          height: 40px
+          stroke: #ffffff
+          stroke-width: 1px
+          fill: #ffffff
+          transform: none
+          cursor: default
+
+      .event-info
+        .event-info-title
+          display: flex
+          align-items: center
+
+        .event-info-date
+          font-size: 10px
+          margin-top: 5px
+
     p
       margin: 0
       font-size: 12px
 
     .team-badge
+      display: block
       font-size: 10px
-      padding: 3px 5px
+      line-height: 1
+      padding: 5px 5px 3px
       text-transform: uppercase
       background: #DBA012
       border-radius: 2px
       // color: #000
-      margin-top: 5px
+      margin-left: 10px
       box-shadow: 1px 1px 2px 0 #666
       // @media only screen and (max-width: 966px)
       //   margin: 5px 0 0 0

@@ -61,12 +61,9 @@ const icons = {
 };
 
 const SportsIcon = props => {
-  console.log(props.icon)
   const paths = icons[props.icon].map((path, index) => {
     return <path key={index} d={path} />
   });
-
-  console.log(paths)
 
   return (
     <svg width="22" height="22" viewBox="0 0 100 100">
