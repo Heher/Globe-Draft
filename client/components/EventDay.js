@@ -183,7 +183,6 @@ export default class EventDay extends React.Component {
 
     // Sort reduced medal list by top points
     const sortedCountries = this.sortByPoints(groupedCountriesArray);
-    console.log(sortedCountries);
 
     if (sortedCountries && sortedCountries.length > 0) {
       const topCountry = [];

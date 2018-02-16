@@ -4,18 +4,29 @@
 .sport-links
   display: flex
   align-items: center
-  justify-content: space-between
+  flex-wrap: wrap
+  justify-content: center
   margin: 0 auto 40px auto
   padding: 6px 0
   background: #0e65ab
-  max-width: 1440px
+  max-width: 1200px
 
   .sport-link
-    display: block
+    display: flex
+    flex-direction: column
+    align-items: center
     position: relative
     text-decoration: none
     color: #FFF
     font-size: 12px
+    width: 120px
     text-align: center
-    margin-right: 2px
-    padding: 5px 10px;
+    padding: 10px 10px;
+
+    svg
+      display: block
+      width: 30px
+      height: 30px
+      margin-bottom: 5px
+      stroke: #ffffff
+      stroke-width: 2px

@@ -6,6 +6,7 @@ import EventDay from './EventDay'
 import EventLink from './EventLink'
 import Leaderboard from './Leaderboard'
 import EventAddItemField from './admin/events/EventAddItemField'
+import SportLink from './SportLink'
 
 import findByQuery from '../utilities/query'
 import { spacesToDashes, dashesToSpaces } from '../utilities/format'
@@ -147,7 +148,9 @@ export default class Events extends React.Component {
       } else {
         dateLinks.push(<EventLink key={0} {...this.props} mainLink="events" />)
         this.props.sports.forEach((sport, index) => {
-          sportLinks.push(<a key={index} className="sport-link" href={`/sports/${spacesToDashes(sport.name.toLowerCase())}`}>{sport.name}</a>)
+          sportLinks.push(
+            <SportLink key={index} name={sport.name} />
+          )
         })
         sortedEvents.forEach((day, index) => {
           eventDays.push(<EventDay key={index + 1} {...this.props} title={day.day} eventGroup={day.events} />)
