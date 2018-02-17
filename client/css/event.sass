@@ -173,7 +173,11 @@
           
 .event-section
   .title
+    position: relative
     .edit-button
+      position: absolute
+      top: 10px
+      right: 10px
       padding: 5px
       background: #FFF
       border: 0
@@ -181,15 +185,14 @@
       color: #0e65ab
       border-radius: 2px
       text-transform: uppercase
-      margin-bottom: 20px
       font-weight: 700
       cursor: pointer
 
   &.editing
     .title
-      .edit-button
-        margin-bottom: 10px
-
+      flex-direction: column
+      align-items: flex-start
+      padding: 10px
       input
         box-sizing: border-box
         width: 100%

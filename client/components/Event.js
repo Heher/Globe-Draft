@@ -381,6 +381,13 @@ export default class Event extends React.Component {
         });
       }
     });
+
+    this.props.editEvent(this.props.event._id, {
+      name: this.state.inputValue,
+      team: this.state.checkboxValue,
+      sportId: this.state.sportValue,
+      datetime
+    })
     this.handleEditToggle();
   }
 
