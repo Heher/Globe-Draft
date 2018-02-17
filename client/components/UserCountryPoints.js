@@ -13,23 +13,12 @@ export default class UserCountryPoints extends React.Component {
   sumCountry(draft) {
     let sum = 0
     const newCountry = draft.country
-    this.props.events.forEach(event => {
-      event.gold.forEach(gold => {
-        if (gold.id === draft.country._id) {
-          sum = sum + gold.points
-        }
-      })
-      event.silver.forEach(silver => {
-        if (silver.id === draft.country._id) {
-          sum = sum + silver.points
-        }
-      })
-      event.bronze.forEach(bronze => {
-        if (bronze.id === draft.country._id) {
-          sum = sum + bronze.points
-        }
-      })
+    const countryMedals = this.props.medals.filter(medal => medal.countryId === newCountry._id)
+
+    countryMedals.forEach(medal => {
+      sum = sum + medal.points
     })
+
     newCountry.points = sum
     newCountry.round = draft.round
     return newCountry

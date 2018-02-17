@@ -47,16 +47,15 @@ export default class Leaderboard extends React.Component {
   // Takes in a specific country and outputs that country's total points
   // across all events.
   sumCountry(country) {
-    const reducedSum = this.props.events.reduce((sum, event) => (
-      sum + (
-        this.sumCountryMedals(event.gold, country) +
-        this.sumCountryMedals(event.silver, country) +
-        this.sumCountryMedals(event.bronze, country))
-    ), 0)
+    const countryMedals = this.props.medals.filter(medal => medal.countryId === country._id);
+    let sum = 0
+    countryMedals.forEach(medal => {
+      sum = sum + medal.points
+    });
 
     return {
       ...country,
-      points: reducedSum
+      points: sum
     }
   }
 
@@ -173,7 +172,7 @@ export default class Leaderboard extends React.Component {
                 {user.points - userMedals.bronze > 0 ? '+' : ''}{user.points - userMedals.bronze}
               </p>
             </div>
-            {this.state.leaderboardOpen === index ? <UserCountryPoints {...this.props} userId={user._id} findUserCountries={this.findUserCountries}/> : null}
+            {this.state.leaderboardOpen === index ? <UserCountryPoints {...this.props} userId={user._id} findUserCountries={this.findUserCountries} /> : null}
           </div>
         </li>
       )
