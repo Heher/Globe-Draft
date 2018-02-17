@@ -92,6 +92,7 @@ export function loginSuccess() {
 }
 
 export function findOrCreateFacebookUser(payload) {
+  console.log(payload);
   return dispatch => {
     return fetch('/auth/facebook', {
       method: 'POST',

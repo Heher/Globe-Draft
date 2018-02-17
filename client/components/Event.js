@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 import DateTime from 'react-datetime';
 import moment from 'moment';
 import classNames from 'classnames';
@@ -463,10 +464,9 @@ export default class Event extends React.Component {
             </button>
           ) : null}
           <h4>
-            <div className="event-sports-icon">
-              <SportsIcon icon={this.findSportName(event.sportId, true)} />
+            <Link className="event-sports-icon" to={`/events/${this.findSportName(event.sportId, true)}`}>
               <span>{this.findSportName(event.sportId)}</span>
-            </div>
+            </Link>
             <div className="event-info">
               <div className="event-info-title">
                 <p>{event.name}</p>

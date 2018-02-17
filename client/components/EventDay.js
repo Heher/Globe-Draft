@@ -105,6 +105,10 @@ export default class EventDay extends React.Component {
   }
 
   renderPlayerOfDay(events) {
+    if (this.props.filterType === 'sport') {
+      return null
+    }
+
     const dayMedals = this.medalsOfTheDay(events);
 
     const users = this.props.paidUsers.map(user => {
@@ -164,6 +168,9 @@ export default class EventDay extends React.Component {
   }
 
   renderCountryOfDay(events) {
+    if (this.props.filterType === 'sport') {
+      return null
+    }
     // Take all medals and reduce them by countryId
     const dayMedals = this.medalsOfTheDay(events);
     const groupedMedals = groupBy(dayMedals, medal => {

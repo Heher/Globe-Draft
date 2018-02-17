@@ -124,11 +124,11 @@ export default class Events extends React.Component {
           })
         } else if (filterType === 'country') {
           dateLinks.push(<EventLink key={0} {...this.props} mainLink="events" />)
-          this.props.sports.forEach((sport, index) => {
-            sportLinks.push(
-              <SportLink key={index} name={sport.name} />
-            )
-          })
+          // this.props.sports.forEach((sport, index) => {
+          //   sportLinks.push(
+          //     <SportLink key={index} name={sport.name} />
+          //   )
+          // })
           if (sortedEvents.length > 0) {
             sortedEvents.forEach((day, index) => {
               eventDays.push(
@@ -159,11 +159,11 @@ export default class Events extends React.Component {
           })
         } else if (filterType === 'sport') {
           dateLinks.push(<EventLink key={0} {...this.props} mainLink="events" />)
-          this.props.sports.forEach((sport, index) => {
-            sportLinks.push(
-              <SportLink key={index} name={sport.name} />
-            )
-          })
+          // this.props.sports.forEach((sport, index) => {
+          //   sportLinks.push(
+          //     <SportLink key={index} name={sport.name} />
+          //   )
+          // })
           if (sortedEvents.length > 0) {
             sortedEvents.forEach((day, index) => {
               eventDays.push(
@@ -195,11 +195,11 @@ export default class Events extends React.Component {
         }
       } else {
         dateLinks.push(<EventLink key={0} {...this.props} mainLink="events" />)
-        this.props.sports.forEach((sport, index) => {
-          sportLinks.push(
-            <SportLink key={index} name={sport.name} />
-          )
-        })
+        // this.props.sports.forEach((sport, index) => {
+        //   sportLinks.push(
+        //     <SportLink key={index} name={sport.name} />
+        //   )
+        // })
         sortedEvents.forEach((day, index) => {
           eventDays.push(<EventDay key={index + 1} {...this.props} title={day.day} eventGroup={day.events} />)
           dateLinks.push(<EventLink key={index + 1} {...this.props} day={day.day} mainLink="events" />)
@@ -211,11 +211,11 @@ export default class Events extends React.Component {
           <div className="date-links">
             {dateLinks}
           </div>
-          <div className="sport-links-container">
+          {/* <div className="sport-links-container">
             <div className="sport-links">
               {sportLinks}
             </div>
-          </div>
+          </div> */}
           {currentUser.isAdmin ? <EventAddItemField {...this.props} /> : null}
           <div className="events-content">
             <div className="events">
