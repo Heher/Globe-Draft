@@ -241,22 +241,10 @@ export default class EventDay extends React.Component {
   renderCountryTotal(events, country) {
     let sum = 0;
     events.forEach(event => {
-      event.gold.forEach(gold => {
-        if (gold.id === country._id) {
-          sum = sum + gold.points;
-        }
-      });
-      event.silver.forEach(silver => {
-        if (silver.id === country._id) {
-          sum = sum + silver.points;
-        }
-      });
-      event.bronze.forEach(bronze => {
-        if (bronze.id === country._id) {
-          sum = sum + bronze.points;
-        }
-      });
+      const medals = this.props.medals.filter(medal => (medal.eventId === event._id) && (medal.countryId === country._id));
+      medals.forEach(medal => sum = sum + medal.points);
     });
+
     return (
       <div className="player-of-day">
         <p className="player">

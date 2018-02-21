@@ -34,30 +34,40 @@ export default class Events extends React.Component {
 
   findCountryEvents(countryId) {
     const eventList = []
-    this.props.events.forEach(event => {
-      let found = false
-      event.gold.forEach(gold => {
-        if (gold.id === countryId) {
-          eventList.push(event)
-          found = true
-        }
-      })
-      if (!found) {
-        event.silver.forEach(silver => {
-          if (silver.id === countryId) {
-            eventList.push(event)
-            found = true
-          }
-        })
-      }
-      if (!found) {
-        event.bronze.forEach(bronze => {
-          if (bronze.id === countryId) {
-            eventList.push(event)
-          }
-        })
+
+    const countryMedals = this.props.medals.filter(medal => medal.countryId === countryId);
+
+    countryMedals.forEach(medal => {
+      const event = findByQuery(this.props.events, medal.eventId, '_id')
+      if (eventList.indexOf(event) === -1) {
+        eventList.push(event)
       }
     })
+
+    // this.props.events.forEach(event => {
+    //   let found = false
+    //   event.gold.forEach(gold => {
+    //     if (gold.id === countryId) {
+    //       eventList.push(event)
+    //       found = true
+    //     }
+    //   })
+    //   if (!found) {
+    //     event.silver.forEach(silver => {
+    //       if (silver.id === countryId) {
+    //         eventList.push(event)
+    //         found = true
+    //       }
+    //     })
+    //   }
+    //   if (!found) {
+    //     event.bronze.forEach(bronze => {
+    //       if (bronze.id === countryId) {
+    //         eventList.push(event)
+    //       }
+    //     })
+    //   }
+    // })
     return eventList
   }
 
