@@ -331,7 +331,7 @@ export default class Event extends React.Component {
     let values = selects.map(select => {
       const selectValue = {};
       const medalId = select.querySelector('input[type=hidden]');
-      const selectCountry = select.querySelector('input[type=text');
+      const selectCountry = select.querySelector('input[type=text]');
 
       selectValue.medalId = medalId.value;
       selectValue.country = this.findCountryId(selectCountry.value);
