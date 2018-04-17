@@ -9,7 +9,6 @@ export function countryDrafted(payload) {
 }
 
 export function settingsAdvanced(payload) {
-  console.log(payload)
   return {
     type: 'ADVANCE_SETTINGS',
     payload
