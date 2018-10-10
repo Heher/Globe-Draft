@@ -46,7 +46,7 @@
     "svg-url-loader": "^2.3.2",
     "topojson": "^3.0.2",
     "underscore": "^1.8.3",
-    "url-loader": "^1.0.1",
+    "url-loader": "^1.1.2",
     "yarn": "^1.5.1"
   },
   "scripts": {
