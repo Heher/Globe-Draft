@@ -28,7 +28,7 @@
     "react-dom": "^16.3.2",
     "react-facebook-login": "^4.0.1",
     "react-google-login": "^3.2.1",
-    "react-redux": "^5.0.7",
+    "react-redux": "^5.1.0",
     "react-router": "^4.2.0",
     "react-router-redux": "^4.0.4",
     "react-script-loader": "0.0.1",
