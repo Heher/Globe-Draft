@@ -41,7 +41,7 @@
     "rimraf": "^2.5.2",
     "sass-loader": "^7.0.1",
     "socket.io": "^2.1.0",
-    "stripe": "^6.0.0",
+    "stripe": "^6.15.0",
     "style-loader": "^0.22.0",
     "svg-url-loader": "^2.3.2",
     "topojson": "^3.0.2",
