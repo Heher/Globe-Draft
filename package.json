@@ -8,7 +8,7 @@
     "classnames": "^2.2.5",
     "css-loader": "^1.0.0",
     "d3": "^5.0.1",
-    "d3-geo-projection": "^2.4.0",
+    "d3-geo-projection": "^2.5.1",
     "datamaps": "^0.5.7",
     "es6-promise": "^4.2.4",
     "express": "^4.13.4",
