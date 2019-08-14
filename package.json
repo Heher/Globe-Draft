@@ -38,7 +38,7 @@
     "redux": "^3.5.2",
     "redux-auth-wrapper": "^2.0.2",
     "redux-thunk": "^2.1.0",
-    "rimraf": "^2.5.2",
+    "rimraf": "^2.7.0",
     "sass-loader": "^7.0.1",
     "socket.io": "^2.1.0",
     "stripe": "^6.0.0",
