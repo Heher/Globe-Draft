@@ -2065,9 +2065,10 @@ d3@3, d3@^3.5.6:
   version "3.5.17"
   resolved "https://registry.yarnpkg.com/d3/-/d3-3.5.17.tgz#bc46748004378b21a360c9fc7cf5231790762fb8"
 
-d3@^5.0.1:
-  version "5.4.0"
-  resolved "https://registry.yarnpkg.com/d3/-/d3-5.4.0.tgz#090199a8569d1de23d04a3ff07fe136095fea74e"
+d3@^5.14.0:
+  version "5.14.0"
+  resolved "https://registry.yarnpkg.com/d3/-/d3-5.14.0.tgz#87e93eb381a3ebe5809138fe04d3333435da477d"
+  integrity sha512-RNLVND/lexd7nkTnX75zrRU/wLHMpiW0jo/2GFgx3W4YSCagPvstkQbj+/ziZQZVI5X59qVISGuCE1dpzyS/vw==
   dependencies:
     d3-array "1"
     d3-axis "1"
