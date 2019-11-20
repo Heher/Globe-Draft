@@ -7,7 +7,7 @@
     "body-parser": "^1.15.1",
     "classnames": "^2.2.5",
     "css-loader": "^1.0.0",
-    "d3": "^5.0.1",
+    "d3": "^5.14.2",
     "d3-geo-projection": "^2.4.0",
     "datamaps": "^0.5.7",
     "es6-promise": "^4.2.4",
