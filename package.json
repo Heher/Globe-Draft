@@ -43,7 +43,7 @@
     "socket.io": "^2.1.0",
     "stripe": "^6.0.0",
     "style-loader": "^0.22.0",
-    "svg-url-loader": "^2.3.2",
+    "svg-url-loader": "^3.0.3",
     "topojson": "^3.0.2",
     "underscore": "^1.8.3",
     "url-loader": "^1.0.1",
